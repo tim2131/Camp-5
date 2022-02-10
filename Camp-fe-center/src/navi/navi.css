@@ -29,8 +29,22 @@
 .logo-left {
   height: 50px;
 }
+.barsMenu{
+  display: none;
+}
+
+
 @media (max-width: 767px) {
   .sidebar {
     display: none;
   }
+  .barsMenu{
+    display: inline;
+    background-color: #6a684271;
+    position:absolute;
+    top:1rem;
+    left: 0.5rem
+
+}
+
 }

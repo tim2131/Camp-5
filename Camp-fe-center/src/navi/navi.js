@@ -47,6 +47,17 @@ class SiderDemo extends Component {
   render() {
     return (
       <Layout>
+      
+      <Drawer
+              title="Basic Drawer"
+              placement="left"
+              closable={false}
+              onClose={this.onClose}
+              visible={this.state.visible}
+            >
+
+            </Drawer>
+
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <img className="text" src={Text} alt=""/>
           <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
@@ -77,6 +88,9 @@ class SiderDemo extends Component {
           <Header
           // style={{ background: '#000', padding: 0 }}
           >
+<Button className="barsMenu" type="primary" onClick={this.showDrawer}>
+              <span className="barsBtn"><MenuOutlined /></span>
+            </Button>
             <span
               style={{
                 // color: '#fff',
