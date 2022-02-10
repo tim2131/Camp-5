@@ -172,7 +172,7 @@ class SiderDemo extends Component {
               </Form>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}></Footer>
+          <Footer style={{ textAlign: "center" }}>森活營家．live green to save green</Footer>
         </Layout>
       </Layout>
     );

@@ -13,18 +13,25 @@ import {
   Typography,
   Space,
   Divider,
+  Drawer,
 } from "antd";
 import {
   UserOutlined,
   BorderlessTableOutlined,
   FileSearchOutlined,
+  ArrowUpOutlined,
+  AimOutlined,
   HeartOutlined,
   CompassOutlined,
+  MenuOutlined,
+
 } from "@ant-design/icons";
 import React, { Component } from "react";
 import "antd/dist/antd.less";
-
+import Logo from '../img/logo.svg'
+import Text from '../img/Text.svg'
 import "./navi.css";
+import leftSideBar from "./leftSideBar";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
@@ -43,13 +50,38 @@ class SiderDemo extends Component {
     });
   };
 
+  showDrawer = () => {
+		this.setState({
+			visible: true,
+		});
+	};
+
+	onClose = () => {
+		this.setState({
+			visible: false,
+		});
+	};
+
+
   render() {
     return (
       <Layout>
-        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-          <div className="logo" />
+
+            <Drawer
+              title="Basic Drawer"
+              placement="left"
+              closable={false}
+              onClose={this.onClose}
+              visible={this.state.visible}
+            >
+
+            </Drawer>
+{/* -------------------left side bar------------------------------------------------------ */}
+        <Sider trigger={null} collapsible collapsed={this.state.collapsed} className="sidebar">
+            <img className="text" src={Text} alt=""/>
+            
           <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">
+          <Menu.Item key="1">
               <BorderlessTableOutlined />
 
               <span className="nav-text">首頁</span>
@@ -72,10 +104,15 @@ class SiderDemo extends Component {
             </Menu.Item>
           </Menu>
         </Sider>
+ {/* ------------------------------------------------------------------------- */}
         <Layout>
           <Header
           // style={{ background: '#000', padding: 0 }}
           >
+                 <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
+              <span className="barsBtn"><MenuOutlined /></span>
+            </Button>
+
             <span
               style={{
                 // color: '#fff',
@@ -85,9 +122,9 @@ class SiderDemo extends Component {
             ></span>
             <span
               style={{
-                // color: '#fff',
-                paddingLeft: "2%",
-                fontSize: "1.4em",
+                color: '#fff',
+                // paddingLeft: "2%",
+                fontSize: "1.8em",
               }}
             >
               會員中心
@@ -99,7 +136,7 @@ class SiderDemo extends Component {
                 paddingRight: "1%",
               }}
             >
-              <img className="App-logo" alt="logo" />
+              <img className="logo-left" src={Logo} alt="logo" />
             </span>
           </Header>
           <Content style={{ margin: "0 16px" }}>
@@ -171,7 +208,7 @@ class SiderDemo extends Component {
               </Form>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}></Footer>
+          <Footer style={{ textAlign: "center" }}>森活營家．live green to save green</Footer>
         </Layout>
       </Layout>
     );
