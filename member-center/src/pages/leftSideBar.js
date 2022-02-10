@@ -24,7 +24,7 @@ import {
 import React, { Component } from "react";
 import "antd/dist/antd.less";
 
-import "./navi.css";
+import "../navi/navi.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
