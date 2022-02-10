@@ -54,6 +54,11 @@ class SiderDemo extends Component {
               closable={false}
               onClose={this.onClose}
               visible={this.state.visible}
+              bodyStyle={{
+            backgroundColor: "#6A6842",
+            color: "#fff",
+            height: "calc(100vh - 55px)"
+          }}
             >
 
             </Drawer>
