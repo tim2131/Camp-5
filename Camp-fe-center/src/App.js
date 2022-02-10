@@ -1,12 +1,26 @@
-import './style/App.css';
-import { Button } from 'antd';
+import React from 'react';
+import {
+  Form,
+  Select,
+  InputNumber,
+  DatePicker,
+  Switch,
+  Slider,
+  Button,
+  Rate,
+  Typography,
+  Space,
+  Divider,
+} from 'antd';
+import './App.less';
 
-function App() {
-  return (
-<div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-  );
-}
+const { Option } = Select;
+const { Title } = Typography;
+
+const App = () => (
+  <>
+    
+  </>
+);
 
 export default App;
