@@ -130,14 +130,14 @@ const MemberProfile = () => {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(new Error('密碼不相同，請確認'));
             },
           }),
         ]}
       >
         <Input.Password />
       </Form.Item>
-      
+
       <Form.Item
         name="gender"
         label="性別"
@@ -156,9 +156,49 @@ const MemberProfile = () => {
           <Option value="female">女</Option>
         </Select>
       </Form.Item>
+        <Form.Item
+        name="phone"
+        label="Phone Number"
+        rules={[{ required: true, message: 'Please input your phone number!' }]}
+      >
+        <Input style={{ width: '100%' }} />
+      </Form.Item>
+
+      <Form.Item label="Address">
+        <Input.Group compact>
+          <Form.Item
+            name={['address', 'county']}
+            noStyle
+            rules={[{ required: true, message: '請選擇縣市' }]}
+          >
+            <Select placeholder="請選擇縣市">
+              <Option value="1">台北</Option>
+              <Option value="2">新北</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name={['address', 'dist']}
+            rules={[{ required: true, message: '請選擇鄉鎮市區' }]}
+          >
+            <Select placeholder="請選擇鄉鎮市區">
+              <Option value="1">淡水</Option>
+              <Option value="2">石門</Option>
+            </Select>
+          </Form.Item>
+          </Input.Group>
+          <Form.Item
+            name={['address', 'street']}
+            rules={[{ required: true, message: '請填寫地址' }]}
+          >
+            <Input style={{ 
+              width: '100%'
+              }} placeholder="請填寫地址" />
+          </Form.Item>
+      
+      </Form.Item>
 
 
-        <Form.Item {...tailFormItemLayout} >
+      <Form.Item {...tailFormItemLayout} >
           <Space>
             <Button type="primary" htmlType="submit">
               Submit
@@ -166,6 +206,7 @@ const MemberProfile = () => {
             <Button>Cancel</Button>
           </Space>
         </Form.Item>
+
       </Form>
 
     </>
