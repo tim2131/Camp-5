@@ -34,7 +34,9 @@ import Text from "./img/Text.svg";
 import Test from "./comp/test";
 import LeftSideBar from "./comp/leftSideBar";
 import LeftDrawer from "./comp/leftDrawer";
+
 import "./App.less";
+import Header1 from "./comp/header";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
@@ -46,49 +48,34 @@ class App extends Component {
     mode: "inline",
   };
 
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  };
+
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+
   render() {
+
     return (
       <Layout>
-        <LeftDrawer></LeftDrawer>
+        {/* <LeftDrawer></LeftDrawer> */}
+
         <LeftSideBar></LeftSideBar>
         <Layout>
-          <Header >
-            <Button
-              className="barsMenu"
-              type="primary"
-              onClick={this.showDrawer}
-            >
-              <span className="barsBtn">
-                <MenuOutlined />
-              </span>
-            </Button>
-
-            <span
-              style={{
-                // color: '#fff',
-                paddingLeft: "2%",
-                fontSize: "1.4em",
-              }}
-            ></span>
-            <span
-              style={{
-                color: "#fff",
-                // paddingLeft: "2%",
-                fontSize: "1.8em",
-              }}
-            >
-              會員中心
-            </span>
-            <span
-              style={{
-                // color: '#fff',
-                float: "right",
-                paddingRight: "1%",
-              }}
-            >
-              <img className="logo-left" src={Logo} alt="logo" />
-            </span>
-          </Header>
+        <Header1></Header1>
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "12px 0" }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
