@@ -26,11 +26,15 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
+
 import "antd/dist/antd.less";
 import Text from "../img/Text.svg";
+
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 const { Title } = Typography;
+
 
 class LeftSideBar extends Component {
   state = {
@@ -48,16 +52,24 @@ class LeftSideBar extends Component {
           collapsed={this.state.collapsed}
           className="sidebar"
         >
-          <img className="text" src={Text} alt="" />
+        <Link  to="/">
+        <img className="text" src={Text} alt="" />
+        </Link>
+          
           <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">
+              
+              <Link  to="/dashboard">
               <BorderlessTableOutlined />
-
               <span className="nav-text">首頁</span>
+              </Link>
+              
             </Menu.Item>
             <Menu.Item key="2">
-              <UserOutlined />
-              <span className="nav-text">個人資料</span>
+              <Link  to="/profile">
+                <UserOutlined />
+                <span className="nav-text">個人資料</span>
+              </Link>
             </Menu.Item>
             <Menu.Item key="3">
               <FileSearchOutlined />

@@ -27,15 +27,19 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import React, { Component } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+
 import "antd/dist/antd.less";
+import "./App.less";
 import Logo from "./img/logo.svg";
 import Text from "./img/Text.svg";
 
 import Test from "./comp/test";
+import MemberProfile from "./pages/member-profile";
 import LeftSideBar from "./comp/leftSideBar";
-import LeftDrawer from "./comp/leftDrawer";
+// import LeftDrawer from "./comp/leftDrawer";
 
-import "./App.less";
+
 import Header1 from "./comp/header";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -70,22 +74,23 @@ class App extends Component {
   render() {
 
     return (
-      <Layout>
-        {/* <LeftDrawer></LeftDrawer> */}
-
-        <LeftSideBar></LeftSideBar>
+      <Layout style={{height: '100vh', overflow: 'scroll'}}>
+        {/* <LeftDrawer/>*/}
+        <LeftSideBar style={{ 
+            }}/>
         <Layout>
-        <Header1></Header1>
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "12px 0" }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <Test></Test>
+          <Header1 />
+          <Content style={{ 
+            margin: "0 16px",
+            overflow: 'scroll',
+             }}>
+
+            <Routes>
+            <Route path="/profile" element={<MemberProfile />} />
+            </Routes>
+           
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            森活營家．live green to save green
-          </Footer>
+
         </Layout>
       </Layout>
     );
