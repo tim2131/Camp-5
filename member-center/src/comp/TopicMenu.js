@@ -45,20 +45,22 @@ function TopicMenu({
 }) {
   const styledTopics = [];
 
-  topics.forEach(
-    ( topic, index) =>
-      styledTopics.push(
-        <Menu.Item key={index} onClick={changeSelectedKey}>
-          <Link to={linkTo[index]}>
-            <span>{menuIcons[index]}</span>
-            <span className="nav-text">{topic}</span>
-          </Link>
-        </Menu.Item>
-      )
+  topics.forEach((topic, index) =>
+    styledTopics.push(
+      <Menu.Item
+        key={index}
+        onClick={changeSelectedKey}
+        icon={menuIcons[index]}
+      >
+        <Link to={linkTo[index]}>
+          <span className="nav-text">{topic}</span>
+        </Link>
+      </Menu.Item>
+    )
   );
 
   return (
-    <Menu theme="light" mode="inline" selectedKeys={[selectedKey]}>
+    <Menu theme="light" mode="vertical" selectedKeys={[selectedKey]}>
       {styledTopics}
     </Menu>
   );

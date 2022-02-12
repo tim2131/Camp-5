@@ -57,6 +57,8 @@ function Header1({menu}) {
         onClick={() => setVisible(false)}
         onClose={() => setVisible(false)}
         visible={visible}
+        
+        width="200"
         bodyStyle={{
           backgroundColor: "#6A6842",
           color: "#fff",
