@@ -1,26 +1,15 @@
-import {
-    Layout,
-    Select,
-    Button,
-    Typography,
+import { Layout, Select, Button, Typography, Drawer } from "antd";
 
-  } from "antd";
-  
-  import {
-    MenuOutlined,
-  } from "@ant-design/icons";
-  import React, { Component, useState } from "react";
-  import "antd/dist/antd.less";
-  import Logo from "../img/logo.svg";
+import { MenuOutlined } from "@ant-design/icons";
+import React, { Component, useState } from "react";
+import "antd/dist/antd.less";
+import Logo from "../img/logo.svg";
 import "../App.less";
-import LeftDrawer from "./LeftDrawer";
-  const { Header, Content, Footer, Sider } = Layout;
-  const { Option } = Select;
+const { Header, Content, Footer, Sider } = Layout;
+const { Option } = Select;
 const { Title } = Typography;
-  
-  
-function Header1 () {
-  const[collapsed, setCollapse]=useState(false)
+
+function Header1({menu}) {
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -61,12 +50,25 @@ function Header1 () {
           <img className="logo-left" src={Logo} alt="logo" />
         </span>
       </Header>
-      <LeftDrawer
-        onClick={() => setVisible(true)}
-      />
+      <Drawer
+        // title="Basic Drawer"
+        placement="left"
+        closable={false}
+        onClick={() => setVisible(false)}
+        onClose={() => setVisible(false)}
+        visible={visible}
+        bodyStyle={{
+          backgroundColor: "#6A6842",
+          color: "#fff",
+          height: "calc(100vh - 55px)",
+          overflow: "auto",
+          width: 200,
+        }}
+      >
+        {menu}
+      </Drawer>
     </>
   );
-    }
-  
-  export default Header1;
-  
+}
+
+export default Header1;
