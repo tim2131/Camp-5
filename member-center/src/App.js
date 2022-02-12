@@ -26,7 +26,8 @@ import {
   CompassOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
+
 import { Routes, Route, Link } from "react-router-dom";
 
 import "antd/dist/antd.less";
@@ -37,64 +38,63 @@ import Text from "./img/Text.svg";
 import Test from "./comp/test";
 import MemberProfile from "./pages/member-profile";
 import LeftSideBar from "./comp/leftSideBar";
-// import LeftDrawer from "./comp/leftDrawer";
 
 
+import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 const { Title } = Typography;
 
-class App extends Component {
-  state = {
-    collapsed: false,
-    mode: "inline",
+function App() {
+  // ----導入menu context---------------------
+  const topics = ["首頁", "個人資料", "訂單", "我的最愛", "露營地圖"];
+  const menuIcons = [
+    <BorderlessTableOutlined />,
+    <UserOutlined />,
+    <FileSearchOutlined />,
+    <HeartOutlined />,
+    <CompassOutlined />,
+  ];
+  const linkTo = ["/dashboard", "/profile", "/orders", "/favorites", "/map"];
+  const [contentIndex, setContentIndex] = useState(0);
+  const [selectedKey, setSelectedKey] = useState("0");
+  const changeSelectedKey = (event) => {
+    const key = event.key;
+    setSelectedKey(key);
+    setContentIndex(+key);
   };
+  const Menu = (
+    <TopicMenu
+      linkTo={linkTo}
+      topics={topics}
+      menuIcons={menuIcons}
+      selectedKey={selectedKey}
+      changeSelectedKey={changeSelectedKey}
+    />
+  );
+  // -------------------------
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
-
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-
-  render() {
-
-    return (
-      <Layout style={{height: '100vh', overflow: 'scroll'}}>
-        {/* <LeftDrawer/>*/}
-        <LeftSideBar style={{ 
-            }}/>
-        <Layout>
-          <Header1 />
-          <Content style={{ 
+  return (
+    <Layout style={{ height: "100vh" }}>
+      <LeftSideBar menu={Menu} />
+      <Layout>
+        <Header1 menu={Menu} />
+        <Content
+          style={{
             margin: "0 16px",
-            overflow: 'scroll',
-             }}>
-
-            <Routes>
+            overflow: "scroll",
+          }}
+        >
+          <Routes>
             <Route path="/profile" element={<MemberProfile />} />
-            </Routes>
-           
-          </Content>
-
-        </Layout>
+          </Routes>
+        </Content>
       </Layout>
-    );
-  }
+    </Layout>
+  );
 }
+
 
 export default App;

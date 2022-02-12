@@ -35,24 +35,33 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Option } = Select;
 const { Title } = Typography;
 
+function TopicMenu({
+  linkTo,
+  index,
+  topics,
+  menuIcons,
+  selectedKey,
+  changeSelectedKey,
+}) {
+  const styledTopics = [];
 
-function LeftSideBar ({menu}){
-    return (
-      <>
-        <Sider
-          trigger={null}
-          collapsible
-          className="sidebar"
-        >
-        <Link  to="/">
-        <img className="text" src={Text} alt="" />
-        </Link>
-          {menu}
-       
-        </Sider>
-      </>
-    );
-  }
+  topics.forEach(
+    ( topic, index) =>
+      styledTopics.push(
+        <Menu.Item key={index} onClick={changeSelectedKey}>
+          <Link to={linkTo[index]}>
+            <span>{menuIcons[index]}</span>
+            <span className="nav-text">{topic}</span>
+          </Link>
+        </Menu.Item>
+      )
+  );
 
+  return (
+    <Menu theme="light" mode="inline" selectedKeys={[selectedKey]}>
+      {styledTopics}
+    </Menu>
+  );
+}
 
-export default LeftSideBar;
+export default TopicMenu;

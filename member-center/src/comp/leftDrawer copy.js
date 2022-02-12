@@ -31,6 +31,7 @@ import "antd/dist/antd.less";
 import Text from "../img/Text.svg";
 
 
+
 import "../App.less";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -38,29 +39,43 @@ const { Option } = Select;
 const { Title } = Typography;
 
 
-function LeftDrawer(props) {
-  const{visible,collapsed}=props
+class LeftDrawer1 extends Component {
+  constructor() {
+      super();
+      
+    this.state = {
+      collapsed: false,
+      mode: "inline",
+    };
 
-  const showDrawer = () => {
+    // this.handleClick = this.handleClick.bind(this); // => 固定 this 的值
+  }
+//   state = {
+//     collapsed: false,
+//     mode: "inline",
+//   };
+
+  showDrawer = () => {
     this.setState({
       visible: true,
     });
   };
 
-  const onClose = () => {
+  onClose = () => {
     this.setState({
       visible: false,
     });
   };
 
+  render() {
     return (
       <>
         <Drawer
           // title="Basic Drawer"
           placement="left"
           closable={false}
-          onClose={onClose}
-          visible={visible}
+          onClose={this.onClose}
+          visible={this.state.visible}
           bodyStyle={{
             backgroundColor: "#6A6842",
             color: "#fff",
@@ -72,7 +87,7 @@ function LeftDrawer(props) {
           <Sider
             trigger={null}
             collapsible
-            collapsed={collapsed}
+            collapsed={this.state.collapsed}
             className="sidebar"
           >
             <img className="text" src={Text} alt="" />
@@ -104,6 +119,6 @@ function LeftDrawer(props) {
       </>
     );
   }
+}
 
-
-export default LeftDrawer;
+export default LeftDrawer1;
