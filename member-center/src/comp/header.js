@@ -1,45 +1,40 @@
-import { Layout, Select, Button, Typography, Drawer } from "antd";
+import { Layout,  Button, Drawer,Space } from "antd";
 
 import { MenuOutlined } from "@ant-design/icons";
-import React, { Component, useState } from "react";
+import React, {  useState } from "react";
 import "antd/dist/antd.less";
 import Logo from "../img/logo.svg";
 import "../App.less";
-const { Header, Content, Footer, Sider } = Layout;
-const { Option } = Select;
-const { Title } = Typography;
+const { Header } = Layout;
+
 
 function Header1({menu}) {
   const [visible, setVisible] = useState(false);
   return (
     <>
       <Header>
-        <Button
-          className="barsMenu"
-          type="primary"
-          onClick={() => setVisible(true)}
-        >
-          <span className="barsBtn">
-            <MenuOutlined />
+        
+    
+          <Button
+            className="barsMenu"
+            type="primary"
+            onClick={() => setVisible(true)}
+            style={{ marginBottom: "50%" }}
+          >
+            <span className="barsBtn">
+              <MenuOutlined />
+            </span>
+          </Button>
+          <span
+            style={{
+              color: "#fff",
+              paddingLeft: "10%",
+              fontSize: "1.8em",
+            }}
+          >
+            會員中心
           </span>
-        </Button>
-
-        <span
-          style={{
-            // color: '#fff',
-            paddingLeft: "2%",
-            fontSize: "1.4em",
-          }}
-        ></span>
-        <span
-          style={{
-            color: "#fff",
-            // paddingLeft: "2%",
-            fontSize: "1.8em",
-          }}
-        >
-          會員中心
-        </span>
+      
         <span
           style={{
             // color: '#fff',
@@ -57,7 +52,6 @@ function Header1({menu}) {
         onClick={() => setVisible(false)}
         onClose={() => setVisible(false)}
         visible={visible}
-        
         width="200"
         bodyStyle={{
           backgroundColor: "#6A6842",

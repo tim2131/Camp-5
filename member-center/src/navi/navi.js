@@ -2,25 +2,14 @@ import {
   Layout,
   Menu,
   Breadcrumb,
-  Form,
-  Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
   Button,
-  Rate,
-  Typography,
-  Space,
-  Divider,
   Drawer,
 } from "antd";
 import {
   UserOutlined,
   BorderlessTableOutlined,
   FileSearchOutlined,
-  ArrowUpOutlined,
-  AimOutlined,
+
   HeartOutlined,
   CompassOutlined,
   MenuOutlined,
@@ -36,8 +25,7 @@ import LeftSideBar from '../comp/leftSideBar';
 // import "./App.less";
 
 const { Header, Content, Footer, Sider } = Layout;
-const { Option } = Select;
-const { Title } = Typography;
+
 
 
 class SiderDemo extends Component {

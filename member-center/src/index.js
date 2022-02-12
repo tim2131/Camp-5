@@ -2,14 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import SiderDemo from './navi/navi';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
 
-// ReactDOM.render(
-//   <SiderDemo/>,
-//   document.getElementById('root')
-// );
 
 ReactDOM.render(
   <BrowserRouter>

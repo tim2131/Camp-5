@@ -1,51 +1,37 @@
 import {
   Layout,
-  Menu,
-  Breadcrumb,
-  Form,
   Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
-  Button,
-  Rate,
   Typography,
-  Space,
-  Divider,
-  Drawer,
 } from "antd";
 
 import {
   UserOutlined,
   BorderlessTableOutlined,
   FileSearchOutlined,
-  ArrowUpOutlined,
-  AimOutlined,
   HeartOutlined,
   CompassOutlined,
-  MenuOutlined,
+
 } from "@ant-design/icons";
-import React, { Component,useState } from "react";
+import React, {useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import { Routes, Route, Link } from "react-router-dom";
-
+// --------less or css-------------------------
 import "antd/dist/antd.less";
 import "./App.less";
-import Logo from "./img/logo.svg";
-import Text from "./img/Text.svg";
 
-import Test from "./comp/test";
+// -------router comp--------------------------
 import MemberProfile from "./pages/member-profile";
+import MemberOrder from './pages/member-order';
+
+// -------page comp----------------------------
 import LeftSideBar from "./comp/leftSideBar";
-
-
 import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 const { Option } = Select;
 const { Title } = Typography;
+
 
 function App() {
   // ----導入menu context---------------------
@@ -89,6 +75,7 @@ function App() {
         >
           <Routes>
             <Route path="/profile" element={<MemberProfile />} />
+            <Route path="/orders" element={<MemberOrder />} />
           </Routes>
         </Content>
       </Layout>

@@ -8,7 +8,7 @@ import {
   Input,
 } from "antd";
 
-import React, { Component } from "react";
+import React from "react";
 import {useForm} from 'react-hook-form'
 import "antd/dist/antd.less";
 const { Option } = Select;
@@ -90,11 +90,11 @@ const MemberProfile = () => {
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: '這不是正確的信箱格式',
           },
           {
             required: true,
-            message: 'Please input your E-mail!',
+            message: '請輸入你的信箱',
           },
         ]}
       >
@@ -107,7 +107,7 @@ const MemberProfile = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: '請輸入你的密碼',
           },
         ]}
         hasFeedback
@@ -123,7 +123,7 @@ const MemberProfile = () => {
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
+            message: '請確認你的密碼',
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
@@ -159,7 +159,7 @@ const MemberProfile = () => {
         <Form.Item
         name="phone"
         label="Phone Number"
-        rules={[{ required: true, message: 'Please input your phone number!' }]}
+        rules={[{ required: true, message: '請輸入聯繫號碼' }]}
       >
         <Input style={{ width: '100%' }} />
       </Form.Item>
@@ -201,9 +201,9 @@ const MemberProfile = () => {
       <Form.Item {...tailFormItemLayout} >
           <Space>
             <Button type="primary" htmlType="submit">
-              Submit
+              送出
             </Button>
-            <Button>Cancel</Button>
+            <Button>取消</Button>
           </Space>
         </Form.Item>
 
