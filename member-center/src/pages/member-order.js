@@ -1,7 +1,17 @@
-import { Form, Select, Button, Typography, Space, Divider, Input } from "antd";
+import {
+  Form,
+  Select,
+
+  Typography,
+
+  Divider,
+
+  Tabs,
+} from "antd";
 
 import React from "react";
 import "antd/dist/antd.less";
+import CampOrder from '../comp/CampOrder';
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -45,6 +55,13 @@ const tailFormItemLayout = {
     },
   },
 };
+// ---------------for Tabs---------------
+const { TabPane } = Tabs;
+
+function callback(key) {
+  console.log(key);
+}
+// ---------------for Tabs end---------------
 
 const MemberOrder = () => {
   const [form] = Form.useForm();
@@ -71,10 +88,19 @@ const MemberOrder = () => {
             marginTop: 10,
           }}
         >
-          訂單資料 
+          訂單資料
         </Title>
       </Divider>
-      
+      {/*---------------for Tabs--------------- */}
+      <Tabs onChange={callback} type="card">
+        <TabPane tab="營地訂單" key="1">
+          <CampOrder/>
+        </TabPane>
+        <TabPane tab="商品訂單" key="2">
+          Content of Tab Pane 2
+        </TabPane>
+      </Tabs>
+      {/*---------------Tabs end--------------- */}
     </>
   );
 };
