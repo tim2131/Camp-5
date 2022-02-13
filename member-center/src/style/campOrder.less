@@ -1,0 +1,73 @@
+@width: 200px;
+@tagWidth: 85px;
+@tagWordTop:25px;
+@tagWordLeft:20px;
+@tagWordSize:11px;
+
+.orderPicBox {
+  position: relative;
+  width: @width;
+  height: @width;
+  
+}
+.list_item {
+  width: @width;
+  height: @width;
+  overflow: hidden;
+  position: relative;
+  clip-path: polygon(
+    25% 0%,
+    100% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 100%,
+    0% 25%
+  );
+}
+.pic {
+  max-height: 100%;
+  object-fit: contain;
+  object-position: -50px;
+}
+
+.tag {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: #c15f2ebe transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+.tagWord {
+  position: absolute;
+  top: @tagWordTop;
+  left: @tagWordLeft;
+  transform: rotate(-45deg);
+  color: #e9e3da;
+  font-size: @tagWordSize;
+  z-index: 100;
+}
+.tagStar {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: rgba(251,188,5,0.8) transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+.tagNoStock {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: #C4C4C4 transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
