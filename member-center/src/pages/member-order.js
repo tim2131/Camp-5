@@ -15,46 +15,8 @@ import CampOrder from '../comp/CampOrder';
 const { Option } = Select;
 const { Title } = Typography;
 
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-    lg: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-    lg: {
-      span: 8,
-    },
-  },
-};
 
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-    lg: {
-      span: 8,
-    },
-  },
-};
+
 // ---------------for Tabs---------------
 const { TabPane } = Tabs;
 
@@ -64,19 +26,8 @@ function callback(key) {
 // ---------------for Tabs end---------------
 
 const MemberOrder = () => {
-  const [form] = Form.useForm();
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case "male":
-        form.setFieldsValue();
-        return;
 
-      case "female":
-        form.setFieldsValue();
-        return;
-    }
-  };
 
   return (
     <>

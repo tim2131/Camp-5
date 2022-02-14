@@ -3,7 +3,7 @@
 @tagWordTop:25px;
 @tagWordLeft:20px;
 @tagWordSize:11px;
-
+// --------pic small for product and camp--------------------------------------------
 .orderPicBox {
   position: relative;
   width: @width;
@@ -42,15 +42,7 @@
   z-index: 99;
   clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
 }
-.tagWord {
-  position: absolute;
-  top: @tagWordTop;
-  left: @tagWordLeft;
-  transform: rotate(-45deg);
-  color: #e9e3da;
-  font-size: @tagWordSize;
-  z-index: 100;
-}
+
 .tagStar {
   width: 0;
   height: 0;
@@ -70,4 +62,24 @@
   position: absolute;
   z-index: 99;
   clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+.tagWord {
+  position: absolute;
+  top: @tagWordTop;
+  left: @tagWordLeft;
+  transform: rotate(-45deg);
+  color: #e9e3da;
+  font-size: @tagWordSize;
+  z-index: 100;
+}
+
+
+//-----------------end---------------------------------------------
+.statusTag{
+  border-radius: 0.5em;
+  background-color:#c15f2e ;
+  width: 8em;
+  height: 2em;
+  color:#fff5e2;
+  font-size: 1em;
 }

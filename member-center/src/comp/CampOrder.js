@@ -14,6 +14,7 @@ const data = [
     orderdate_start: "2022/5/1",
     orderdate_end: "2022/5/3",
     order_status: "1",
+    tag_status: "1"
   },
   {
     id: "2",
@@ -24,13 +25,26 @@ const data = [
     orderdate_start: "2022/5/1",
     orderdate_end: "2022/5/3",
     order_status: "2",
+    tag_status: "2"
   },
   { title: "Ant Design Title 3" },
   { title: "Ant Design Title 4" },
 ];
 
 
+
 const CampOrder = () => {
+
+const tagWords={
+  1:"主打",
+  2:"促銷",
+}
+
+  const tagcolor = {
+    1: "tagStar",
+    2: "tag",
+};
+
   return (
     <List
       itemLayout="horizontal"
@@ -48,7 +62,7 @@ const CampOrder = () => {
             <a key="list-loadmore-more">訂單詳細</a>,
           ]}
           key={item.id}
-          //   extra={          }
+        //   extra={          }
         >
           <List.Item.Meta
             title={<a href={item.href}>{item.camp}</a>}
@@ -61,17 +75,18 @@ const CampOrder = () => {
               </>
             }
           />
-          {/* -------status--tag-------------- */}
+          {/* -----order--status--tag-------------- */}
           <div className="statusTag">{item.order_status}</div>
           {/* ---------pic-------------------- */}
-              <div className="orderPicBox">
-                  
-            <div className="tagWord">特價</div>
-                  <div className="tag"></div>
-                  
-            <div className="tagWord">主打</div>
-                  <div className="tagStar"></div>
-                  
+          <div className="orderPicBox">
+
+
+            <div className="tagWord">
+            {tagWords[item.order_status]}
+            </div>
+            <div className={tagcolor[item.order_status]}></div>
+
+
             <div className="list_item">
               <img className="pic" src={item.pic} alt="camp-pic" />
             </div>
