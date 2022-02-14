@@ -1,0 +1,22 @@
+@import "./global.scss";
+
+.product-amount {
+    margin-top: 32px;
+}
+.react-numeric-input input {
+	color: $dark-green;
+    background: $ivory;
+    border: 2px $dark-green solid !important;
+    width: 210px;
+    height: 45px;
+    font-size: 20px !important;
+}
+
+.react-numeric-input b {
+    background: $ivory !important; 
+    border: transparent !important;
+}
+
+.react-numeric-input b i {
+    background: $dark-green !important;
+}
