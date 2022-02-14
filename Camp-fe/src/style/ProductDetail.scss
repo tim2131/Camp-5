@@ -1,18 +1,13 @@
+@import "./Variables.scss";
+
 /* 全體 */
-.container.custom-container-width {
-    max-width: 1470px;
-}
 .product-detail-main {
-    background: #FCF9F5;
+    background: $ivory;
     padding-top: 55px;
     padding-bottom: 118px;
-    color: #6A6842;
 }
 
 /* 主圖&標題 */
-.product-main-info-title {
-    // height: 293px;
-}
 .main-pic {
     width: 700px;
     height: 700px;
@@ -22,11 +17,9 @@
     width: 100%;
     height: 100%;
 }
-.product-main-info {
-    // min-width: 455px;
-}
+
 .product-main-info h1 {
-    font-size: 60px;
+    // font-size: 60px;
     line-height: 140%;
     margin: 0;
 }
@@ -35,10 +28,10 @@
     margin-top: 25px;
 }
 .product-detail-price h3 {
-    font-size: 36px;
+    // font-size: 36px;
 }
-.product-detail-price h6 {
-    font-size: 24px;
+.product-detail-price h5 {
+    // font-size: 24px;
     margin: 0 40px 0 40px;
 }
 
@@ -134,7 +127,7 @@
     top: 32px;
 }
 .product-intro-2 h4 {
-    font-size: 28px;
+    // font-size: 28px;
 }
 .triangle-left {
     position: absolute;

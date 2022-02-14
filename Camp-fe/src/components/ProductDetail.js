@@ -26,7 +26,7 @@ function ProductDetail () {
     return (
       <>
         <main className="product-detail-main w-100%">
-            <div className="container custom-container-width">
+            <div className="container">
 
                 {/* 主圖&標題 */}
                 <div className="row product-main-info">
@@ -40,7 +40,7 @@ function ProductDetail () {
                         <h1>OCEAN BOTTLE 時尚環保水壺</h1>
                         <div className="d-flex product-detail-price">
                           <h3>NT$1,680</h3>
-                          <h6>或</h6>
+                          <h5>或</h5>
                           <h3>10點兌換</h3>
                         </div>
                       </div>
