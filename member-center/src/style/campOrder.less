@@ -9,6 +9,7 @@
   width: @width;
   height: @width;
   
+  
 }
 .list_item {
   width: @width;
@@ -74,12 +75,13 @@
 }
 
 
-//-----------------end---------------------------------------------
+//-------------order status----tag---------------------------------------------
 @taglineheight:3em;
+@tagwidth:10em;
 .statusTagTBD{
   border-radius: 0.5em;
   background-color:@primary-color ;
-  width: 10em;
+  width: @tagwidth;
   height: @taglineheight;
   color:#fff5e2;
   font-size: 0.8em;
@@ -90,7 +92,7 @@
 .statusTagDone{
   border-radius: 0.5em;
   background-color:@success-color ;
-  width: 10em;
+  width: @tagwidth;
   height: @taglineheight;
   color:#fff5e2;
   font-size: 0.8em;
@@ -101,7 +103,7 @@
 .statusTagCancel{
   border-radius: 0.5em;
   background-color:@rate-star-bg ;
-  width: 10em;
+  width: @tagwidth;
   height: @taglineheight;
   color:#fff5e2;
   font-size: 0.8em;
@@ -120,10 +122,89 @@
   font-size:1.2em;
   color:#788070;
 }
-
-//--------------------------------------------
+.list{
+  border-bottom: #788070 1px solid;
+}
 .list :hover{
   background-color: @component-background;
   
+  
+}
+
+//--------------media------------------------------
+@media (min-width: 1600px){
+  .list{
+    position: relative;
+    max-width: 100em;
+    left:10em;
+    border-bottom: #788070 1px solid;
+    
+  }
+}
+
+
+@media (max-width: 576px){
+  .campTitle{
+    font-size: 1.2em;
+  }
+  .campdate{
+    font-size:0.1em;
+    color:#788070;
+  }
+  .orderlinks{
+    position:relative;
+    left:2em;
+    display:block;
+  }
+
+// -status-tag-----------------------------
+@taglineheight:3em;
+@tagwidth:5em;
+.statusTagTBD{
+  border-radius: 0.5em;
+  background-color:@primary-color ;
+  width: @tagwidth;
+  height: @taglineheight;
+  color:#fff5e2;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
+}
+.statusTagDone{
+  border-radius: 0.5em;
+  background-color:@success-color ;
+  width: @tagwidth;
+  height: @taglineheight;
+  color:#fff5e2;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
+}
+.statusTagCancel{
+  border-radius: 0.5em;
+  background-color:@rate-star-bg ;
+  width: @tagwidth;
+  height: @taglineheight;
+  color:#fff5e2;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
+}
+  
+
+}
+@media (max-width: 412px){
+  .orderlinks{
+    display:none;
+  }
+
+}
+
+
+.orderlinkbox{
+  padding:1em 0 0 0; 
 }
 
