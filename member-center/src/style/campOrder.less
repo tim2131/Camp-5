@@ -75,11 +75,49 @@
 
 
 //-----------------end---------------------------------------------
-.statusTag{
+@taglineheight:3em;
+.statusTagTBD{
   border-radius: 0.5em;
-  background-color:#c15f2e ;
-  width: 8em;
-  height: 2em;
+  background-color:@primary-color ;
+  width: 10em;
+  height: @taglineheight;
   color:#fff5e2;
-  font-size: 1em;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
 }
+.statusTagDone{
+  border-radius: 0.5em;
+  background-color:@success-color ;
+  width: 10em;
+  height: @taglineheight;
+  color:#fff5e2;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
+}
+.statusTagCancel{
+  border-radius: 0.5em;
+  background-color:@rate-star-bg ;
+  width: 10em;
+  height: @taglineheight;
+  color:#fff5e2;
+  font-size: 0.8em;
+  text-align:center;
+  line-height:@taglineheight;
+  position:relative;
+}
+
+
+
+//---------------------------------------------
+.campTitle{
+  font-size: 2em;
+}
+.campdate{
+  font-size:1.2em;
+  color:#788070;
+}
+
