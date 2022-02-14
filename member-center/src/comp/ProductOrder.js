@@ -1,6 +1,5 @@
 import React from "react";
 import { List, Avatar } from "antd";
-import { Link } from "react-router-dom";
 
 import "../App.less";
 import "../style/campOrder.less";
@@ -10,7 +9,7 @@ const data = [
     id: "1",
     camp: "綠色生活露營",
     county: "桃園縣",
-    href: "/orderDetails",
+    href: "",
     pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     orderdate_start: "2022/5/1",
     orderdate_end: "2022/5/3",
@@ -22,7 +21,7 @@ const data = [
     id: "2",
     camp: "綠色生dddddddd活露營",
     county: "新北市",
-    href: "/orderDetails",
+    href: "",
     pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     orderdate_start: "2022/5/1",
     orderdate_end: "2022/5/3",
@@ -77,7 +76,7 @@ const data = [
 
 
 
-const CampOrder = () => {
+const ProductOrder = () => {
 
   const tagWords = {
     1: "主打",
@@ -114,8 +113,7 @@ const CampOrder = () => {
         pageSize: 5,
       }}
       renderItem={(item) => (
-        <Link to={item.href}>
-        <div className="list" >
+        < div className="list">
           <List.Item
 
             actions={[
@@ -143,11 +141,8 @@ const CampOrder = () => {
                   <span className="campdate">{item.county}</span>
                   
                   <div className="orderlinkbox">
-                  <Link to={item.href}>
-                  <button className="orderlinks" key="list-loadmore-edit" >
-                  訂單詳細
-                  </button>   
-                  </Link>
+                  <a className="orderlinks" key="list-loadmore-edit">訂單詳細</a> |  
+                  <a className="orderlinks" key="list-loadmore-more">給予評論</a>
                   </div>
                 </>
               }
@@ -166,9 +161,8 @@ const CampOrder = () => {
             {/* ----------------------------- */}
           </List.Item>
         </div>
-        </Link>
       )}
     />
   );
 };
-export default CampOrder;
+export default ProductOrder;

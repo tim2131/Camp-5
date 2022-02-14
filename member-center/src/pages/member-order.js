@@ -12,6 +12,7 @@ import {
 import React from "react";
 import "antd/dist/antd.less";
 import CampOrder from '../comp/CampOrder';
+import ProductOrder from "../comp/ProductOrder";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -48,7 +49,7 @@ const MemberOrder = () => {
           <CampOrder/>
         </TabPane>
         <TabPane tab="商品訂單" key="2">
-          Content of Tab Pane 2
+          <ProductOrder/>
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}

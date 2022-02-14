@@ -20,13 +20,14 @@ import "antd/dist/antd.less";
 import "./App.less";
 
 // -------router comp--------------------------
-import MemberProfile from "./pages/member-profile";
-import MemberOrder from './pages/member-order';
+import MemberProfile from "./pages/Member-profile";
+import MemberOrder from './pages/Member-order';
 
 // -------page comp----------------------------
 import LeftSideBar from "./comp/leftSideBar";
 import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
+import OrderDetails from "./pages/OrderDetails";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -76,6 +77,7 @@ function App() {
           <Routes>
             <Route path="/profile" element={<MemberProfile />} />
             <Route path="/orders" element={<MemberOrder />} />
+            <Route path="/orderDetails" element={<OrderDetails/>}/>
           </Routes>
         </Content>
       </Layout>
