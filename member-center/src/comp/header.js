@@ -13,8 +13,6 @@ function Header1({menu}) {
   return (
     <>
       <Header>
-        
-    
           <Button
             className="barsMenu"
             type="primary"
