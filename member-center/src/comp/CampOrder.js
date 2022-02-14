@@ -108,7 +108,9 @@ const CampOrder = () => {
         pageSize: 5,
       }}
       renderItem={(item) => (
+        < div className="list">
         <List.Item
+        
           actions={[
             <a key="list-loadmore-edit">訂單詳細</a>,
             <a key="list-loadmore-more">給予評論</a>,
@@ -150,6 +152,7 @@ const CampOrder = () => {
           </div>
           {/* ----------------------------- */}
         </List.Item>
+        </div>
       )}
     />
   );
