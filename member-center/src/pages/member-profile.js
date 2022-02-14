@@ -119,7 +119,7 @@ const MemberProfile = () => {
 
         <Form.Item
           name="confirm"
-          label="Confirm Password"
+          label="再次輸入密碼"
           dependencies={["password"]}
           hasFeedback
           rules={[
@@ -156,17 +156,17 @@ const MemberProfile = () => {
         </Form.Item>
         <Form.Item
           name="phone"
-          label="Phone Number"
+          label="聯繫號碼"
           rules={[{ required: true, message: "請輸入聯繫號碼" }]}
         >
           <Input style={{ width: "100%" }} />
         </Form.Item>
 
-        <Form.Item label="Address">
-          <Input.Group compact>
+        <Form.Item label="地址">
+          
             <Form.Item
               name={["address", "county"]}
-              noStyle
+              style= {{display:'inline-block'}}
               rules={[{ required: true, message: "請選擇縣市" }]}
             >
               <Select placeholder="請選擇縣市">
@@ -174,8 +174,10 @@ const MemberProfile = () => {
                 <Option value="2">新北</Option>
               </Select>
             </Form.Item>
+
             <Form.Item
               name={["address", "dist"]}
+              style= {{display:'inline-block'}}
               rules={[{ required: true, message: "請選擇鄉鎮市區" }]}
             >
               <Select placeholder="請選擇鄉鎮市區">
@@ -183,7 +185,7 @@ const MemberProfile = () => {
                 <Option value="2">石門</Option>
               </Select>
             </Form.Item>
-          </Input.Group>
+          
           <Form.Item
             name={["address", "street"]}
             rules={[{ required: true, message: "請填寫地址" }]}
