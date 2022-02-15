@@ -1,3 +1,70 @@
 nav {
-    height: 150px;
+  z-index: 3;
+  background: #6a6842;
+}
+nav input {
+  height: 30px;
+  width: 30px;
+}
+nav li {
+  margin: 10px;
+}
+nav a {
+  font-size: 20px;
+  color: #fff;
+}
+nav a:hover {
+  color: #9caf89;
+}
+.list_item {
+  width: 1440px;
+  height: 632px;
+}
+
+.pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: block;
+}
+.polygon {
+  clip-path: polygon(
+    10% 0,
+    100% 0,
+    100% 30%,
+    100% 75%,
+    90% 100%,
+    0 100%,
+    0% 70%,
+    0 25%
+  );
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner {
+  clip-path: polygon(0 0, 100% 0, 100% 79%, 50% 100%, 24% 81%, 0 100%);
+  background: #333;
+  width: 1920px;
+  height: 1200px;
+  z-index: 1;
+}
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+}
+.nav-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+.nav-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

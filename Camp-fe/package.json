@@ -2,19 +2,23 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "bootstrap": "^4.6.0",
+    "axios": "^0.26.0",
+    "bootstrap": "^4.0.0-alpha.6",
+    "install": "^0.13.0",
+    "node-sass": "^7.0.1",
     "react": "^17.0.2",
-    "react-alice-carousel": "^2.5.1",
-    "react-bootstrap": "^1.6.4",
+    "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",
-    "react-numeric-input": "^2.2.3",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
-    "sass": "^1.49.7",
-    "web-vitals": "^2.1.4"
+    "video-react": "^0.15.0",
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,17 +43,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-  },
-  "devDependencies": {
-    "eslint-config-react-app": "^7.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "prettier": "^2.5.1"
-=======
->>>>>>> e4200f2021534cc4ff77eea73196d6c4d40f40f7
   }
 }

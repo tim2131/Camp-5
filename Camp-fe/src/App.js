@@ -1,18 +1,13 @@
 import React from 'react';
-import './style/App.css';
-
-import Navbar from './components/Navbar';
-import ProductDetail from './components/ProductDetail';
-import ShoppingCart from './components/ShoppingCart';
-import Footer from './components/Footer';
+import Navbar from './components/navbar/navbar';
+import Home from './pages/home'
 
 function App() {
+  
   return (
     <>
-      <Navbar />
-      {/* <ProductDetail /> */}
-      <ShoppingCart />
-      <Footer />
+     <Navbar />
+     <Home />
     </>
   );
 }
