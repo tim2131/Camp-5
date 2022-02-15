@@ -1,0 +1,65 @@
+/* 全體 */
+.custom-container-width {
+    max-width: 1470px;
+}
+.similar-product-main {
+    background: #E9E3DA;
+    color: #6A6842;
+}
+
+// subtitle
+.similar-product-subtitle {
+    font-size: 36px;
+    padding-top: 36px;
+    padding-bottom: 50px;
+}
+
+// card
+.similar-product-pic {
+    width: 400px;
+    height: 400px;
+}
+.similar-product-pic img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.similar-product-name {
+    font-size: 28px;
+    margin-top: 26px;
+}
+.similar-product-price {
+    font-size: 20px;
+    margin-top: 17px;
+}
+
+// carousel
+.alice-carousel {
+    max-width: calc(100% - 120px);
+}
+
+// arrow
+.alice-carousel__prev-btn, .alice-carousel__next-btn {
+    position: absolute;
+    top: calc(200px - 35px);
+    width: auto;
+}
+
+.alice-carousel__prev-btn {
+    left: -60px;
+}
+.alice-carousel__next-btn {
+    right: -60px;
+}
+
+// 回到商品列表頁
+.back-to-product-list {
+    width: 806px;
+    height: 74px;
+    background: #E9E3DA;
+    border: 2px #C15F2E solid;
+    font-size: 28px;
+    color: #C15F2E;
+    margin-top: 50px;
+    margin-bottom: calc(150px + 307px);
+}

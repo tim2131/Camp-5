@@ -1,10 +1,19 @@
+import React from 'react';
 import './style/App.css';
+
+import Navbar from './components/Navbar';
+import ProductDetail from './components/ProductDetail';
+import ShoppingCart from './components/ShoppingCart';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-     
-    </div>
+    <>
+      <Navbar />
+      {/* <ProductDetail /> */}
+      <ShoppingCart />
+      <Footer />
+    </>
   );
 }
 
