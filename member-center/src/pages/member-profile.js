@@ -6,16 +6,22 @@ import {
   Space,
   Divider,
   Input,
+  DatePicker,
 } from "antd";
 
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import { API_URL } from "../utils/config";
 import { useForm } from 'react-hook-form'
 import "antd/dist/antd.less";
 const { Option } = Select;
 const { Title } = Typography;
+
+const { MonthPicker } = DatePicker;
+
+const dateFormat = "YYYY-MM-DD";
 
 const formItemLayout = {
   labelCol: {
@@ -91,6 +97,25 @@ const MemberProfile = () => {
 
   
 //-------------------------------------------------------------------
+  const config = {
+    rules: [
+      {
+        type: "object",
+        required: true,
+        message: "Please select time!",
+      },
+    ],
+  };
+ 
+  const onFinish = (fieldsValue) => {
+    // Should format date value before submit.
+    const values = {
+      ...fieldsValue,
+      'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
+    };
+  }
+
+
   return (
     <>
       <Divider style={{ marginBottom: 60 }}>
@@ -104,11 +129,22 @@ const MemberProfile = () => {
           會員資料
         </Title>
       </Divider>
-      <Form {...formItemLayout} form={form}>
+      <Form {...formItemLayout} form={form} onFinish={onFinish}>
         {data.map((member) => {
           return (
             <>
-              {member.user_name}
+              <Form.Item
+                name={"name"}
+                label="名字"
+                rules={[
+                  {
+                    required: true,
+                    message: "請輸入姓名",
+                  },
+                ]}
+              >
+                <Input defaultValue={member.name} />
+              </Form.Item>
               <Form.Item
                 name="email"
                 label="您的信箱"
@@ -183,6 +219,10 @@ const MemberProfile = () => {
                   <Option value="0">女</Option>
                 </Select>
               </Form.Item>
+              <Form.Item name="date-picker" label="DatePicker" {...config}>
+                <DatePicker defaultValue={moment("2015-01-01", dateFormat)} />
+              </Form.Item>
+
               <Form.Item
                 name="phone"
                 label="聯繫號碼"
@@ -208,7 +248,6 @@ const MemberProfile = () => {
             </>
           );
         })}
-       
 
         <Form.Item {...tailFormItemLayout}>
           <Space>
