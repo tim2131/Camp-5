@@ -23,6 +23,7 @@ const { MonthPicker } = DatePicker;
 
 const dateFormat = "YYYY-MM-DD";
 
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -83,7 +84,7 @@ const MemberProfile = () => {
 
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
-  console.log(data)
+ 
 
   useEffect(() => {
     let getMemberInfo = async () => {
@@ -115,7 +116,6 @@ const MemberProfile = () => {
     };
   }
 
-
   return (
     <>
       <Divider style={{ marginBottom: 60 }}>
@@ -132,7 +132,7 @@ const MemberProfile = () => {
       <Form {...formItemLayout} form={form} onFinish={onFinish}>
         {data.map((member) => {
           return (
-            <>
+            <div key={member.id}>
               <Form.Item
                 name={"name"}
                 label="名字"
@@ -245,7 +245,7 @@ const MemberProfile = () => {
                   />
                 </Form.Item>
               </Form.Item>
-            </>
+            </div>
           );
         })}
 
