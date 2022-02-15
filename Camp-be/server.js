@@ -6,8 +6,7 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt"); 
 const path = require("path");
 require("dotenv").config();
-//  要讓 express 認得 json
-app.use(express.json());
+
 
 //session
 const expressSession = require("express-session");
@@ -30,7 +29,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
+//  要讓 express 認得 json
 app.use(express.json());
 app.listen(port, () => {
   console.log(`RUN http://localhost:${port}`);
@@ -73,6 +72,41 @@ app.post("/login", function (req, res) {
         data: returnMember,
       });
          }
+        
+  );
+});
+
+//營主登入
+app.post("/camplogin", function (req, res) {
+  const { email, password } = req.body;
+
+  db.query(
+    `SELECT * FROM camp_owner WHERE email='${email}'`,
+    function (err, rows, fields) {
+      if (err) throw err;
+      if (rows.length === 0) {
+        return res.status(500).send({ error: "帳號或密碼錯誤" });
+      }
+      //console.log(rows[0]);
+      const psRes = bcrypt.compareSync(req.body.password, rows[0].password); // 將使用者輸入的密碼和存在資料庫的密碼進行比較
+      if (!psRes) {
+        // 比對失敗
+        return res.status(500).send({ error: "帳號或密碼錯誤" });
+      }
+      let member = rows[0];
+      let returnMember = {
+        id: member.id,
+        email: member.email,
+        company_name: member.company_name,
+      };
+      req.session.member = returnMember;
+      console.log(returnMember);
+      res.json({
+        code: "0",
+        data: returnMember,
+      });
+         }
+        
   );
 });
 
