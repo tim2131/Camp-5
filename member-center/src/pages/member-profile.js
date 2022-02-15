@@ -83,8 +83,8 @@ const MemberProfile = () => {
     let getMemberInfo = async () => {
       //http://localhost:3002/api/memberInfo
       //http://localhost:3002
-      let response = await axios.get(`${API_URL}/memberInfo`);
-      setData(response.data);
+      let res = await axios.get(`${API_URL}/memberInfo`);
+      setData(res.data);
     };
     getMemberInfo();
   }, []);
@@ -101,122 +101,114 @@ const MemberProfile = () => {
             marginTop: 10,
           }}
         >
-          會員資料 {data.user_name}
+          會員資料
         </Title>
       </Divider>
       <Form {...formItemLayout} form={form}>
-        <Form.Item
-          name="email"
-          label="您的信箱"
-          rules={[
-            {
-              type: "email",
-              message: "這不是正確的信箱格式",
-            },
-            {
-              required: true,
-              message: "請輸入你的信箱",
-            },
-          ]}
-        >
-          <Input defaultValue={data.user_name} />
-        </Form.Item>
+        {data.map((member) => {
+          return (
+            <>
+              {member.user_name}
+              <Form.Item
+                name="email"
+                label="您的信箱"
+                rules={[
+                  {
+                    type: "email",
+                    message: "這不是正確的信箱格式",
+                  },
+                  {
+                    required: true,
+                    message: "請輸入你的信箱",
+                  },
+                ]}
+              >
+                <Input defaultValue={member.user_name} />
+              </Form.Item>
 
-        <Form.Item
-          name="password"
-          label="您的密碼"
-          rules={[
-            {
-              required: true,
-              message: "請輸入你的密碼",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password />
-        </Form.Item>
+              <Form.Item
+                name="password"
+                label="您的密碼"
+                rules={[
+                  {
+                    required: true,
+                    message: "請輸入你的密碼",
+                  },
+                ]}
+                hasFeedback
+              >
+                <Input.Password />
+              </Form.Item>
 
-        <Form.Item
-          name="confirm"
-          label="再次輸入密碼"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "請確認你的密碼",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error("密碼不相同，請確認"));
-              },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
+              <Form.Item
+                name="confirm"
+                label="再次輸入密碼"
+                dependencies={["password"]}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "請確認你的密碼",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error("密碼不相同，請確認"));
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
 
-        <Form.Item
-          name="gender"
-          label="性別"
-          rules={[
-            {
-              required: true, message: "請選擇性別"
-            },
-          ]}
-        >
-          <Select placeholder="請選擇" onChange={onGenderChange} allowClear>
-            <Option value="male">男</Option>
-            <Option value="female">女</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="phone"
-          label="聯繫號碼"
-          rules={[{ required: true, message: "請輸入聯繫號碼" }]}
-        >
-          <Input style={{ width: "100%" }} />
-        </Form.Item>
+              <Form.Item
+                name="gender"
+                label="性別"
+                rules={[
+                  {
+                    required: true,
+                    message: "請選擇性別",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="請選擇"
+                  onChange={onGenderChange}
+                  defaultValue={member.gender}
+                  allowClear
+                >
+                  <Option value="1">男</Option>
+                  <Option value="0">女</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name="phone"
+                label="聯繫號碼"
+                rules={[{ required: true, message: "請輸入聯繫號碼" }]}
+              >
+                <Input style={{ width: "100%" }} defaultValue={member.phone} />
+              </Form.Item>
 
-        <Form.Item label="地址">
-
-          <Form.Item
-            name={["address", "county"]}
-            style={{ display: 'inline-block' }}
-            rules={[{ required: true, message: "請選擇縣市" }]}
-          >
-            <Select placeholder="請選擇縣市">
-              <Option value="1">台北</Option>
-              <Option value="2">新北</Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name={["address", "dist"]}
-            style={{ display: 'inline-block' }}
-            rules={[{ required: true, message: "請選擇鄉鎮市區" }]}
-          >
-            <Select placeholder="請選擇鄉鎮市區">
-              <Option value="1">淡水</Option>
-              <Option value="2">石門</Option>
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name={["address", "street"]}
-            rules={[{ required: true, message: "請填寫地址" }]}
-          >
-            <Input
-              style={{
-                width: "100%",
-              }}
-              placeholder="請填寫地址"
-            />
-          </Form.Item>
-        </Form.Item>
+              <Form.Item label="地址">
+                <Form.Item
+                  name={["address", "street"]}
+                  rules={[{ required: true, message: "請填寫地址" }]}
+                >
+                  <Input
+                    style={{
+                      width: "100%",
+                    }}
+                    placeholder="請填寫地址"
+                    defaultValue={member.address}
+                  />
+                </Form.Item>
+              </Form.Item>
+            </>
+          );
+        })}
+       
 
         <Form.Item {...tailFormItemLayout}>
           <Space>
