@@ -9,7 +9,10 @@ import {
 } from "antd";
 
 import React from "react";
-import {useForm} from 'react-hook-form'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../utils/config";
+import { useForm } from 'react-hook-form'
 import "antd/dist/antd.less";
 const { Option } = Select;
 const { Title } = Typography;
@@ -22,8 +25,8 @@ const formItemLayout = {
     sm: {
       span: 8,
     },
-    lg:{
-      span:8
+    lg: {
+      span: 8
     }
   },
   wrapperCol: {
@@ -33,8 +36,8 @@ const formItemLayout = {
     sm: {
       span: 8,
     },
-    lg:{
-      span:8
+    lg: {
+      span: 8
     }
   },
 };
@@ -49,12 +52,11 @@ const tailFormItemLayout = {
       span: 16,
       offset: 8,
     },
-    lg:{
-      span:8
+    lg: {
+      span: 8
     },
   },
 };
-
 
 
 const MemberProfile = () => {
@@ -71,7 +73,24 @@ const MemberProfile = () => {
         return;
     }
   };
+  //-----後端連線--------------------------------------
 
+  const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
+  console.log(data)
+
+  useEffect(() => {
+    let getMemberInfo = async () => {
+      //http://localhost:3002/api/memberInfo
+      //http://localhost:3002
+      let response = await axios.get(`${API_URL}/memberInfo`);
+      setData(response.data);
+    };
+    getMemberInfo();
+  }, []);
+
+  
+//-------------------------------------------------------------------
   return (
     <>
       <Divider style={{ marginBottom: 60 }}>
@@ -82,7 +101,7 @@ const MemberProfile = () => {
             marginTop: 10,
           }}
         >
-          會員資料
+          會員資料 {data.user_name}
         </Title>
       </Divider>
       <Form {...formItemLayout} form={form}>
@@ -100,7 +119,7 @@ const MemberProfile = () => {
             },
           ]}
         >
-          <Input />
+          <Input defaultValue={data.user_name} />
         </Form.Item>
 
         <Form.Item
@@ -145,7 +164,7 @@ const MemberProfile = () => {
           label="性別"
           rules={[
             {
-              required: true,
+              required: true, message: "請選擇性別"
             },
           ]}
         >
@@ -163,29 +182,29 @@ const MemberProfile = () => {
         </Form.Item>
 
         <Form.Item label="地址">
-          
-            <Form.Item
-              name={["address", "county"]}
-              style= {{display:'inline-block'}}
-              rules={[{ required: true, message: "請選擇縣市" }]}
-            >
-              <Select placeholder="請選擇縣市">
-                <Option value="1">台北</Option>
-                <Option value="2">新北</Option>
-              </Select>
-            </Form.Item>
 
-            <Form.Item
-              name={["address", "dist"]}
-              style= {{display:'inline-block'}}
-              rules={[{ required: true, message: "請選擇鄉鎮市區" }]}
-            >
-              <Select placeholder="請選擇鄉鎮市區">
-                <Option value="1">淡水</Option>
-                <Option value="2">石門</Option>
-              </Select>
-            </Form.Item>
-          
+          <Form.Item
+            name={["address", "county"]}
+            style={{ display: 'inline-block' }}
+            rules={[{ required: true, message: "請選擇縣市" }]}
+          >
+            <Select placeholder="請選擇縣市">
+              <Option value="1">台北</Option>
+              <Option value="2">新北</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name={["address", "dist"]}
+            style={{ display: 'inline-block' }}
+            rules={[{ required: true, message: "請選擇鄉鎮市區" }]}
+          >
+            <Select placeholder="請選擇鄉鎮市區">
+              <Option value="1">淡水</Option>
+              <Option value="2">石門</Option>
+            </Select>
+          </Form.Item>
+
           <Form.Item
             name={["address", "street"]}
             rules={[{ required: true, message: "請填寫地址" }]}

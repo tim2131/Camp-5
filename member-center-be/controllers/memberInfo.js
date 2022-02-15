@@ -1,8 +1,8 @@
 // /controllers/stock
 const memberInfo = require("../models/personalInfo.js");
 
-let getAll = async (req, res, next) => {
-  let data = await memberInfo.getAll();
+let asyncUserData = async (req, res, next) => {
+  let data = await memberInfo.getUserData();
   // res.send ==> 純文字
   // res.render ==> server-side render 會去找樣板
   res.json(data);
@@ -10,5 +10,5 @@ let getAll = async (req, res, next) => {
 
 
 module.exports = {
-  getAll,
+  asyncUserData,
 };
