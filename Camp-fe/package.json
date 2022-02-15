@@ -39,6 +39,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
   },
   "devDependencies": {
     "eslint-config-react-app": "^7.0.0",
@@ -48,5 +49,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1"
+=======
+>>>>>>> e4200f2021534cc4ff77eea73196d6c4d40f40f7
   }
 }
