@@ -35,28 +35,27 @@ let FileStore = require("session-file-store")(expressSession);
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
-app.use((req, res, next) => {
-
-    res.send("Hello Middleware");
-    // res.render("index", {
-    //   stocks: ["台積電", "長榮", "聯發科"],
-    // });
-    // 有SSR的時候使用
-});
 
 app.use((req, res, next) => {
     console.log("這是一個沒有用的中間件");
     // throw new Error("故意製造的錯誤");
-
   next();
 });
 
+// -----------------------------------------------------------------
+let memberInfoRouter = require("./routers/member");
+app.use("/api/memberInfo", memberInfoRouter);
+
+
+
+
+//-------------------------------------------------------------------
 app.use((req, res, next) => {
   console.log("在所有路由中間件的後面 -> 404");
   res.status(404).send("Not Found");
 });
 app.use((req, res, next) => {
- res.send("Hello Middleware");
+//  res.send("Hello Middleware");
 });
 
 // 錯誤中間件：放在所有中間件的後面
