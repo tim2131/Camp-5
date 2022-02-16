@@ -18,12 +18,11 @@ import { useForm } from 'react-hook-form'
 import "antd/dist/antd.less";
 const { Option } = Select;
 const { Title } = Typography;
-
 const { MonthPicker } = DatePicker;
 
 const dateFormat = "YYYY-MM-DD";
 
-
+//-------表格RWD縮放---------------------
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -80,7 +79,7 @@ const MemberProfile = () => {
         return;
     }
   };
-  //-----後端連線--------------------------------------
+  //-----後端連線----得到資料----------------------------------
 
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
@@ -92,18 +91,20 @@ const MemberProfile = () => {
       //http://localhost:3002
       let res = await axios.get(`${API_URL}/memberInfo`);
       setData(res.data);
+      // console.log(res.data[0].name)
     };
     getMemberInfo();
   }, []);
+//------------------------------------------------------------------------
 
   
-//-------------------------------------------------------------------
+//----------日期相關---------------------------------------------------------
   const config = {
     rules: [
       {
         type: "object",
         required: true,
-        message: "Please select time!",
+        message: "請選擇日期",
       },
     ],
   };
@@ -115,6 +116,20 @@ const MemberProfile = () => {
       'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
     };
   }
+
+//-------button submit---------------------------------------------------------------------
+// function handleChange(e) {
+//   setData({ ...data, [e.target.name]: e.target.value });
+// }
+// async function handleSubmit(e) {
+//   e.preventDefault();
+//   try {
+//     let response = await axios.post(`${API_URL}/auth/register`, data);
+//     console.log(response.data);
+//   } catch (e) {
+//     console.error("error", e.response.data);
+//   }
+// }
 
   return (
     <>
@@ -129,7 +144,7 @@ const MemberProfile = () => {
           會員資料
         </Title>
       </Divider>
-      <Form {...formItemLayout} form={form} onFinish={onFinish}>
+      <Form {...formItemLayout} form={form} onFinish={onFinish} initialValues={{name:'tannt'}}>
         {data.map((member) => {
           return (
             <div key={member.id}>
@@ -143,7 +158,7 @@ const MemberProfile = () => {
                   },
                 ]}
               >
-                <Input defaultValue={member.name} />
+                <Input  />
               </Form.Item>
               <Form.Item
                 name="email"
@@ -251,7 +266,9 @@ const MemberProfile = () => {
 
         <Form.Item {...tailFormItemLayout}>
           <Space>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" 
+            // onClick={handleSubmit}
+            >
               送出
             </Button>
             <Button>取消</Button>
