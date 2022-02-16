@@ -96,17 +96,13 @@ const MemberProfile = () => {
 
   useEffect(() => { getMemberInfo(); }, []);
   //------------------------------------------------------------------------
-  console.log(data)
-  console.log(init)
-  const initValue = data.map(x => x);
-  // const initValue= data.map((initV) => {
-  //   return (
-  //     <>
-  //     {initV.name}
-  //     </>
-  //   )} )
-  console.log(initValue[0])
-
+  const onFinish = (fieldsValue) => {
+    // Should format date value before submit.
+    const values = {
+      ...fieldsValue,
+      'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
+    };
+  }
   //----------日期相關---------------------------------------------------------
   const config = {
     rules: [
@@ -118,27 +114,20 @@ const MemberProfile = () => {
     ],
   };
 
-  const onFinish = (fieldsValue) => {
-    // Should format date value before submit.
-    const values = {
-      ...fieldsValue,
-      'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
-    };
-  }
 
-  //-------button submit---------------------------------------------------------------------
-  // function handleChange(e) {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // }
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     let response = await axios.post(`${API_URL}/auth/register`, data);
-  //     console.log(response.data);
-  //   } catch (e) {
-  //     console.error("error", e.response.data);
-  //   }
-  // }
+  //-------button submit------送資料給後端---------------------------------------------------
+  function handleChange(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      let response = await axios.post(`${API_URL}/auth/register`, data);
+      console.log(response.data);
+    } catch (e) {
+      console.error("error", e.response.data);
+    }
+  }
 
   return (
     <>
@@ -155,7 +144,11 @@ const MemberProfile = () => {
       </Divider>
       {data.map((member) => {
         return (
-          <Form {...formItemLayout} form={form} onFinish={onFinish} initialValues={{
+          <Form {...formItemLayout} 
+          form={form} 
+          onFinish={onFinish} 
+          key={member.id}
+          initialValues={{
             email: member.user_name,
             name: member.name,
             gender:member.gender,
@@ -165,7 +158,6 @@ const MemberProfile = () => {
             address:member.address,
           }}
           >
-            <div key={member.id}>
               <Form.Item
                 name={"name"}
                 label="名字"
@@ -176,7 +168,7 @@ const MemberProfile = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input onChange={handleChange} />
               </Form.Item>
               <Form.Item
                 name="email"
@@ -192,7 +184,7 @@ const MemberProfile = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input onChange={handleChange} />
               </Form.Item>
 
               <Form.Item
@@ -206,7 +198,7 @@ const MemberProfile = () => {
                 ]}
                 hasFeedback
               >
-                <Input.Password />
+                <Input.Password  onChange={handleChange}/>
               </Form.Item>
 
               <Form.Item
@@ -229,7 +221,7 @@ const MemberProfile = () => {
                   }),
                 ]}
               >
-                <Input.Password />
+                <Input.Password  onChange={handleChange}/>
               </Form.Item>
 
               <Form.Item
@@ -252,8 +244,8 @@ const MemberProfile = () => {
                   <Option value="0">女</Option>
                 </Select>
               </Form.Item>
-              <Form.Item name="datePicker" label="DatePicker" {...config}>
-                <DatePicker />
+              <Form.Item name="datePicker" label="您的生日" {...config}>
+                <DatePicker onChange={handleChange} />
               </Form.Item>
 
               <Form.Item
@@ -261,7 +253,7 @@ const MemberProfile = () => {
                 label="聯繫號碼"
                 rules={[{ required: true, message: "請輸入聯繫號碼" }]}
               >
-                <Input style={{ width: "100%" }} />
+                <Input style={{ width: "100%" }} onChange={handleChange}/>
               </Form.Item>
 
               <Form.Item label="地址">
@@ -274,18 +266,19 @@ const MemberProfile = () => {
                       width: "100%",
                     }}
                     placeholder="請填寫地址"
+                    onChange={handleChange}
                     
                   />
                 </Form.Item>
               </Form.Item>
-            </div>
+            
             );
        
 
             <Form.Item {...tailFormItemLayout}>
               <Space>
                 <Button type="primary" htmlType="submit"
-                // onClick={handleSubmit}
+                onClick={handleSubmit}
                 >
                   送出
                 </Button>
