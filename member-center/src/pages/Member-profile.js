@@ -83,22 +83,31 @@ const MemberProfile = () => {
 
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
- 
+  const [init, setInit] = useState([])
 
-  useEffect(() => {
-    let getMemberInfo = async () => {
-      //http://localhost:3002/api/memberInfo
-      //http://localhost:3002
-      let res = await axios.get(`${API_URL}/memberInfo`);
-      setData(res.data);
-      // console.log(res.data[0].name)
-    };
-    getMemberInfo();
-  }, []);
-//------------------------------------------------------------------------
+  //在這邊一進來的時候就去資料庫抓檔案，但是data的初值應該還是空陣列
+  let getMemberInfo = async () => {
+    //http://localhost:3002/api/memberInfo
+    //http://localhost:3002
+    let res = await axios.get(`${API_URL}/memberInfo`);
+    setData(res.data);
+    // console.log(res.data[0].name)
+  };
 
-  
-//----------日期相關---------------------------------------------------------
+  useEffect(() => { getMemberInfo(); }, []);
+  //------------------------------------------------------------------------
+  console.log(data)
+  console.log(init)
+  const initValue = data.map(x => x);
+  // const initValue= data.map((initV) => {
+  //   return (
+  //     <>
+  //     {initV.name}
+  //     </>
+  //   )} )
+  console.log(initValue[0])
+
+  //----------日期相關---------------------------------------------------------
   const config = {
     rules: [
       {
@@ -108,7 +117,7 @@ const MemberProfile = () => {
       },
     ],
   };
- 
+
   const onFinish = (fieldsValue) => {
     // Should format date value before submit.
     const values = {
@@ -117,19 +126,19 @@ const MemberProfile = () => {
     };
   }
 
-//-------button submit---------------------------------------------------------------------
-// function handleChange(e) {
-//   setData({ ...data, [e.target.name]: e.target.value });
-// }
-// async function handleSubmit(e) {
-//   e.preventDefault();
-//   try {
-//     let response = await axios.post(`${API_URL}/auth/register`, data);
-//     console.log(response.data);
-//   } catch (e) {
-//     console.error("error", e.response.data);
-//   }
-// }
+  //-------button submit---------------------------------------------------------------------
+  // function handleChange(e) {
+  //   setData({ ...data, [e.target.name]: e.target.value });
+  // }
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   try {
+  //     let response = await axios.post(`${API_URL}/auth/register`, data);
+  //     console.log(response.data);
+  //   } catch (e) {
+  //     console.error("error", e.response.data);
+  //   }
+  // }
 
   return (
     <>
@@ -144,9 +153,18 @@ const MemberProfile = () => {
           會員資料
         </Title>
       </Divider>
-      <Form {...formItemLayout} form={form} onFinish={onFinish} initialValues={{name:'tannt'}}>
-        {data.map((member) => {
-          return (
+      {data.map((member) => {
+        return (
+          <Form {...formItemLayout} form={form} onFinish={onFinish} initialValues={{
+            email: member.user_name,
+            name: member.name,
+            gender:member.gender,
+            //日期TBD
+            datePicker:moment("2015-01-03", dateFormat),
+            phone: member.phone,
+            address:member.address,
+          }}
+          >
             <div key={member.id}>
               <Form.Item
                 name={"name"}
@@ -158,7 +176,7 @@ const MemberProfile = () => {
                   },
                 ]}
               >
-                <Input  />
+                <Input />
               </Form.Item>
               <Form.Item
                 name="email"
@@ -174,7 +192,7 @@ const MemberProfile = () => {
                   },
                 ]}
               >
-                <Input defaultValue={member.user_name} />
+                <Input />
               </Form.Item>
 
               <Form.Item
@@ -227,15 +245,15 @@ const MemberProfile = () => {
                 <Select
                   placeholder="請選擇"
                   onChange={onGenderChange}
-                  defaultValue={member.gender}
+                  
                   allowClear
                 >
                   <Option value="1">男</Option>
                   <Option value="0">女</Option>
                 </Select>
               </Form.Item>
-              <Form.Item name="date-picker" label="DatePicker" {...config}>
-                <DatePicker defaultValue={moment("2015-01-01", dateFormat)} />
+              <Form.Item name="datePicker" label="DatePicker" {...config}>
+                <DatePicker />
               </Form.Item>
 
               <Form.Item
@@ -243,12 +261,12 @@ const MemberProfile = () => {
                 label="聯繫號碼"
                 rules={[{ required: true, message: "請輸入聯繫號碼" }]}
               >
-                <Input style={{ width: "100%" }} defaultValue={member.phone} />
+                <Input style={{ width: "100%" }} />
               </Form.Item>
 
               <Form.Item label="地址">
                 <Form.Item
-                  name={["address", "street"]}
+                  name="address"
                   rules={[{ required: true, message: "請填寫地址" }]}
                 >
                   <Input
@@ -256,25 +274,31 @@ const MemberProfile = () => {
                       width: "100%",
                     }}
                     placeholder="請填寫地址"
-                    defaultValue={member.address}
+                    
                   />
                 </Form.Item>
               </Form.Item>
             </div>
-          );
-        })}
+            );
+       
 
-        <Form.Item {...tailFormItemLayout}>
-          <Space>
-            <Button type="primary" htmlType="submit" 
-            // onClick={handleSubmit}
-            >
-              送出
-            </Button>
-            <Button>取消</Button>
-          </Space>
-        </Form.Item>
-      </Form>
+            <Form.Item {...tailFormItemLayout}>
+              <Space>
+                <Button type="primary" htmlType="submit"
+                // onClick={handleSubmit}
+                >
+                  送出
+                </Button>
+                <Button>取消</Button>
+              </Space>
+            </Form.Item>
+          </Form>
+
+)})}
+
+      
+
+        
     </>
   );
 }
