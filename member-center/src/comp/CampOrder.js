@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar,Card } from "antd";
+import { List} from "antd";
 import { Link } from "react-router-dom";
 
 import "../App.less";
@@ -83,12 +83,10 @@ const CampOrder = () => {
     1: "主打",
     2: "促銷",
   }
-
   const tagcolor = {
     1: "tagStar",
     2: "tag",
   };
-
   const orderStatus = {
     1: "未完成",
     2: "完成",
@@ -99,6 +97,8 @@ const CampOrder = () => {
     2: "statusTagDone",
     3: "statusTagCancel",
   };
+
+
 
   return (
     <List

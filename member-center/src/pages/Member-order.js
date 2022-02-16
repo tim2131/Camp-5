@@ -1,11 +1,7 @@
 import {
-  Form,
   Select,
-
   Typography,
-
   Divider,
-
   Tabs,
 } from "antd";
 
@@ -27,8 +23,6 @@ function callback(key) {
 // ---------------for Tabs end---------------
 
 const MemberOrder = () => {
-
-
 
   return (
     <>

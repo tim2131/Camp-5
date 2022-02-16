@@ -122,7 +122,7 @@ const MemberProfile = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      let response = await axios.post(`${API_URL}/auth/register`, data);
+      let response = await axios.post(`${API_URL}/memberInfo`, data);
       console.log(response.data);
     } catch (e) {
       console.error("error", e.response.data);
