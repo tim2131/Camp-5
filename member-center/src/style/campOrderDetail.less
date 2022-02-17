@@ -1,0 +1,127 @@
+
+
+@width: 200px;
+@tagWidth: 85px;
+@tagWordTop: 25px;
+@tagWordLeft: 20px;
+@tagWordSize: 11px;
+// --------pic small for product and camp--------------------------------------------
+.orderPicBox {
+  position: relative;
+  width: @width;
+  height: @width;
+  margin:0 auto;
+}
+.list_item {
+  width: @width;
+  height: @width;
+  overflow: hidden;
+  position: relative;
+  clip-path: polygon(
+    25% 0%,
+    100% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 100%,
+    0% 25%
+  );
+}
+.pic {
+  max-height: 100%;
+  object-fit: contain;
+  object-position: -50px;
+}
+
+.tag {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: #c15f2ebe transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+
+.tagStar {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+.tagNoStock {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: @tagWidth @tagWidth 0 0;
+  border-color: #c4c4c4 transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+.tagWord {
+  position: absolute;
+  top: @tagWordTop;
+  left: @tagWordLeft;
+  transform: rotate(-45deg);
+  color: #e9e3da;
+  font-size: @tagWordSize;
+  z-index: 100;
+}
+.subtitle{
+  position:relative;
+    color:@success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0 auto;
+    }
+.infobox{
+  position:relative;
+  margin: 0 auto;
+  width: 80%;
+}
+
+  @taglineheight: 3em;
+  @tagwidth: 5em;
+  .statusTagTBD {
+    border-radius: 0.5em;
+    background-color: @primary-color;
+    width: @tagwidth;
+    height: @taglineheight;
+    color: #fff5e2;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: @taglineheight;
+    position: relative;
+    margin: 0em auto -1.2em auto;
+  }
+  .statusTagDone {
+    border-radius: 0.5em;
+    background-color: @success-color;
+    width: @tagwidth;
+    height: @taglineheight;
+    color: #fff5e2;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: @taglineheight;
+    position: relative;
+    margin: 0 auto;
+  }
+  .statusTagCancel {
+    border-radius: 0.5em;
+    background-color: @rate-star-bg;
+    width: @tagwidth;
+    height: @taglineheight;
+    color: #fff5e2;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: @taglineheight;
+    position: relative;
+    margin: 0 auto;
+  }

@@ -65,3 +65,37 @@ const tagWords = {
   font-size: @tagWordSize;
   z-index: 100;
 }
+
+
+@width: 200px;
+@tagWidth: 85px;
+@tagWordTop: 25px;
+@tagWordLeft: 20px;
+@tagWordSize: 11px;
+// --------pic small for product and camp--------------------------------------------
+.orderPicBox {
+  position: relative;
+  width: @width;
+  height: @width;
+}
+.list_item {
+  width: @width;
+  height: @width;
+  overflow: hidden;
+  position: relative;
+  clip-path: polygon(
+    25% 0%,
+    100% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 100%,
+    0% 25%
+  );
+}
+.pic {
+  max-height: 100%;
+  object-fit: contain;
+  object-position: -50px;
+}
