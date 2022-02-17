@@ -18,7 +18,7 @@ const data = [
         tag_status: "1",
         tent_type: "",
     },]
-    console.log(data.id)
+    // console.log(data.id)
 
 const OrderDetails = () => {
     return (
