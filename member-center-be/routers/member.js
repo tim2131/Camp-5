@@ -8,4 +8,5 @@ const memberInfo = require("../controllers/memberInfo.js");
 router.get("/", memberInfo.asyncUserData);
 
 
+
 module.exports = router;

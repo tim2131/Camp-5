@@ -21,26 +21,6 @@ const data = [
     console.log(data.id)
 
 const OrderDetails = () => {
-    const tagWords = {
-        1: "主打",
-        2: "促銷",
-      }
-    
-      const tagcolor = {
-        1: "tagStar",
-        2: "tag",
-      };
-    
-      const orderStatus = {
-        1: "未完成",
-        2: "完成",
-        3: "取消",
-      };
-      const orderStatuscolor = {
-        1: "statusTagTBD",
-        2: "statusTagDone",
-        3: "statusTagCancel",
-      };
     return (
         <>
             <Divider style={{ marginBottom: 60 }}>

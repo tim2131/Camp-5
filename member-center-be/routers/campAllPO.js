@@ -4,8 +4,9 @@ const router = express.Router();
 const campAllPo = require("../controllers/campPO.js");
 
 // RESTful API 的列表
-// 前端收資料的網址
-router.get("/", campAllPo.asyncCampOrder);
+// 後端資料的網址
+router.post("/", campAllPo.asyncCampOrder);
+// router.get("/:stockId", stockController.getPriceByCode);
 
 
 module.exports = router;

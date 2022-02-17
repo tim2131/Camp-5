@@ -83,8 +83,6 @@ const MemberProfile = () => {
 
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
-  const [init, setInit] = useState([])
-
   //在這邊一進來的時候就去資料庫抓檔案，但是data的初值應該還是空陣列
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
@@ -142,156 +140,143 @@ const MemberProfile = () => {
           會員資料
         </Title>
       </Divider>
+      {error && <div>{error}</div>}
       {data.map((member) => {
         return (
-          <Form {...formItemLayout} 
-          form={form} 
-          onFinish={onFinish} 
-          key={member.id}
-          initialValues={{
-            email: member.user_name,
-            name: member.name,
-            gender:member.gender,
-            //日期TBD
-            datePicker:moment("2015-01-03", dateFormat),
-            phone: member.phone,
-            address:member.address,
-          }}
+          <Form
+            {...formItemLayout}
+            form={form}
+            onFinish={onFinish}
+            key={member.id}
+            initialValues={{
+              email: member.user_name,
+              name: member.name,
+              gender: member.gender,
+              //日期TBD
+              datePicker: moment("2015-01-03", dateFormat),
+              phone: member.phone,
+              address: member.address,
+            }}
           >
-              <Form.Item
-                name={"name"}
-                label="名字"
-                rules={[
-                  {
-                    required: true,
-                    message: "請輸入姓名",
-                  },
-                ]}
-              >
-                <Input onChange={handleChange} />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                label="您的信箱"
-                rules={[
-                  {
-                    type: "email",
-                    message: "這不是正確的信箱格式",
-                  },
-                  {
-                    required: true,
-                    message: "請輸入你的信箱",
-                  },
-                ]}
-              >
-                <Input onChange={handleChange} />
-              </Form.Item>
+            <Form.Item
+              name={"name"}
+              label="名字"
+              rules={[
+                {
+                  required: true,
+                  message: "請輸入姓名",
+                },
+              ]}
+            >
+              <Input onChange={handleChange} />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="您的信箱"
+              rules={[
+                {
+                  type: "email",
+                  message: "這不是正確的信箱格式",
+                },
+                {
+                  required: true,
+                  message: "請輸入你的信箱",
+                },
+              ]}
+            >
+              <Input onChange={handleChange} />
+            </Form.Item>
 
-              <Form.Item
-                name="password"
-                label="您的密碼"
-                rules={[
-                  {
-                    required: true,
-                    message: "請輸入你的密碼",
+            <Form.Item
+              name="password"
+              label="您的密碼"
+              rules={[
+                {
+                  required: true,
+                  message: "請輸入你的密碼",
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password onChange={handleChange} />
+            </Form.Item>
+
+            <Form.Item
+              name="confirm"
+              label="再次輸入密碼"
+              dependencies={["password"]}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: "請確認你的密碼",
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error("密碼不相同，請確認"));
                   },
-                ]}
-                hasFeedback
-              >
-                <Input.Password  onChange={handleChange}/>
-              </Form.Item>
+                }),
+              ]}
+            >
+              <Input.Password onChange={handleChange} />
+            </Form.Item>
 
+            <Form.Item
+              name="gender"
+              label="性別"
+              rules={[
+                {
+                  required: true,
+                  message: "請選擇性別",
+                },
+              ]}
+            >
+              <Select placeholder="請選擇" onChange={onGenderChange} allowClear>
+                <Option value="1">男</Option>
+                <Option value="0">女</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item name="datePicker" label="您的生日" {...config}>
+              <DatePicker onChange={handleChange} />
+            </Form.Item>
+
+            <Form.Item
+              name="phone"
+              label="聯繫號碼"
+              rules={[{ required: true, message: "請輸入聯繫號碼" }]}
+            >
+              <Input style={{ width: "100%" }} onChange={handleChange} />
+            </Form.Item>
+
+            <Form.Item label="地址">
               <Form.Item
-                name="confirm"
-                label="再次輸入密碼"
-                dependencies={["password"]}
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: "請確認你的密碼",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error("密碼不相同，請確認"));
-                    },
-                  }),
-                ]}
+                name="address"
+                rules={[{ required: true, message: "請填寫地址" }]}
               >
-                <Input.Password  onChange={handleChange}/>
+                <Input
+                  style={{
+                    width: "100%",
+                  }}
+                  placeholder="請填寫地址"
+                  onChange={handleChange}
+                />
               </Form.Item>
-
-              <Form.Item
-                name="gender"
-                label="性別"
-                rules={[
-                  {
-                    required: true,
-                    message: "請選擇性別",
-                  },
-                ]}
-              >
-                <Select
-                  placeholder="請選擇"
-                  onChange={onGenderChange}
-                  
-                  allowClear
-                >
-                  <Option value="1">男</Option>
-                  <Option value="0">女</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item name="datePicker" label="您的生日" {...config}>
-                <DatePicker onChange={handleChange} />
-              </Form.Item>
-
-              <Form.Item
-                name="phone"
-                label="聯繫號碼"
-                rules={[{ required: true, message: "請輸入聯繫號碼" }]}
-              >
-                <Input style={{ width: "100%" }} onChange={handleChange}/>
-              </Form.Item>
-
-              <Form.Item label="地址">
-                <Form.Item
-                  name="address"
-                  rules={[{ required: true, message: "請填寫地址" }]}
-                >
-                  <Input
-                    style={{
-                      width: "100%",
-                    }}
-                    placeholder="請填寫地址"
-                    onChange={handleChange}
-                    
-                  />
-                </Form.Item>
-              </Form.Item>
-            
-            );
-       
+            </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
               <Space>
-                <Button type="primary" htmlType="submit"
-                onClick={handleSubmit}
-                >
+                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
                   送出
                 </Button>
                 <Button>取消</Button>
               </Space>
             </Form.Item>
           </Form>
-
-)})}
-
-      
-
-        
+        );
+      })}
     </>
   );
 }
