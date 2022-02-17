@@ -106,7 +106,7 @@ const OrderDetails = () => {
           xs={{ span: 24, offset: 0 }}
           sm={{ span: 24, offset: 0 }}
           md={{ span: 24, offset: 0 }}
-          lg={{ span: 6, offset: 0 }}
+          lg={{ span: 24, offset: 0 }}
           xl={{ span: 6, offset: 0 }}
         >
           <div style={style}>
@@ -148,7 +148,7 @@ const OrderDetails = () => {
           xs={{ span: 24, offset: 0 }}
           sm={{ span: 24, offset: 0 }}
           md={{ span: 24, offset: 0 }}
-          lg={{ span: 12, offset: 0 }}
+          lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
           <div style={style}>
