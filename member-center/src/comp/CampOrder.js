@@ -26,9 +26,9 @@ const CampOrder = ({ data}) => {
     3: "取消",
   };
   const orderStatuscolor = {
-    1: "statusTagTBD",
-    2: "statusTagDone",
-    3: "statusTagCancel",
+    1: "statusTagTBD1",
+    2: "statusTagDone1",
+    3: "statusTagCancel1",
   };
 
   return (
@@ -53,14 +53,14 @@ const CampOrder = ({ data}) => {
             >
               <List.Item.Meta
                 title={
-                  <>
+                  <div>
                     <div className={orderStatuscolor[item.order_status]}>
                       {orderStatus[item.order_status]}
                     </div>
                     <a className="campTitle" href={item.href}>
                       {item.camp}
                     </a>
-                  </>
+                  </div>
                 }
                 description={
                   <>
