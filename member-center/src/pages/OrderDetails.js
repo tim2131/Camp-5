@@ -162,15 +162,15 @@ const OrderDetails = () => {
             </div>
             <div className="">
               <br />
-              <span className="subnote3">訂購人姓名:</span>
-              <span className="subname4">{data[0].name}</span>
+              <span className="subnote2">訂購人姓名:</span>
+              <span className="subname2">{data[0].name}</span>
               <br />
-              <span className="subnote3">訂購人電話:</span>
+              <span className="subnote2">訂購人電話:</span>
 
-              <span className="subname4">{data[0].phone}</span>
+              <span className="subname2">{data[0].phone}</span>
               <br />
-              <span className="subnote3">訂單成立時間</span>
-              <span className="subname4">{data[0].orderdate}</span>
+              <span className="subnote2">訂單成立時間</span>
+              <span className="subname2">{data[0].orderdate}</span>
               <br />
             </div>
 
