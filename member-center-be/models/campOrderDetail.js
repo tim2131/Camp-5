@@ -4,7 +4,7 @@ const connection = require("../utils/db");
 // 取得訂單會員資料
 async function getCampPOppl() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_order LEFT JOIN user ON camp_order.user_id=user.id WHERE camp_order.user_id=? AND camp_order.id=?",
+    "SELECT * FROM camp_order LEFT JOIN user ON camp_order.user_id=user.id LEFT JOIN coupon on coupon.id=camp_order.coupon WHERE camp_order.user_id=? AND camp_order.id=?",
     [1, 1]
   );
   console.log(data);
@@ -34,7 +34,7 @@ async function getCampPOTent() {
 // 取得訂單加購資料 
 async function getCampPOAct() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_order LEFT JOIN add_act_order ON camp_order.add_act_id=add_act_order.id LEFT JOIN add_act_orderdet ON add_act_orderdet.activity_order_id=add_act_order.id LEFT JOIN add_act_intro ON add_act_orderdet.activity_id=add_act_intro.id WHERE camp_order.id=?",
+    "SELECT * FROM camp_order LEFT JOIN add_act_order ON camp_order.add_act_id=add_act_order.id LEFT JOIN add_act_orderdet ON add_act_orderdet.activity_order_id=add_act_order.id LEFT JOIN add_act_intro ON add_act_orderdet.activity_id=add_act_intro.id  WHERE camp_order.id=?",
     [1]
   );
   console.log(data);

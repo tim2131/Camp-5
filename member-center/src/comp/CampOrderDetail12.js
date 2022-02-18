@@ -144,7 +144,54 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
           <div className="subtitle2">訂單金額</div>
         </Divider>
         <br />
-        <div></div>
+        {/* //----總金額資訊----------------- */}
+        <div className="totalBlockEnd">
+          <div className="totalItemBlock">
+            <div className="totalItem">營地每晚單價(共4晚)</div>
+            <div className="totalItem">營地折扣完單價(共1晚)</div>
+            {act.map((item) => (
+              <>
+                <div className="totalItem">
+                  {item.name}(共{item.number_people}人)
+                </div>
+              </>
+            ))}
+
+            <div className="totalItem">折扣碼</div>
+            <div className="totalItem">折扣總額</div>
+            <Divider />
+            <div className="totalItemE">訂單總額</div>
+          </div>
+
+          <div className="totalmoney">
+            {/* TODO: 帳篷沒有單價 */}
+            {ppl.map((item) => (
+              <>
+                <div className="total">{item.item}1</div>
+                <div className="total">{item.item}2</div>
+              </>
+            ))}
+            {act.map((item) => (
+              <>
+                <div className="total">{item.price}3</div>
+              </>
+            ))}
+
+            {ppl.map((item) => (
+              <>
+                <div className="total">-{item.discount}</div>
+              </>
+            ))}
+
+            <div className="total">-100(用算的)</div>
+            <Divider />
+            {ppl.map((item) => (
+              <>
+                <div className="totalE">{item.total}</div>
+              </>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );
