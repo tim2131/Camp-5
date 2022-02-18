@@ -1,15 +1,12 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List } from "antd";
+import { Divider, Typography } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
-import { useState, useEffect } from "react";
-import { API_URL } from "../utils/config";
-import axios from "axios";
-import { ERR_MSG } from "../utils/error";
+
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 
-const OrderDetails6 = ({data}) => {
+const OrderDetails6 = ({ data }) => {
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -29,8 +26,8 @@ const OrderDetails6 = ({data}) => {
     2: "已付款",
     3: "已取消",
     4: "已完成",
-    };
-  
+  };
+  var moment = require("moment");
   return (
     <>
       {data.map((item) => (
@@ -40,9 +37,10 @@ const OrderDetails6 = ({data}) => {
           </li> */}
           <div style={style}>
             <div className={orderStatuscolor[item.orderstatus_id]}>
-              {orderStatus[item.status]}
+              {item.status}
             </div>
             <Divider />
+            {/* TODO:tag沒有定義 */}
             <div className="orderPicBox">
               <div className="tagWord">{tagWords[item.orderstatus_id]}</div>
               <div className={tagcolor[item.orderstatus_id]}></div>
@@ -60,11 +58,15 @@ const OrderDetails6 = ({data}) => {
             <div className="infobox">
               <span className="subnote">入住時間</span>
               <br />
-              <span className="subname">{item.orderdate_start}</span>
+              <span className="subname">
+                {moment(`${item.orderdate_start}`).format("YYYY-MM-DD")}
+              </span>
               <br />
               <span className="subnote">退房時間</span>
               <br />
-              <span className="subname">{item.orderdate_end}</span>
+              <span className="subname">
+                {moment(`${item.orderdate_end}`).format("YYYY-MM-DD")}
+              </span>
               <br />
               <span className="subnote">地址</span>
               <br />

@@ -153,7 +153,7 @@ const MemberProfile = () => {
               name: member.name,
               gender: member.gender,
               //日期TBD
-              datePicker: moment("2015-01-03", dateFormat),
+              datePicker:moment(`${member.bday}`, dateFormat),
               phone: member.phone,
               address: member.address,
             }}
