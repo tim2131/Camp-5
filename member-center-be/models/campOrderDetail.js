@@ -14,14 +14,14 @@ async function getCampPOppl() {
 // 取得訂單營地資料
 async function getCampPOCamp() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.id WHERE user_id=? AND camp_order.id=?",
+    "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.id LEFT JOIN camp_cate1 ON camp.campcate1_id=camp_cate1.id LEFT JOIN camp_county ON camp.campcounty_id=camp_county.id LEFT JOIN camp_owner ON camp.campowner_id=camp_owner.id LEFT JOIN camp_pic ON camp.id=camp_pic.camp_id WHERE user_id=? AND camp_order.id=?",
     [1, 1]
   );
   console.log(data);
   console.log(data[0].id);
   return data;
 }
-// 取得訂單帳篷資料 還沒有join tent
+// 取得訂單帳篷資料 
 async function getCampPOTent() {
   let [data, fields] = await connection.execute(
     "SELECT * FROM camp_orderdet LEFT JOIN camp_order ON camp_orderdet.camporder_id=camp_order.id JOIN tent ON camp_orderdet.tent_id=tent.id LEFT JOIN tent_cate1 on tent.tentcate_id=tent_cate1.id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id WHERE camporder_id=?",

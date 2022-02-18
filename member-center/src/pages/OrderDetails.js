@@ -2,6 +2,11 @@ import React from "react";
 import { Col, Row, Divider, Typography, Card, List } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
+import { useState, useEffect } from "react";
+import { API_URL } from "../utils/config";
+import axios from "axios";
+import { ERR_MSG } from "../utils/error";
+import OrderDetails6 from "../comp/CampOrderDetail6";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
@@ -80,12 +85,33 @@ const OrderDetails = () => {
     1: "statusTagTBD",
     2: "statusTagDone",
     3: "statusTagCancel",
+    4: "statusTagDone",
   };
   const orderStatus = {
-    1: "未完成",
-    2: "完成",
-    3: "取消",
+    1: "未付款",
+    2: "已付款",
+    3: "已取消",
+    4: "已完成",
   };
+  //----------後端----------------------------------------------
+  const [data, setData] = useState([]);
+  async function getCampPOCamp(e) {
+    try {
+      let result = await axios.post(`${API_URL}/campPOCamp`, [1, 1], {
+        withCredentials: true,
+      });
+      console.log(result.data);
+      setData(result.data);
+
+      
+    } catch (e) {
+      console.error("錯誤");
+    }
+  }
+  useEffect(() => {
+    getCampPOCamp();
+  }, []);
+  console.log(data);
 
   return (
     <>
@@ -109,39 +135,8 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 6, offset: 0 }}
         >
-          <div style={style}>
-            <div className={orderStatuscolor[data[0].order_status]}>
-              {orderStatus[data[0].order_status]}
-            </div>
-            <Divider />
-            <div className="orderPicBox">
-              <div className="tagWord">{tagWords[data[0].order_status]}</div>
-              <div className={tagcolor[data[0].order_status]}></div>
-              <div className="list_item">
-                <img className="pic" src={data[0].pic} alt="camp-pic" />
-              </div>
-            </div>
-
-            <div className="subtitle">{data[0].camp}</div>
-            <div className="infobox">
-              <span className="subnote">入住時間</span>
-              <br />
-              <span className="subname">{data[0].orderdate_start}</span>
-              <br />
-              <span className="subnote">退房時間</span>
-              <br />
-              <span className="subname">{data[0].orderdate_end}</span>
-              <br />
-              <span className="subnote">地址</span>
-              <br />
-              <span className="subname">{data[0].add}</span>
-              <br />
-              <span className="subnote">電話</span>
-              <br />
-              <span className="subname">{data[0].phone}</span>
-              <br />
-            </div>
-          </div>
+          
+          <OrderDetails6 data={data} />
         </Col>
         <Col
           className="gutter-row"
@@ -151,157 +146,7 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <div style={style}>
-            <Divider orientation="left">
-              <div className="subtitle2">訂購人資訊</div>
-            </Divider>
-            <div className="btnclaster">
-              <button className="orderlinks">取消訂單</button>
-              <button className="orderlinks">填寫評價</button>
-              <button className="orderlinks">聯繫客服</button>
-            </div>
-            <div className="">
-              <br />
-              <span className="subnote2">訂購人姓名:</span>
-              <span className="subname2">{data[0].name}</span>
-              <br />
-              <span className="subnote2">訂購人電話:</span>
-
-              <span className="subname2">{data[0].phone}</span>
-              <br />
-              <span className="subnote2">訂單成立時間</span>
-              <span className="subname2">{data[0].orderdate}</span>
-              <br />
-            </div>
-
-            <Divider orientation="left">
-              <div className="subtitle2">訂單詳細資訊</div>
-            </Divider>
-            <br />
-            {/* 這裡要用push */}
-            <List itemLayout="vertical" size="small">
-              <List.Item
-                key={tentData[0].tent_name}
-                extra={
-                  <img
-                    width={250}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                }
-              >
-                <List.Item.Meta
-                  title={
-                    <>
-                      <div className="subname3">{tentData[0].tent_name}</div>
-                    </>
-                  }
-                  description={
-                    <>
-                      <span className="subnote2">帳篷類型</span> <br />
-                      <span className="subname2">{tentData[0].tent_type}</span>
-                      <br />
-                      <span className="subnote2">帳篷數</span> <br />
-                      <span className="subname2">{tentData[0].tent_num}</span>
-                    </>
-                  }
-                />
-              </List.Item>
-            </List>
-            {/* 這裡要用push */}
-            <List itemLayout="vertical" size="small">
-              <List.Item
-                key={tentData[0].tent_name}
-                extra={
-                  <img
-                    width={250}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                }
-              >
-                <List.Item.Meta
-                  title={
-                    <>
-                      <div className="subname3">{tentData[0].tent_name}</div>
-                    </>
-                  }
-                  description={
-                    <>
-                      <span className="subnote2">帳篷類型</span> <br />
-                      <span className="subname2">{tentData[0].tent_type}</span>
-                      <br />
-                      <span className="subnote2">帳篷數</span> <br />
-                      <span className="subname2">{tentData[0].tent_num}</span>
-                    </>
-                  }
-                />
-              </List.Item>
-            </List>
-            <br />
-            <Divider orientation="left">
-              <div className="subtitle2">加購活動</div>
-            </Divider>
-            <br />
-            {/* 這裡要用push */}
-            <List className="" itemLayout="vertical" size="small">
-              <List.Item
-                key={data[0].add_act}
-                extra={
-                  <img
-                    width={250}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                }
-              >
-                <List.Item.Meta
-                  title={
-                    <>
-                      <div className="subname3">{data[0].add_act}</div>
-                    </>
-                  }
-                  description={
-                    <>
-                      <span className="subnote2">活動描述</span> <br />
-                      <span className="subname2">{tentData[1].tent_des}</span>
-                      <br />
-                      <span className="subnote2">加購人數</span> <br />
-                      <span className="subname2">{tentData[0].tent_num}</span>
-                      <br />
-                    </>
-                  }
-                />
-              </List.Item>
-            </List>
-            <Divider orientation="left">
-              <div className="subtitle2">訂單金額</div>
-            </Divider>
-            <br />
-            <div>
-              <div className="totalBlockEnd">
-                <div className="totalItemBlock">
-                  <div className="totalItem">營地每晚單價(4晚)</div>
-                  <div className="totalItem">營地折扣完單價(1晚)</div>
-                  <div className="totalItem">溫泉活動加購(4人)</div>
-                  <div className="totalItem">折扣碼</div>
-                  <div className="totalItem">折扣總額</div>
-                  <Divider />
-                  <div className="totalItemE">訂單總額</div>
-                </div>
-
-                <div className="totalmoney">
-                  <div className="total">{data[0].tent_unitPrice}</div>
-                  <div className="total">{data[0].tent_salePrice}</div>
-                  <div className="total">{data[0].act_total}</div>
-                  <div className="total">-{data[0].order_coupon}</div>
-                  <div className="total">-{data[0].order_discount}</div>
-                  <Divider />
-                  <div className="totalE">{data[0].order_total}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </Col>
       </Row>
     </>
