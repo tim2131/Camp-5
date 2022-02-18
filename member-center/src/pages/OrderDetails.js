@@ -67,6 +67,40 @@ const OrderDetails = () => {
     getCampPOPpl();
   }, []);
   console.log(ppl);
+  //----------後端-----getCampPOTent--------------------------
+  const [tent, setTent] = useState([]);
+  async function getCampPOTent(e) {
+    try {
+      let result = await axios.post(`${API_URL}/campPOTent`, [1], {
+        withCredentials: true,
+      });
+      console.log(result.data);
+      setTent(result.data);
+    } catch (e) {
+      console.error("錯誤");
+    }
+  }
+  useEffect(() => {
+    getCampPOTent();
+  }, []);
+  console.log(tent);
+  //----------後端-----getCampPOAct--------------------------
+  const [act, setAct] = useState([]);
+  async function getCampPOAct(e) {
+    try {
+      let result = await axios.post(`${API_URL}/campPOAct`, [1], {
+        withCredentials: true,
+      });
+      console.log(result.data);
+      setAct(result.data);
+    } catch (e) {
+      console.error("錯誤");
+    }
+  }
+  useEffect(() => {
+    getCampPOAct();
+  }, []);
+  console.log(act);
 
   return (
     <>
@@ -100,7 +134,7 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <OrderDetails12 ppl={ppl} />
+          <OrderDetails12 ppl={ppl} tent={tent} act={act} />
         </Col>
       </Row>
     </>

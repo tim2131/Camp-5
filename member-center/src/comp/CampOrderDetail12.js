@@ -10,7 +10,7 @@ const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 
-const OrderDetails12 = ({ ppl }) => {
+const OrderDetails12 = ({ ppl, tent, act }) => {
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -60,6 +60,91 @@ const OrderDetails12 = ({ ppl }) => {
           ))}
           <br />
         </div>
+        <Divider orientation="left">
+          <div className="subtitle2">訂單詳細資訊</div>
+        </Divider>
+        <br />
+        {tent.map((item) => (
+          <>
+            <List itemLayout="vertical" size="small">
+              <List.Item
+                key={item.id}
+                extra={
+                  <img
+                    width={250}
+                    alt="logo"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                  />
+                }
+              >
+                <List.Item.Meta
+                  title={
+                    <>
+                      <div className="subname3">{item.item}</div>
+                    </>
+                  }
+                  description={
+                    <>
+                      <span className="subnote2">帳篷類型</span> <br />
+                      <span className="subname2">{item.item}</span>
+                      <br />
+                      <span className="subnote2">帳篷數</span> <br />
+                      <span className="subname2">{item.item}</span>
+                    </>
+                  }
+                />
+              </List.Item>
+            </List>
+          </>
+        ))}
+        {/* //----tent資訊--end--------------- */}
+        <br />
+        <Divider orientation="left">
+          <div className="subtitle2">加購活動</div>
+        </Divider>
+        <br />
+        {/* //----加購資訊----------------- */}
+        {act.map((item) => (
+          <>
+            <List className="" itemLayout="vertical" size="small">
+              <List.Item
+                key={item.id}
+                extra={
+                  <img
+                    width={250}
+                    alt="logo"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                  />
+                }
+              >
+                <List.Item.Meta
+                  title={
+                    <>
+                      <div className="subname3">{item.name}</div>
+                    </>
+                  }
+                  description={
+                    <>
+                      <span className="subnote2">活動描述</span> <br />
+                      <span className="subname2">{item.intro}</span>
+                      <br />
+                      <span className="subnote2">加購人數</span> <br />
+                      <span className="subname2">{item.number_people}</span>
+                      <br />
+                    </>
+                  }
+                />
+              </List.Item>
+            </List>
+            {/* //----加購資訊--end--------------- */}
+          </>
+        ))}
+
+        <Divider orientation="left">
+          <div className="subtitle2">訂單金額</div>
+        </Divider>
+        <br />
+        <div></div>
       </div>
     </>
   );
