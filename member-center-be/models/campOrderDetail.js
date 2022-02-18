@@ -24,7 +24,7 @@ async function getCampPOCamp() {
 // 取得訂單帳篷資料 還沒有join tent
 async function getCampPOTent() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_orderdet LEFT JOIN camp_order ON camp_orderdet.camporder_id=camp_order.id WHERE camporder_id=?",
+    "SELECT * FROM camp_orderdet LEFT JOIN camp_order ON camp_orderdet.camporder_id=camp_order.id JOIN tent ON camp_orderdet.tent_id=tent.id LEFT JOIN tent_cate1 on tent.tentcate_id=tent_cate1.id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id WHERE camporder_id=?",
     [1]
   );
   console.log(data);
@@ -34,7 +34,7 @@ async function getCampPOTent() {
 // 取得訂單加購資料 
 async function getCampPOAct() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_order LEFT JOIN add_act_order ON camp_order.add_act_id=add_act_order.id WHERE camp_order.id=?",
+    "SELECT * FROM camp_order LEFT JOIN add_act_order ON camp_order.add_act_id=add_act_order.id LEFT JOIN add_act_orderdet ON add_act_orderdet.activity_order_id=add_act_order.id LEFT JOIN add_act_intro ON add_act_orderdet.activity_id=add_act_intro.id WHERE camp_order.id=?",
     [1]
   );
   console.log(data);
