@@ -47,7 +47,14 @@ let memberInfoRouter = require("./routers/member");
 app.use("/api/memberInfo", memberInfoRouter);
 let campAllPoRouter = require("./routers/campAllPO");
 app.use("/api/campAllPO", campAllPoRouter);
-
+let campPOpplRouter = require("./routers/campPODetail");
+app.use("/api/campPOppl", campPOpplRouter);
+let campPOCampRouter = require("./routers/campPODetailCamp");
+app.use("/api/campPOCamp", campPOCampRouter);
+let campPOTentRouter = require("./routers/campPODetailTent");
+app.use("/api/campPOTent", campPOTentRouter);
+let campPOActRouter = require("./routers/campPODetailAct");
+app.use("/api/campPOAct", campPOActRouter);
 
 
 

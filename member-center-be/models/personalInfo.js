@@ -16,6 +16,7 @@ async function getUserData(userId) {
   let [userData] = await connection.execute( "SELECT * FROM user WHERE id=?",[1]);
   console.log(userData);
   return userData;
+  
 }
 
 module.exports = {
