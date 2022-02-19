@@ -20,13 +20,13 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
   const [visible1, setvisible1] = useState(false);
   const [Cbtn, setCbtn] = useState(false);
 
-  //TODO: 送出
   const handleOk = (e) => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
       setvisible(false);
-  
+      //TODO: 送出更改SQL的句法，寫進評論
+      
     }, 1500);
   };
   const handleOkCANCEL = (e) => {
@@ -36,6 +36,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
       setloading(false);
       setvisible1(false);
       setCbtn(true)
+      //TODO: 送出更改SQL的句法，改camp order狀態
       
     }, 1500);
     

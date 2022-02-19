@@ -68,17 +68,7 @@ const tailFormItemLayout = {
 const MemberProfile = () => {
   const [form] = Form.useForm();
 
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue();
-        return;
-
-      case 'female':
-        form.setFieldsValue();
-        return;
-    }
-  };
+  
   //-----後端連線----得到資料----------------------------------
 
   const [error, setError] = useState(null);
@@ -89,7 +79,7 @@ const MemberProfile = () => {
     //http://localhost:3002
     let res = await axios.get(`${API_URL}/memberInfo`);
     setData(res.data);
-    // console.log(res.data[0].name)
+    console.log(res.data[0])
   };
 
   useEffect(() => { getMemberInfo(); }, []);
@@ -114,13 +104,26 @@ const MemberProfile = () => {
 
 
   //-------button submit------送資料給後端---------------------------------------------------
+  //根據值變動 更新data
   function handleChange(e) {
     setData({ ...data, [e.target.name]: e.target.value });
   }
+  const onGenderChange = (value) => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue();
+        return;
+
+      case 'female':
+        form.setFieldsValue();
+        return;
+    }
+  };
+  //TODO: once data is changed then error occurs
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      let response = await axios.post(`${API_URL}/memberInfo`, data);
+      let response = await axios.post(`${API_URL}/memberInfo1`, data);
       console.log(response.data);
     } catch (e) {
       console.error("error", e.response.data);
@@ -268,7 +271,7 @@ const MemberProfile = () => {
 
             <Form.Item {...tailFormItemLayout}>
               <Space>
-                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+                <Button type="primary" htmlType="submit"  onClick={handleSubmit()}>
                   送出
                 </Button>
                 <Button>取消</Button>

@@ -77,7 +77,13 @@ function App() {
           <Routes>
             <Route path="/profile" element={<MemberProfile />} />
             <Route path="/orders" element={<MemberOrder />} />
-            <Route path="/orderDetails" element={<OrderDetails/>}/>
+            
+
+            <Route path="/orderDetails/:stockId" element={<OrderDetails/>}>
+            {/* TODO: what's the currentPage for? */}
+               <Route path=":currentPage" element={<OrderDetails />} />
+            </Route>
+            
           </Routes>
         </Content>
       </Layout>

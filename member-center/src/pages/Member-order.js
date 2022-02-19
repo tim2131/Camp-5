@@ -19,35 +19,24 @@ function callback(key) {
 // ---------------for Tabs end---------------
 
 const MemberOrder = () => {
-  // const [data, setData] = useState([]);
-  // let getAllPO = async () => {
-  //   try {
-  //     let response = await axios.post(`${API_URL}/campAllPO`, data);
-  //     console.log(response.data);
-  //     console.log(response.data[0].id);
-  //     // setData(response.data);
-  //   } catch (e) {
-  //     console.error("error", e.response.data);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAllPO();
-  // }, []);
-  const data = [
-    {
-      id: "1",
-      camp: "綠色生活露營",
-      county: "桃園縣",
-      href: "/orderDetails",
-      pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-      orderdate_start: "2022/5/1",
-      orderdate_end: "2022/5/3",
-      order_status: "1",
-      tag_status: "1",
-      tent_type: "",
+  // TODO:setData會有錯誤
+  const [data, setData] = useState([]);
+   async function getAllPO (){
+    try {
+      let response = await axios.post(`${API_URL}/campAllPO`, data);
+      console.log(response.data);
+      console.log(response.data[0].id);
+      setData(response.data);
+    } catch (e) {
+      console.error("error");
     }
-  ];
+  };
+
+  useEffect(() => {
+    getAllPO();
+    
+  }, []);
+ 
   return (
     <>
       <Divider style={{ marginBottom: 60 }}>

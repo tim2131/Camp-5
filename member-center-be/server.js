@@ -45,6 +45,11 @@ app.use((req, res, next) => {
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");
 app.use("/api/memberInfo", memberInfoRouter);
+
+
+let memberUpdateRouter = require("./routers/member_update");
+app.use("/api/memberInfo1", memberUpdateRouter);
+
 let campAllPoRouter = require("./routers/campAllPO");
 app.use("/api/campAllPO", campAllPoRouter);
 

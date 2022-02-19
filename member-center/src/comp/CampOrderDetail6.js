@@ -47,6 +47,7 @@ const OrderDetails6 = ({ data }) => {
               <div className="list_item">
                 <img
                   className="pic"
+                  // TODO:src跟佩倩要
                   src={require(`../images/${item.img1}`)}
                   alt="camp-pic"
                 />

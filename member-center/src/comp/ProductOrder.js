@@ -4,79 +4,7 @@ import { List, Avatar } from "antd";
 import "../App.less";
 import "../style/campOrder.less";
 
-const data = [
-  {
-    id: "1",
-    camp: "綠色生活露營",
-    county: "桃園縣",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "1",
-    tag_status: "1",
-    tent_type: "",
-  },
-  {
-    id: "2",
-    camp: "綠色生dddddddd活露營",
-    county: "新北市",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "2",
-    tag_status: "2"
-  },
-  {
-    id: "3",
-    camp: "綠色綠色綠色生活露營",
-    county: "新北市",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "3",
-    tag_status: "3"
-  },
-  {
-    id: "4",
-    camp: "綠色生活露營",
-    county: "桃園縣",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "1",
-    tag_status: "1"
-  },
-  {
-    id: "5",
-    camp: "綠色生活露營",
-    county: "新北市",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "2",
-    tag_status: "2"
-  },
-  {
-    id: "6",
-    camp: "綠色生活露營",
-    county: "新北市",
-    href: "",
-    pic: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    orderdate_start: "2022/5/1",
-    orderdate_end: "2022/5/3",
-    order_status: "3",
-    tag_status: "3"
-  },
-];
-
-
-
-const ProductOrder = () => {
+const ProductOrder = (data) => {
 
   const tagWords = {
     1: "主打",
@@ -126,8 +54,8 @@ const ProductOrder = () => {
                 <div className={orderStatuscolor[item.order_status]}>
                   {orderStatus[item.order_status]}
                 </div>
-                <a className="campTitle" href={item.href}>
-                  {item.camp}
+                <a className="campTitle">
+                  {item.camp_note}
                 </a>
 
               </>
