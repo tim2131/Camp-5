@@ -4,9 +4,8 @@ const connection = require("../utils/db");
 // 取得全部資料
 async function getAllCamp() {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.id WHERE user_id=?",
+    "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.id LEFT JOIN camp_county ON camp.campcounty_id=camp_county.id WHERE user_id=?",
     [1]
-
   );
   
   console.log(data);

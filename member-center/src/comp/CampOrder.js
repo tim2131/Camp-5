@@ -1,8 +1,6 @@
 import React from "react";
 import { List} from "antd";
 import { Link } from "react-router-dom";
-import moment from "moment";
-
 import "../App.less";
 import "../style/campOrder.less";
 
@@ -43,40 +41,39 @@ const CampOrder = ({data}) => {
         },
         pageSize: 5,
       }}
-      renderItem={item => (
+      renderItem={(data) => (
         <Link to="/">
           <div className="list">
-          <List.Item
+            <List.Item
               actions={[]}
-              key={item.id}
+              key={data.id}
               //   extra={          }
             >
               <List.Item.Meta
                 title={
                   <div>
-                    <div className={orderStatuscolor[item.orderstatus_id]}>
-                      {orderStatus[item.orderstatus_id]}
+                    <div className={orderStatuscolor[data.orderstatus_id]}>
+                      {orderStatus[data.orderstatus_id]}
                     </div>
-                    <a className="campTitle" 
-                    href={item.href}
-                    >
-                      {item.camp_name}
+                    <a className="campTitle" href={data.href}>
+                      {data.camp_name}
                     </a>
                   </div>
                 }
                 description={
                   <>
                     <span className="campdate">
-                    {/* TODO:moment失敗 */}
-                    {item.orderdate_start}
-                    {/* {moment(`${item.orderdate_start}`, "YYYY-MM-DD")} */}
-                    </span>~
-                    <span className="campdate">{item.orderdate_end}</span>
+                     
+                      
+                      {data.orderdate_start}
+                      
+                    </span>
+                    ~<span className="campdate">{data.orderdate_end}</span>
                     <br />
-                    <span className="campdate">{item.campcounty_id}</span>
+                    <span className="campdate">{data.camp_county}</span>
                     <div className="orderlinkbox">
-                    {/* TODO: link連到指定PO */}
-                      <Link to="/"  >
+                      {/* TODO: link連到指定PO */}
+                      <Link to="/">
                         <button className="orderlinks" key="list-loadmore-edit">
                           訂單詳細
                         </button>
@@ -88,12 +85,14 @@ const CampOrder = ({data}) => {
 
               {/* --------------pic-------------------- */}
               <div className="orderPicBox">
-                <div className="tagWord">{tagWords[item.orderstatus_id]}</div>
-                <div className={tagcolor[item.orderstatus_id]}></div>
+                <div className="tagWord">{tagWords[data.orderstatus_id]}</div>
+                <div className={tagcolor[data.orderstatus_id]}></div>
                 <div className="list_item">
-                  <img className="pic" 
-                  // src={item.pic}
-                   alt="camp-pic" />
+                  <img
+                    className="pic"
+                    // src={item.pic}
+                    alt="camp-pic"
+                  />
                 </div>
               </div>
               {/* ----------------------------- */}
