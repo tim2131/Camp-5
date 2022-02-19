@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List,Modal, Button } from "antd";
+import { Col, Row, Divider, Typography, Card, List, Modal, Button,Result,Comment, Avatar, Form,Input } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
@@ -7,25 +7,42 @@ import { API_URL } from "../utils/config";
 import axios from "axios";
 import { ERR_MSG } from "../utils/error";
 // import {commentOnPop} from "./CommentOnCampop"
+import moment from 'moment';
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
+const { TextArea } = Input;
 
 const OrderDetails12 = ({ ppl, tent, act }) => {
 
   const [loading, setloading] = useState(false);
   const [visible, setvisible] = useState(false);
+  const [visible1, setvisible1] = useState(false);
+  const [Cbtn, setCbtn] = useState(false);
 
-//TODO: 送出
-const handleOk = (e) => {
+  //TODO: 送出
+  const handleOk = (e) => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
       setvisible(false);
-    }, 3000);
+  
+    }, 1500);
+  };
+  const handleOkCANCEL = (e) => {
+    setloading(true);
+
+    setTimeout(() => {
+      setloading(false);
+      setvisible1(false);
+      setCbtn(true)
+      
+    }, 1500);
+    
+    
   };
 
-// -----for thumbnail---------------------------------
+  // -----for thumbnail---------------------------------
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -46,7 +63,7 @@ const handleOk = (e) => {
     3: "已取消",
     4: "已完成",
   };
- 
+
 
   return (
     <>
@@ -55,10 +72,13 @@ const handleOk = (e) => {
           <div className="subtitle2">訂購人資訊</div>
         </Divider>
         <div className="btnclaster">
-          <button className="orderlinks"  onClick={() =>setvisible(true)} >
-         取消訂單
+
+          <button disabled={Cbtn} className="orderlinks" onClick={() => setvisible1(true)}  >
+            取消訂單
           </button>
-          <button className="orderlinks">填寫評價</button>
+
+
+          <button disabled={Cbtn} className="orderlinks" onClick={() => setvisible(true)}>填寫評價</button>
           <button className="orderlinks">聯繫客服</button>
         </div>
         <div className="">
@@ -213,26 +233,47 @@ const handleOk = (e) => {
       </div>
       {/* ------------MODAL FOR COMMENT----------------- */}
       <Modal
-          visible={visible}
-          title="Title"
-          // onOk={this.handleOk}
-          //onCancel 這樣X跟點背景就會消失
-          onCancel={() =>setvisible(false)}
-          footer={[
-            <Button key="back" onClick={() =>setvisible(false)}>
-              返回
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} 
-            onClick={() =>handleOk()}
-            >
-              送出
-            </Button>,
-          ]}
-        >
-          <p>填寫評論</p>
+        visible={visible}
+        title="填寫評論"
+        // onOk={this.handleOk}
+        //onCancel 這樣X跟點背景就會消失
+        onCancel={() => setvisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setvisible(false)}>
+            返回
+          </Button>,
+          <Button key="submit" type="primary" loading={loading}
+            onClick={() => handleOk()}
+          >
+            送出
+          </Button>,
+        ]}
+      >
+        <p>填寫評論填寫評論填寫評論填寫評論填寫評論填寫評論</p>
 
-        </Modal>
-        {/* --------------------------------- */}
+      </Modal>
+      {/* --------------------------------- */}
+      {/* ------------MODAL FOR CANCEL----------------- */}
+      <Modal
+        visible={visible1}
+        title="取消訂單"
+        // onOk={this.handleOk}
+        onCancel={() => setvisible1(false)}
+        footer={[
+          <Button key="back" onClick={() => setvisible1(false)}>
+            返回
+          </Button>,
+          <Button key="submit" type="primary" loading={loading}
+            onClick={() => handleOkCANCEL()}
+          >
+            取消
+          </Button>,
+        ]}
+      >
+        <p>您確定要取消訂單嗎?</p>
+
+      </Modal>
+      {/* --------------------------------- */}
     </>
   );
 };
