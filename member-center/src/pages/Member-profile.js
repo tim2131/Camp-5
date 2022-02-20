@@ -8,6 +8,7 @@ import {
   Input,
   DatePicker,
   Spin,
+  message,
 } from "antd";
 
 import React from "react";
@@ -20,7 +21,7 @@ import "antd/dist/antd.less";
 import "../style/member-profile.less";
 const { Option } = Select;
 const { Title } = Typography;
-const { MonthPicker } = DatePicker;
+
 
 
 
@@ -71,7 +72,7 @@ const MemberProfile = () => {
   const [form] = Form.useForm();
   //-----後端連線----得到資料----------------------------------
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
   const [data, setData] = useState([]);
   //在這邊一進來的時候就去資料庫抓檔案，但是data的初值應該還是空陣列
   let getMemberInfo = async () => {
@@ -79,21 +80,19 @@ const MemberProfile = () => {
     //http://localhost:3002
     let res = await axios.post(`${API_URL}/memberInfo`);
     setData(res.data);
-     setLoading(false);
-    console.log(res.data)
+    setLoading(false);
+    console.log(res.data);
   };
 
   useEffect(() => {
     setLoading(true);
-      setTimeout(() => {
-        getMemberInfo();
-      }, 1500);
-    
+    setTimeout(() => {
+      getMemberInfo();
+    }, 1500);
   }, []);
   //---表格變更---------------------------------------------------------------------
-  function getFormData (value) {
+  function getFormData(value) {
     console.log("formData:", form.getFieldValue());
-    
   }
 
   //---reset表格
@@ -106,29 +105,40 @@ const MemberProfile = () => {
     return;
   }
   //---表格送出---------------------------------------------------------------------
- 
+
   const onFinish = (fieldsValue) => {
     let data = form.getFieldValue();
     console.log(data);
-    //TODO: 時間
+    // TODO: 時間
     // Should format date value before submit.
-    // const values = {
-    //   ...data,
-    //   'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
-    // };
+    const values = {
+      ...data,
+      'datePicker1': moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
+    };
+    console.log(values);
 
-      // e.preventDefault();
-    async function test(){
+    // e.preventDefault();
+    async function test() {
       try {
         let response = await axios.post(`${API_URL}/memberInfo1`, data);
         console.log(response.data);
+        success();
       } catch (e) {
-        console.error("error");
+        message.error("更新失敗，請稍後嘗試");
+        console.log("error");
       }
-    };
+    }
     test();
-     
+  };
+  //----------------------------
+ 
+  //-------------------------------
+  function success() {
+    const suc = message.success("更新成功");
+    setTimeout(suc, 7000);
+   
   }
+
   //----------日期相關---------------------------------------------------------
   const config = {
     rules: [
@@ -139,11 +149,11 @@ const MemberProfile = () => {
       },
     ],
   };
-  
+
   return (
     <>
       {loading ? (
-        <Spin className='spinner' />
+        <Spin className="spinner" />
       ) : (
         <>
           <Divider style={{ marginBottom: 60 }}>
@@ -157,7 +167,7 @@ const MemberProfile = () => {
               會員資料
             </Title>
           </Divider>
-          {error && <div>{error}</div>}
+
           {data.map((member) => {
             return (
               <Form
@@ -208,6 +218,22 @@ const MemberProfile = () => {
                   name="password"
                   label="您的密碼"
                   rules={[
+                    {
+                      validator: async (_, password) => {
+                        if (
+                          password &&
+                          !/^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/.test(
+                            password
+                          )
+                        ) {
+                          return Promise.reject(
+                            new Error(
+                              "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+                            )
+                          );
+                        }
+                      },
+                    },
                     {
                       required: true,
                       message: "請輸入你的密碼",
@@ -298,7 +324,7 @@ const MemberProfile = () => {
       )}
     </>
   );
-}
+};
 
 
 

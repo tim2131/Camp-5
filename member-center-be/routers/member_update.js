@@ -9,9 +9,16 @@ router.post(
     "/",
     async (req, res, next) => {
       // 儲存到資料庫
+      // TODO:日期/密碼
       let [result] = await connection.execute(
-        "UPDATE user SET user_name=?, name=? WHERE id=?",
-        [req.body.email, req.body.name, 1]
+        "UPDATE user SET user_name =?,gender =?,phone =?, address =?, name =?,bday =?,password=? WHERE id =? ",
+        [req.body.email,
+          req.body.gender,
+          req.body.phone,
+          req.body.address,
+          req.body.name,
+          req.body.datePicker,
+          req.body.password,1]
       );
       console.log(result);
   
