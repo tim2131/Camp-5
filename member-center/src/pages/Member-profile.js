@@ -116,6 +116,18 @@ const MemberProfile = () => {
     //   ...data,
     //   'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
     // };
+
+      // e.preventDefault();
+    async function test(){
+      try {
+        let response = await axios.post(`${API_URL}/memberInfo1`, data);
+        console.log(response.data);
+      } catch (e) {
+        console.error("error");
+      }
+    };
+    test();
+     
   }
   //----------日期相關---------------------------------------------------------
   const config = {
