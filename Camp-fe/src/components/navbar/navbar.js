@@ -4,7 +4,7 @@ import Search from "../../img/Vector.png";
 import Cart from "../../img/shopping-cart.svg";
 
 import "../../style/global.scss";
-import "../../style/navbar.scss";
+import "../../style/Navbar.scss";
 
 function Navbar() {
     return (

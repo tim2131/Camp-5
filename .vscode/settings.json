@@ -3,5 +3,8 @@
         "activityBar.background": "#04304B",
         "titleBar.activeBackground": "#064469",
         "titleBar.activeForeground": "#F8FCFF"
-    }
+    },
+    "eslint.workingDirectories": [
+        "./Camp-fe"
+    ]
 }
