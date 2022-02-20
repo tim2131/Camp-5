@@ -1,5 +1,0 @@
- let returnMember = {
-    id: member.id,
-    name: member.name,
-    photo: member.photo,
-  };

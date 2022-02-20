@@ -10,8 +10,8 @@ router.post(
     async (req, res, next) => {
       // 儲存到資料庫
       let [result] = await connection.execute(
-        "INSERT INTO members (email, name) VALUES (?, ?)",
-        [req.body.email, req.body.name]
+        "UPDATE user SET user_name=?, name=? WHERE id=?",
+        [req.body.email, req.body.name, 1]
       );
       console.log(result);
   

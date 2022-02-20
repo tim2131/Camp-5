@@ -17,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+//body-parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 啟用 session
@@ -61,6 +62,8 @@ let campPOTentRouter = require("./routers/campPODetailTent");
 app.use("/api/campPOTent", campPOTentRouter);
 let campPOActRouter = require("./routers/campPODetailAct");
 app.use("/api/campPOAct", campPOActRouter);
+
+
 
 
 
