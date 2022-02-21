@@ -19,14 +19,16 @@ const CampOrder = ({data}) => {
     2: "tag",
   };
   const orderStatus = {
-    1: "未完成",
-    2: "完成",
-    3: "取消",
+    1: "未付款",
+    2: "已付款",
+    3: "已取消",
+    4: "已完成",
   };
   const orderStatuscolor = {
     1: "statusTagTBD1",
     2: "statusTagDone1",
     3: "statusTagCancel1",
+    4: "statusTagDone1",
   };
 
   return (

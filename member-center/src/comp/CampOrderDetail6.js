@@ -31,7 +31,7 @@ const OrderDetails6 = ({ data }) => {
   return (
     <>
       {data.map((item) => (
-        <>
+        <React.Fragment key={item.id}>
           {/* <li key={item.camp_name}>
             <div>{item.camp_name}</div>
           </li> */}
@@ -56,7 +56,9 @@ const OrderDetails6 = ({ data }) => {
               </div>
             </div>
 
-            <div className="subtitle">{item.camp_name}</div>
+            <div className="subtitle">
+              <span className="subWord">{item.camp_name}</span>
+            </div>
             <div className="infobox">
               <span className="subnote">入住時間</span>
               <br />
@@ -80,7 +82,7 @@ const OrderDetails6 = ({ data }) => {
               <br />
             </div>
           </div>
-        </>
+        </React.Fragment>
       ))}
     </>
   );

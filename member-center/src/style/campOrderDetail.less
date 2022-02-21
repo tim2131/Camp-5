@@ -1,3 +1,150 @@
+
+
+.infobox {
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+}
+
+@taglineheight: 3em;
+@tagwidth: 5em;
+.statusTagTBD {
+  border-radius: 0.5em;
+  background-color: @primary-color;
+  width: @tagwidth;
+  height: @taglineheight;
+  color: #fff5e2;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: @taglineheight;
+  position: relative;
+  margin: 0em auto -1.2em auto;
+}
+.statusTagDone {
+  border-radius: 0.5em;
+  background-color: @success-color;
+  width: @tagwidth;
+  height: @taglineheight;
+  color: #fff5e2;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: @taglineheight;
+  position: relative;
+  margin: 0em auto -1.2em auto;
+}
+.statusTagCancel {
+  border-radius: 0.5em;
+  background-color: @rate-star-bg;
+  width: @tagwidth;
+  height: @taglineheight;
+  color: #fff5e2;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: @taglineheight;
+  position: relative;
+  margin: 0em auto -1.2em auto;
+}
+
+
+.subtitle2 {
+  position: relative;
+  color: @success-color;
+  font-size: 1.2rem;
+  margin: 0 auto -0.2em auto;
+}
+.subtitle3 {
+  position: relative;
+  color: @component-background;
+  background-color: @success-color;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin: -0.2em 2em 1em 1.3em;
+}
+.subnote {
+  color: @rate-star-bg;
+  font-size: 0.8em;
+  padding: 0.5em;
+}
+.subname {
+  color: @info-color;
+  font-size: 1.2em;
+  padding: 0.5em 2em;
+}
+.subnote2 {
+  color: @rate-star-bg;
+  font-size: 0.8em;
+  padding: 0.5em;
+  margin: 0 2em;
+}
+.subnote3 {
+  color: @rate-star-bg;
+  font-size: 0.8em;
+  padding: 0.5em 4em;
+}
+.subname2 {
+  color: @info-color;
+  font-size: 1.2em;
+  display: inline-block;
+  margin: 0 2em;
+}
+.subname3 {
+  color: @success-color;
+  font-size: 1.2em;
+  margin: 0 3em;
+}
+.subname4 {
+  color: @info-color;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+}
+.orderlinks {
+  position: relative;
+  // left: 2em;
+  display: block;
+  margin: 1em 1em 1em 0em;
+  cursor: pointer;
+  padding:0.5em 0.8em;
+}
+.btnclaster {
+  width: 10em;
+  position: relative;
+  float: right;
+}
+.personWhoOrder {
+  justify-content: center;
+  align-items: center;
+}
+.totalBlock {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0 4em;
+}
+.totalBlockEnd {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0 3.3em;
+  border-bottom: #c4c4c4 1px solid;
+}
+.totalItem {
+  font-size: 1.2em;
+}
+.total {
+  font-size: 1.2em;
+}
+.totalE {
+  font-size: 1.5em;
+  color: @primary-color;
+}
+.totalItemE {
+  font-size: 1.5em;
+  color: @primary-color;
+}
+.orderppl{
+  margin-left: 1.2em;
+}
+
 @media (max-width: 996px) {
   @width: 200px;
   @tagWidth: 85px;
@@ -73,6 +220,20 @@
     font-size: @tagWordSize;
     z-index: 100;
   }
+
+  .subtitle {
+  
+  display:flex;
+  color: @success-color;
+  width: 80%;
+  font-size: 1.2rem;
+  margin: 0.2em auto;
+  justify-content: center;
+  align-items: center; 
+}
+.subWord{
+display:block;
+}
 }
 @media (min-width: 992px) {
   @width: 170px;
@@ -149,6 +310,19 @@
     font-size: @tagWordSize;
     z-index: 100;
   }
+    .subtitle {
+  
+  display:flex;
+  color: @success-color;
+  width: 80%;
+  font-size: 1.2rem;
+  margin: 0.2em auto;
+  justify-content: center;
+  align-items: center; 
+}
+.subWord{
+display:block;
+}
 }
 @media (min-width: 1200px) {
   @width: 200px;
@@ -225,161 +399,17 @@
     font-size: @tagWordSize;
     z-index: 100;
   }
-}
-
-.infobox {
-  position: relative;
-  margin: 0 auto;
-  width: 80%;
-}
-
-@taglineheight: 3em;
-@tagwidth: 5em;
-.statusTagTBD {
-  border-radius: 0.5em;
-  background-color: @primary-color;
-  width: @tagwidth;
-  height: @taglineheight;
-  color: #fff5e2;
-  font-size: 1.2em;
-  text-align: center;
-  line-height: @taglineheight;
-  position: relative;
-  margin: 0em auto -1.2em auto;
-}
-.statusTagDone {
-  border-radius: 0.5em;
-  background-color: @success-color;
-  width: @tagwidth;
-  height: @taglineheight;
-  color: #fff5e2;
-  font-size: 1.2em;
-  text-align: center;
-  line-height: @taglineheight;
-  position: relative;
-  margin: 0em auto -1.2em auto;
-}
-.statusTagCancel {
-  border-radius: 0.5em;
-  background-color: @rate-star-bg;
-  width: @tagwidth;
-  height: @taglineheight;
-  color: #fff5e2;
-  font-size: 1.2em;
-  text-align: center;
-  line-height: @taglineheight;
-  position: relative;
-  margin: 0em auto -1.2em auto;
-}
-
-.subtitle {
-  position: relative;
+  .subtitle {
+  
+  display:flex;
   color: @success-color;
   width: 80%;
   font-size: 1.2rem;
   margin: 0.2em auto;
-}
-.subtitle2 {
-  position: relative;
-  color: @success-color;
-  font-size: 1.2rem;
-  margin: 0 auto -0.2em auto;
-}
-.subtitle3 {
-  position: relative;
-  color: @component-background;
-  background-color: @success-color;
-  font-size: 0.8rem;
-  display:inline-block;
-  margin: -0.2em 2em 1em 1.3em;
-}
-.subnote {
-  color: @rate-star-bg;
-  font-size: 0.8em;
-  padding: 0.5em;
-}
-.subname {
-  color: @info-color;
-  font-size: 1.2em;
-  padding: 0.5em 2em;
-}
-.subnote2 {
-  color: @rate-star-bg;
-  font-size: 0.8em;
-  padding: 0.5em;
-  margin: 0 2em;
-}
-.subnote3 {
-  color: @rate-star-bg;
-  font-size: 0.8em;
-  padding: 0.5em 4em;
-}
-.subname2 {
-  color: @info-color;
-  font-size: 1.2em;
-  display: inline-block;
-  margin: 0 2em;
-  
-}
-.subname3 {
-  color: @success-color;
-  font-size: 1.2em;
-  margin:0 3em;
-}
-.subname4 {
-  color: @info-color;
-  font-size: 1.2em;
-  padding: 0.5em 1em;
-}
-.orderlinks {
-  position: relative;
-  left: 2em;
-  display: block;
-  margin: 1em;
-  padding: 0.5em 1em;
-}
-.btnclaster{
-  width: 10em;
-  position:relative;
-  float:right;
-}
-.personWhoOrder{
   justify-content: center;
   align-items: center; 
 }
-.totalBlock{
-  display: flex;
- justify-content:space-between;
-
-  margin:0 4em;
-  
+.subWord{
+display:block;
 }
-.totalBlockEnd{
-   display: flex;
- justify-content:space-between;
-
-
-  margin:0 4em;
-  border-bottom: #c4c4c4 1px solid;
-}
-.totalItem{
-
-font-size: 1.2em;
-
-
-}
-.total{
-font-size: 1.2em;
-
-}
-.totalE{
-font-size: 1.5em;
-color:@primary-color;
-
-}
-.totalItemE{
-
-font-size: 1.5em;
-color:@primary-color;
-
 }

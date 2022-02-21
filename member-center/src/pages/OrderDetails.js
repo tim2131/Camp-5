@@ -38,7 +38,7 @@ const OrderDetails = () => {
   // 為了處理網址
   let navigate = useNavigate();
   const { POId } = useParams();
-  console.log( POId );
+  // console.log( POId );
   //----------後端-----getCampPOCamp--------------------------
   const [data, setData] = useState([]);
   async function getCampPOCamp(e) {
@@ -46,7 +46,7 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
         withCredentials: true,
       });
-      console.log(result.data);
+      // console.log(result.data);
       setData(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -55,7 +55,7 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOCamp();
   }, []);
-  console.log(data);
+  // console.log(data);
   //----------後端-----campPOpplRouter--------------------------
   const [ppl, setPpl] = useState([]);
   async function getCampPOPpl(e) {
@@ -63,7 +63,7 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOppl/${POId}`, {
         withCredentials: true,
       });
-      console.log(result.data);
+      // console.log(result.data);
       setPpl(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -72,7 +72,7 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOPpl();
   }, []);
-  console.log(ppl);
+  // console.log(ppl);
   //----------後端-----getCampPOTent--------------------------
   const [tent, setTent] = useState([]);
 
@@ -81,7 +81,7 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOTent/${POId}`, {
         withCredentials: true,
       });
-      console.log(result.data);
+      // console.log(result.data);
       setTent(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -90,14 +90,14 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOTent();
   }, []);
-  console.log(tent);
+  // console.log(tent);
   //----------後端-----getCampPOAct--------------------------
   const [act, setAct] = useState([]);
   async function getCampPOAct(e) {
     try {
       // http://localhost:3005/api/campPOAct/1
       let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
-      console.log(result.data);
+      // console.log(result.data);
       setAct(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -106,7 +106,7 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOAct();
   }, []);
-  console.log(act);
+  // console.log(act);
 
   return (
     <>
@@ -140,7 +140,7 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <OrderDetails12 ppl={ppl} tent={tent} act={act} />
+          <OrderDetails12 data={data} ppl={ppl} tent={tent} act={act} />
         </Col>
       </Row>
     </>

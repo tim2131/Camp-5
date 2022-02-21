@@ -19,13 +19,13 @@ function callback(key) {
 // ---------------for Tabs end---------------
 
 const MemberOrder = () => {
-  // TODO:setData會有錯誤
+ 
   const [data, setData] = useState([]);
    async function getAllPO (){
     try {
       let response = await axios.post(`${API_URL}/campAllPO`, data);
       console.log(response.data);
-      console.log(response.data[0].id);
+      // console.log(response.data[0].id);
       setData(response.data);
     } catch (e) {
       console.error("error");

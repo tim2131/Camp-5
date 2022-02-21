@@ -1,24 +1,45 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List, Modal, Button,Result,Comment, Avatar, Form,Input } from "antd";
+import {
+
+  Divider,
+  Typography,
+  Card,
+  List,
+  Modal,
+  Button,
+  Result,
+  Comment,
+  Avatar,
+  Form,
+  Input,
+} from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
 import { API_URL } from "../utils/config";
-import axios from "axios";
 import { ERR_MSG } from "../utils/error";
 // import {commentOnPop} from "./CommentOnCampop"
-import moment from 'moment';
+import moment from "moment";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const OrderDetails12 = ({ ppl, tent, act }) => {
-
+const OrderDetails12 = ({ ppl, tent, act, data }) => {
   const [loading, setloading] = useState(false);
   const [visible, setvisible] = useState(false);
   const [visible1, setvisible1] = useState(false);
+  const [POStatus, setPOStatus] = useState([]);
   const [Cbtn, setCbtn] = useState(false);
+
+//TODO 利用訂單狀態去更改按鈕的disable/ useEffect第一渲染沒辦法拿到prop
+  // useEffect(() => {
+  //   // after every render,
+  //   return () => {
+  //     // exec before running the effects next time
+  //   };
+  // }, []);
+  
 
   const handleOk = (e) => {
     setloading(true);
@@ -26,7 +47,6 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
       setloading(false);
       setvisible(false);
       //TODO: 送出更改SQL的句法，寫進評論
-      
     }, 1500);
   };
   const handleOkCANCEL = (e) => {
@@ -35,12 +55,9 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
     setTimeout(() => {
       setloading(false);
       setvisible1(false);
-      setCbtn(true)
+      setCbtn(true);
       //TODO: 送出更改SQL的句法，改camp order狀態
-      
     }, 1500);
-    
-    
   };
 
   // -----for thumbnail---------------------------------
@@ -65,7 +82,6 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
     4: "已完成",
   };
 
-
   return (
     <>
       <div style={style}>
@@ -73,19 +89,32 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
           <div className="subtitle2">訂購人資訊</div>
         </Divider>
         <div className="btnclaster">
-
-          <button disabled={Cbtn} className="orderlinks" onClick={() => setvisible1(true)}  >
+          <button
+            disabled={Cbtn}
+            className="orderlinks"
+            onClick={() => setvisible1(true)}
+          >
             取消訂單
           </button>
 
-
-          <button disabled={Cbtn} className="orderlinks" onClick={() => setvisible(true)}>填寫評價</button>
-          <button className="orderlinks">聯繫客服</button>
+          <button
+            disabled={Cbtn}
+            className="orderlinks"
+            onClick={() => setvisible(true)}
+          >
+            填寫評價
+          </button>
+          <button
+            className="orderlinks"
+            // onClick={statusPOFinish}
+          >
+            聯繫客服
+          </button>
         </div>
-        <div className="">
+        <div className="orderppl">
           <br />
           {ppl.map((item) => (
-            <>
+            <React.Fragment key={item.id}>
               <span className="subnote2">訂購人姓名:</span>
               <span className="subname2">{item.name}</span>
               <br />
@@ -95,7 +124,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
               <br />
               <span className="subnote2">訂購人信箱:</span>
               <span className="subname2">{item.user_name}</span>
-            </>
+            </React.Fragment>
           ))}
           <br />
         </div>
@@ -104,7 +133,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
         </Divider>
         <br />
         {tent.map((item) => (
-          <>
+          <React.Fragment key={item.id}>
             <List itemLayout="vertical" size="small">
               <List.Item
                 key={item.id}
@@ -134,7 +163,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
                 />
               </List.Item>
             </List>
-          </>
+          </React.Fragment>
         ))}
         {/* //----tent資訊--end--------------- */}
         <br />
@@ -144,7 +173,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
         <br />
         {/* //----加購資訊----------------- */}
         {act.map((item) => (
-          <>
+          <React.Fragment key={item.id}>
             <List className="" itemLayout="vertical" size="small">
               <List.Item
                 key={item.id}
@@ -176,7 +205,7 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
               </List.Item>
             </List>
             {/* //----加購資訊--end--------------- */}
-          </>
+          </React.Fragment>
         ))}
 
         <Divider orientation="left">
@@ -189,11 +218,11 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
             <div className="totalItem">營地每晚單價(共4晚)</div>
             <div className="totalItem">營地折扣完單價(共1晚)</div>
             {act.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <div className="totalItem">
                   {item.name}(共{item.number_people}人)
                 </div>
-              </>
+              </React.Fragment>
             ))}
 
             <div className="totalItem">折扣碼</div>
@@ -205,29 +234,29 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
           <div className="totalmoney">
             {/* TODO: 帳篷沒有單價 */}
             {ppl.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <div className="total">{item.item}1</div>
                 <div className="total">{item.item}2</div>
-              </>
+              </React.Fragment>
             ))}
             {act.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <div className="total">{item.price}3</div>
-              </>
+              </React.Fragment>
             ))}
 
             {ppl.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <div className="total">-{item.discount}</div>
-              </>
+              </React.Fragment>
             ))}
 
             <div className="total">-100(用算的)</div>
             <Divider />
             {ppl.map((item) => (
-              <>
+              <React.Fragment key={item.id}>
                 <div className="totalE">{item.total}</div>
-              </>
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -243,7 +272,10 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
           <Button key="back" onClick={() => setvisible(false)}>
             返回
           </Button>,
-          <Button key="submit" type="primary" loading={loading}
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
             onClick={() => handleOk()}
           >
             送出
@@ -251,7 +283,6 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
         ]}
       >
         <p>填寫評論填寫評論填寫評論填寫評論填寫評論填寫評論</p>
-
       </Modal>
       {/* --------------------------------- */}
       {/* ------------MODAL FOR CANCEL----------------- */}
@@ -264,7 +295,10 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
           <Button key="back" onClick={() => setvisible1(false)}>
             返回
           </Button>,
-          <Button key="submit" type="primary" loading={loading}
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
             onClick={() => handleOkCANCEL()}
           >
             取消
@@ -272,7 +306,6 @@ const OrderDetails12 = ({ ppl, tent, act }) => {
         ]}
       >
         <p>您確定要取消訂單嗎?</p>
-
       </Modal>
       {/* --------------------------------- */}
     </>
