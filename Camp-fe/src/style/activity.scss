@@ -1,0 +1,204 @@
+body {
+  padding: 0;
+  margin: 0;
+  width: 1920px;
+}
+.activitypage {
+  width: 1920px;
+
+  .subtract {
+    background: url("../img/Subtract.jpg");
+    clip-path: polygon(
+      72% 0,
+      100% 0,
+      100% 91%,
+      91% 92%,
+      71% 100%,
+      43% 100%,
+      20% 89%,
+      0 100%,
+      0 0,
+      31% 0
+    );
+    width: 1920px;
+    height: 1200px;
+    position: absolute;
+    // top: 1020px;
+    z-index: -1;
+  }
+
+  h2 {
+    color: #e9e3da;
+    font-size: 60px;
+    position: absolute;
+    top: 800px;
+    left: 300px;
+  }
+}
+
+.container {
+  .page3 {
+    background: url("../img/page3.png");
+    position: absolute;
+    width: 1935px;
+    height: 1200px;
+    top: 10px;
+    z-index: -2;
+  }
+
+  .page4 {
+    background: url("../img/page4.png");
+    position: absolute;
+    width: 1930px;
+    height: 1200px;
+    top: 1000px;
+    z-index: -3;
+
+    h2 {
+      // color: #6A6842;
+      font-size: 72px;
+      position: absolute;
+      top: 300px;
+      left: 600px;
+    }
+    p {
+      position: absolute;
+      font-size: 38px;
+      top: 450px;
+      left: 600px;
+      color: #88a28f;
+    }
+    .arrow {
+      position: absolute;
+      width: 100%;
+      top: 650px;
+      left: 460px;
+    }
+    .arrow img {
+      margin-right: 300px;
+      // width: 100px;
+    }
+    .icon {
+      position: absolute;
+      width: 100%;
+      top: 620px;
+      left: 190px;
+    }
+    .icon img {
+      margin-right: 260px;
+    }
+    .text p {
+      position: absolute;
+      width: 100%;
+    }
+    .text .p1 {
+      font-size: 30px;
+      top: 900px;
+      left: 160px;
+      color: #6a6842;
+    }
+    .text .p2 {
+      font-size: 30px;
+      top: 900px;
+      left: 550px;
+      color: #6a6842;
+    }
+    .text .p3 {
+      font-size: 30px;
+      top: 900px;
+      left: 1030px;
+      color: #6a6842;
+    }
+    .text .p4 {
+      font-size: 30px;
+      top: 900px;
+      left: 1550px;
+      color: #6a6842;
+    }
+  }
+
+  .page5 {
+    background: url("../img/page5.png");
+    position: absolute;
+    width: 1930px;
+    height: 1200px;
+    top: 2000px;
+    z-index: -3;
+
+    h2 {
+      color: #6a6842;
+      font-size: 60px;
+      position: absolute;
+      top: 200px;
+      left: 800px;
+    }
+    .slogan {
+      color: #88a28f;
+      font-size: 40px;
+      position: absolute;
+      top: 350px;
+      left: 700px;
+    }
+    h3 {
+      font-size: 32px;
+      position: absolute;
+      top: 470px;
+      left: 900px;
+    }
+    .icon {
+      position: absolute;
+      width: 100%;
+      top: 580px;
+      left: 190px;
+    }
+    .icon img {
+      margin-right: 200px;
+    }
+    .button {
+      width: 100%;
+      position: absolute;
+      top: 1130px;
+      left: 270px;
+    }
+    button {
+      border: 1px solid #c15f2e;
+      padding: 10px 30px;
+      color: #c15f2e;
+      margin-right: 520px;
+    }
+    .arrow {
+        position: absolute;
+        width: 100%;
+        // top: 650px;
+        left: 60px;
+      }
+    .arrow img {
+        margin-right: 830px;
+        // height: 100px;
+        // width: 100px;
+      }
+      .polygon{
+        position: absolute;
+        width: 100%;
+        top: 770px;
+        left: 40px;
+      }
+      .polygon img{
+        margin-right: 850px;
+        
+        
+      }
+      .text {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        top: 1010px;
+        left: 250px;
+      }
+      .text .product-text {
+        font-size: 28px;
+        // margin-right: 5px;
+      }
+    }
+  }
+

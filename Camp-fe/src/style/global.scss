@@ -1,0 +1,42 @@
+@import "./Variables.scss";
+
+// Bootstrap 預設
+$primary:       $dark-green; // 深綠
+$secondary:     $orange; // 橘
+$success:       $beige; // 米色
+$info:          $light-green; // 淺綠
+$warning:       $star; // 星星黃
+$danger:        $heart; // 愛心粉
+$light:         $ivory; // 淺米白(底)
+$dark:          $gray; // 文字淺灰
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+
+
+// 全站用
+.container {
+    max-width: 1470px; //container最大寬度(1440 + bs預設的padding 30)
+    color: $dark-green; // 字的基本色
+    // 字體待補
+}
+
+// 字的大小
+h1 {
+    font-size: 60px;
+}
+h2 {
+    font-size: 48px;
+}
+h3 {
+    font-size: 36px;
+}
+h4 {
+    font-size: 28px;
+}
+h5 {
+    font-size: 24px;
+}
+h6 {
+    font-size: 18px;
+}
