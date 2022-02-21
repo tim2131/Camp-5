@@ -1,8 +1,5 @@
 import {
-
   Menu,
-
-
 } from "antd";
 
 import React from "react";
@@ -12,7 +9,6 @@ import "antd/dist/antd.less";
 
 function TopicMenu({
   linkTo,
-  index,
   topics,
   menuIcons,
   selectedKey,

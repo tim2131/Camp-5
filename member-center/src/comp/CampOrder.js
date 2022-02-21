@@ -42,7 +42,7 @@ const CampOrder = ({data}) => {
         pageSize: 5,
       }}
       renderItem={(data) => (
-        <Link to="/">
+        <Link to={`/orderDetails/${data.id}`}>
           <div className="list">
             <List.Item
               actions={[]}
@@ -62,18 +62,13 @@ const CampOrder = ({data}) => {
                 }
                 description={
                   <>
-                    <span className="campdate">
-                     
-                      
-                      {data.orderdate_start}
-                      
-                    </span>
-                    ~<span className="campdate">{data.orderdate_end}</span>
+                    <span className="campdate">{data.orderdate_start}</span>~
+                    <span className="campdate">{data.orderdate_end}</span>
                     <br />
                     <span className="campdate">{data.camp_county}</span>
                     <div className="orderlinkbox">
                       {/* TODO: link連到指定PO */}
-                      <Link to="/">
+                      <Link to={`/orderDetails/${data.id}`}>
                         <button className="orderlinks" key="list-loadmore-edit">
                           訂單詳細
                         </button>

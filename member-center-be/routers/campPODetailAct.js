@@ -3,6 +3,6 @@ const express = require("express");
 const router = express.Router();
 const campPODetailppl = require("../controllers/campPODetail.js");
 
-router.post("/", campPODetailppl.asyncCampOrderAct);
+router.get("/:POId", campPODetailppl.asyncCampOrderAct);
 
 module.exports = router

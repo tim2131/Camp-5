@@ -5,6 +5,6 @@ const campPODetail = require("../controllers/campPODetail.js");
 
 // RESTful API 的列表
 // 後端資料的網址
-router.post("/", campPODetail.asyncCampOrderCamp);
+router.get("/:POId", campPODetail.asyncCampOrderCamp);
 
 module.exports = router;
