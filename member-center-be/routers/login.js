@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { checkLogin } = require("../middlewares/auth");
+// const { checkLogin } = require("../middlewares/auth");
 // "/api/member"
 
 // checkLogin 這個中間件會對這個 router 有效
-router.use(checkLogin);
+// router.use(checkLogin);
 
 // "/api/member/info"
 router.get("/", (req, res, next) => {

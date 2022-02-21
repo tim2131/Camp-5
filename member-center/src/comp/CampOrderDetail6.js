@@ -47,7 +47,9 @@ const OrderDetails6 = ({ data }) => {
               <div className="list_item">
                 <img
                   className="pic"
+                  // TODO:後端要可以呈現圖片
                   src={require(`../images/${item.img1}`)}
+                  // src={`${IMAGE_URL}${item.img1}`}
                   alt="camp-pic"
                 />
                 <img />

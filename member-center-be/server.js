@@ -13,10 +13,11 @@ let app = express();
 app.use(
   cors({
     // 為了要讓 browser 在 CORS 的情況下還是幫我們送 cookie
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:8000"],
     credentials: true,
   })
 );
+//body-parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 啟用 session
@@ -45,6 +46,11 @@ app.use((req, res, next) => {
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");
 app.use("/api/memberInfo", memberInfoRouter);
+
+
+let memberUpdateRouter = require("./routers/member_update");
+app.use("/api/memberInfo1", memberUpdateRouter);
+
 let campAllPoRouter = require("./routers/campAllPO");
 app.use("/api/campAllPO", campAllPoRouter);
 
@@ -56,6 +62,8 @@ let campPOTentRouter = require("./routers/campPODetailTent");
 app.use("/api/campPOTent", campPOTentRouter);
 let campPOActRouter = require("./routers/campPODetailAct");
 app.use("/api/campPOAct", campPOActRouter);
+
+
 
 
 

@@ -7,6 +7,8 @@ import {
   Divider,
   Input,
   DatePicker,
+  Spin,
+  message,
 } from "antd";
 
 import React from "react";
@@ -16,11 +18,12 @@ import moment from "moment";
 import { API_URL } from "../utils/config";
 import { useForm } from 'react-hook-form'
 import "antd/dist/antd.less";
+import "../style/member-profile.less";
 const { Option } = Select;
 const { Title } = Typography;
-const { MonthPicker } = DatePicker;
 
-const dateFormat = "YYYY-MM-DD";
+
+
 
 //-------表格RWD縮放---------------------
 const formItemLayout = {
@@ -67,40 +70,75 @@ const tailFormItemLayout = {
 
 const MemberProfile = () => {
   const [form] = Form.useForm();
-
-  const onGenderChange = (value) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue();
-        return;
-
-      case 'female':
-        form.setFieldsValue();
-        return;
-    }
-  };
   //-----後端連線----得到資料----------------------------------
+  const [loading, setLoading] = useState(true);
 
-  const [error, setError] = useState(null);
   const [data, setData] = useState([]);
   //在這邊一進來的時候就去資料庫抓檔案，但是data的初值應該還是空陣列
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
     //http://localhost:3002
-    let res = await axios.get(`${API_URL}/memberInfo`);
+    let res = await axios.post(`${API_URL}/memberInfo`);
     setData(res.data);
-    // console.log(res.data[0].name)
+    setLoading(false);
+    console.log(res.data);
   };
 
-  useEffect(() => { getMemberInfo(); }, []);
-  //------------------------------------------------------------------------
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      getMemberInfo();
+    }, 1500);
+  }, []);
+  //---表格變更---------------------------------------------------------------------
+  function getFormData(value) {
+    console.log("formData:", form.getFieldValue());
+  }
+
+  //---reset表格
+  function resetBtn(e) {
+    form.resetFields();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return;
+  }
+  //---表格送出---------------------------------------------------------------------
+
   const onFinish = (fieldsValue) => {
+    let data = form.getFieldValue();
+    console.log(data);
+    // TODO: 時間
     // Should format date value before submit.
     const values = {
-      ...fieldsValue,
-      'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
+      ...data,
+      'datePicker1': moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
     };
+    console.log(values);
+
+    // e.preventDefault();
+    async function test() {
+      try {
+        let response = await axios.post(`${API_URL}/memberInfo1`, data);
+        console.log(response.data);
+        success();
+      } catch (e) {
+        message.error("更新失敗，請稍後嘗試");
+        console.log("error");
+      }
+    }
+    test();
+  };
+  //----------------------------
+ 
+  //-------------------------------
+  function success() {
+    const suc = message.success("更新成功");
+    setTimeout(suc, 7000);
+   
   }
+
   //----------日期相關---------------------------------------------------------
   const config = {
     rules: [
@@ -112,174 +150,181 @@ const MemberProfile = () => {
     ],
   };
 
-
-  //-------button submit------送資料給後端---------------------------------------------------
-  function handleChange(e) {
-    setData({ ...data, [e.target.name]: e.target.value });
-  }
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      let response = await axios.post(`${API_URL}/memberInfo`, data);
-      console.log(response.data);
-    } catch (e) {
-      console.error("error", e.response.data);
-    }
-  }
-
   return (
     <>
-      <Divider style={{ marginBottom: 60 }}>
-        <Title
-          level={3}
-          style={{
-            marginBottom: 0,
-            marginTop: 10,
-          }}
-        >
-          會員資料
-        </Title>
-      </Divider>
-      {error && <div>{error}</div>}
-      {data.map((member) => {
-        return (
-          <Form
-            {...formItemLayout}
-            form={form}
-            onFinish={onFinish}
-            key={member.id}
-            initialValues={{
-              email: member.user_name,
-              name: member.name,
-              gender: member.gender,
-              //日期TBD
-              datePicker:moment(`${member.bday}`, dateFormat),
-              phone: member.phone,
-              address: member.address,
-            }}
-          >
-            <Form.Item
-              name={"name"}
-              label="名字"
-              rules={[
-                {
-                  required: true,
-                  message: "請輸入姓名",
-                },
-              ]}
+      {loading ? (
+        <Spin className="spinner" />
+      ) : (
+        <>
+          <Divider style={{ marginBottom: 60 }}>
+            <Title
+              level={3}
+              style={{
+                marginBottom: 0,
+                marginTop: 10,
+              }}
             >
-              <Input onChange={handleChange} />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              label="您的信箱"
-              rules={[
-                {
-                  type: "email",
-                  message: "這不是正確的信箱格式",
-                },
-                {
-                  required: true,
-                  message: "請輸入你的信箱",
-                },
-              ]}
-            >
-              <Input onChange={handleChange} />
-            </Form.Item>
+              會員資料
+            </Title>
+          </Divider>
 
-            <Form.Item
-              name="password"
-              label="您的密碼"
-              rules={[
-                {
-                  required: true,
-                  message: "請輸入你的密碼",
-                },
-              ]}
-              hasFeedback
-            >
-              <Input.Password onChange={handleChange} />
-            </Form.Item>
-
-            <Form.Item
-              name="confirm"
-              label="再次輸入密碼"
-              dependencies={["password"]}
-              hasFeedback
-              rules={[
-                {
-                  required: true,
-                  message: "請確認你的密碼",
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error("密碼不相同，請確認"));
-                  },
-                }),
-              ]}
-            >
-              <Input.Password onChange={handleChange} />
-            </Form.Item>
-
-            <Form.Item
-              name="gender"
-              label="性別"
-              rules={[
-                {
-                  required: true,
-                  message: "請選擇性別",
-                },
-              ]}
-            >
-              <Select placeholder="請選擇" onChange={onGenderChange} allowClear>
-                <Option value="1">男</Option>
-                <Option value="0">女</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item name="datePicker" label="您的生日" {...config}>
-              <DatePicker onChange={handleChange} />
-            </Form.Item>
-
-            <Form.Item
-              name="phone"
-              label="聯繫號碼"
-              rules={[{ required: true, message: "請輸入聯繫號碼" }]}
-            >
-              <Input style={{ width: "100%" }} onChange={handleChange} />
-            </Form.Item>
-
-            <Form.Item label="地址">
-              <Form.Item
-                name="address"
-                rules={[{ required: true, message: "請填寫地址" }]}
+          {data.map((member) => {
+            return (
+              <Form
+                {...formItemLayout}
+                form={form}
+                onFinish={onFinish}
+                key={member.id}
+                initialValues={{
+                  email: member.user_name,
+                  name: member.name,
+                  gender: member.gender,
+                  //日期TBD
+                  datePicker: moment(`${member.bday}`, "YYYY-MM-DD"),
+                  phone: member.phone,
+                  address: member.address,
+                }}
               >
-                <Input
-                  style={{
-                    width: "100%",
-                  }}
-                  placeholder="請填寫地址"
-                  onChange={handleChange}
-                />
-              </Form.Item>
-            </Form.Item>
+                <Form.Item
+                  name={"name"}
+                  label="名字"
+                  rules={[
+                    {
+                      required: true,
+                      message: "請輸入姓名",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  label="您的信箱"
+                  rules={[
+                    {
+                      type: "email",
+                      message: "這不是正確的信箱格式",
+                    },
+                    {
+                      required: true,
+                      message: "請輸入你的信箱",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
 
-            <Form.Item {...tailFormItemLayout}>
-              <Space>
-                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                  送出
-                </Button>
-                <Button>取消</Button>
-              </Space>
-            </Form.Item>
-          </Form>
-        );
-      })}
+                <Form.Item
+                  name="password"
+                  label="您的密碼"
+                  rules={[
+                    {
+                      validator: async (_, password) => {
+                        if (
+                          password &&
+                          !/^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/.test(
+                            password
+                          )
+                        ) {
+                          return Promise.reject(
+                            new Error(
+                              "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+                            )
+                          );
+                        }
+                      },
+                    },
+                    {
+                      required: true,
+                      message: "請輸入你的密碼",
+                    },
+                  ]}
+                  hasFeedback
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                  name="confirm"
+                  label="再次輸入密碼"
+                  dependencies={["password"]}
+                  hasFeedback
+                  rules={[
+                    {
+                      required: true,
+                      message: "請確認你的密碼",
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(new Error("密碼不相同，請確認"));
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                  name="gender"
+                  label="性別"
+                  rules={[
+                    {
+                      required: true,
+                      message: "請選擇性別",
+                    },
+                  ]}
+                >
+                  <Select placeholder="請選擇" allowClear>
+                    <Option value="1">男</Option>
+                    <Option value="0">女</Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item name="datePicker" label="您的生日" {...config}>
+                  <DatePicker />
+                </Form.Item>
+
+                <Form.Item
+                  name="phone"
+                  label="手機號碼"
+                  rules={[{ required: true, message: "請輸入手機號碼" }]}
+                >
+                  <Input style={{ width: "100%" }} />
+                </Form.Item>
+
+                <Form.Item label="地址">
+                  <Form.Item
+                    name="address"
+                    rules={[{ required: true, message: "請填寫地址" }]}
+                  >
+                    <Input
+                      style={{
+                        width: "100%",
+                      }}
+                      placeholder="請填寫地址"
+                    />
+                  </Form.Item>
+                </Form.Item>
+
+                <Form.Item {...tailFormItemLayout}>
+                  <Space>
+                    <Button type="primary" htmlType="submit">
+                      送出
+                    </Button>
+                    <Button onClick={resetBtn}>取消</Button>
+                    {/* <Button onClick={getFormData}>get</Button> */}
+                  </Space>
+                </Form.Item>
+              </Form>
+            );
+          })}
+        </>
+      )}
     </>
   );
-}
+};
 
 
 
