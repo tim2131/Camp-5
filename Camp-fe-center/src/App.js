@@ -21,6 +21,7 @@ import "./App.less";
 // -------router comp--------------------------
 // import MemberProfile from "./pages/Member-profile";
 import MemberOrder from './pages/Member-order';
+import Home from './pages/Home';
 import Tent from './pages/TentCRUD';
 import Activity from "./pages/Activity";
 
@@ -76,8 +77,7 @@ function App() {
           }}
         >
           <Routes>
-            {/* <Route path="/campfile" element={<MemberProfile />} /> */}
-            {/* <Route path="/camporders" element={<MemberOrder />} /> */}
+            <Route path="/dashboard" element={<Home />}/>
             <Route path="/tentCRUD" element={<Tent />}/>
             <Route path="/activity" element={<Activity />}/>
           </Routes>

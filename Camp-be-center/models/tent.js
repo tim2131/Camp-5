@@ -1,10 +1,10 @@
 // /models/stock
 const connection = require("../utils/db");
 
-// 取得帳篷資料
-async function getAllCamp() {
+// 新增帳篷資料
+async function getAllTent() {
     let [data, fields] = await connection.execute(
-      "SELECT * FROM tent_cate1 LEFT JOIN tent ON tent_cate1.tentcate_id=tentcate_id WHERE tentcate_id=?",
+      `INSRT INTO tent(name,number,price,img,intro) VALUES (``),
       [1]
   
     );
@@ -14,5 +14,5 @@ async function getAllCamp() {
     return data;
   }
   module.exports = {
-    getAllCamp,
+    getAllTent,
   };
