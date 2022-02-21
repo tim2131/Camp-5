@@ -83,9 +83,8 @@ function App() {
             <Route path="/orders" element={<MemberOrder />} />
             
 
-            <Route path="/orderDetails/:POid" element={<OrderDetails/>}>
-            {/* TODO: what's the currentPage for? */}
-               <Route path=":currentPage" element={<OrderDetails />} />
+            <Route path="/orderDetails/:POId" element={<OrderDetails/>}>
+
             </Route>
             
           </Routes>

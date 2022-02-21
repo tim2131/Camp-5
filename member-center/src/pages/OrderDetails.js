@@ -3,6 +3,7 @@ import { Col, Row, Divider, Typography, Card, List } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/config";
 import axios from "axios";
 import { ERR_MSG } from "../utils/error";
@@ -33,11 +34,16 @@ const OrderDetails = () => {
     3: "已取消",
     4: "已完成",
   };
+  //------------------------------------------------
+  // 為了處理網址
+  let navigate = useNavigate();
+  const { POId } = useParams();
+  console.log( POId );
   //----------後端-----getCampPOCamp--------------------------
   const [data, setData] = useState([]);
   async function getCampPOCamp(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOCamp`, [1, 1], {
+      let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
         withCredentials: true,
       });
       console.log(result.data);
@@ -54,7 +60,7 @@ const OrderDetails = () => {
   const [ppl, setPpl] = useState([]);
   async function getCampPOPpl(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOppl`, [1, 1], {
+      let result = await axios.get(`${API_URL}/campPOppl/${POId}`, {
         withCredentials: true,
       });
       console.log(result.data);
@@ -69,9 +75,10 @@ const OrderDetails = () => {
   console.log(ppl);
   //----------後端-----getCampPOTent--------------------------
   const [tent, setTent] = useState([]);
+
   async function getCampPOTent(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOTent`, [1], {
+      let result = await axios.get(`${API_URL}/campPOTent/${POId}`, {
         withCredentials: true,
       });
       console.log(result.data);
@@ -88,9 +95,8 @@ const OrderDetails = () => {
   const [act, setAct] = useState([]);
   async function getCampPOAct(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOAct`, [1], {
-        withCredentials: true,
-      });
+      // http://localhost:3005/api/campPOAct/1
+      let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
       console.log(result.data);
       setAct(result.data);
     } catch (e) {
