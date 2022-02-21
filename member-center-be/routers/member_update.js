@@ -7,7 +7,15 @@ const { body, validationResult } = require("express-validator");
 const registerRules = [
   // 檢查 email 是否符合格式
   body("email").isEmail().withMessage("Email 欄位請填寫正確格式"),
-  body("password").isLength({ min: 8 }).withMessage("密碼長度至少為 8"),
+  body("address").trim().notEmpty().withMessage("需要填入地址"),
+  body("phone").isMobilePhone(["zh-TW"]).withMessage("手機格式錯誤"),
+  body("password")
+    .matches(
+      /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/
+    )
+    .withMessage(
+      "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+    ),
   body("confirm")
     .custom((value, { req }) => {
       return value === req.body.password;

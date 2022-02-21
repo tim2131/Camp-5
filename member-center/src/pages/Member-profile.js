@@ -288,8 +288,8 @@ const MemberProfile = () => {
 
                 <Form.Item
                   name="phone"
-                  label="聯繫號碼"
-                  rules={[{ required: true, message: "請輸入聯繫號碼" }]}
+                  label="手機號碼"
+                  rules={[{ required: true, message: "請輸入手機號碼" }]}
                 >
                   <Input style={{ width: "100%" }} />
                 </Form.Item>
@@ -314,7 +314,7 @@ const MemberProfile = () => {
                       送出
                     </Button>
                     <Button onClick={resetBtn}>取消</Button>
-                    <Button onClick={getFormData}>get</Button>
+                    {/* <Button onClick={getFormData}>get</Button> */}
                   </Space>
                 </Form.Item>
               </Form>
