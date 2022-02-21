@@ -13,11 +13,13 @@
     "craco-antd": "^1.19.0",
     "craco-less": "^1.17.0",
     "moment": "^2.29.1",
+    "proptypes": "^1.1.0",
     "react": "^16.14.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^7.26.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "3.4.4",
+    "umi": "^3.5.20",
     "yarn": "^1.22.17"
   },
   "scripts": {

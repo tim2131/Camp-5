@@ -19,9 +19,10 @@ import "antd/dist/antd.less";
 import "./App.less";
 
 // -------router comp--------------------------
-import MemberProfile from "./pages/Member-profile";
+// import MemberProfile from "./pages/Member-profile";
 import MemberOrder from './pages/Member-order';
-import Tent from './pages/TentCRUD'
+import Tent from './pages/TentCRUD';
+import Activity from "./pages/Activity";
 
 // -------page comp----------------------------
 import LeftSideBar from "./comp/leftSideBar";
@@ -36,7 +37,7 @@ const { Title } = Typography;
 
 function App() {
   // ----導入menu context---------------------
-  const topics = ["首頁", "營地資料", "管理訂單", "帳篷管理", "會員評價"];
+  const topics = ["首頁", "營地資料", "管理訂單", "帳篷管理", "活動管理"];
   const menuIcons = [
     <BorderlessTableOutlined />,
     <ProfileOutlined />,
@@ -44,7 +45,7 @@ function App() {
     <AppstoreOutlined />,
     <UserOutlined />,
   ];
-  const linkTo = ["/dashboard", "/campfile", "/camporders", "/tentCRUD", "/member"];
+  const linkTo = ["/dashboard", "/campfile", "/camporders", "/tentCRUD", "/activity"];
   const [contentIndex, setContentIndex] = useState(0);
   const [selectedKey, setSelectedKey] = useState("0");
   const changeSelectedKey = (event) => {
@@ -75,9 +76,10 @@ function App() {
           }}
         >
           <Routes>
-            <Route path="/campfile" element={<MemberProfile />} />
-            <Route path="/camporders" element={<MemberOrder />} />
+            {/* <Route path="/campfile" element={<MemberProfile />} /> */}
+            {/* <Route path="/camporders" element={<MemberOrder />} /> */}
             <Route path="/tentCRUD" element={<Tent />}/>
+            <Route path="/activity" element={<Activity />}/>
           </Routes>
         </Content>
       </Layout>

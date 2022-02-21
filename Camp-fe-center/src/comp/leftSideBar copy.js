@@ -68,20 +68,20 @@ class LeftSideBar1 extends Component {
             <Menu.Item key="2">
               <Link  to="/profile">
                 <UserOutlined />
-                <span className="nav-text">個人資料</span>
+                <span className="nav-text">營地資料</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
               <FileSearchOutlined />
-              <span className="nav-text">訂單</span>
+              <span className="nav-text">管理訂單</span>
             </Menu.Item>
             <Menu.Item key="4">
               <HeartOutlined />
-              <span className="nav-text">我的最愛</span>
+              <span className="nav-text">帳篷管理</span>
             </Menu.Item>
             <Menu.Item key="5">
               <CompassOutlined />
-              <span className="nav-text">露營地圖</span>
+              <span className="nav-text">活動管理</span>
             </Menu.Item>
           </Menu>
         </Sider>
