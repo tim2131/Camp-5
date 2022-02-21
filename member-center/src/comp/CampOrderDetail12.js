@@ -1,6 +1,5 @@
 import React from "react";
 import {
-
   Divider,
   Typography,
   Card,
@@ -20,6 +19,8 @@ import { API_URL } from "../utils/config";
 import { ERR_MSG } from "../utils/error";
 // import {commentOnPop} from "./CommentOnCampop"
 import moment from "moment";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
@@ -32,14 +33,13 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
   const [POStatus, setPOStatus] = useState([]);
   const [Cbtn, setCbtn] = useState(false);
 
-//TODO 利用訂單狀態去更改按鈕的disable/ useEffect第一渲染沒辦法拿到prop
+  //TODO 利用訂單狀態去更改按鈕的disable/ useEffect第一渲染沒辦法拿到prop
   // useEffect(() => {
   //   // after every render,
   //   return () => {
   //     // exec before running the effects next time
   //   };
   // }, []);
-  
 
   const handleOk = (e) => {
     setloading(true);
@@ -57,8 +57,26 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
       setvisible1(false);
       setCbtn(true);
       //TODO: 送出更改SQL的句法，改camp order狀態
+      changePOtoCancelBE();
     }, 1500);
   };
+  //------------------------------------------------
+  // 為了處理網址
+  
+  const { POId } = useParams();
+  console.log(POId)
+  // console.log( POId );
+  //---------backend--------------------------
+  // TODO:似乎是POId沒法送到後端去
+      async function changePOtoCancelBE() {
+        // e.preventDefault();
+        try {
+          let response = await axios.post(`${API_URL}/cancelPO`, POId);
+          console.log(response.data);
+        } catch (e) {
+          console.log("error");
+        }
+      }
 
   // -----for thumbnail---------------------------------
   const tagWords = {
@@ -266,7 +284,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
         visible={visible}
         title="填寫評論"
         // onOk={this.handleOk}
-        //onCancel 這樣X跟點背景就會消失
+        //onCancel 這樣X跟點背景就會消失 不可以拿掉
         onCancel={() => setvisible(false)}
         footer={[
           <Button key="back" onClick={() => setvisible(false)}>
@@ -305,7 +323,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
           </Button>,
         ]}
       >
-        <p>您確定要取消訂單嗎?</p>
+        <p>您確定要取消訂單嗎?此動作不可回復，若要訂購請重新下定。</p>
       </Modal>
       {/* --------------------------------- */}
     </>
