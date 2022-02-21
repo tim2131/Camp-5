@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { API_URL } from "../utils/config";
 import axios from "axios";
 import "antd/dist/antd.less";
-import CampOrder from "../comp/CampOrder";
+// import CampOrder from "../comp/CampOrder";
 import ProductOrder from "../comp/ProductOrder";
 const { Option } = Select;
 const { Title } = Typography;
@@ -64,9 +64,9 @@ const MemberOrder = () => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地訂單" key="1">
-          <CampOrder
+          {/* <CampOrder
             data={data}
-          />
+          /> */}
         </TabPane>
         <TabPane tab="商品訂單" key="2">
           <ProductOrder />

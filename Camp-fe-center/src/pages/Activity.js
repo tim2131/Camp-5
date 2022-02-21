@@ -1,14 +1,13 @@
 import React from 'react';
 import { Menu } from 'antd';
-import Content from '../comp/TentCRUD/Content';
-import sqlData from '../store/TentCRUD/sqlConfig';
+import Content from '../comp/Activity/Content';
+import sqlData from '../store/Activity/sqlConfig';
 import { Divider, Typography,} from 'antd';
 const { Title } = Typography;
 
-
 const MenuItem = Menu.Item;
 
-export default class TentCRUD extends React.Component {
+export default class Activity extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,7 +26,7 @@ export default class TentCRUD extends React.Component {
   render() {
     return (
       <div className="body">
-        <Divider style={{ marginBottom: 60 }}>
+         <Divider style={{ marginBottom: 60 }}>
         <Title
           level={3}
           style={{
@@ -35,7 +34,7 @@ export default class TentCRUD extends React.Component {
             marginTop: 10,
           }}
         >
-          帳篷管理
+          活動管理
         </Title>
       </Divider>
         <Menu
