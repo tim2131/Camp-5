@@ -68,7 +68,9 @@ const tailFormItemLayout = {
 };
 
 
-const MemberProfile = () => {
+const MemberProfile = ({  }) => {
+
+  //------------------------------------------------
   const [form] = Form.useForm();
   //-----後端連線----得到資料----------------------------------
   const [loading, setLoading] = useState(true);
@@ -113,7 +115,7 @@ const MemberProfile = () => {
     // Should format date value before submit.
     const values = {
       ...data,
-      'datePicker1': moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
+      datePicker1: moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
     };
     console.log(values);
 
@@ -132,12 +134,11 @@ const MemberProfile = () => {
     test();
   };
   //----------------------------
- 
+
   //-------------------------------
   function success() {
     const suc = message.success("更新成功");
     setTimeout(suc, 7000);
-   
   }
 
   //----------日期相關---------------------------------------------------------

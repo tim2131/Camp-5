@@ -37,7 +37,7 @@ const OrderDetails = () => {
     3: "已取消",
     4: "已完成",
   };
-  //------------------------------------------------
+  
   // 為了處理網址
   let navigate = useNavigate();
   const { POId } = useParams();
@@ -105,7 +105,7 @@ const OrderDetails = () => {
     try {
       // http://localhost:3005/api/campPOAct/1
       let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
-      // console.log(result.data);
+      console.log(result.data);
       setAct(result.data);
     } catch (e) {
       console.error("錯誤");

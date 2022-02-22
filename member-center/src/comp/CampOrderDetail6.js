@@ -38,14 +38,14 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
           <div style={style}>
             <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
-            {/* TODO:tag沒有定義 */}
+            {/* FIXME:tag沒有定義 */}
             <div className="orderPicBox">
               <div className="tagWord">{tagWords[item.orderstatus_id]}</div>
               <div className={tagcolor[item.orderstatus_id]}></div>
               <div className="list_item">
                 <img
                   className="pic"
-                  // TODO:後端要可以呈現圖片
+                  // FIXME:後端要可以呈現圖片
                   src={require(`../images/${item.img1}`)}
                   // src={`${IMAGE_URL}${item.img1}`}
                   alt="camp-pic"

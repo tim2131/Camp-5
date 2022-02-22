@@ -64,6 +64,8 @@ let campPOActRouter = require("./routers/campPODetailAct");
 app.use("/api/campPOAct", campPOActRouter);
 let cancelPORouter = require("./routers/cancelPO")
 app.use("/api/cancelPO", cancelPORouter);
+let ratePORouter = require("./routers/ratePO");
+app.use("/api/ratePO", ratePORouter);
 
 
 

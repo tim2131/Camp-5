@@ -69,7 +69,7 @@ const CampOrder = ({data}) => {
                     <br />
                     <span className="campdate">{data.camp_county}</span>
                     <div className="orderlinkbox">
-                      {/* TODO: link連到指定PO */}
+                      
                       <Link to={`/orderDetails/${data.id}`}>
                         <button className="orderlinks" key="list-loadmore-edit">
                           訂單詳細

@@ -20,7 +20,7 @@ function TopicMenu({
     styledTopics.push(
       <Menu.Item
         key={index}
-        onClick={changeSelectedKey}
+        onClick={(index) => changeSelectedKey(index)}
         icon={menuIcons[index]}
       >
         <Link to={linkTo[index]}>
