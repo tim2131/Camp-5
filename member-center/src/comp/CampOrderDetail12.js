@@ -67,11 +67,12 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
   console.log(POId)
   // console.log( POId );
   //---------backend--------------------------
-  // TODO:似乎是POId沒法送到後端去
+  // TODO: 用get是錯誤的 可是同時又要修改資料又要拿到網址參數
+  
       async function changePOtoCancelBE() {
         // e.preventDefault();
         try {
-          let response = await axios.post(`${API_URL}/cancelPO`, POId);
+          let response = await axios.get(`${API_URL}/cancelPO/${POId}`);
           console.log(response.data);
         } catch (e) {
           console.log("error");
