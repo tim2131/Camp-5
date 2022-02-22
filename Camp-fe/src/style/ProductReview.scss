@@ -1,90 +1,99 @@
+@import "./Variables.scss";
+
 /* 全體 */
 .customer-review-main .custom-container-width {
-    max-width: 1120px;
+  max-width: 1120px;
 }
 .customer-review-main {
-    background: #DCE1D9;
-    color: #6A6842;
+  background: #dce1d9;
+  color: #6a6842;
 }
 
 // 背景
 .review-background.top {
-    width: 100%;
-    background: #FCF9F5;
+  width: 100%;
+  background: #fcf9f5;
 }
 .review-background.bottom {
-    width: 100%;
-    background: #E9E3DA;
+  width: 100%;
+  background: #e9e3da;
 }
 .review-background img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 // 評價標題&總星星
 .subtitle-block {
-    margin-top: 45px;
-    margin-bottom: 50px;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 45px;
+  margin-bottom: 50px;
+  justify-content: space-between;
+  align-items: center;
 }
 .review-subtitle-space {
-    width: 245px;
+  width: 245px;
 }
 .subtitle-block h3 {
-    font-size: 36px;
-    margin: 0;
+  font-size: 36px;
+  margin: 0;
 }
 .customer-rate img {
-    margin-right: 9px;
+  margin-right: 9px;
 }
 .total-rate-number {
-    width: 45px;
-    font-size: 28px;
+  width: 45px;
+  font-size: 28px;
 }
 
 // 用戶個別評論
 .customer-review {
-    margin: auto;
-    margin-bottom: 70px;
+  margin: auto;
+  margin-bottom: 70px;
 }
 .customer-avatar {
-    width: 80px;
-    height: 80px;
-    margin-right: 32px;
+  width: 80px;
+  height: 80px;
+  margin-right: 32px;
 }
 .customer-avatar img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 .customer-review-content {
-    width: 100%;
-    height: auto;
-    background: #FCF9F5;
-    padding: 30px;
-    margin-top: 16px;
+  width: 100%;
+  height: auto;
+  background: #fcf9f5;
+  padding: 30px;
+  margin-top: 16px;
 }
 .space {
-    width: calc(80px + 32px);
+  width: calc(80px + 32px);
 }
 .customer-review-content p {
-    margin-bottom: 16px;
-    font-size: 18px;
+  margin-bottom: 16px;
+  font-size: 18px;
 }
 .review-date {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 // 頁碼
 .pagination {
-    font-size: 24px;
-    width: fit-content;
-    margin: 0 auto 45px auto;
+  font-size: 24px;
+  width: fit-content;
+  margin: 0 auto 45px auto;
 }
 .page-number {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 0;
+  color: $dark-green;
+}
+.page-number:focus {
+  background: $dark-green;
+  color: $light-green;
 }

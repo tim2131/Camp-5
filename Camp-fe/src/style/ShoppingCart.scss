@@ -2,67 +2,63 @@
 
 /* 全體 */
 .shopping-cart-main {
-    background: $ivory;
-    padding-bottom: 307px;
+  background: $ivory;
+  padding-bottom: 307px;
 }
 
 // 上半部內容
-.checkout-flow-cart {
-    background: $dark-green;
-    color: $ivory;
-}
 
 // 購物車內商品
 .cart-product {
-    margin: 52px 0;
+  margin: 52px 0;
 }
 .cart-product-pic {
-    width: 400px;
-    height: 400px;
+  // width: 400px;
+  // height: 400px;
 }
 .cart-product-pic img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  //   object-fit: cover;
+  //   width: 100%;
+  //   height: 100%;
 }
 .cart-content {
-    height: 400px;
+  height: 400px;
 }
 .cart-producr-title {
-    width: 235px;
+  width: 235px;
 }
 .cart-producr-title h5 {
-    color: #9CAF89;
+  color: #9caf89;
 }
 .cart-remove-btn {
-    padding: 16px 40px;
-    color: $orange;
-    font-size: 16px;
-    background: transparent;
-    border: 2px $orange solid;
+  padding: 16px 40px;
+  color: $orange;
+  font-size: 16px;
+  background: transparent;
+  border: 2px $orange solid;
 }
 .cart-product-heart {
-    background-color: transparent;
-    border: transparent;
-    margin-left: 20px;
+  background-color: transparent;
+  border: transparent;
+  margin-left: 20px;
 }
 
 .cart-use-point {
-    margin-top: -52px;
+  margin-top: -52px;
 }
 .cart-use-point h3 {
-    margin: 0;
+  margin: 0;
 }
 .cart-use-point button {
-    background: $orange;
-    color: $ivory;
-    padding: 14px 40px;
-    border: 0;
-    margin-left: 18px;
-    font-size: 16px;
+  background: $orange;
+  color: $ivory;
+  padding: 14px 40px;
+  border: 0;
+  margin-left: 18px;
+  font-size: 16px;
 }
 .cart-dividing-line-medium {
-    width: 100%;
-    height: 1px;
-    background: $gray;
+  width: 100%;
+  height: 1px;
+  background: $gray;
 }

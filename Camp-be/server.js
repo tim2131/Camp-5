@@ -1,12 +1,17 @@
-const express = require("express");
-const app = express();
+const express = require("express"); // 引用express
+require("dotenv").config(); // 引用dntenv
+const connection = require("./utils/db"); // 引用 utils 中的db.js
+// const cors = require("cors"); // 引用cors
+let app = express(); // 利用 express 這個 library 來建立一個 web app (express instance)
+// app.use(cors()); // 使用第三方開發的 cors 中間件
+app.use(express.urlencoded({ extended: true })); // express.urlencoded 要讓express認得body裡的資料
+app.use(express.json()); // 讓express認得json
+
 const port = 3002; // your server port
 const db = require("./utils/db");
 const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt"); 
+const bcrypt = require("bcrypt");
 const path = require("path");
-require("dotenv").config();
-
 
 //session
 const expressSession = require("express-session");
@@ -40,8 +45,6 @@ app.listen(port, () => {
 //   console.log("Response: ", rows);
 // });
 
-
-
 //一般會員登入
 app.post("/login", function (req, res) {
   const { user_name, password } = req.body;
@@ -71,8 +74,7 @@ app.post("/login", function (req, res) {
         code: "0",
         data: returnMember,
       });
-         }
-        
+    }
   );
 });
 
@@ -105,16 +107,22 @@ app.post("/camplogin", function (req, res) {
         code: "0",
         data: returnMember,
       });
-         }
-        
+    }
   );
 });
 
-
 //一般會員註冊
 const authControllerUser = (req, res) => {
-  const { name, user_name, phone, date, password, confirmPassword, gender,created_time } =
-    req.body;
+  const {
+    name,
+    user_name,
+    phone,
+    date,
+    password,
+    confirmPassword,
+    gender,
+    created_time,
+  } = req.body;
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
@@ -157,8 +165,15 @@ app.post(
 
 //營主註冊
 const authControllerCamp = (req, res) => {
-  const { company_name, email, phone, password, confirmPassword, address,created_time } =
-    req.body;
+  const {
+    company_name,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    address,
+    created_time,
+  } = req.body;
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
@@ -201,12 +216,28 @@ app.post(
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-
-
-
-
 //登出
-app.get("/logout",(req,res,next)=>{
-  req.session.member= null
-  res.sendStatus(202)
-})
+app.get("/logout", (req, res, next) => {
+  req.session.member = null;
+  res.sendStatus(202);
+});
+
+// -----------------------------------------------------------------
+// 總商品列表
+app.get("/api/products", async (req, res, next) => {
+  let [data, fields] = await connection.execute("SELECT * FROM product");
+  console.log(data);
+  res.json(data);
+});
+
+// 單一商品相關
+let productDetailRouter = require("./routers/product");
+app.use(productDetailRouter);
+
+// -----------------------------------------------------------------
+
+// // 在哪個port上執行
+// const port = process.env.SERVER_PORT || 3002;
+// app.listen(port, () => {
+//   console.log(`server running at port ${port}`);
+// });
