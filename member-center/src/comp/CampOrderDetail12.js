@@ -26,11 +26,16 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const OrderDetails12 = ({ ppl, tent, act, data }) => {
+const OrderDetails12 = ({
+  ppl,
+  tent,
+  act,
+  data,
+  setPOStatus,setPOStatusWord,
+}) => {
   const [loading, setloading] = useState(false);
   const [visible, setvisible] = useState(false);
   const [visible1, setvisible1] = useState(false);
-  const [POStatus, setPOStatus] = useState([]);
   const [Cbtn, setCbtn] = useState(false);
 
   //TODO 利用訂單狀態去更改按鈕的disable/ useEffect第一渲染沒辦法拿到prop
@@ -40,7 +45,11 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
   //     // exec before running the effects next time
   //   };
   // }, []);
-
+  //-------------------------------------
+  function POStatusAfterChange() {
+    // console.log(data[0].orderstatus_id);
+  }
+  //--------------handle BTN 區域----------------------
   const handleOk = (e) => {
     setloading(true);
     setTimeout(() => {
@@ -56,28 +65,29 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
       setloading(false);
       setvisible1(false);
       setCbtn(true);
-      //TODO: 送出更改SQL的句法，改camp order狀態
       changePOtoCancelBE();
+      setPOStatus("3");
+      setPOStatusWord("已取消");
     }, 1500);
   };
   //------------------------------------------------
   // 為了處理網址
-  
+
   const { POId } = useParams();
-  console.log(POId)
+  console.log(POId);
   // console.log( POId );
   //---------backend--------------------------
   // TODO: 用get是錯誤的 可是同時又要修改資料又要拿到網址參數
-  
-      async function changePOtoCancelBE() {
-        // e.preventDefault();
-        try {
-          let response = await axios.get(`${API_URL}/cancelPO/${POId}`);
-          console.log(response.data);
-        } catch (e) {
-          console.log("error");
-        }
-      }
+
+  async function changePOtoCancelBE() {
+    // e.preventDefault();
+    try {
+      let response = await axios.get(`${API_URL}/cancelPO/${POId}`);
+      console.log(response.data);
+    } catch (e) {
+      console.log("error");
+    }
+  }
 
   // -----for thumbnail---------------------------------
   const tagWords = {
@@ -123,10 +133,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
           >
             填寫評價
           </button>
-          <button
-            className="orderlinks"
-            // onClick={statusPOFinish}
-          >
+          <button className="orderlinks" onClick={POStatusAfterChange}>
             聯繫客服
           </button>
         </div>

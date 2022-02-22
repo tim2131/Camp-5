@@ -14,6 +14,9 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 
 
 const OrderDetails = () => {
+  const [poStatus, setPOStatus] = useState([]);
+   const [poStatusWord, setPOStatusWord] = useState([]);
+  
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -46,12 +49,17 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+      console.log(result.data);
       setData(result.data);
+      setPOStatus(result.data[0].orderstatus_id);
+      setPOStatusWord(result.data[0].status);
+      // console.log(setData);
     } catch (e) {
       console.error("錯誤");
     }
   }
+  // console.log(poStatus);
+  // console.log(data);
   useEffect(() => {
     getCampPOCamp();
   }, []);
@@ -130,7 +138,11 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 6, offset: 0 }}
         >
-          <OrderDetails6 data={data} />
+          <OrderDetails6
+            data={data}
+            poStatus={poStatus}
+            poStatusWord={poStatusWord}
+          />
         </Col>
         <Col
           className="gutter-row"
@@ -140,7 +152,14 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <OrderDetails12 data={data} ppl={ppl} tent={tent} act={act} />
+          <OrderDetails12
+            data={data}
+            ppl={ppl}
+            tent={tent}
+            act={act}
+            setPOStatus={setPOStatus}
+            setPOStatusWord={setPOStatusWord}
+          />
         </Col>
       </Row>
     </>

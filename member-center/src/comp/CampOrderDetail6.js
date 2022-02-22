@@ -6,7 +6,7 @@ import "antd/dist/antd.less";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 
-const OrderDetails6 = ({ data }) => {
+const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -36,9 +36,7 @@ const OrderDetails6 = ({ data }) => {
             <div>{item.camp_name}</div>
           </li> */}
           <div style={style}>
-            <div className={orderStatuscolor[item.orderstatus_id]}>
-              {item.status}
-            </div>
+            <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
             {/* TODO:tag沒有定義 */}
             <div className="orderPicBox">
