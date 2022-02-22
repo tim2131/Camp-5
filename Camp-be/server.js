@@ -1,32 +1,13 @@
-// 引用express
-const express = require("express");
+const express = require("express"); // 引用express
+require("dotenv").config(); // 引用dntenv
+const connection = require("./utils/db"); // 引用 utils 中的db.js
+// const cors = require("cors"); // 引用cors
+let app = express(); // 利用 express 這個 library 來建立一個 web app (express instance)
+// app.use(cors()); // 使用第三方開發的 cors 中間件
+app.use(express.urlencoded({ extended: true })); // express.urlencoded 要讓express認得body裡的資料
+app.use(express.json()); // 讓express認得json
 
-// 引用dntenv
-require("dotenv").config();
-
-// 引用 utils 中的db.js
-const connection = require("./utils/db");
-
-// 引用cors
-const cors = require("cors");
-
-// 利用 express 這個 library 來建立一個 web app (express instance)
-let app = express();
-
-// 使用第三方開發的 cors 中間件
-app.use(cors());
-
-// express.urlencoded 要讓express認得body裡的資料
-app.use(express.urlencoded({ extended: true }));
-// 讓express認得json
-app.use(express.json());
-
-// 在哪個port上執行
-const port = process.env.SERVER_PORT || 3002;
-app.listen(port, () => {
-  console.log(`server running at port ${port}`);
-});
-
+const port = 3002; // your server port
 const db = require("./utils/db");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
@@ -46,7 +27,7 @@ app.use(
   })
 );
 //解決跨域問題、是否拿cookie
-// const cors = require("cors");
+const cors = require("cors");
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
@@ -254,3 +235,9 @@ let productDetailRouter = require("./routers/product");
 app.use(productDetailRouter);
 
 // -----------------------------------------------------------------
+
+// // 在哪個port上執行
+// const port = process.env.SERVER_PORT || 3002;
+// app.listen(port, () => {
+//   console.log(`server running at port ${port}`);
+// });
