@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Input } from 'antd';
 import $http from '../../libs/TentCRUD/ajax';
 import Image1 from "../../images/camp12.jpg";
@@ -7,16 +7,18 @@ import Image3 from "../../images/camp9.jpg";
 import Image4 from "../../images/camp8.jpg";
 import Image5 from "../../images/camp16.jpg";
 import Image6 from "../../images/camp1.jpg";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 
 
+  
 
 
 export const getTableUsers = params => {
  
   const data = [];
-  
- 
+
     data.push(
       {
       id: 1,
@@ -68,7 +70,8 @@ export const getTableUsers = params => {
       },
       );
 
-  return Promise.resolve(data);
+      return Promise.resolve(data)
+  
 };
 
 
