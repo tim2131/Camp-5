@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import '../style/ShoppingCart.scss';
-import ShoppingCartTitle from './ShoppingCartTitle';
-import ShoppingCartSum from './ShoppingCartSum';
+import "../style/ShoppingCart.scss";
+import ShoppingCartSum from "./ShoppingCartSum";
 // 數量加減元件
-import NumericInput from 'react-numeric-input';
-import '../style/NumericInput.scss';
+import NumericInput from "react-numeric-input";
+import "../style/NumericInput.scss";
 
 // 圖片
-// import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
-import cartProduct from '../img/product1.jpeg';
-import heartEmpty from '../img/icon/heart-empty.svg';
-import heartFull from '../img/icon/heart-full.svg';
+import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
+import cartProduct from "../img/product1.jpeg";
+import heartEmpty from "../img/icon/heart-empty.svg";
+import heartFull from "../img/icon/heart-full.svg";
 
 function ShoppingCart() {
   // 點愛心
@@ -23,17 +22,39 @@ function ShoppingCart() {
   return (
     <>
       <main className="shopping-cart-main">
-        <div className="container custom-container-width">
+        <div className="container">
           {/* 上半部內容 */}
-          <ShoppingCartTitle />
+          {/* <ShoppingCartTitle /> */}
+          <div className="shopping-cart-title">
+            <h2 className="text-center">您的訂購資訊</h2>
+          </div>
+          <div className="checkout-flow d-flex justify-content-between align-items-center">
+            <h3 className="checkout-flow-bg-green">購物車</h3>
+            <div>
+              <img src={shoppingCartArrow} alt="" />
+            </div>
+            <h3>付款資訊</h3>
+            <div>
+              <img src={shoppingCartArrow} alt="" />
+            </div>
+            <h3>運送資訊</h3>
+          </div>
+          <div className="clear-cart text-right">
+            <button>清除購物車</button>
+          </div>
+          <div className="cart-dividing-line-full"></div>
 
           {/* 購物車內商品 */}
           <div>
             {/* 01 */}
             <div className="cart-product row">
               <div className="col-4">
-                <div className="cart-product-pic">
-                  <img src={cartProduct} alt="" />
+                <div className="cart-product-pic embed-responsive embed-responsive-1by1">
+                  <img
+                    src={cartProduct}
+                    alt=""
+                    className="embed-responsive-item"
+                  />
                 </div>
               </div>
               <div className="col-8">
@@ -68,8 +89,12 @@ function ShoppingCart() {
             {/* 02 */}
             <div className="cart-product row">
               <div className="col-4">
-                <div className="cart-product-pic">
-                  <img src={cartProduct} alt="" />
+                <div className="cart-product-pic embed-responsive embed-responsive-1by1">
+                  <img
+                    src={cartProduct}
+                    alt=""
+                    className="embed-responsive-item"
+                  />
                 </div>
               </div>
               <div className="col-8">
