@@ -1,40 +1,32 @@
-@import '~antd/dist/antd.less';
+@import "~antd/dist/antd.less";
 
-.App {
-  text-align: center;
+
+
+.logo-left {
+  height: 50px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.text {
+  height: 32px;
+  /* background: #333; */
+  border-radius: 6px;
+  margin: 16px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.barsMenu {
+  display: none;
+}
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .barsMenu {
+    display: inline;
+    background-color: #6a684271;
+    position: absolute;
+    top: 1rem;
+    left: 0.5rem;
   }
-  to {
-    transform: rotate(360deg);
-  }
+  /* .drawer{
+      display:block;
+      background-color: #6A6842;
+  } */
 }

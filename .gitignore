@@ -1,3 +1,4 @@
 member-center/node_modules
-
+.env
 Camp-fe-center/node_modules
+test.js

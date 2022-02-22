@@ -13,10 +13,11 @@ let app = express();
 app.use(
   cors({
     // 為了要讓 browser 在 CORS 的情況下還是幫我們送 cookie
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:8000"],
     credentials: true,
   })
 );
+//body-parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 啟用 session
@@ -35,28 +36,46 @@ let FileStore = require("session-file-store")(expressSession);
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
-app.use((req, res, next) => {
-
-    res.send("Hello Middleware");
-    // res.render("index", {
-    //   stocks: ["台積電", "長榮", "聯發科"],
-    // });
-    // 有SSR的時候使用
-});
 
 app.use((req, res, next) => {
     console.log("這是一個沒有用的中間件");
     // throw new Error("故意製造的錯誤");
-
   next();
 });
 
+// -----------------------------------------------------------------
+let memberInfoRouter = require("./routers/member");
+app.use("/api/memberInfo", memberInfoRouter);
+
+
+let memberUpdateRouter = require("./routers/member_update");
+app.use("/api/memberInfo1", memberUpdateRouter);
+
+let campAllPoRouter = require("./routers/campAllPO");
+app.use("/api/campAllPO", campAllPoRouter);
+
+let campPOpplRouter = require("./routers/campPODetail");
+app.use("/api/campPOppl", campPOpplRouter);
+let campPOCampRouter = require("./routers/campPODetailCamp");
+app.use("/api/campPOCamp", campPOCampRouter);
+let campPOTentRouter = require("./routers/campPODetailTent");
+app.use("/api/campPOTent", campPOTentRouter);
+let campPOActRouter = require("./routers/campPODetailAct");
+app.use("/api/campPOAct", campPOActRouter);
+let cancelPORouter = require("./routers/cancelPO")
+app.use("/api/cancelPO", cancelPORouter);
+
+
+
+
+
+//-------------------------------------------------------------------
 app.use((req, res, next) => {
   console.log("在所有路由中間件的後面 -> 404");
   res.status(404).send("Not Found");
 });
 app.use((req, res, next) => {
- res.send("Hello Middleware");
+//  res.send("Hello Middleware");
 });
 
 // 錯誤中間件：放在所有中間件的後面

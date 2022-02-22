@@ -61,10 +61,14 @@ function App() {
       changeSelectedKey={changeSelectedKey}
     />
   );
-  // -------------------------
+  // ------------------------------
+  const childToParent = () => { };
+  
+  //------------------------------
 
   return (
     <Layout style={{ height: "100vh" }}>
+      {/* TODO: 重刷不跑位 */}
       <LeftSideBar menu={Menu} />
       <Layout>
         <Header1 menu={Menu} />
@@ -77,7 +81,12 @@ function App() {
           <Routes>
             <Route path="/profile" element={<MemberProfile />} />
             <Route path="/orders" element={<MemberOrder />} />
-            <Route path="/orderDetails" element={<OrderDetails/>}/>
+            
+
+            <Route path="/orderDetails/:POId" element={<OrderDetails/>}>
+
+            </Route>
+            
           </Routes>
         </Content>
       </Layout>

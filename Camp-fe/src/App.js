@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./style/App.css";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/navbar";
+// import Navbar from "./components/Navbar";
 // import Home from "./pages/home";
 // import Products from "./components/Products";
 import ProductDetail from "./components/ProductDetail";
@@ -13,6 +14,7 @@ import ShipmentCreditCard from "./components/ShipmentCreditCard";
 import ShipmentConvenienceStore from "./components/ShipmentConvenienceStore";
 import OrderSuccess from "./components/OrderSuccess";
 import Footer from "./components/Footer";
+import Home from "./pages/home";
 
 function App() {
   return (

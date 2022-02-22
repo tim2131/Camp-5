@@ -1,3 +1,4 @@
+//connect to db
 // 以下是mysql2的寫法
 const mysql = require("mysql2");
 require("dotenv").config();
