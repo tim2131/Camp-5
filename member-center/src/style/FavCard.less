@@ -1,4 +1,4 @@
-.imgInCard {
+.pic {
   width: 400px;
   height: 400px;
 }
@@ -6,71 +6,591 @@
 .Scard {
   width: 400px;
 }
+// --parameter----------------------------------------------
+  @width: 200px*2;
+  @tagWidth: 85px*2;
+  @tagWordTop: 25px*2;
+  @tagWordLeft: 20px*2;
+  @tagWordSize: 11px*2;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
+
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
+
 /* Extra large devices */
 @media (min-width: 1600px) {
-   
-  }
+}
 /* Extra large devices */
 @media (min-width: 1200px) {
-//  
+  //
 }
 @media (max-width: 1200px) {
-    .imgInCard {
-        width: 300px;
-        height: 300px;
-      }
-      
-      .Scard {
-        width: 300px;
-      }
+  .pic {
+    width: 300px;
+    height: 300px;
   }
+
+  .Scard {
+    width: 300px;
+  }
+  // --parameter----------------------------------------------
+  @width: 200px/2*3;
+  @tagWidth: 85px/2*3;
+  @tagWordTop: 25px/2*3;
+  @tagWordLeft: 20px/2*3;
+  @tagWordSize: 11px/2*3;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
+
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
+}
 /* desktops */
 @media (max-width: 992px) {
-//  
+  //
 }
 @media (max-width: 848px) {
-    .imgInCard {
-        width: 250px;
-        height: 250px;
-      }
-      
-      .Scard {
-        width: 250px;
-      } 
-    }
+  .pic {
+    width: 250px;
+    height: 250px;
+  }
+
+  .Scard {
+    width: 250px;
+  }
+  // --parameter----------------------------------------------
+  @width: 200px/2*2.5;
+  @tagWidth: 85px/2*2.5;
+  @tagWordTop: 25px/2*2.5;
+  @tagWordLeft: 20px/2*2.5;
+  @tagWordSize: 11px/2*2.5;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
+
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
+}
 /* tablets */
 @media (max-width: 768px) {
-    .imgInCard {
-        width: 300px;
-        height: 300px;
-      }
-      
-      .Scard {
-        width: 300px;
-      } 
+  .pic {
+    width: 300px;
+    height: 300px;
+  }
+
+  .Scard {
+    width: 300px;
+  }
+  // --parameter----------------------------------------------
+  @width: 200px/2*3;
+  @tagWidth: 85px/2*3;
+  @tagWordTop: 25px/2*3;
+  @tagWordLeft: 20px/2*3;
+  @tagWordSize: 11px/2*3;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
+
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
 }
 /* phones */
 @media (max-width: 666px) {
-    .imgInCard {
-        width: 250px;
-        height: 250px;
-      }
-      
-      .Scard {
-        width: 250px;
-      } 
+  .pic {
+    width: 250px;
+    height: 250px;
+  }
+
+  .Scard {
+    width: 250px;
+  }
+  // --parameter----------------------------------------------
+  @width: 200px/2*2.5;
+  @tagWidth: 85px/2*2.5;
+  @tagWordTop: 25px/2*2.5;
+  @tagWordLeft: 20px/2*2.5;
+  @tagWordSize: 11px/2*2.5;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
+
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
 }
 
 /* phones */
 @media (max-width: 576px) {
-    .imgInCard {
-        width: 400px;
-        height: 400px;
-      }
-      
-      .Scard {
-        width: 400px;
-      } 
+  .pic {
+    width: 300px;
+    height: 300px;
   }
 
+  .Scard {
+    width: 300px;
+  }
+  // --parameter----------------------------------------------
+  @width: 200px/2*3;
+  @tagWidth: 85px/2*3;
+  @tagWordTop: 25px/2*3;
+  @tagWordLeft: 20px/2*3;
+  @tagWordSize: 11px/2*3;
+  // --------pic small for product and camp--------------------------------------------
+  .orderPicBox {
+    position: relative;
+    width: @width;
+    height: @width;
+    margin: 0 auto;
+  }
+  .list_item {
+    width: @width;
+    height: @width;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(
+      25% 0%,
+      100% 0,
+      100% 25%,
+      100% 75%,
+      75% 100%,
+      25% 100%,
+      0 100%,
+      0% 25%
+    );
+  }
+  .pic {
+    max-height: 100%;
+    object-fit: cover;
+    object-position: -50px;
+  }
 
+  .tag {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c15f2ebe transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+
+  .tagStar {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagNoStock {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @tagWidth @tagWidth 0 0;
+    border-color: #c4c4c4 transparent transparent transparent;
+    position: absolute;
+    z-index: 99;
+    clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  }
+  .tagWord {
+    position: absolute;
+    top: @tagWordTop;
+    left: @tagWordLeft;
+    transform: rotate(-45deg);
+    color: #e9e3da;
+    font-size: @tagWordSize;
+    z-index: 100;
+  }
+  .subtitle {
+    display: flex;
+    color: @success-color;
+    width: 80%;
+    font-size: 1.2rem;
+    margin: 0.2em auto;
+    justify-content: center;
+    align-items: center;
+  }
+  .subWord {
+    display: block;
+  }
+}
