@@ -3,6 +3,7 @@ import { List} from "antd";
 import { Link } from "react-router-dom";
 import "../App.less";
 import "../style/campOrder.less";
+import { IMAGE_URL } from "../utils/config";
 
 
 
@@ -28,7 +29,7 @@ const CampOrder = ({data}) => {
     1: "statusTagTBD1",
     2: "statusTagDone1",
     3: "statusTagCancel1",
-    4: "statusTagDone1",
+    4: "statusTagPODone1",
   };
 
   return (
@@ -87,7 +88,8 @@ const CampOrder = ({data}) => {
                 <div className="list_item">
                   <img
                     className="pic"
-                    // src={item.pic}
+                    src={`${IMAGE_URL}/images/${data.img1}`}
+                    
                     alt="camp-pic"
                   />
                 </div>

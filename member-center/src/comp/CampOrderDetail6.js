@@ -2,6 +2,7 @@ import React from "react";
 import { Divider, Typography } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
+import { IMAGE_URL } from "../utils/config";
 
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
@@ -45,9 +46,10 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
               <div className="list_item">
                 <img
                   className="pic"
-                  // FIXME:後端要可以呈現圖片
-                  src={require(`../images/${item.img1}`)}
-                  // src={`${IMAGE_URL}${item.img1}`}
+
+                  src={`${IMAGE_URL}/images/${item.img1}`}
+                  // src={`${IMAGE_URL}${item.img1}`} 
+                  // http://localhost:3005/images/camp1.jpg
                   alt="camp-pic"
                 />
                 <img />
