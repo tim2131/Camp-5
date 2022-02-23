@@ -49,6 +49,7 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
         withCredentials: true,
       });
+      console.log(`getCampPOCamp-${result.data}`);
       console.log(result.data);
       setData(result.data);
       setPOStatus(result.data[0].orderstatus_id);
@@ -71,7 +72,8 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOppl/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+      console.log("campPOppl");
+      console.log(result.data);
       setPpl(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -105,6 +107,7 @@ const OrderDetails = () => {
     try {
       // http://localhost:3005/api/campPOAct/1
       let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
+      console.log(`getCampPOAct-${result.data}`);
       console.log(result.data);
       setAct(result.data);
     } catch (e) {

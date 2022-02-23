@@ -20,7 +20,7 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
     1: "statusTagTBD",
     2: "statusTagDone",
     3: "statusTagCancel",
-    4: "statusTagDone",
+    4: "statusTagPODone",
   };
   const orderStatus = {
     1: "未付款",

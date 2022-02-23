@@ -72,7 +72,6 @@ app.use("/api/ratePO", ratePORouter);
 // 使用 express 內建的中間件
 // 靜態檔案: 圖片、js 檔案、css 檔案, html...
 // 寫法1: 不要有 網址 prefix
-// TODO: 後端已經有圖片
 // http://localhost:3005/images/camp1.jpg
 app.use(express.static(path.join(__dirname, "assets")));
 // 寫法2: 有網址的 prefix

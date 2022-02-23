@@ -180,6 +180,7 @@ const OrderDetails12 = ({
               <br />
               <span className="subnote2">訂購人信箱:</span>
               <span className="subname2">{item.user_name}</span>
+              <br />
             </React.Fragment>
           ))}
           <br />
@@ -288,7 +289,7 @@ const OrderDetails12 = ({
           </div>
 
           <div className="totalmoney">
-            {/* FIXME: 帳篷沒有單價 */}
+            {/* FIXME: 價錢還沒用好 */}
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="total">{item.item}1</div>

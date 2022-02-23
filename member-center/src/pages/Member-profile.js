@@ -111,7 +111,6 @@ const MemberProfile = ({  }) => {
   const onFinish = (fieldsValue) => {
     let data = form.getFieldValue();
     console.log(data);
-    // TODO: 時間
     // Should format date value before submit.
     const values = {
       ...data,
