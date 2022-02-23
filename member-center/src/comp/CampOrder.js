@@ -35,6 +35,7 @@ const CampOrder = ({data}) => {
   return (
     //TODO: filter
     <List
+    
       size="small"
       itemLayout="horizontal"
       dataSource={data}
@@ -43,7 +44,7 @@ const CampOrder = ({data}) => {
         onChange: (page) => {
           console.log(page);
         },
-        pageSize: 5,
+        pageSize: 10,
       }}
       renderItem={(data) => (
         <Link to={`/orderDetails/${data.id}`}>

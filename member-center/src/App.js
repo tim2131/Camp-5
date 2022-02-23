@@ -45,7 +45,7 @@ function App() {
     <HeartOutlined />,
     <CompassOutlined />,
   ];
-  const linkTo = ["/dashboard", "/profile", "/orders", "/favorites", "/map"];
+  const linkTo = ["/", "/profile", "/orders", "/favorites", "/map"];
   const [contentIndex, setContentIndex] = useState(0);
   const [selectedKey, setSelectedKey] = useState("0");
   // const changeSelectedKey = (data) => {
@@ -103,6 +103,7 @@ function App() {
               element={<OrderDetails />}
             ></Route>
             <Route path="/favorites" element={<MyFav />} />
+            {/* <Route path="/" element={<></>} /> */}
           </Routes>
         </Content>
       </Layout>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { API_URL } from "../utils/config";
 import axios from "axios";
 import "antd/dist/antd.less";
+import FavCard from "../comp/FacCard";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -48,7 +49,7 @@ const MyFav = ({ setSelectedKey }) => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地最愛" key="1">
-          {/* //插入組件 */}
+        <FavCard/>
         </TabPane>
         <TabPane tab="商品最愛" key="2">
          {/* //插入組件 */}
