@@ -1,4 +1,5 @@
 import { Card, Col, Row, Avatar } from "antd";
+import Ellipsis from "ant-design-pro/lib/Ellipsis";
 import React from "react";
 import { useState, useEffect } from "react";
 import {
@@ -44,59 +45,74 @@ const FavCard = ({ favData }) => {
       <div className="site-card-border-less-wrapper">
         <Row gutter={[{ xs: 2, sm: 2, md: 4, lg: 4 }, 40]} justify="center">
           <Col xs={20} sm={12} md={12} lg={12} xl={10} xxl={7}>
-            <Card
-              className="Scard"
-              bordered={false}
-              // style={{ width: 400 }}
-              cover={
-                <>
-                  <div className="cardOrderPicBox">
-                    <div className="card_tagWord">{tagWords[1]}</div>
-                    <div className={tagcolor[1]}></div>
-                    <div className="card_list_item">
-                      <img
-                        className="card_pic"
-                        src="http://localhost:3005/images/camp1.jpg"
-                        // src={`${IMAGE_URL}${item.img1}`}
-                        // http://localhost:3005/images/camp1.jpg
-                        alt="camp-pic"
-                      />
-                      <img />{" "}
-                    </div>
-                  </div>{" "}
-                </>
-              }
-              actions={[
-                <>
-                  <div
-                    className="favBtn"
-                    onClick={(e)=>console.log(favData)
+            {favData.map((fav) => {
+              return (
+                <Card
+                  key={fav.camp_id}
+                  className="Scard"
+                  bordered={false}
+                  // style={{ width: 400 }}
+                  cover={
+                    <>
+                      <div className="cardOrderPicBox">
+                        <div className="card_tagWord">
+                          {tagWords[fav.camp_tag]}
+                        </div>
+                        <div className={tagcolor[fav.camp_tag]}></div>
+                        <div className="card_list_item">
+                          <img
+                            className="card_pic"
+                            src="http://localhost:3005/images/camp1.jpg"
+                            // src={`${IMAGE_URL}${item.img1}`}
+                            // http://localhost:3005/images/camp1.jpg
+                            alt="camp-pic"
+                          />
+                          <img />
+                        </div>
+                      </div>
+                    </>
+                  }
+                  actions={[
+                    <>
+                      <div
+                        className="favBtn"
+                        onClick={(e) => console.log(favData)}
+                      >
+                        <HeartOutlined key="heart" />{" "}
+                        <div className="favBtnWords">Like</div>
+                      </div>
+                    </>,
+                    // TODO: 實心狀態
+                    //   <>
+                    //     <HeartFilled key="filledHeart" />
+                    //   </>,
+                    <>
+                      <div className="favBtn">
+                        <ZoomInOutlined key="zoom" />{" "}
+                        <div className="favBtnWords">看詳細</div>
+                      </div>
+                    </>,
+                    <>
+                      <div className="favBtn">
+                        <ShareAltOutlined key="share" />{" "}
+                        <div className="favBtnWords">分享</div>
+                      </div>
+                    </>,
+                  ]}
+                >
+                  <Meta
+                    title={fav.camp_name}
+                    description={
+                      <>
+                        <Ellipsis tooltip lines={3}>
+                          {fav.camp_intro}
+                        </Ellipsis>
+                      </>
                     }
-                  >
-                    <HeartOutlined key="heart" />{" "}
-                    <div className="favBtnWords">Like</div>
-                  </div>
-                </>,
-                // TODO: 實心狀態
-                //   <>
-                //     <HeartFilled key="filledHeart" />
-                //   </>,
-                <>
-                  <div className="favBtn">
-                    <ZoomInOutlined key="zoom" />{" "}
-                    <div className="favBtnWords">看詳細</div>
-                  </div>
-                </>,
-                <>
-                  <div className="favBtn">
-                    <ShareAltOutlined key="share" />{" "}
-                    <div className="favBtnWords">分享</div>
-                  </div>
-                </>,
-              ]}
-            >
-              <Meta title="Card title" description="This is the description" />
-            </Card>
+                  />
+                </Card>
+              );
+            })}
           </Col>
         </Row>
       </div>
