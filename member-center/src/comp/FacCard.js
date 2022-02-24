@@ -1,4 +1,4 @@
-import { Card, Col, Row, Avatar } from "antd";
+import { Card, Col, Row, Avatar,Badge, Tag } from "antd";
 import Ellipsis from "ant-design-pro/lib/Ellipsis";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -41,7 +41,7 @@ const FavCard = ({ favData }) => {
     4: "已完成",
   };
   return (
-    <>
+    <React.Fragment >
       <div className="site-card-border-less-wrapper">
         <Row gutter={[{ xs: 2, sm: 2, md: 4, lg: 4 }, 40]} justify="center">
           <Col xs={20} sm={12} md={12} lg={12} xl={10} xxl={7}>
@@ -101,9 +101,14 @@ const FavCard = ({ favData }) => {
                   ]}
                 >
                   <Meta
-                    title={fav.camp_name}
+                    title={<span className="campName">{fav.camp_name}</span>}
                     description={
                       <>
+                        <Tag color="#C15F2E">{fav.camp_county}</Tag>
+                        <Tag color="#FCF9F5" className="tagFCF9F5">
+                          {fav.camp_item}
+                        </Tag>
+                        <Tag color="#6A6842">{fav.tent_item}</Tag>
                         <Ellipsis tooltip lines={3}>
                           {fav.camp_intro}
                         </Ellipsis>
@@ -116,7 +121,7 @@ const FavCard = ({ favData }) => {
           </Col>
         </Row>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 
