@@ -13,8 +13,9 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
     2: "促銷",
   };
   const tagcolor = {
-    1: "tagStar",
-    2: "tag",
+    1: "O6_tagStar",
+    2: "O6_tag",
+    3: "O6_tagNoStock",
   };
   const orderStatuscolor = {
     1: "statusTagTBD",
@@ -40,15 +41,14 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
             <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
             {/* FIXME:tag沒有定義 */}
-            <div className="orderPicBox">
-              <div className="tagWord">{tagWords[item.orderstatus_id]}</div>
+            <div className="O6orderPicBox">
+              <div className="O6_tagWord">{tagWords[item.orderstatus_id]}</div>
               <div className={tagcolor[item.orderstatus_id]}></div>
-              <div className="list_item">
+              <div className="O6_list_item">
                 <img
-                  className="pic"
-
+                  className="O6_pic"
                   src={`${IMAGE_URL}/images/${item.img1}`}
-                  // src={`${IMAGE_URL}${item.img1}`} 
+                  // src={`${IMAGE_URL}${item.img1}`}
                   // http://localhost:3005/images/camp1.jpg
                   alt="camp-pic"
                 />

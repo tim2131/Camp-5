@@ -23,8 +23,9 @@ const FavCard = ({ }) => {
    2: "促銷",
  };
  const tagcolor = {
-   1: "tagStar",
-   2: "tag",
+   1: "card_tagStar",
+   2: "card_tag",
+   3: "card_tagNoStock",
  };
  const orderStatuscolor = {
    1: "statusTagTBD",
@@ -49,12 +50,12 @@ const FavCard = ({ }) => {
                 // style={{ width: 400 }}
                 cover={
                   <>
-                    <div className="orderPicBox">
-                      <div className="tagWord">{tagWords[1]}</div>
+                    <div className="cardOrderPicBox">
+                      <div className="card_tagWord">{tagWords[1]}</div>
                       <div className={tagcolor[1]}></div>
-                      <div className="list_item">
+                      <div className="card_list_item">
                         <img
-                          className="pic"
+                          className="card_pic"
                           src="http://localhost:3005/images/camp1.jpg"
                           // src={`${IMAGE_URL}${item.img1}`}
                           // http://localhost:3005/images/camp1.jpg
@@ -70,16 +71,17 @@ const FavCard = ({ }) => {
                     <HeartOutlined key="heart" />
                     Like
                   </>,
-                // TODO: 實心狀態
-                //   <>
-                //     <HeartFilled key="filledHeart" />
-                //   </>,
+                  // TODO: 實心狀態
+                  //   <>
+                  //     <HeartFilled key="filledHeart" />
+                  //   </>,
                   <>
                     {" "}
                     <ZoomInOutlined key="zoom" /> 看詳細
                   </>,
                   <>
-                    <ShareAltOutlined key="share" />分享
+                    <ShareAltOutlined key="share" />
+                    分享
                   </>,
                 ]}
               >
@@ -89,7 +91,6 @@ const FavCard = ({ }) => {
                 />
               </Card>
             </Col>
-            
           </Row>
         </div>
       </>

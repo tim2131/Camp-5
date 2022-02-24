@@ -85,6 +85,7 @@ const MemberProfile = ({ }) => {
     setData(res.data);
     setLoading(false);
     console.log(res.data);
+    //TODO: 沒辦法從資料庫抓資料時 空陣列要顯現錯誤
   };
 
   useEffect(() => {
