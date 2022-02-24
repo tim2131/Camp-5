@@ -12,6 +12,7 @@
     "axios": "^0.26.0",
     "craco-antd": "^1.19.0",
     "craco-less": "^1.17.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-dom": "^16.13.1",
@@ -25,7 +26,14 @@
     "test": "craco test"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   "browserslist": {
     "production": [

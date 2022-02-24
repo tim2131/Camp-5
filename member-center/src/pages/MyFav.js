@@ -14,24 +14,25 @@ const { TabPane } = Tabs;
 function callback(key) {
   console.log(key);
 }
-// ---------------for Tabs end---------------
+// -------------for Tabs end---------------
 
-const MyFav = ({ setSelectedKey }) => {
-  // const [data, setData] = useState([]);
-  // async function getAllPO() {
-  //   try {
-  //     let response = await axios.post(`${API_URL}/campAllPO`, data);
-  //     console.log(response.data);
-  //     // console.log(response.data[0].id);
-  //     setData(response.data);
-  //   } catch (e) {
-  //     console.error("error");
-  //   }
-  // }
+const MyFav = () => {
+  const [favData, setFavData] = useState([]);
+    async function MyFav() {
+      try {
+        let result = await axios.post(`${API_URL}/favAll`, {});
+        console.log(result.data);
+        // console.log(response.data[0].id);
+        setFavData(result.data);
+      } catch (e) {
+        console.error("error");
+      }
+    }
 
-  useEffect(() => {
-    // getAllPO();
-  }, []);
+    useEffect(() => {
+      MyFav();
+    }, []);
+
 
   return (
     <>
@@ -49,10 +50,10 @@ const MyFav = ({ setSelectedKey }) => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地最愛" key="1">
-        <FavCard/>
+          <FavCard favData={favData} />
         </TabPane>
         <TabPane tab="商品最愛" key="2">
-         {/* //插入組件 */}
+          {/* //插入組件 */}
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
