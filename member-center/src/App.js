@@ -12,7 +12,7 @@ import {
   CompassOutlined,
 
 } from "@ant-design/icons";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // --------less or css-------------------------
@@ -28,6 +28,7 @@ import LeftSideBar from "./comp/leftSideBar";
 import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
 import OrderDetails from "./pages/OrderDetails";
+import MyFav from "./pages/MyFav";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -44,13 +45,20 @@ function App() {
     <HeartOutlined />,
     <CompassOutlined />,
   ];
-  const linkTo = ["/dashboard", "/profile", "/orders", "/favorites", "/map"];
+  const linkTo = ["/", "/profile", "/orders", "/favorites", "/map"];
   const [contentIndex, setContentIndex] = useState(0);
   const [selectedKey, setSelectedKey] = useState("0");
+  // const changeSelectedKey = (data) => {
+  //   // const key = event.key;
+  //   setSelectedKey(data.key);
+  //   setContentIndex(+data.key);
+  //   console.log("key",data.key)
+  // };
   const changeSelectedKey = (event) => {
     const key = event.key;
     setSelectedKey(key);
-    setContentIndex(+key);
+    // setContentIndex(+key);
+    console.log(contentIndex);
   };
   const Menu = (
     <TopicMenu
@@ -62,13 +70,13 @@ function App() {
     />
   );
   // ------------------------------
-  const childToParent = () => { };
-  
+  function writeNavOnClickLocalStorage(selectedKey) {
+    window.localStorage.setItem("selectedKey", JSON.stringify(selectedKey));
+  }
   //------------------------------
 
   return (
     <Layout style={{ height: "100vh" }}>
-      {/* TODO: 重刷不跑位 */}
       <LeftSideBar menu={Menu} />
       <Layout>
         <Header1 menu={Menu} />
@@ -78,15 +86,24 @@ function App() {
             overflow: "scroll",
           }}
         >
+
           <Routes>
-            <Route path="/profile" element={<MemberProfile />} />
+            <Route
+              path="/profile"
+              element={
+                <MemberProfile
+                  selectedKey={selectedKey}
+                  setSelectedKey={setSelectedKey}
+                />
+              }
+            />
             <Route path="/orders" element={<MemberOrder />} />
-            
-
-            <Route path="/orderDetails/:POId" element={<OrderDetails/>}>
-
-            </Route>
-            
+            <Route
+              path="/orderDetails/:POId"
+              element={<OrderDetails />}
+            ></Route>
+            <Route path="/favorites" element={<MyFav />} />
+            {/* <Route path="/" element={<></>} /> */}
           </Routes>
         </Content>
       </Layout>

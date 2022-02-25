@@ -3,6 +3,7 @@ import { List} from "antd";
 import { Link } from "react-router-dom";
 import "../App.less";
 import "../style/campOrder.less";
+import { IMAGE_URL } from "../utils/config";
 
 
 
@@ -28,11 +29,13 @@ const CampOrder = ({data}) => {
     1: "statusTagTBD1",
     2: "statusTagDone1",
     3: "statusTagCancel1",
-    4: "statusTagDone1",
+    4: "statusTagPODone1",
   };
 
   return (
+    //TODO: filter
     <List
+    
       size="small"
       itemLayout="horizontal"
       dataSource={data}
@@ -41,7 +44,7 @@ const CampOrder = ({data}) => {
         onChange: (page) => {
           console.log(page);
         },
-        pageSize: 5,
+        pageSize: 10,
       }}
       renderItem={(data) => (
         <Link to={`/orderDetails/${data.id}`}>
@@ -69,7 +72,7 @@ const CampOrder = ({data}) => {
                     <br />
                     <span className="campdate">{data.camp_county}</span>
                     <div className="orderlinkbox">
-                      {/* TODO: link連到指定PO */}
+                      
                       <Link to={`/orderDetails/${data.id}`}>
                         <button className="orderlinks" key="list-loadmore-edit">
                           訂單詳細
@@ -87,7 +90,8 @@ const CampOrder = ({data}) => {
                 <div className="list_item">
                   <img
                     className="pic"
-                    // src={item.pic}
+                    src={`${IMAGE_URL}/images/${data.img1}`}
+                    
                     alt="camp-pic"
                   />
                 </div>

@@ -9,9 +9,10 @@ import {
   DatePicker,
   Spin,
   message,
+  BackTop,
 } from "antd";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
@@ -68,7 +69,9 @@ const tailFormItemLayout = {
 };
 
 
-const MemberProfile = () => {
+const MemberProfile = ({ }) => {
+
+  //------------------------------------------------
   const [form] = Form.useForm();
   //-----後端連線----得到資料----------------------------------
   const [loading, setLoading] = useState(true);
@@ -82,6 +85,7 @@ const MemberProfile = () => {
     setData(res.data);
     setLoading(false);
     console.log(res.data);
+    //TODO: 沒辦法從資料庫抓資料時 空陣列要顯現錯誤
   };
 
   useEffect(() => {
@@ -90,6 +94,8 @@ const MemberProfile = () => {
       getMemberInfo();
     }, 1500);
   }, []);
+  //---------------------------------------------------------------------------
+ 
   //---表格變更---------------------------------------------------------------------
   function getFormData(value) {
     console.log("formData:", form.getFieldValue());
@@ -109,18 +115,17 @@ const MemberProfile = () => {
   const onFinish = (fieldsValue) => {
     let data = form.getFieldValue();
     console.log(data);
-    // TODO: 時間
     // Should format date value before submit.
     const values = {
       ...data,
-      'datePicker1': moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
+      datePicker1: moment(fieldsValue["datePicker"]).format("YYYY-MM-DD"),
     };
     console.log(values);
 
     // e.preventDefault();
     async function test() {
       try {
-        //TODO 需要涵蓋會員id一起送出
+        //TODO: 需要涵蓋會員id一起送出
         let response = await axios.post(`${API_URL}/memberInfo1`, data);
         console.log(response.data);
         success();
@@ -132,12 +137,11 @@ const MemberProfile = () => {
     test();
   };
   //----------------------------
- 
+
   //-------------------------------
   function success() {
     const suc = message.success("更新成功");
     setTimeout(suc, 7000);
-   
   }
 
   //----------日期相關---------------------------------------------------------
@@ -159,6 +163,7 @@ const MemberProfile = () => {
         <>
           <Divider style={{ marginBottom: 60 }}>
             <Title
+            id="titleTest2"
               level={3}
               style={{
                 marginBottom: 0,
@@ -172,6 +177,7 @@ const MemberProfile = () => {
           {data.map((member) => {
             return (
               <Form
+                
                 {...formItemLayout}
                 form={form}
                 onFinish={onFinish}
@@ -321,8 +327,10 @@ const MemberProfile = () => {
               </Form>
             );
           })}
+          
         </>
       )}
+      
     </>
   );
 };

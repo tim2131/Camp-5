@@ -1,4 +1,4 @@
-import { Select, Typography, Divider, Tabs } from "antd";
+import { Select, Typography, Divider, Tabs,BackTop } from "antd";
 
 import React from "react";
 import { useState, useEffect } from "react";
@@ -18,10 +18,9 @@ function callback(key) {
 }
 // ---------------for Tabs end---------------
 
-const MemberOrder = () => {
- 
+const MemberOrder = ({ setSelectedKey }) => {
   const [data, setData] = useState([]);
-   async function getAllPO (){
+  async function getAllPO() {
     try {
       let response = await axios.post(`${API_URL}/campAllPO`, data);
       console.log(response.data);
@@ -30,17 +29,17 @@ const MemberOrder = () => {
     } catch (e) {
       console.error("error");
     }
-  };
+  }
 
   useEffect(() => {
     getAllPO();
-    
   }, []);
- 
+
   return (
     <>
       <Divider style={{ marginBottom: 60 }}>
         <Title
+        id="titleTest"
           level={3}
           style={{
             marginBottom: 0,
@@ -53,15 +52,17 @@ const MemberOrder = () => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地訂單" key="1">
-          <CampOrder
-            data={data}
-          />
+          <CampOrder data={data} />
+          <BackTop style={{background:"#CCC"}}>
+      <div>UP</div>
+    </BackTop>
         </TabPane>
         <TabPane tab="商品訂單" key="2">
           <ProductOrder />
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
+     
     </>
   );
 };

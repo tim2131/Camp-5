@@ -2,3 +2,4 @@ member-center/node_modules
 .env
 Camp-fe-center/node_modules
 test.js
+Camp-fe/package-lock.json

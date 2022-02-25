@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List } from "antd";
+import { Col, Row, Divider, Typography, Card, List,BackTop } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
@@ -14,6 +14,9 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 
 
 const OrderDetails = () => {
+  const [poStatus, setPOStatus] = useState([]);
+   const [poStatusWord, setPOStatusWord] = useState([]);
+  
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -34,7 +37,7 @@ const OrderDetails = () => {
     3: "已取消",
     4: "已完成",
   };
-  //------------------------------------------------
+  
   // 為了處理網址
   let navigate = useNavigate();
   const { POId } = useParams();
@@ -46,12 +49,18 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+      console.log(`getCampPOCamp-${result.data}`);
+      console.log(result.data);
       setData(result.data);
+      setPOStatus(result.data[0].orderstatus_id);
+      setPOStatusWord(result.data[0].status);
+      // console.log(setData);
     } catch (e) {
       console.error("錯誤");
     }
   }
+  // console.log(poStatus);
+  // console.log(data);
   useEffect(() => {
     getCampPOCamp();
   }, []);
@@ -63,7 +72,8 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOppl/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+      console.log("campPOppl");
+      console.log(result.data);
       setPpl(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -97,7 +107,8 @@ const OrderDetails = () => {
     try {
       // http://localhost:3005/api/campPOAct/1
       let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
-      // console.log(result.data);
+      console.log(`getCampPOAct-${result.data}`);
+      console.log(result.data);
       setAct(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -110,6 +121,7 @@ const OrderDetails = () => {
 
   return (
     <>
+
       <Divider style={{ marginBottom: 60 }}>
         <Title
           level={3}
@@ -130,7 +142,11 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 6, offset: 0 }}
         >
-          <OrderDetails6 data={data} />
+          <OrderDetails6
+            data={data}
+            poStatus={poStatus}
+            poStatusWord={poStatusWord}
+          />
         </Col>
         <Col
           className="gutter-row"
@@ -140,7 +156,14 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <OrderDetails12 data={data} ppl={ppl} tent={tent} act={act} />
+          <OrderDetails12
+            data={data}
+            ppl={ppl}
+            tent={tent}
+            act={act}
+            setPOStatus={setPOStatus}
+            setPOStatusWord={setPOStatusWord}
+          />
         </Col>
       </Row>
     </>

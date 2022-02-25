@@ -14,6 +14,8 @@ import {
 } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
+import Rater from "./star";
+import InputComment from './comment';
 import { useState, useEffect } from "react";
 import { API_URL } from "../utils/config";
 import { ERR_MSG } from "../utils/error";
@@ -26,27 +28,45 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const OrderDetails12 = ({ ppl, tent, act, data }) => {
+const OrderDetails12 = ({
+  ppl,
+  tent,
+  act,
+  data,
+  setPOStatus,
+  setPOStatusWord,
+}) => {
   const [loading, setloading] = useState(false);
   const [visible, setvisible] = useState(false);
   const [visible1, setvisible1] = useState(false);
-  const [POStatus, setPOStatus] = useState([]);
   const [Cbtn, setCbtn] = useState(false);
+  const [starValue, setStarValue] = useState("3");
+   const [value, setValue] = useState([]);
 
-  //TODO 利用訂單狀態去更改按鈕的disable/ useEffect第一渲染沒辦法拿到prop
   // useEffect(() => {
-  //   // after every render,
-  //   return () => {
-  //     // exec before running the effects next time
-  //   };
-  // }, []);
+  //   // after every render
+  //   setRate({ ...rate, starValue: `${starValue}` })
+  //   console.log(rate)
+  // }, [starValue]);
 
+  function POStatusAfterChange() {
+    // console.log(data[0].orderstatus_id);
+  }
+  //--------------handle BTN 區域----------------------
   const handleOk = (e) => {
+    if (!value) {
+      return;
+    }
     setloading(true);
+    
     setTimeout(() => {
+      setValue("");
       setloading(false);
       setvisible(false);
-      //TODO: 送出更改SQL的句法，寫進評論
+       ratePO();
+       //TODO: 回報成功機制
+      //TODO: 把按鈕改成看評論
+      //TODO: 看要不要可以編輯評論 或追加評論
     }, 1500);
   };
   const handleOkCANCEL = (e) => {
@@ -56,28 +76,45 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
       setloading(false);
       setvisible1(false);
       setCbtn(true);
-      //TODO: 送出更改SQL的句法，改camp order狀態
       changePOtoCancelBE();
+      setPOStatus("3");
+      setPOStatusWord("已取消");
     }, 1500);
   };
   //------------------------------------------------
   // 為了處理網址
-  
+
   const { POId } = useParams();
-  console.log(POId)
-  // console.log( POId );
-  //---------backend--------------------------
-  // TODO: 用get是錯誤的 可是同時又要修改資料又要拿到網址參數
-  
-      async function changePOtoCancelBE() {
-        // e.preventDefault();
-        try {
-          let response = await axios.get(`${API_URL}/cancelPO/${POId}`);
-          console.log(response.data);
-        } catch (e) {
-          console.log("error");
-        }
-      }
+  // console.log(`POId: ${POId}`);
+  //---------backend----cancelPO----------------------
+ 
+  async function changePOtoCancelBE() {
+    // e.preventDefault();
+    try {
+      let response = await axios.post(`${API_URL}/cancelPO/`,{
+  POId: `${POId}`
+});
+      console.log(response.data);
+    } catch (e) {
+      console.log("error");
+    }
+  }
+  //---------backend----rate PO----------------------
+
+
+  async function ratePO() {
+    // e.preventDefault();
+    try {
+      let response = await axios.post(`${API_URL}/ratePO`, {
+        POId: `${POId}`,
+        starValue: `${starValue}`,
+        camp_comment: `${value}`,
+      });
+      console.log(response.data);
+    } catch (e) {
+      console.log("error");
+    }
+  }
 
   // -----for thumbnail---------------------------------
   const tagWords = {
@@ -109,7 +146,9 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
         </Divider>
         <div className="btnclaster">
           <button
-            disabled={Cbtn}
+            disabled={
+              Cbtn || (data && data.length > 0 && data[0].orderstatus_id === 3)
+            }
             className="orderlinks"
             onClick={() => setvisible1(true)}
           >
@@ -117,16 +156,15 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
           </button>
 
           <button
-            disabled={Cbtn}
+            disabled={
+              Cbtn || (data && data.length > 0 && data[0].orderstatus_id === 3)
+            }
             className="orderlinks"
             onClick={() => setvisible(true)}
           >
             填寫評價
           </button>
-          <button
-            className="orderlinks"
-            // onClick={statusPOFinish}
-          >
+          <button className="orderlinks" onClick={POStatusAfterChange}>
             聯繫客服
           </button>
         </div>
@@ -143,6 +181,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
               <br />
               <span className="subnote2">訂購人信箱:</span>
               <span className="subname2">{item.user_name}</span>
+              <br />
             </React.Fragment>
           ))}
           <br />
@@ -187,7 +226,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
         {/* //----tent資訊--end--------------- */}
         <br />
         <Divider orientation="left">
-          <div className="subtitle2">加購活動</div>
+          <div className="subtitleSub">加購活動</div>
         </Divider>
         <br />
         {/* //----加購資訊----------------- */}
@@ -228,7 +267,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
         ))}
 
         <Divider orientation="left">
-          <div className="subtitle2">訂單金額</div>
+          <div className="subtitleSub">訂單金額</div>
         </Divider>
         <br />
         {/* //----總金額資訊----------------- */}
@@ -251,7 +290,7 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
           </div>
 
           <div className="totalmoney">
-            {/* TODO: 帳篷沒有單價 */}
+            {/* FIXME: 價錢還沒用好 */}
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="total">{item.item}1</div>
@@ -280,35 +319,11 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
           </div>
         </div>
       </div>
-      {/* ------------MODAL FOR COMMENT----------------- */}
-      <Modal
-        visible={visible}
-        title="填寫評論"
-        // onOk={this.handleOk}
-        //onCancel 這樣X跟點背景就會消失 不可以拿掉
-        onCancel={() => setvisible(false)}
-        footer={[
-          <Button key="back" onClick={() => setvisible(false)}>
-            返回
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={loading}
-            onClick={() => handleOk()}
-          >
-            送出
-          </Button>,
-        ]}
-      >
-        <p>填寫評論填寫評論填寫評論填寫評論填寫評論填寫評論</p>
-      </Modal>
-      {/* --------------------------------- */}
+
       {/* ------------MODAL FOR CANCEL----------------- */}
       <Modal
         visible={visible1}
         title="取消訂單"
-        // onOk={this.handleOk}
         onCancel={() => setvisible1(false)}
         footer={[
           <Button key="back" onClick={() => setvisible1(false)}>
@@ -325,6 +340,31 @@ const OrderDetails12 = ({ ppl, tent, act, data }) => {
         ]}
       >
         <p>您確定要取消訂單嗎?此動作不可回復，若要訂購請重新下定。</p>
+      </Modal>
+      {/* --------------------------------- */}
+      {/* ------------MODAL FOR COMMENT----------------- */}
+      <Modal
+        visible={visible}
+        title="分享你的住宿心得吧!"
+        //onCancel 這樣X跟點背景就會消失 不可以拿掉
+        onCancel={() => setvisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setvisible(false)}>
+            返回
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
+            onClick={() => handleOk()}
+          >
+            送出
+          </Button>,
+        ]}
+      >
+        <Rater starValue={starValue} setStarValue={setStarValue} />
+        <InputComment setValue={setValue} value={value} />
+        <p>告訴別人為何喜歡這個營地吧!</p>
       </Modal>
       {/* --------------------------------- */}
     </>
