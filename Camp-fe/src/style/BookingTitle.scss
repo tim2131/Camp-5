@@ -1,0 +1,32 @@
+@import "./Variables.scss";
+
+.shopping-cart-title {
+  padding: 82px 0 80px 0;
+}
+
+.checkout-flow {
+  padding: 0 200px;
+}
+.checkout-flow h3 {
+  padding: 10px 27px;
+  margin: 0;
+}
+.clear-cart {
+  margin: 20px 0;
+}
+.clear-cart button {
+  background: transparent;
+  border: 2px $dark-green solid;
+  padding: 14px 40px;
+  color: $dark-green;
+  font-size: 16px;
+}
+
+.cart-dividing-line-full {
+  width: calc(100vw - 10px);
+  height: 1px;
+  background: $gray;
+  position: relative;
+  left: calc(-1 * (100vw - 100%) / 2);
+  margin-top: -1px;
+}
