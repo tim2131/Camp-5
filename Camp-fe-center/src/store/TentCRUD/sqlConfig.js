@@ -52,6 +52,15 @@ export default [
           'required',
         ],
       },
+      {
+        tableKey: 'intro',
+        name: '帳篷簡述',
+        type: 'text',
+        width: 200,
+        validators: [
+          'required',
+        ],
+      },
     ],
   },
   {
