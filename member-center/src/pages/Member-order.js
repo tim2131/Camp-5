@@ -39,7 +39,7 @@ const MemberOrder = ({ setSelectedKey }) => {
     <>
       <Divider style={{ marginBottom: 60 }}>
         <Title
-        id="titleTest"
+          id="titleTest"
           level={3}
           style={{
             marginBottom: 0,
@@ -52,17 +52,15 @@ const MemberOrder = ({ setSelectedKey }) => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地訂單" key="1">
-          <CampOrder data={data} />
-          <BackTop style={{background:"#CCC"}}>
-      <div>UP</div>
-    </BackTop>
+          <div className='tabbottom'>
+            <CampOrder data={data} />
+          </div>
         </TabPane>
         <TabPane tab="商品訂單" key="2">
           <ProductOrder />
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
-     
     </>
   );
 };

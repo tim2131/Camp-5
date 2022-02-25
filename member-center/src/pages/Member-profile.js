@@ -178,7 +178,7 @@ const MemberProfile = ({ }) => {
           {data.map((member) => {
             return (
               <Form
-                
+                className='memberFormBottom'
                 {...formItemLayout}
                 form={form}
                 onFinish={onFinish}

@@ -55,11 +55,13 @@ const MyFav = () => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地最愛" key="1">
-          <FavCard
-            favData={favData}
-            likeData={likeData}
-            setLikeData={setLikeData}
-          />
+          <div className="tabbottom">
+            <FavCard
+              favData={favData}
+              likeData={likeData}
+              setLikeData={setLikeData}
+            />
+          </div>
         </TabPane>
         <TabPane tab="商品最愛" key="2">
           {/* //插入組件 */}

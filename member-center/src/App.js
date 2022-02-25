@@ -29,6 +29,7 @@ import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
 import OrderDetails from "./pages/OrderDetails";
 import MyFav from "./pages/MyFav";
+import DashBoard from './pages/dashboard';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -103,7 +104,7 @@ function App() {
               element={<OrderDetails />}
             ></Route>
             <Route path="/favorites" element={<MyFav />} />
-            {/* <Route path="/" element={<></>} /> */}
+            <Route path="/" element={<DashBoard/>} />
           </Routes>
         </Content>
       </Layout>

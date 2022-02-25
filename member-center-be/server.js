@@ -22,17 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 啟用 session
 const expressSession = require("express-session");
-let FileStore = require("session-file-store")(expressSession);
-// app.use(
-//   expressSession({
-//     store: new FileStore({
-//       path: path.join(__dirname, "..", "sessions"),
-//     }),
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
+
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
@@ -68,6 +58,13 @@ let ratePORouter = require("./routers/ratePO");
 app.use("/api/ratePO", ratePORouter);
 let favAllRouter = require("./routers/fav");
 app.use("/api/favAll", favAllRouter);
+let request = require("./routers/getMember")
+app.use("/api/getMember",
+  request
+  // (req, res, next) => {
+  //  res.send("Hello Middleware");}
+);
+
 
 
 //-----------------------------------------------------------------
