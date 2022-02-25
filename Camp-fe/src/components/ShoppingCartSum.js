@@ -1,6 +1,19 @@
-import '../style/ShoppingCartSum.scss';
+import React, { useState } from "react";
+
+import "../style/ShoppingCartSum.scss";
 
 function ShoppingCartSum() {
+  // 取購物車資料
+  let cart = JSON.parse(localStorage.getItem("cartProduct"));
+
+  const [inCart, setInCart] = useState(cart);
+  // console.log(inCart);
+  // console.log(inCart[1]["product_price"]);
+
+  // let total = inCart[1]["product_price"] * inCart[1]["amount"];
+  // console.log(total);
+  // console.log(inCart.length);
+
   return (
     <>
       <div className="cart-dividing-line-full"></div>
@@ -19,12 +32,12 @@ function ShoppingCartSum() {
           </div>
           <div className="d-flex justify-content-between">
             <div>運費</div>
-            <div>NT$0</div>
+            <div>NT$60</div>
           </div>
-          <div className="d-flex justify-content-between">
+          {/* <div className="d-flex justify-content-between">
             <div>折扣</div>
             <div>－NT$60</div>
-          </div>
+          </div> */}
           <div className="d-flex justify-content-between">
             <div>促銷碼</div>
             <div>－NT$600</div>

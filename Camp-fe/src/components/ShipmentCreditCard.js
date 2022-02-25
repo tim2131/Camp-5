@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
 
@@ -30,6 +31,9 @@ function ShipmentCreditCard() {
     );
     console.log(response.data);
   }
+
+  // 回上一頁
+  const navigate = useNavigate();
 
   return (
     <>
@@ -212,7 +216,9 @@ function ShipmentCreditCard() {
               <button type="submit" className="cart-next-btn">
                 確認送出
               </button>
-              <button className="cart-back-btn">返回上一步</button>
+              <Link to="/p_orders/payment">
+                <button className="cart-back-btn">返回上一步</button>
+              </Link>
             </div>
           </form>
         </div>

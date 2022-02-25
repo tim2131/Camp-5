@@ -109,7 +109,7 @@ function ProductReview() {
                     <div className="space"></div>
                     <div className="customer-review-content">
                       <p>{item.product_comment}</p>
-                      <div className="review-date">{item.created_time}</div>
+                      <div className="review-date">{item.comment_time}</div>
                     </div>
                   </div>
                 </div>

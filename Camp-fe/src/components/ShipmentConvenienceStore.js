@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
 
@@ -30,6 +31,9 @@ function ShipmentConvenienceStore() {
     );
     console.log(response.data);
   }
+
+  // 回上一頁
+  const navigate = useNavigate();
 
   return (
     <>
@@ -128,7 +132,9 @@ function ShipmentConvenienceStore() {
               <button type="submit" className="cart-next-btn">
                 確認送出
               </button>
-              <button className="cart-back-btn">返回上一步</button>
+              <button className="cart-back-btn" onClick={() => navigate(-1)}>
+                返回上一步
+              </button>
             </div>
           </form>
         </div>

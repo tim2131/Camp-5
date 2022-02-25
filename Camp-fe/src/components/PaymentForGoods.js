@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
 import "../style/ShoppingCartTitle.scss";
@@ -32,6 +33,9 @@ function CreditCard() {
     console.log(creditCardInfo);
     console.log(response.data);
   }
+
+  // 回上一頁
+  const navigate = useNavigate();
 
   return (
     <>
@@ -107,10 +111,14 @@ function CreditCard() {
         {/* 送出按鈕 */}
         <div className="cart-dividing-line-full"></div>
         <div className="cart-next-back-btn-block">
-          <button type="submit" className="cart-next-btn">
-            下一步：運送資訊
+          <Link to="/p_orders/shipment/credit_card">
+            <button type="submit" className="cart-next-btn">
+              下一步：運送資訊
+            </button>
+          </Link>
+          <button className="cart-back-btn" onClick={() => navigate(-1)}>
+            返回上一步
           </button>
-          <button className="cart-back-btn">返回上一步</button>
         </div>
       </form>
     </>
@@ -119,6 +127,9 @@ function CreditCard() {
 
 // 超商----------------------------------------------------------
 function ConvenienceStore() {
+  // 回上一頁
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="product-payment-convenience text-center">
@@ -128,8 +139,12 @@ function ConvenienceStore() {
       {/* 送出按鈕 */}
       <div className="cart-dividing-line-full"></div>
       <div className="cart-next-back-btn-block">
-        <button className="cart-next-btn">下一步：運送資訊</button>
-        <button className="cart-back-btn">返回上一步</button>
+        <Link to="/p_orders/shipment/convenience_store">
+          <button className="cart-next-btn">下一步：運送資訊</button>
+        </Link>
+        <button className="cart-back-btn" onClick={() => navigate(-1)}>
+          返回上一步
+        </button>
       </div>
     </>
   );
