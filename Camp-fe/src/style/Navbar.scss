@@ -40,11 +40,11 @@ nav a:hover {
     0 25%
   );
 }
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// .container {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 .banner {
   clip-path: polygon(0 0, 100% 0, 100% 79%, 50% 100%, 24% 81%, 0 100%);
   background: #333;

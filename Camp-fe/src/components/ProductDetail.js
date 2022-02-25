@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import "../style/ProductDetail.scss";
@@ -18,78 +18,80 @@ function ProductDetail() {
   const [data, setData] = useState([]);
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
-  // console.log(data.map((item) => Object.values(item)[2]));
 
   // 取網址中的 productId
   const { productId } = useParams();
 
-  // 取後端資料(主要)
+  // 要輸入購物車的資料
+  const [product, setProduct] = useState({});
+
+  let alreadyInCart = JSON.parse(localStorage.getItem("cartProduct"));
+  const [cart, setCart] = useState(alreadyInCart);
+
+  // 取後端資料
   useEffect(async () => {
-    let response = await axios.get(
+    let responseAll = await axios.get(
       `http://localhost:3002/api/products/${productId}`
     );
-    setData(response.data);
-  }, []);
-
-  // 取後端資料(顏色)
-  useEffect(async () => {
-    let response = await axios.get(
+    let responseColor = await axios.get(
       `http://localhost:3002/api/products/${productId}/color`
     );
-    setColor(response.data);
-  }, []);
-  console.log(color);
-
-  // 取後端資料(尺寸)
-  useEffect(async () => {
-    let response = await axios.get(
+    let responseSize = await axios.get(
       `http://localhost:3002/api/products/${productId}/size`
     );
-    setSize(response.data);
+    setData(responseAll.data);
+    setColor(responseColor.data);
+    setSize(responseSize.data);
+    setProduct({ ...product, ...responseAll.data[0] });
   }, []);
-  console.log(size);
-
-  // 要輸入購物車的資料
-  const [product, setProduct] = useState({
-    productId: productId,
-    // pic: "",
-    // name: "",
-    color: "",
-    size: "",
-    amount: 1,
-    // price: "",
-    // point: "",
-  });
+  // 在外面console.log取不到東西的原因是還沒set好，因為不知道react什麼時候會把它處理好，在處理好之前就抓不到資料
+  // 所以才會有console.log了好幾次才有資料的情況
 
   function handleChange(e) {
     setProduct({ ...product, [e.target.name]: e.target.value });
   }
-  console.log(product);
 
   // 加入購物車按鈕
+  // 全部資料都寫入，要用時再挑出需要的特定資料
   async function handleSubmit1(e) {
     e.preventDefault();
-    let response = await axios.post(
-      "http://localhost:3002/api/products/cart",
-      product
-    );
-    console.log(response.data);
+    await cart.push(product);
+    let cartString = await JSON.stringify(cart);
+    await localStorage.setItem("cartProduct", cartString);
   }
+
   // 立即購買按鈕
-  async function handleSubmit2(e) {
-    e.preventDefault();
-    let response = await axios.post(
-      "http://localhost:3002/api/products/buynow",
-      product
-    );
-    console.log(response.data);
-  }
+  // async function handleSubmit2(e) {
+  //   e.preventDefault();
+  //   let response = await axios.post(
+  //     "http://localhost:3002/api/products/buynow",
+  //     product
+  //   );
+  //   console.log(response.data);
+  // }
 
   // 點愛心
   const [heart, setHeart] = useState(false);
   const toggleSwitch = () => setHeart((previousState) => !previousState);
 
   const clickHeart = heart ? heartFull : heartEmpty;
+
+  // 圖片截角
+  const tagWords = {
+    1: "主打",
+    2: "促銷",
+  };
+
+  const tagcolor = {
+    1: "tagStar",
+    2: "tag",
+  };
+
+  const orderStatuscolor = {
+    1: "statusTagTBD",
+    2: "statusTagDone",
+    3: "statusTagCancel",
+  };
 
   return (
     <>
@@ -100,13 +102,20 @@ function ProductDetail() {
               <div className="container">
                 {/* 主圖&標題 */}
                 <div className="row product-main-info">
-                  <div className="col">
+                  <div className="col ">
                     <div className="main-pic embed-responsive embed-responsive-1by1">
-                      <div className="embed-responsive-item">
-                        <img
-                          src={`http://localhost:3002/product-pic/${item.img1}`}
-                          alt=""
-                        />
+                      <div className="  embed-responsive-item ">
+                        <div className="orderPicBox">
+                          <div className="tagWord">{tagWords[1]}</div>
+                          <div className={tagcolor[1]}></div>
+                          <div className="list_item1">
+                            <img
+                              className="pic1"
+                              src={`http://localhost:3002/product-pic/${item.img1}`}
+                              alt="camp-pic"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -179,7 +188,7 @@ function ProductDetail() {
                             <input
                               type="number"
                               min="1"
-                              max="5"
+                              max={item.product_stock}
                               value={product.amount}
                               name="amount"
                               onChange={handleChange}
@@ -204,7 +213,7 @@ function ProductDetail() {
                         <div>
                           <button
                             className="btn-buy buy-right-now"
-                            onClick={handleSubmit2}
+                            // onClick={handleSubmit2}
                           >
                             立即購買
                           </button>

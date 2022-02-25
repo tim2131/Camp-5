@@ -19,7 +19,7 @@ export default [
         ],
       },
       {
-        tableKey: 'number',
+        tableKey: 'intro',
         name: '活動簡述',
         type: 'text',
         width: 50,
@@ -39,15 +39,6 @@ export default [
         type: 'img',
         width: 50,
         height: 50,
-        validators: [
-          'required',
-        ],
-      },
-      {
-        tableKey: 'date',
-        name: '上架時間',
-        type: 'text',
-        width: 150,
         validators: [
           'required',
         ],

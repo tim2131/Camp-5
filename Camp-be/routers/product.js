@@ -5,6 +5,13 @@ const { body, validationResult } = require("express-validator");
 
 const connection = require("../utils/db");
 
+// 總商品列表
+router.get("/api/products", async (req, res, next) => {
+  let [data, fields] = await connection.execute("SELECT * FROM product");
+  console.log(data);
+  res.json(data);
+});
+
 // 單一商品(join敘述3、圖片)
 router.get("/api/products/:productId", async (req, res, next) => {
   let [data, fields] = await connection.execute(
@@ -58,7 +65,7 @@ router.get("/api/products/review/:productId", async (req, res, next) => {
   let offset = (page - 1) * perPage;
   // 取得資料
   let [data] = await connection.execute(
-    "SELECT * FROM (product_rate JOIN user ON product_rate.user_id = user.id) JOIN user_pic ON product_rate.user_id = user_pic.user_id WHERE product_rate.product_id=? ORDER BY product_rate.created_time LIMIT ? OFFSET ?",
+    "SELECT * FROM (product_rate JOIN user ON product_rate.user_id = user.id) JOIN user_pic ON product_rate.user_id = user_pic.user_id WHERE product_rate.product_id=? ORDER BY product_rate.comment_time DESC LIMIT ? OFFSET ? ",
     [req.params.productId, perPage, offset]
   );
   // 拿全部沒分頁
@@ -86,6 +93,15 @@ router.get(
     res.json(data);
   }
 );
+
+// 折扣碼
+router.get("/api/products/coupon/:userId", async (req, res, next) => {
+  let [option, fields] = await connection.execute(
+    "SELECT * FROM product_size WHERE product_id=?",
+    [req.params.productId]
+  );
+  res.json(option);
+});
 
 // 信用卡資料
 router.post("/api/products/payment", async (req, res, next) => {
