@@ -81,6 +81,7 @@ const MemberProfile = ({ }) => {
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
     //http://localhost:3002
+    //TODO: 還沒判斷id
     let res = await axios.post(`${API_URL}/memberInfo`);
     setData(res.data);
     setLoading(false);
