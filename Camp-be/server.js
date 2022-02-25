@@ -3,9 +3,9 @@ require("dotenv").config(); // 引用dntenv
 const connection = require("./utils/db"); // 引用 utils 中的db.js
 // const cors = require("cors"); // 引用cors
 let app = express(); // 利用 express 這個 library 來建立一個 web app (express instance)
-// app.use(cors()); // 使用第三方開發的 cors 中間件
+
 app.use(express.urlencoded({ extended: true })); // express.urlencoded 要讓express認得body裡的資料
-app.use(express.json()); // 讓express認得json
+
 
 // 在哪個port上執行
 const port = process.env.SERVER_PORT || 3002;
@@ -14,7 +14,7 @@ const port = process.env.SERVER_PORT || 3002;
 // });
 
 // const port = 3002; // your server port
-const db = require("./utils/db");
+const db = require("./utils/db2");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const path = require("path");
@@ -45,11 +45,6 @@ app.use(express.json());
 app.listen(port, () => {
   console.log(`RUN http://localhost:${port}`);
 });
-//抓資料庫資料
-// db.query("select * from user", function (err, rows) {
-//   if (err) throw err;
-//   console.log("Response: ", rows);
-// });
 
 //一般會員登入
 app.post("/login", function (req, res) {
@@ -62,7 +57,7 @@ app.post("/login", function (req, res) {
       if (rows.length === 0) {
         return res.status(500).send({ error: "帳號或密碼錯誤" });
       }
-      //console.log(rows[0]);
+    
       const psRes = bcrypt.compareSync(req.body.password, rows[0].password); // 將使用者輸入的密碼和存在資料庫的密碼進行比較
       if (!psRes) {
         // 比對失敗
@@ -132,7 +127,7 @@ const authControllerUser = (req, res) => {
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
-    //console.log(error)
+   
     return res.status(422).send({ error: error[0].msg }); // 若有錯誤則回傳錯誤內容
   }
 
@@ -141,7 +136,7 @@ const authControllerUser = (req, res) => {
   db.query(
     `INSERT INTO user(name,user_name,phone,bday, password,gender,created_time) VALUES ('${name}','${user_name}','${phone}','${date}', '${hashPassword}','${gender}','${created_time}')`,
     function (err, rows, fields) {
-      //console.log(err)
+   
       if (err) {
         return res.status(500).send({ error: "此信箱已註冊" });
       }
@@ -152,11 +147,15 @@ const authControllerUser = (req, res) => {
 app.post(
   "/signupuser",
   [
-    body("user_name").isEmail().withMessage("Email 欄位請填寫正確格式"),
+    body("user_name").isEmail(),
+  
     body("password")
-      .trim()
-      .isLength({ min: 8 })
-      .withMessage("密碼必填, 且至少 8 個字元以上"), // 密碼必填, 且至少 8 個字元以上
+      .matches(
+        /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/
+      )
+      .withMessage(
+        "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+      ),
     body("confirmPassword")
       .trim()
       .custom((value, { req }) => {
@@ -183,7 +182,7 @@ const authControllerCamp = (req, res) => {
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
-    //console.log(error)
+    
     return res.status(422).send({ error: error[0].msg }); // 若有錯誤則回傳錯誤內容
   }
   let hashPassword = bcrypt.hashSync(req.body.password, 10);
@@ -201,11 +200,14 @@ const authControllerCamp = (req, res) => {
 app.post(
   "/signupcamp",
   [
-    body("email").isEmail().withMessage("Email 欄位請填寫正確格式"),
+    body("email").isEmail(),
     body("password")
-      .trim()
-      .isLength({ min: 8 })
-      .withMessage("密碼必填, 且至少 8 個字元以上"), // 密碼必填, 且至少 8 個字元以上
+      .matches(
+        /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/
+      )
+      .withMessage(
+        "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+      ),
     body("confirmPassword")
       .trim()
       .custom((value, { req }) => {
@@ -226,6 +228,135 @@ app.use("/member", memberRouter);
 app.get("/logout", (req, res, next) => {
   req.session.member = null;
   res.sendStatus(202);
+});
+//Forgotpassword 忘記密碼功能
+const nodemailer = require("nodemailer");
+//const crypto = require("crypto");
+
+app.post("/forgotPassword", (req, res) => {
+  if (req.body.email === "") {
+    res.status(400).send("email required");
+  }
+  console.error(req.body.email);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "xie6493@gmail.com",
+      pass: "xiemfee22",
+    },
+  });
+
+  const mailOptions = {
+    from: "xie6493@gmail.com",
+    to: `${req.body.email}`,
+    subject: "Link To Reset Password",
+    text: "TEST",
+  };
+
+  console.log("sending mail");
+
+  transporter.sendMail(mailOptions, (err, response) => {
+    if (err) {
+      console.error("there was an error: ", err);
+    } else {
+      console.log("here is the res: ", response);
+      res.status(200).json("recovery email sent");
+    }
+  });
+});
+
+//營地列表
+app.get("/camplist", (req, res, next) => {
+  db.query(
+    "select camp.*,tent.*,tent_cate1.*,camp_county.*,camp_cate1.*,camp_pic.*,round(AVG(camp_stars),0) AS stars from camp JOIN tent ON camp.Cid = tent.camp_id JOIN tent_cate1 ON tent.tentcate_id = tent_cate1.id JOIN camp_county ON camp.campcounty_id = camp_county.Yid JOIN camp_cate1 ON camp.campcate1_id = camp_cate1.id JOIN camp_pic ON camp.Cid = camp_pic.camp_id JOIN camp_rate ON camp.Cid = camp_rate.camp_id GROUP BY camp.Cid",
+    function (err, rows) {
+      if (err) throw err;
+      //console.log("Response: ", rows);
+
+      res.send(rows);
+    }
+  );
+});
+//圖片
+app.use("/static", express.static(path.join(__dirname, "public", "img")));
+
+//縣市資料
+app.get("/county", (req, res, next) => {
+  db.query("SELECT * FROM camp_county", function (err, rows) {
+    if (err) throw err;
+    //console.log("Response: ", rows);
+
+    res.send(rows);
+  });
+});
+//營地環境資料
+app.get("/cate", (req, res, next) => {
+  db.query("SELECT * FROM camp_cate1", function (err, rows) {
+    if (err) throw err;
+    //console.log("Response: ", rows);
+
+    res.send(rows);
+  });
+});
+//帳篷資料
+app.get("/tent", (req, res, next) => {
+  db.query("SELECT * FROM tent_cate1", function (err, rows) {
+    if (err) throw err;
+    //console.log("Response: ", rows);
+
+    res.send(rows);
+  });
+});
+
+//北區資料
+app.get("/region1", (req, res, next) => {
+  db.query(
+    "SELECT * FROM camp_county WHERE campregion_id = 1 ",
+    function (err, rows) {
+      if (err) throw err;
+      //console.log("Response: ", rows);
+
+      res.send(rows);
+    }
+  );
+});
+
+//中區資料
+app.get("/region2", (req, res, next) => {
+  db.query(
+    "SELECT * FROM camp_county WHERE campregion_id = 2 ",
+    function (err, rows) {
+      if (err) throw err;
+      //console.log("Response: ", rows);
+
+      res.send(rows);
+    }
+  );
+});
+//南區資料
+app.get("/region3", (req, res, next) => {
+  db.query(
+    "SELECT * FROM camp_county WHERE campregion_id = 3 ",
+    function (err, rows) {
+      if (err) throw err;
+      //console.log("Response: ", rows);
+
+      res.send(rows);
+    }
+  );
+});
+//東區資料
+app.get("/region4", (req, res, next) => {
+  db.query(
+    "SELECT * FROM camp_county WHERE campregion_id = 4 ",
+    function (err, rows) {
+      if (err) throw err;
+      //console.log("Response: ", rows);
+
+      res.send(rows);
+    }
+  );
 });
 
 // -----------------------------------------------------------------

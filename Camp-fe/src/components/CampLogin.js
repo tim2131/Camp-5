@@ -2,12 +2,12 @@ import Logo from "../img/loing.png";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
-import { useAuth } from "../context/auth";
+// import { useAuth } from "../context/auth";
 import "../style/login.css";
 
 const CampLogin = () => {
   const [error, setError] = useState("1");
-  const { member, setMember } = useAuth();
+  // const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
     email: "",
     password: "",
@@ -75,7 +75,7 @@ const CampLogin = () => {
       alert("登入成功");
       console.log(response.data.data);
 
-      setMember(response.data.data);
+      // setMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
@@ -107,7 +107,7 @@ const CampLogin = () => {
     <>
       <div className="container-fulid">
         <div className="camplogin">
-          <div className="aa">
+          <div className="loginLogo">
             <img src={Logo} className="loginimg" />
           </div>
 
@@ -116,12 +116,12 @@ const CampLogin = () => {
             <br />
             <br />
             <div>
-              <h1 className="h1 loginh1 d-inline-block ">登入</h1>
+              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
               <div className="d-inline-block box">
                 <Link className="loginbtn1" to="/login">
                   一般會員
                 </Link>
-                <Link className="loginbtn2" to="/camplogin">
+                <Link className="loginbtn2 camploginbtn" to="/camplogin">
                   營主
                 </Link>
               </div>

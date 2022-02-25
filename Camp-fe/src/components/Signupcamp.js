@@ -149,7 +149,7 @@ const Signupcamp = () => {
       <div className="container-fulid">
         <div className="">
           <div className="Signup">
-            <img src={Signup} className="pic" />
+            <img src={Signup} className="Signuppic" />
           </div>
           <br />
           <br />

@@ -4,13 +4,13 @@ import Google from "../img/Google.png";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
-import { useAuth } from "../context/auth";
+// import { useAuth } from "../context/auth";
 
 import "../style/login.css";
 
 const Login = () => {
   const [error, setError] = useState("1");
-  const { member, setMember } = useAuth();
+  // const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
     user_name: "",
     password: "",
@@ -79,7 +79,7 @@ const Login = () => {
       alert("登入成功");
       console.log(response.data.data);
 
-      setMember(response.data.data);
+      // setMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
@@ -113,7 +113,7 @@ const Login = () => {
     <>
       <div className="container-fulid">
         <div className="login">
-          <div className="aa">
+          <div className="loginLogo">
             <img src={Logo} className="loginimg" />
           </div>
 
@@ -122,9 +122,9 @@ const Login = () => {
             <br />
             <br />
             <div>
-              <h1 className="h1 loginh1 d-inline-block ">登入</h1>
+              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
               <div className="d-inline-block box">
-                <Link className="loginbtn1" to="/login">
+                <Link className="loginbtn1 userlogin" to="/login">
                   一般會員
                 </Link>
                 <Link className="loginbtn2" to="/camplogin">
@@ -204,7 +204,7 @@ const Login = () => {
                 <br />
 
                 <div className="">
-                  <button class="loginbtn3" type="submit">
+                  <button class="loginbtn3" type="submit" >
                     登入
                   </button>
                 </div>

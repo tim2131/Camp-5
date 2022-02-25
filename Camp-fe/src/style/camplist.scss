@@ -1,0 +1,72 @@
+$campwidth: 200px * 1.5;
+$camptagWidth: 85px * 1.5;
+$camptagWordTop: 25px * 1.5;
+$camptagWordLeft: 20px * 1.5;
+$camptagWordSize: 11px * 1.5;
+
+.camptag {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: $camptagWidth $camptagWidth 0 0;
+  border-color: #c15f2ebe transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+
+.camptagStar {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: $camptagWidth $camptagWidth 0 0;
+  border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+  position: absolute;
+  z-index: 99;
+  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+}
+
+.camptagWord {
+  position: absolute;
+  top: $camptagWordTop;
+  left: $camptagWordLeft;
+  transform: rotate(-45deg);
+  color: #e9e3da;
+  font-size: $camptagWordSize;
+  z-index: 100;
+}
+
+// --------pic small for product and camp--------------------------------------------
+.camplistPicBox {
+  position: relative;
+  width: $campwidth;
+  height: $campwidth;
+}
+.camplist_item {
+  width: $campwidth;
+  height: $campwidth;
+  overflow: hidden;
+  position: relative;
+  clip-path: polygon(
+    25% 0%,
+    100% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 100%,
+    0% 25%
+  );
+}
+.camppic {
+  max-height: 100%;
+  object-fit: cover;
+  object-position: -50px;
+   height:$campwidth;
+  
+}
+
+
+
+
+
