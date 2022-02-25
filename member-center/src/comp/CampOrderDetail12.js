@@ -41,6 +41,7 @@ const OrderDetails12 = ({
   const [visible1, setvisible1] = useState(false);
   const [Cbtn, setCbtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
+   const [value, setValue] = useState([]);
 
   // useEffect(() => {
   //   // after every render
@@ -53,11 +54,17 @@ const OrderDetails12 = ({
   }
   //--------------handle BTN 區域----------------------
   const handleOk = (e) => {
+    if (!value) {
+      return;
+    }
     setloading(true);
+    
     setTimeout(() => {
+      setValue("");
       setloading(false);
       setvisible(false);
        ratePO();
+       //TODO: 回報成功機制
       //TODO: 把按鈕改成看評論
       //TODO: 看要不要可以編輯評論 或追加評論
     }, 1500);
@@ -101,7 +108,7 @@ const OrderDetails12 = ({
       let response = await axios.post(`${API_URL}/ratePO`, {
         POId: `${POId}`,
         starValue: `${starValue}`,
-        camp_comment: `nothing yet`,
+        camp_comment: `${value}`,
       });
       console.log(response.data);
     } catch (e) {
@@ -174,6 +181,7 @@ const OrderDetails12 = ({
               <br />
               <span className="subnote2">訂購人信箱:</span>
               <span className="subname2">{item.user_name}</span>
+              <br />
             </React.Fragment>
           ))}
           <br />
@@ -282,7 +290,7 @@ const OrderDetails12 = ({
           </div>
 
           <div className="totalmoney">
-            {/* FIXME: 帳篷沒有單價 */}
+            {/* FIXME: 價錢還沒用好 */}
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="total">{item.item}1</div>
@@ -354,13 +362,9 @@ const OrderDetails12 = ({
           </Button>,
         ]}
       >
-        <Rater
-          starValue={starValue}
-          setStarValue={setStarValue}
-
-        />
-        <InputComment/>
-        <p>歡迎留下簡短評論!</p>
+        <Rater starValue={starValue} setStarValue={setStarValue} />
+        <InputComment setValue={setValue} value={value} />
+        <p>告訴別人為何喜歡這個營地吧!</p>
       </Modal>
       {/* --------------------------------- */}
     </>

@@ -66,9 +66,19 @@ let cancelPORouter = require("./routers/cancelPO")
 app.use("/api/cancelPO", cancelPORouter);
 let ratePORouter = require("./routers/ratePO");
 app.use("/api/ratePO", ratePORouter);
+let favAllRouter = require("./routers/fav");
+app.use("/api/favAll", favAllRouter);
 
 
-
+//-----------------------------------------------------------------
+// 使用 express 內建的中間件
+// 靜態檔案: 圖片、js 檔案、css 檔案, html...
+// 寫法1: 不要有 網址 prefix
+// http://localhost:3005/images/camp1.jpg
+app.use(express.static(path.join(__dirname, "assets")));
+// 寫法2: 有網址的 prefix
+// localhost:3002/static/index.html --> 網址上就會有這個 url prefix
+// app.use("/static", express.static(path.join(__dirname, "public")));
 
 
 //-------------------------------------------------------------------

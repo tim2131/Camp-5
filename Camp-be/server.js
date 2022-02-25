@@ -7,7 +7,13 @@ let app = express(); // 利用 express 這個 library 來建立一個 web app (e
 app.use(express.urlencoded({ extended: true })); // express.urlencoded 要讓express認得body裡的資料
 app.use(express.json()); // 讓express認得json
 
-const port = 3002; // your server port
+// 在哪個port上執行
+const port = process.env.SERVER_PORT || 3002;
+// app.listen(port, () => {
+//   console.log(`server running at port ${port}`);
+// });
+
+// const port = 3002; // your server port
 const db = require("./utils/db");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
@@ -223,21 +229,22 @@ app.get("/logout", (req, res, next) => {
 });
 
 // -----------------------------------------------------------------
-// 總商品列表
-app.get("/api/products", async (req, res, next) => {
-  let [data, fields] = await connection.execute("SELECT * FROM product");
-  console.log(data);
-  res.json(data);
-});
-
-// 單一商品相關
+// 商品、購物車、結帳流程
 let productDetailRouter = require("./routers/product");
 app.use(productDetailRouter);
 
 // -----------------------------------------------------------------
+//營地詳細
+let campRouter = require("./routers/campDetail");
+app.use("/api/camp", campRouter);
 
-// // 在哪個port上執行
-// const port = process.env.SERVER_PORT || 3002;
-// app.listen(port, () => {
-//   console.log(`server running at port ${port}`);
-// });
+app.get("/api/camp/:campId", async (req, res, next) => {
+  //req.params.campId
+  let [data, field] = await connection.execute(
+    "SELECT * FROM(camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid ) JOIN camp_pic ON camp.Cid = camp_pic.id WHERE Cid=?",
+    [req.params.campId]
+  );
+  res.json(data);
+});
+// 單一營地圖片
+app.use("/camp-pic", express.static(path.join(__dirname, "public")));

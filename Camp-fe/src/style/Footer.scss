@@ -1,44 +1,44 @@
 .footer {
-  position: absolute;
-  top: 5050px;
+    margin-top: -307px;
+    position: relative;
 }
 .footer-bg {
-  max-width: 100%;
+    max-width: 100%;
 }
 .footer-bg2 {
-  width: 100%;
-  height: 240px;
-  background: #6a6842;
+    width: 100%;
+    height: 240px;
+    background: #6A6842;
 }
 
 .footer-content {
-  position: absolute;
-  top: 50%;
-  bottom: auto;
-  left: calc(65% - 432px / 2);
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    left: calc(65% - 432px / 2);
 }
 
 .footer-icon {
-  margin: 0 50px;
+    margin: 0 50px;
 }
 
 .footer-link {
-  margin: 30px 0 20px 0;
+    margin: 30px 0 20px 0;
 }
 
 .footer-link a {
-  color: #fcf9f5;
-  margin: 0 18px;
+    color: #FCF9F5;
+    margin: 0 18px;
 }
 
 .footer-name {
-  color: #fcf9f5;
+    color: #FCF9F5;
 }
 .go-to-top {
-  position: absolute;
-  top: 0;
-  right: 50px;
-  padding: 0;
-  background: transparent;
-  border: 0;
+    position: absolute;
+    top: 0;
+    right: 50px;
+    padding: 0;
+    background: transparent;
+    border: 0;
 }

@@ -26,9 +26,9 @@
   );
 }
 .pic {
-  max-height: 100%;
-  object-fit: contain;
-  object-position: -50px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .tag {
@@ -89,6 +89,17 @@
 .statusTagDone1 {
   border-radius: 0.5em;
   background-color: @success-color;
+  width: @tagwidth;
+  height: @taglineheight;
+  color: #fff5e2;
+  font-size: 0.8em;
+  text-align: center;
+  line-height: @taglineheight;
+  position: relative;
+}
+.statusTagPODone1 {
+  border-radius: 0.5em;
+  background-color: @info-color;
   width: @tagwidth;
   height: @taglineheight;
   color: #fff5e2;
@@ -180,6 +191,17 @@
     line-height: @taglineheight;
     position: relative;
   }
+  .statusTagPODone1 {
+    border-radius: 0.5em;
+    background-color: @info-color;
+    width: @tagwidth;
+    height: @taglineheight;
+    color: #fff5e2;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: @taglineheight;
+    position: relative;
+  }
   .statusTagCancel1 {
     border-radius: 0.5em;
     background-color: @rate-star-bg;
@@ -202,3 +224,5 @@
 .orderlinkbox {
   padding: 1em 0 0 0;
 }
+
+

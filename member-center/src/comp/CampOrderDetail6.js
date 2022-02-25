@@ -2,6 +2,7 @@ import React from "react";
 import { Divider, Typography } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
+import { IMAGE_URL } from "../utils/config";
 
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
@@ -12,14 +13,15 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
     2: "促銷",
   };
   const tagcolor = {
-    1: "tagStar",
-    2: "tag",
+    1: "O6_tagStar",
+    2: "O6_tag",
+    3: "O6_tagNoStock",
   };
   const orderStatuscolor = {
     1: "statusTagTBD",
     2: "statusTagDone",
     3: "statusTagCancel",
-    4: "statusTagDone",
+    4: "statusTagPODone",
   };
   const orderStatus = {
     1: "未付款",
@@ -39,15 +41,15 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
             <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
             {/* FIXME:tag沒有定義 */}
-            <div className="orderPicBox">
-              <div className="tagWord">{tagWords[item.orderstatus_id]}</div>
+            <div className="O6orderPicBox">
+              <div className="O6_tagWord">{tagWords[item.orderstatus_id]}</div>
               <div className={tagcolor[item.orderstatus_id]}></div>
-              <div className="list_item">
+              <div className="O6_list_item">
                 <img
-                  className="pic"
-                  // FIXME:後端要可以呈現圖片
-                  src={require(`../images/${item.img1}`)}
+                  className="O6_pic"
+                  src={`${IMAGE_URL}/images/${item.img1}`}
                   // src={`${IMAGE_URL}${item.img1}`}
+                  // http://localhost:3005/images/camp1.jpg
                   alt="camp-pic"
                 />
                 <img />

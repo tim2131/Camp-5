@@ -12,7 +12,7 @@ import {
   CompassOutlined,
 
 } from "@ant-design/icons";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // --------less or css-------------------------
@@ -28,6 +28,7 @@ import LeftSideBar from "./comp/leftSideBar";
 import TopicMenu from './comp/TopicMenu';
 import Header1 from "./comp/header";
 import OrderDetails from "./pages/OrderDetails";
+import MyFav from "./pages/MyFav";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -44,7 +45,7 @@ function App() {
     <HeartOutlined />,
     <CompassOutlined />,
   ];
-  const linkTo = ["/dashboard", "/profile", "/orders", "/favorites", "/map"];
+  const linkTo = ["/", "/profile", "/orders", "/favorites", "/map"];
   const [contentIndex, setContentIndex] = useState(0);
   const [selectedKey, setSelectedKey] = useState("0");
   // const changeSelectedKey = (data) => {
@@ -69,9 +70,9 @@ function App() {
     />
   );
   // ------------------------------
-function writeNavOnClickLocalStorage(selectedKey) {
-  window.localStorage.setItem("selectedKey", JSON.stringify(selectedKey));
-}
+  function writeNavOnClickLocalStorage(selectedKey) {
+    window.localStorage.setItem("selectedKey", JSON.stringify(selectedKey));
+  }
   //------------------------------
 
   return (
@@ -85,7 +86,7 @@ function writeNavOnClickLocalStorage(selectedKey) {
             overflow: "scroll",
           }}
         >
-          {/* TODO傳遞 */}
+
           <Routes>
             <Route
               path="/profile"
@@ -97,11 +98,12 @@ function writeNavOnClickLocalStorage(selectedKey) {
               }
             />
             <Route path="/orders" element={<MemberOrder />} />
-
             <Route
               path="/orderDetails/:POId"
               element={<OrderDetails />}
             ></Route>
+            <Route path="/favorites" element={<MyFav />} />
+            {/* <Route path="/" element={<></>} /> */}
           </Routes>
         </Content>
       </Layout>

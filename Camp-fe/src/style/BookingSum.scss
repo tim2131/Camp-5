@@ -1,0 +1,49 @@
+@import "./Variables.scss";
+
+.cart-total-block {
+    font-size: 36px;
+    margin-top: 27px;
+}
+.cart-discount-input {
+    margin-top: 22px;
+}
+.cart-discount-input input {
+    background: transparent;
+    border: 2px $dark-green solid;
+}
+.cart-discount-input button {
+    padding: 14px 40px;
+    background: transparent;
+    border: 2px $orange solid;
+    color: $orange;
+    font-size: 16px;
+    margin-left: 23px;
+}
+.cart-dividing-line-short {
+    width: 100%;
+    height: 1px;
+    background: $gray;
+    margin: 8px 0;
+}
+.cart-checkout-btn {
+    width: 100%;
+    height: 74px;
+    background: $orange;
+    border: 0;
+    color: $ivory;
+    margin-top: 30px;
+}
+.cart-continue-btn {
+    width: 100%;
+    height: 74px;
+    background: transparent;
+    border: 2px $orange solid;
+    color: $orange;
+    margin-top: 22px;
+}
+.cart-point-this-time {
+    margin-top: 100px;
+}
+.cart-point-rest {
+    margin-bottom: 100px;
+}
