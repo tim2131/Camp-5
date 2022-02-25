@@ -234,3 +234,17 @@ let productDetailRouter = require("./routers/product");
 app.use(productDetailRouter);
 
 // -----------------------------------------------------------------
+//營地詳細
+let campRouter = require("./routers/campDetail");
+app.use("/api/camp", campRouter);
+
+app.get("/api/camp/:campId", async (req, res, next) => {
+  //req.params.campId
+  let [data, field] = await connection.execute(
+    "SELECT * FROM(camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid ) JOIN camp_pic ON camp.Cid = camp_pic.id WHERE Cid=?",
+    [req.params.campId]
+  );
+  res.json(data);
+});
+// 單一營地圖片
+app.use("/camp-pic", express.static(path.join(__dirname, "public")));
