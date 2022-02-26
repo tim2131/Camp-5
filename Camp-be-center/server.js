@@ -6,7 +6,7 @@ const db = require("./utils/db");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:9000",
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -21,7 +21,7 @@ let app = express();
 app.use(
   cors({
     // 為了要讓 browser 在 CORS 的情況下還是幫我們送 cookie
-    origin: ["http://localhost:8000","http://localhost:3000"],
+    origin: ["http://localhost:8000","http://localhost:3000","http://localhost:9000"],
     credentials: true,
   })
 );
