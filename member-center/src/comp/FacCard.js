@@ -1,5 +1,4 @@
-import { Card, Col, Row,  Tag } from "antd";
-import Ellipsis from "ant-design-pro/lib/Ellipsis";
+import { Card, Col, Row,  Tag } from "antd"; 
 import React from "react";
 import { IMAGE_URL } from "../utils/config";
 import { useState, useEffect } from "react";
@@ -17,7 +16,7 @@ import "../style/FavCard.less";
 
 const { Meta } = Card;
 
-const FavCard = ({ favData, setLikeData, likeData }) => {
+const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -40,7 +39,6 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
     4: "已完成",
   };
 
-  
   function deleteTask(id) {
     console.log(id);
   }
@@ -48,18 +46,18 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
     //ASK how to change state for only one item?
     // console.log(index)
     // setLikeData({...likeData,[index]:!likeData})
-  //  console.log(e.currentTarget.getAttribute.key);
+    //  console.log(e.currentTarget.getAttribute.key);
     // if (e.currentTarget.dataset.index=1){setLikeData(!likeData)}
     // console.log(e);
     //   setLikeData(e.target.className.likeData);
     // console.log(e.target.className)
-    setLikeData(!likeData)
+    setLikeData(!likeData);
   };
   return (
     <React.Fragment>
       <div className="site-card-border-less-wrapper">
         <Row gutter={[{ xs: 2, sm: 2, md: 4, lg: 4 }, 40]} justify="center">
-          {favData.map((fav,index) => {
+          {favData.map((fav, index) => {
             return (
               <Col xs={20} sm={12} md={12} lg={12} xl={10} xxl={7}>
                 <Card
@@ -142,9 +140,9 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
                           {fav.camp_item}
                         </Tag>
                         <Tag color="#6A6842">{fav.tent_item}</Tag>
-                        <Ellipsis tooltip lines={3}>
-                          {fav.camp_intro}
-                        </Ellipsis>
+                        <div className="trancate"> {fav.camp_intro}</div>
+                         
+                       
                       </>
                     }
                   />
@@ -179,11 +177,7 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
               }
               actions={[
                 <>
-                  <div
-                    
-                    className="favBtn"
-                    onClick={() => handleToggle()}
-                  >
+                  <div className="favBtn" onClick={() => handleToggle()}>
                     test
                     <HeartFilled
                       className={

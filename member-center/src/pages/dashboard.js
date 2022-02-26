@@ -26,7 +26,7 @@ const DashBoard = () => {
         extra={[]}
         // footer={}
       >
-        <Divider  style={{ marginBottom: 60 }}>
+        <Divider style={{ marginBottom: 60 }}>
           <div className="memberpicBox">
             <Avatar
               className="avatarMember"
@@ -46,21 +46,20 @@ const DashBoard = () => {
         </Divider>
       </PageHeader>
 
-      
       <div className="site-card-wrapper">
         <Row gutter={16}>
-          <Col span={8}>
-            <Card title="預定行程" bordered={false}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Card className="rowCard" title="預定行程" bordered={false}>
               Card content
             </Card>
           </Col>
-          <Col span={8}>
-            <Card title="購買提醒" bordered={false}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Card className="rowCard" title="購買提醒" bordered={false}>
               Card content
             </Card>
           </Col>
-          <Col span={8}>
-            <Card title="待用Coupon" bordered={false}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Card className="rowCard" title="待用Coupon" bordered={false}>
               Card content
             </Card>
           </Col>
