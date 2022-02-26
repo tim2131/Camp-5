@@ -2,7 +2,6 @@ import React from "react";
 
 import "../style/home.scss";
 import "../style/Footer.scss";
-import Footer from "../components/Footer";
 
 //圖片
 import Img01 from "../img/img01.png";
@@ -36,7 +35,23 @@ const Home = () => {
             <source src={Video} type="video/mp4" />
           </video>
         </div>
-        <div className="recycle"></div>
+        <div className="recycle">
+          <h2>露營很酷，但是我們讓你的露營更與眾不同。</h2>
+          <div className="row page2-title">
+            <h3 className="col-md-4">露營</h3>
+            <h3 className="col-md-4">回收</h3>
+            <h3 className="col-md-4">購物</h3>
+          </div>
+          <div className="row page2-icon">
+            <img src={Icon1} alt="Icon1" />
+            <img src={Icon2} alt="Icon2" />
+            <img src={Icon3} alt="Icon3" />
+          </div>
+          <div className="row page2-arrow">
+            <img src={Arrow} alt="Arrow" />
+            <img src={Arrow} alt="Arrow" />
+          </div>
+        </div>
         <div className="row page3">
           <div className="container">
             <div className="row">
@@ -107,7 +122,35 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Footer className="home-footer" />
+      <div className="home-footer">
+        <img src={footer} alt="" className="footer-bg" />
+        <div className="footer-bg2"></div>
+        <div className="footer-content">
+          <div className="footer-icon d-flex justify-content-between">
+            <a href="#">
+              <img src={youtube} alt="" />
+            </a>
+            <a href="#">
+              <img src={instagram} alt="" />
+            </a>
+            <a href="#">
+              <img src={facebook} alt="" />
+            </a>
+          </div>
+          <div className="footer-link">
+            <a href="#">關於森活營家</a>
+            <a href="#">服務條款</a>
+            <a href="#">廣告洽談</a>
+            <a href="#">聯絡我們</a>
+          </div>
+          <div className="footer-name text-center">
+            © 2021 森活營家，版權所有。
+          </div>
+        </div>
+        <button className="go-to-top" onClick={scrollToTop}>
+          <img src={goToTop} alt="" />
+        </button>
+      </div>
     </>
   );
 };
