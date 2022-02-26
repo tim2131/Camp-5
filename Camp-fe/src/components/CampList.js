@@ -222,7 +222,6 @@ const CampList = () => {
 
         <div className="backgroundPic">
           <h1 className="camplisth1 text-center">營地一覽</h1>
-          
 
           <div>
             <select
@@ -250,7 +249,8 @@ const CampList = () => {
             </button> */}
           </div>
 
-          <div>
+          <div className="">
+        
             {/* 營地分類 */}
             <Filterbar
               cate={cate}
@@ -267,11 +267,13 @@ const CampList = () => {
               region3data={region3data}
               region4data={region4data}
             />
+           
             <div className="container movecontent">
               <div className="row">
                 <Hotcamp />
                 {/* 側邊空位 */}
                 <div className="col-3 "></div>
+
                 {/* 營地列表Card */}
                 <div className="col-9 movelist">
                   <div className="row">
@@ -299,6 +301,7 @@ const CampList = () => {
                                 <img
                                   className="camppic"
                                   src={`http://localhost:3002/static/${v.img1}`}
+                                  alt=""
                                 />
                               </div>
                             </div>
@@ -316,7 +319,10 @@ const CampList = () => {
                                 {getStar(v.stars)}
                               </div>
 
-                              <Link to="/camp/1" class="btn bookingBtn">
+                              <Link
+                                to={`/camp/${v.Cid}`}
+                                class="btn bookingBtn"
+                              >
                                 立即預約
                               </Link>
                             </div>
@@ -329,6 +335,7 @@ const CampList = () => {
               </div>
             </div>
           </div>
+
           {/* 頁碼 */}
           <Pagination
             currentPage={currentPage}

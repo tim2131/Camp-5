@@ -80,7 +80,6 @@ const Filterbar = (props) => {
                 <div>
                   <input
                     type="checkbox"
-                  
                     value={value}
                     checked={cate3.includes(value)}
                     onChange={handleChecked3}

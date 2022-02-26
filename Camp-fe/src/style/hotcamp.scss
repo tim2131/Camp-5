@@ -1,8 +1,8 @@
 $hotcampwidth: 200px *5.35;
-$hotcamptagWidth: 85px * 5.35;
-$hotcamptagWordTop: 25px*5.35;
-$hotcamptagWordLeft: 20px*5.35;
-$hotcamptagWordSize: 11px * 5.35;
+$hotcamptagWidth: 85px * 3;
+$hotcamptagWordTop: 25px*3;
+$hotcamptagWordLeft: 20px*3;
+$hotcamptagWordSize: 11px * 3;
 
 .hotcamptag {
   width: 0;
@@ -23,7 +23,7 @@ $hotcamptagWordSize: 11px * 5.35;
   border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
   position: absolute;
   z-index: 99;
-  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+  clip-path: polygon(160% 0%, 65% 0, 0 65%, 0 110%);
 }
 
 .hotcamptagWord {
@@ -49,14 +49,14 @@ $hotcamptagWordSize: 11px * 5.35;
   overflow: hidden;
   position: relative;
   clip-path: polygon(
-    25% 0%,
+    20% 0%,
     100% 0,
-    100% 25%,
+    100% 20%,
     100% 75%,
     75% 100%,
     25% 100%,
     0 100%,
-    0% 25%
+    0% 20%
   );
 }
 .hotcamppic {
