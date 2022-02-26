@@ -24,7 +24,7 @@
     "yarn": "^1.22.17"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "set PORT=9000 && craco start",
     "build": "craco build",
     "test": "craco test"
   },
