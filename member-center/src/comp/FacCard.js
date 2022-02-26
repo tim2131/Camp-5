@@ -1,4 +1,4 @@
-import { Card, Col, Row,  Tag } from "antd"; 
+import { Card, Col, Row, Tag } from "antd";
 import React from "react";
 import { IMAGE_URL } from "../utils/config";
 import { useState, useEffect } from "react";
@@ -42,16 +42,20 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
   function deleteTask(id) {
     console.log(id);
   }
-  const handleToggle = () => {
-    //ASK how to change state for only one item?
-    // console.log(index)
-    // setLikeData({...likeData,[index]:!likeData})
-    //  console.log(e.currentTarget.getAttribute.key);
-    // if (e.currentTarget.dataset.index=1){setLikeData(!likeData)}
-    // console.log(e);
-    //   setLikeData(e.target.className.likeData);
-    // console.log(e.target.className)
-    setLikeData(!likeData);
+  const handleToggle = (idx) => {
+    console.log(`idx: ${idx}`);
+
+    let clickedFav = favData[idx];
+    console.log(clickedFav.FAV_CAMPID);
+
+    let newData = [...favData];
+    if (newData[idx].like === undefined) {
+      newData[idx].like = false;
+    } else {
+      newData[idx].like = !newData[idx].like;
+    }
+    setFavData(newData);
+    //setLikeData(!likeData);
   };
   return (
     <React.Fragment>
@@ -90,11 +94,11 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                       <div
                         key={fav.camp_id}
                         className="favBtn"
-                        onClick={(e) => handleToggle(e)}
+                        onClick={(e) => handleToggle(index)}
                       >
                         <HeartFilled
                           className={
-                            likeData
+                            fav.like === undefined || fav.like === true
                               ? " filledheart"
                               : "filledheart heartdisplaynone"
                           }
@@ -102,9 +106,9 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                         />
                         <HeartOutlined
                           className={
-                            likeData
-                              ? "filledheart heartdisplaynone"
-                              : "filledheart "
+                            fav.like === false
+                              ? "filledheart "
+                              : "filledheart heartdisplaynone"
                           }
                           key="heart"
                         />
@@ -141,8 +145,6 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                         </Tag>
                         <Tag color="#6A6842">{fav.tent_item}</Tag>
                         <div className="trancate"> {fav.camp_intro}</div>
-                         
-                       
                       </>
                     }
                   />
@@ -150,74 +152,6 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
               </Col>
             );
           })}
-          {/* -------------------------------------------- */}
-          <Col xs={20} sm={12} md={12} lg={12} xl={10} xxl={7}>
-            <Card
-              key="55"
-              className="Scard"
-              bordered={false}
-              // style={{ width: 400 }}
-              cover={
-                <>
-                  <div className="cardOrderPicBox">
-                    <div className="card_tagWord">{tagWords[1]}</div>
-                    <div className={tagcolor[1]}></div>
-                    <div className="card_list_item">
-                      <img
-                        className="card_pic"
-                        src="http://localhost:3005/images/camp1.jpg"
-                        // src={`${IMAGE_URL}${item.img1}`}
-                        // http://localhost:3005/images/camp1.jpg
-                        alt="camp-pic"
-                      />
-                      <img />{" "}
-                    </div>
-                  </div>{" "}
-                </>
-              }
-              actions={[
-                <>
-                  <div className="favBtn" onClick={() => handleToggle()}>
-                    test
-                    <HeartFilled
-                      className={
-                        likeData
-                          ? " filledheart"
-                          : "filledheart heartdisplaynone"
-                      }
-                      key="filledHeart"
-                    />
-                    <HeartOutlined
-                      className={
-                        likeData
-                          ? "filledheart heartdisplaynone"
-                          : "filledheart "
-                      }
-                      key="heart"
-                    />
-                  </div>
-                </>,
-                // TODO: 實心狀態
-                //   <>
-                //     <HeartFilled key="filledHeart" />
-                //   </>,
-                <>
-                  <div className="favBtn">
-                    <ZoomInOutlined key="zoom" />{" "}
-                    <div className="favBtnWords">看詳細</div>
-                  </div>
-                </>,
-                <>
-                  <div className="favBtn">
-                    <ShareAltOutlined key="share" />{" "}
-                    <div className="favBtnWords">分享</div>
-                  </div>
-                </>,
-              ]}
-            >
-              <Meta title="Card title" description="This is the description" />
-            </Card>
-          </Col>
         </Row>
       </div>
     </React.Fragment>
