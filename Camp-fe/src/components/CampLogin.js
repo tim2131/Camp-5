@@ -4,13 +4,21 @@ import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 // import { useAuth } from "../context/auth";
 import "../style/login.css";
+import { useCookies } from "react-cookie";
 
 const CampLogin = () => {
+  // ASK:
+  const [cookies, setCookie] = useCookies(["connect.sid"]);
+  console.log("connect.sid", cookies);
+  let cookieQuery = cookies["connect.sid"];
+  console.log("cookieQuery", cookieQuery);
+  // const cookieQuery = cookies.connect.sid;
+
   const [error, setError] = useState("1");
   // const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
-    email: "",
-    password: "",
+    email: "dddd@test.com",
+    password: "Dddd1231",
   });
   const [fieldErrors, setFieldErrors] = useState({
     email: "",
@@ -73,13 +81,12 @@ const CampLogin = () => {
         { withCredentials: true }
       );
       alert("登入成功");
-      console.log(response.data.data);
-
+      console.log(response.data);
       // setMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
-      console.log("2", e.response.data.data);
+      console.log("2", e);
       if (e.response.data.error === "帳號或密碼錯誤") {
         console.log(Number(error));
         //console.log(errTime)
@@ -96,7 +103,9 @@ const CampLogin = () => {
   }
   if (isLogin) {
     // 轉頁效果
-    return <Navigate to="/member" />;
+    //TODO: 夾帶cookie
+    //ASK: 為什麼customer不會跳轉
+    return (window.location = `http://localhost:8000?SID=${cookieQuery}`);
   }
   if (Number(error) > 4) {
     alert("失敗次數過多");

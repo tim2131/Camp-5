@@ -23,14 +23,16 @@ const path = require("path");
 const expressSession = require("express-session");
 let FileStore = require("session-file-store")(expressSession);
 app.use(
-  expressSession({
-    store: new FileStore({
-      path: path.join(__dirname, "..", "sessions"),
-    }),
-    secret: "mfee22",
-    resave: false,
-    saveUninitialized: false,
-  })
+  expressSession(
+    {
+      store: new FileStore({ path: path.join(__dirname, "..", "sessions") }),
+      secret: "mfee22",
+      resave: false,
+      saveUninitialized: false,
+      cookie: { httpOnly: false }
+    }
+
+  )
 );
 //解決跨域問題、是否拿cookie
 const cors = require("cors");
@@ -39,6 +41,7 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 //  要讓 express 認得 json
 app.use(express.json());
@@ -57,7 +60,7 @@ app.post("/login", function (req, res) {
       if (rows.length === 0) {
         return res.status(500).send({ error: "帳號或密碼錯誤" });
       }
-    
+
       const psRes = bcrypt.compareSync(req.body.password, rows[0].password); // 將使用者輸入的密碼和存在資料庫的密碼進行比較
       if (!psRes) {
         // 比對失敗
@@ -127,7 +130,7 @@ const authControllerUser = (req, res) => {
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
-   
+
     return res.status(422).send({ error: error[0].msg }); // 若有錯誤則回傳錯誤內容
   }
 
@@ -136,7 +139,7 @@ const authControllerUser = (req, res) => {
   db.query(
     `INSERT INTO user(name,user_name,phone,bday, password,gender,created_time) VALUES ('${name}','${user_name}','${phone}','${date}', '${hashPassword}','${gender}','${created_time}')`,
     function (err, rows, fields) {
-   
+
       if (err) {
         return res.status(500).send({ error: "此信箱已註冊" });
       }
@@ -148,7 +151,7 @@ app.post(
   "/signupuser",
   [
     body("user_name").isEmail(),
-  
+
     body("password")
       .matches(
         /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/
@@ -182,7 +185,7 @@ const authControllerCamp = (req, res) => {
   const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
   if (!validationResults.isEmpty()) {
     let error = validationResults.array();
-    
+
     return res.status(422).send({ error: error[0].msg }); // 若有錯誤則回傳錯誤內容
   }
   let hashPassword = bcrypt.hashSync(req.body.password, 10);

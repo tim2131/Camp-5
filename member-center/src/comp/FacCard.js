@@ -1,12 +1,10 @@
 import { Card, Col, Row,  Tag } from "antd";
-import Ellipsis from "ant-design-pro/lib/Ellipsis";
+
 import React from "react";
 import { IMAGE_URL } from "../utils/config";
 import { useState, useEffect } from "react";
 import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
+
   HeartOutlined,
   ShareAltOutlined,
   ZoomInOutlined,
@@ -17,7 +15,7 @@ import "../style/FavCard.less";
 
 const { Meta } = Card;
 
-const FavCard = ({ favData, setLikeData, likeData }) => {
+const FavCard = ({ favData, setLikeData, likeData,setFavData }) => {
   const tagWords = {
     1: "主打",
     2: "促銷",
@@ -44,7 +42,19 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
   function deleteTask(id) {
     console.log(id);
   }
-  const handleToggle = () => {
+  const handleToggle = (idx) => {
+    console.log(`idx: ${idx}`)
+
+    let clickedFav = favData[idx];
+    console.log(clickedFav.FAV_CAMPID);
+
+    let newData = [...favData];
+    if(newData[idx].like === undefined) {
+      newData[idx].like = false;
+    } else {
+      newData[idx].like = !newData[idx].like;
+    }
+    setFavData(newData);
     //ASK how to change state for only one item?
     // console.log(index)
     // setLikeData({...likeData,[index]:!likeData})
@@ -53,7 +63,7 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
     // console.log(e);
     //   setLikeData(e.target.className.likeData);
     // console.log(e.target.className)
-    setLikeData(!likeData)
+    // setLikeData(!likeData)
   };
   return (
     <React.Fragment>
@@ -92,21 +102,21 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
                       <div
                         key={fav.camp_id}
                         className="favBtn"
-                        onClick={(e) => handleToggle(e)}
+                        onClick={(e) => handleToggle(index)}
                       >
                         <HeartFilled
                           className={
-                            likeData
+                            fav.like === undefined || fav.like === true
                               ? " filledheart"
                               : "filledheart heartdisplaynone"
                           }
                           key="filledHeart"
-                        />
+                        />{fav.FAV_CAMPID}
                         <HeartOutlined
                           className={
-                            likeData
-                              ? "filledheart heartdisplaynone"
-                              : "filledheart "
+                            fav.like === false
+                              ? "filledheart "
+                              : "filledheart heartdisplaynone"
                           }
                           key="heart"
                         />
@@ -142,9 +152,10 @@ const FavCard = ({ favData, setLikeData, likeData }) => {
                           {fav.camp_item}
                         </Tag>
                         <Tag color="#6A6842">{fav.tent_item}</Tag>
-                        <Ellipsis tooltip lines={3}>
-                          {fav.camp_intro}
-                        </Ellipsis>
+                        
+                        <div className="trancate">{fav.camp_intro}</div>
+                          
+                        
                       </>
                     }
                   />

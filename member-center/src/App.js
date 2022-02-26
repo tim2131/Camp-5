@@ -13,7 +13,7 @@ import {
 
 } from "@ant-design/icons";
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 // --------less or css-------------------------
 import "antd/dist/antd.less";
@@ -30,13 +30,29 @@ import Header1 from "./comp/header";
 import OrderDetails from "./pages/OrderDetails";
 import MyFav from "./pages/MyFav";
 import DashBoard from './pages/dashboard';
+import { useCookies } from 'react-cookie';
+import axios from "axios";
 
+
+// const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
 const { Content } = Layout;
 const { Option } = Select;
 const { Title } = Typography;
 
 
 function App() {
+const queryParams = new URLSearchParams(window.location.search)
+const SID = queryParams.get("SID")  
+console.log("SID", SID);
+  //TODO: GET cookie From queryString 
+  //TODO: set into cookie
+  const [cookies, setCookie] = useCookies(['connect.sid']);
+  console.log("cookies", cookies);
+  // setCookie('connect.sid', SID)
+  axios.get("http://localhost:3005/api/login", { withCredentials: true  })
+ 
+
+  // console.log("From cookie:", cookies);
   // ----導入menu context---------------------
   const topics = ["首頁", "個人資料", "訂單", "我的最愛", "露營地圖"];
   const menuIcons = [
@@ -71,10 +87,8 @@ function App() {
     />
   );
   // ------------------------------
-  function writeNavOnClickLocalStorage(selectedKey) {
-    window.localStorage.setItem("selectedKey", JSON.stringify(selectedKey));
-  }
-  //------------------------------
+
+
 
   return (
     <Layout style={{ height: "100vh" }}>
@@ -102,9 +116,10 @@ function App() {
             <Route
               path="/orderDetails/:POId"
               element={<OrderDetails />}
-            ></Route>
+            />
             <Route path="/favorites" element={<MyFav />} />
-            <Route path="/" element={<DashBoard/>} />
+            <Route path="/:SID" />
+            <Route path="/" element={<DashBoard />} />
           </Routes>
         </Content>
       </Layout>

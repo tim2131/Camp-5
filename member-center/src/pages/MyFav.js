@@ -60,6 +60,7 @@ const MyFav = () => {
               favData={favData}
               likeData={likeData}
               setLikeData={setLikeData}
+              setFavData={setFavData}
             />
           </div>
         </TabPane>

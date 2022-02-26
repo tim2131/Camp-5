@@ -17,15 +17,35 @@ app.use(
     credentials: true,
   })
 );
+
 //body-parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// 啟用 session
+
 const expressSession = require("express-session");
+let FileStore = require("session-file-store")(expressSession);
+app.use(
+  expressSession(
+    {
+      store: new FileStore({ path: path.join(__dirname, "..", "sessions") }),
+      secret: "mfee22",
+      resave: false,
+      saveUninitialized: false,
+      cookie: { httpOnly: false }
+    }
+
+  )
+);
+
+
+
+// 啟用 session
+// const expressSession = require("express-session");
 
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
+
 
 app.use((req, res, next) => {
     console.log("這是一個沒有用的中間件");
@@ -34,6 +54,10 @@ app.use((req, res, next) => {
 });
 
 // -----------------------------------------------------------------
+let loginRouter = require("./routers/login");
+app.use("/api/login", loginRouter);
+
+
 let memberInfoRouter = require("./routers/member");
 app.use("/api/memberInfo", memberInfoRouter);
 
