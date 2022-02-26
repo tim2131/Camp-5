@@ -6,7 +6,7 @@ import searchicon from "../img/search.svg";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Filterbar from "./Filterbar";
-
+import { Navigate, Link } from "react-router-dom";
 import starFull from "../img/icon/star-full.svg";
 import starEmpty from "../img/icon/star-empty.svg";
 import Pagination from "./Pagination";
@@ -104,15 +104,11 @@ const CampList = () => {
     let newCampdata = [...campdata];
 
     if (sortBy === "1") {
-      newCampdata = [...newCampdata].sort(
-        (a, b) => a.price - b.price
-      );
+      newCampdata = [...newCampdata].sort((a, b) => a.price - b.price);
     }
 
     if (sortBy === "2") {
-      newCampdata = [...newCampdata].sort(
-        (a, b) => b.price - a.price
-      );
+      newCampdata = [...newCampdata].sort((a, b) => b.price - a.price);
     }
 
     // 預設用id 小至大
@@ -226,6 +222,7 @@ const CampList = () => {
 
         <div className="backgroundPic">
           <h1 className="camplisth1 text-center">營地一覽</h1>
+          
 
           <div>
             <select
@@ -318,9 +315,10 @@ const CampList = () => {
                                 <div className="avgnumber">{v.stars}</div>
                                 {getStar(v.stars)}
                               </div>
-                              <a href="#" class="btn bookingBtn">
+
+                              <Link to="/camp/1" class="btn bookingBtn">
                                 立即預約
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         </div>
@@ -338,7 +336,7 @@ const CampList = () => {
             showdata={showdata}
             setCurrentPage={setCurrentPage}
           />
-        
+
           <div className="footerbox">
             <Footer />
           </div>

@@ -54,17 +54,45 @@ let productDetailRouter = require("./routers/product");
 app.use(productDetailRouter);
 
 // -----------------------------------------------------------------
-//營地詳細
+// //營地詳細
+// let campRouter = require("./routers/campDetail");
+// app.use("/api/camp", campRouter);
+
+// app.get("/api/camp/:campId", async (req, res, next) => {
+//   //req.params.campId
+//   let [data, field] = await connection.execute(
+//     "SELECT * FROM(camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid ) JOIN camp_pic ON camp.Cid = camp_pic.id WHERE Cid=?",
+//     [req.params.campId]
+//   );
+//   res.json(data);
+// });
+// // 單一營地圖片
+// app.use("/camp-pic", express.static(path.join(__dirname, "public")));
+
+//-------------------------------------------
 let campRouter = require("./routers/campDetail");
 app.use("/api/camp", campRouter);
 
 app.get("/api/camp/:campId", async (req, res, next) => {
   //req.params.campId
   let [data, field] = await connection.execute(
-    "SELECT * FROM(camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid ) JOIN camp_pic ON camp.Cid = camp_pic.id WHERE Cid=?",
+    "SELECT * FROM camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid  JOIN camp_pic ON camp.Cid = camp_pic.id JOIN camp_cate1 ON camp.campcate1_id = camp_cate1.id JOIN tent_cate1 ON camp.campregion_id = tent_cate1.id WHERE Cid=?",
     [req.params.campId]
   );
   res.json(data);
 });
+
+//----------------------------
+app.get("/api/tentcate/:campId", async (req, res, next) => {
+  //req.params.campId
+  let [data, field] = await connection.execute(
+    "SELECT * FROM tent JOIN tent_cate1 ON tent.tentcate_id=tent_cate1.id JOIN camp ON tent.camp_id = camp.Cid WHERE Cid=?",
+    [req.params.campId]
+  );
+  res.json(data);
+});
+//------------------------
 // 單一營地圖片
 app.use("/camp-pic", express.static(path.join(__dirname, "public")));
+// 單一帳棚圖片
+app.use("/tent-pic", express.static(path.join(__dirname, "public")));

@@ -20,6 +20,7 @@ import CampLogin from "./components/CampLogin";
 import Signupuser from "./components/Signupuser";
 import Signupcamp from "./components/Signupcamp";
 import Forgotpw from "./components/Forgotpw";
+import CampDetail from "./components/CampDetail";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/signupuser" exact element={<Signupuser />} />
           <Route path="/signupcamp" exact element={<Signupcamp />} />
           <Route path="/Forgotpw" exact element={<Forgotpw />} />
+          <Route path="/camp/:campId" element={<CampDetail />} />
           {/* <Route path="/products" element={<Products />} /> */}
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/p_orders/cart" element={<ShoppingCart />} />

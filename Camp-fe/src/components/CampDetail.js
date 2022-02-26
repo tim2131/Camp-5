@@ -8,8 +8,12 @@ import SimilarProduct from "./SimilarProduct";
 import PicSlider from "./PicSlider";
 import Test2 from "../components/Test2";
 
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+// 數量加減元件
+import NumericInput from "react-numeric-input";
+import "../style/NumericInput.scss";
+//日曆
+import "react-date-range/src/styles.scss"; // main style file
+import "react-date-range/src/theme/default.scss"; // theme css file
 import { DateRange } from "react-date-range";
 //圖片
 import meal from "../img/meal.svg";
@@ -21,8 +25,9 @@ import bed from "../img/bed.svg";
 import tent2 from "../img/tent2.jpg";
 import tent3 from "../img/tent3.jpg";
 import tent4 from "../img/tent4.jpg";
-import sakura from "../img/sakura.jpg";
-import tungflower from "../img/tungflower.jpg";
+import bike from "../img/bike.jpg";
+import diy from "../img/diy.jpg";
+import pet from "../img/pet.jpg";
 
 function CampDetail() {
   const [state, setState] = useState([
@@ -33,17 +38,29 @@ function CampDetail() {
     },
   ]);
   const [data, setData] = useState([]);
+  const [tentdata, setTentData] = useState([]);
   const { campId } = useParams();
   useEffect(() => {
     let getCamp = async () => {
       let response = await axios.get(
         `http://localhost:3002/api/camp/${campId}`
       );
+      let response1 = await axios.get(
+        `http://localhost:3002/api/tentcate/${campId}`
+      );
 
       setData(response.data);
+      setTentData(response1.data);
     };
     getCamp();
   }, []);
+
+  async function handleSumbit(e) {
+    e.preventDefault();
+    console.log("state", state);
+    // let response = await axios.post("http://localhost:3002/api/booking");
+    // console.log(response.data);
+  }
   return (
     <>
       {data.map((item) => {
@@ -51,7 +68,7 @@ function CampDetail() {
           <>
             <div className="container">
               <div>
-                <PicSlider />
+                <PicSlider data={data} />
                 <div className="campName">
                   <h1>{item.camp_name}</h1>
                 </div>
@@ -61,10 +78,10 @@ function CampDetail() {
                     <h5>{item.camp_county}</h5>
                   </div>
                   <div className="labelB">
-                    <h5>草地</h5>
+                    <h5>{item.camp_item}</h5>
                   </div>
                   <div className="labelC">
-                    <h5>TEEPEE</h5>
+                    <h5>{item.tent_item}</h5>
                   </div>
                 </div>
                 <div className="address">
@@ -91,7 +108,7 @@ function CampDetail() {
                             aria-controls="home"
                             aria-selected="true"
                           >
-                            Home
+                            設施介紹
                           </a>
                         </li>
                         <li className="nav-item" role="presentation">
@@ -104,7 +121,7 @@ function CampDetail() {
                             aria-controls="profile"
                             aria-selected="false"
                           >
-                            Profile
+                            入住須知
                           </a>
                         </li>
                       </ul>
@@ -117,22 +134,32 @@ function CampDetail() {
                         >
                           <div className="d-flex">
                             <div className="facGroup">
+                              <br />
+                              <br />
                               <div>
                                 <img src={meal} width={30} height={30} alt="" />
                                 含早餐
                               </div>
+                              <br />
+                              <br />
                               <div>
                                 <img src={car} width={30} height={30} alt="" />
                                 可租停車場
                               </div>
+                              <br />
+                              <br />
                               <div>
                                 <img src={wind} width={30} height={30} alt="" />
                                 冷氣
                               </div>
+                              <br />
+                              <br />
                               <div>
                                 <img src={wifi} width={30} height={30} alt="" />
                                 全域快速wifi
                               </div>
+                              <br />
+                              <br />
                               <div>
                                 <img
                                   src={phone}
@@ -142,24 +169,50 @@ function CampDetail() {
                                 />
                                 中華電信有收訊
                               </div>
+                              <br />
+                              <br />
                               <div>
                                 <img src={bed} width={30} height={30} alt="" />
                                 最多4人
                               </div>
+                              <br />
+                              <br />
                             </div>
                             <div className="facDetialGroup">
-                              <div>內含裝備</div>
+                              <br />
+                              <br />
                               <div>
-                                /全套免搭拆服務 /營地費 /帳篷/天幕 /戶外桌椅
-                                /高密度海棉床 »床120X190CMX2 /睡袋/枕頭
-                                /帳內外照明/延長線
+                                <h5>內含裝備</h5>
                               </div>
-                              <div>餐食 不含餐食 看加購餐食菜單</div>
+
+                              <br />
                               <div>
-                                炊具擇一 烤肉架含網1片 / 卡式爐含瓦斯1罐
-                                每帳二擇一
+                                <h5>
+                                  /全套免搭拆服務 /營地費 /帳篷/天幕 /戶外桌椅
+                                  /高密度海棉床 »床120X190CMX2 /睡袋/枕頭
+                                  /帳內外照明/延長線
+                                </h5>
                               </div>
-                              <div>帳篷尺寸 直徑270公分</div>
+
+                              <br />
+                              <div>
+                                <h5>餐食 不含餐食 看加購餐食菜單</h5>
+                              </div>
+
+                              <br />
+                              <div>
+                                <h5>
+                                  炊具擇一 烤肉架含網1片 / 卡式爐含瓦斯1罐
+                                  每帳二擇一
+                                </h5>
+                              </div>
+
+                              <br />
+                              <div>
+                                <h5>帳篷尺寸 直徑270公分</h5>
+                              </div>
+
+                              <br />
                             </div>
                           </div>
                         </div>
@@ -170,15 +223,17 @@ function CampDetail() {
                           aria-labelledby="profile-tab"
                         >
                           <div className="note">
-                            我們也提供露營場地租借服務。
-                            輕裝簡便、收拾行囊，讓您享受自給自足的露營樂趣！
-                            烤肉代訂服務：烤肉架100元，卡式爐150元；詳細代訂物品請點擊下方按鈕查看，歡迎加Line：@908gowqr或來電預訂。
-                            若需加人請事先告知，每房限加一位大人及一位小孩。
-                            加人需另外依年紀收費。4~11歲收費$1,200元；12歲(含)以上收費$1,500元；3歲以下一位不收費。
-                            農曆春節期間，大人收費為$2,000元。
-                            為確保住客安全及設施完備，本莊園營帳區及客廳區頂棚、陽傘等設備，本莊園有權視風力情況予以解除不予提供。另因應颱風前後，營區設備之解除及組裝，本莊園有權請預訂之客人提前或延期，客人不得異議。
-                            本莊園除導盲犬外，暫不接待寵物。
-                            天候預測如入住日風速超過30km以上，建議客人可做延期。
+                            <h4>
+                              我們也提供露營場地租借服務。
+                              輕裝簡便、收拾行囊，讓您享受自給自足的露營樂趣！
+                              烤肉代訂服務：烤肉架100元，卡式爐150元；詳細代訂物品請點擊下方按鈕查看，歡迎加Line：@908gowqr或來電預訂。
+                              若需加人請事先告知，每房限加一位大人及一位小孩。
+                              加人需另外依年紀收費。4~11歲收費$1,200元；12歲(含)以上收費$1,500元；3歲以下一位不收費。
+                              農曆春節期間，大人收費為$2,000元。
+                              為確保住客安全及設施完備，本莊園營帳區及客廳區頂棚、陽傘等設備，本莊園有權視風力情況予以解除不予提供。另因應颱風前後，營區設備之解除及組裝，本莊園有權請預訂之客人提前或延期，客人不得異議。
+                              本莊園除導盲犬外，暫不接待寵物。
+                              天候預測如入住日風速超過30km以上，建議客人可做延期。
+                            </h4>
                           </div>
                         </div>
                       </div>
@@ -198,100 +253,53 @@ function CampDetail() {
                     </div>
                   </div>
                 </div>
-                <div className="tentBlockA row">
-                  <div className="col-2">
-                    <div className="tentSmall">
-                      <img className="tentSmallPic" src={tent2} alt="" />
+
+                {tentdata.map((tent, i) => {
+                  return (
+                    <div className="tentBlockA row">
+                      <div className="col-2">
+                        <div className="tentSmall">
+                          <img
+                            className="tentSmallPic"
+                            src={`http://localhost:3002/tent-pic/img/${tent.img}`}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div className="col-1 align-self-center">
+                        <div>
+                          <h5>{tent.tent_item}</h5>
+                        </div>
+                      </div>
+                      <div className="col-3 align-self-center">
+                        <div>
+                          <h3>{tent.tent_item}</h3>
+                        </div>
+                      </div>
+                      <div className="tentTextBlock col-4 align-self-center">
+                        <div className="d-flex justify-content-center">
+                          <h5>
+                            定價:{tent.price}元/帳
+                            <br />
+                            <br />
+                            最大入住人:{tent.number}人
+                          </h5>
+                        </div>
+                      </div>
+                      <div className="col-2 align-self-center">
+                        <div className="count">
+                          <NumericInput min={1} max={100} value={1} mobile />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-1 align-self-center">
-                    <div>
-                      <h5>tent1</h5>
-                    </div>
-                  </div>
-                  <div className="col-3 align-self-center">
-                    <div>
-                      <h3>鐘型帳</h3>
-                    </div>
-                  </div>
-                  <div className="tentTextBlock col-4 align-self-center">
-                    <div className="d-flex justify-content-center">
-                      <h5>
-                        假日定價:1,000元/帳
-                        <br />
-                        平日定價:900元/帳 <br />
-                        最大入住人:2人
-                      </h5>
-                    </div>
-                  </div>
-                  <div className="col-2 align-self-center">
-                    <div className="count">數量</div>
-                  </div>
-                </div>
-                <div className="tentBlockB row">
-                  <div className="col-2">
-                    <div className="tentSmall">
-                      <img className="tentSmallPic" src={tent3} alt="" />
-                    </div>
-                  </div>
-                  <div className="col-1 align-self-center">
-                    <div>
-                      <h5>tent1</h5>
-                    </div>
-                  </div>
-                  <div className="col-3 align-self-center">
-                    <div>
-                      <h3>鐘型帳</h3>
-                    </div>
-                  </div>
-                  <div className="tentTextBlock col-4 align-self-center">
-                    <div className=" d-flex justify-content-center">
-                      <h5>
-                        假日定價:1,000元/帳
-                        <br />
-                        平日定價:900元/帳 <br />
-                        最大入住人:2人
-                      </h5>
-                    </div>
-                  </div>
-                  <div className="col-2 align-self-center">
-                    <div className="count">數量</div>
-                  </div>
-                </div>
-                <div className="tentBlockC row">
-                  <div className="col-2">
-                    <div className="tentSmall">
-                      <img className="tentSmallPic" src={tent4} alt="" />
-                    </div>
-                  </div>
-                  <div className="col-1 align-self-center">
-                    <div>
-                      <h5>tent1</h5>
-                    </div>
-                  </div>
-                  <div className="col-3 align-self-center">
-                    <div>
-                      <h3>鐘型帳</h3>
-                    </div>
-                  </div>
-                  <div className="tentTextBlock col-4 align-self-center">
-                    <div className=" d-flex justify-content-center">
-                      <h5>
-                        假日定價:1,000元/帳
-                        <br />
-                        平日定價:900元/帳 <br />
-                        最大入住人:2人
-                      </h5>
-                    </div>
-                  </div>
-                  <div className="col-2 align-self-center">
-                    <div className="count">數量</div>
-                  </div>
-                </div>
+                  );
+                })}
+
                 <div className="d-flex justify-content-center">
                   <button
                     className="btn btn-danger btn-lg reserveBtn"
                     type="submit"
+                    onClick={handleSumbit}
                   >
                     立即預定
                   </button>
@@ -301,38 +309,44 @@ function CampDetail() {
                 </div>
                 <div className="C">
                   <div className="row">
-                    <div className="col">
+                    <div className="col-4">
                       <div
-                        className="card"
+                        className="card cardC"
                         style={{ width: "382px", height: "545px" }}
                       >
-                        <img
-                          className="card-img-top sakura"
-                          src={sakura}
-                          alt=""
-                        />
+                        <img className="card-img-top pet" src={pet} alt="" />
                         <div className="card-body">
-                          <h3>櫻花祭</h3>
+                          <h3>寵物</h3>
                           <p className="card-text">
-                            目黑川是東京賞櫻景點很知名且排行前面的櫻花盛地，搭乘地鐵到中目黑站出站就可看到，每年會舉辦「目黑川櫻花季」（中目黑櫻花節）...
+                            帶寵物一起來寵物野餐吧，提供鮮食、玩具，讓主人同時一起與寵物在陽光、草地的包圍下，享受大自然的懷抱。
                           </p>
                         </div>
                       </div>
                     </div>
-                    <div className="col">
+                    <div className="col-4">
                       <div
-                        className="card"
+                        className="card cardC"
                         style={{ width: "382px", height: "545px" }}
                       >
-                        <img
-                          className="card-img-top tungFlower"
-                          src={tungflower}
-                          alt=""
-                        />
+                        <img className="card-img-top diy" src={diy} alt="" />
                         <div className="card-body">
-                          <h3>客家桐花季</h3>
+                          <h3>手作體驗</h3>
                           <p className="card-text">
-                            賞雪啦！每年一到了4-5月，就是全台油桐花的最佳季節，如白雪紛飛般的桐花遍佈整個台灣，除了賞花之外，還能體驗濃濃的客家氣息，這篇...
+                            專業手作家飾職人及美編教學指導，體驗創意DIY。
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-4">
+                      <div
+                        className="card cardC"
+                        style={{ width: "382px", height: "545px" }}
+                      >
+                        <img className="card-img-top bike" src={bike} alt="" />
+                        <div className="card-body">
+                          <h3>自行車</h3>
+                          <p className="card-text">
+                            騎乘自行車享受迎風吹拂並欣賞湖畔風光環湖欣賞美景
                           </p>
                         </div>
                       </div>
