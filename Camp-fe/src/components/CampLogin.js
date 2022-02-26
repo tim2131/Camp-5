@@ -79,8 +79,8 @@ const CampLogin = () => {
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
-      console.log("2", e.response.data.data);
-      if (e.response.data.error === "帳號或密碼錯誤") {
+      console.log("2", e.response.data.msg);
+      if (e.response.data.msg === "帳號或密碼錯誤") {
         console.log(Number(error));
         //console.log(errTime)
         const updatedFieldErrors = {

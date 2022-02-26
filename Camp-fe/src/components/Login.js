@@ -34,8 +34,7 @@ const Login = () => {
     // 1. 從原本的狀態物件上拷貝出一個新物件
     // 2. 在拷貝的新物件上處理
 
-   
-        const updatedFields = { ...loginMember, [name]: newValue };
+    const updatedFields = { ...loginMember, [name]: newValue };
 
     // 3. 設定回狀態
     setLoginMember(updatedFields);
@@ -83,9 +82,9 @@ const Login = () => {
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
-      console.log("2", e.response.data.error);
+      console.log("2", e.response.data.msg);
 
-      if (e.response.data.error === "帳號或密碼錯誤") {
+      if (e.response.data.msg === "帳號或密碼錯誤") {
         console.log(Number(error));
         //console.log(errTime)
         const updatedFieldErrors = {
@@ -204,7 +203,7 @@ const Login = () => {
                 <br />
 
                 <div className="">
-                  <button class="loginbtn3" type="submit" >
+                  <button class="loginbtn3" type="submit">
                     登入
                   </button>
                 </div>

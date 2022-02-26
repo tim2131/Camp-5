@@ -105,13 +105,13 @@ const CampList = () => {
 
     if (sortBy === "1") {
       newCampdata = [...newCampdata].sort(
-        (a, b) => a.camp_price - b.camp_price
+        (a, b) => a.price - b.price
       );
     }
 
     if (sortBy === "2") {
       newCampdata = [...newCampdata].sort(
-        (a, b) => b.camp_price - a.camp_price
+        (a, b) => b.price - a.price
       );
     }
 
