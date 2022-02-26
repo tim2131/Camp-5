@@ -29,7 +29,7 @@ function Navbar() {
             <li className="nav-item dropdown">
               <NavLink
                 className="nav-link dropdown-toggle"
-                to="#"
+                to="/camplist"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
@@ -163,7 +163,7 @@ function Navbar() {
             </li>
             <li>
               <button className="btn btn-outline-danger ml-2" type="submit">
-                登入
+                <Link to="/login">登入</Link>
               </button>
             </li>
           </ul>
