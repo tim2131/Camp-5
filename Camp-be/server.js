@@ -2,11 +2,24 @@ const express = require("express"); // 引用express
 require("dotenv").config(); // 引用dntenv
 const connection = require("./utils/db"); // 引用 utils 中的db.js
 const port = process.env.SERVER_PORT || 3002;
+const sessionSecret = process.env.SESSION_SECRET || "mfee22";
 const path = require("path");
 let app = express(); // 利用 express 這個 library 來建立一個 web app (express instance)
 app.use(express.urlencoded({ extended: true })); // express.urlencoded 要讓express認得body裡的資料
 
-
+//session
+const expressSession = require("express-session");
+let FileStore = require("session-file-store")(expressSession);
+app.use(
+  expressSession({
+    store: new FileStore({
+      path: path.join(__dirname, "..", "sessions"),
+    }),
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 
 
@@ -23,19 +36,6 @@ app.use(express.json());
 app.listen(port, () => {
   console.log(`RUN http://localhost:${port}`);
 });
-//session
-const expressSession = require("express-session");
-let FileStore = require("session-file-store")(expressSession);
-app.use(
-  expressSession({
-    store: new FileStore({
-      path: path.join(__dirname, "..", "sessions"),
-    }),
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 //member Router
 let memberRouter = require("./routers/member");
@@ -44,6 +44,8 @@ app.use("/member", memberRouter);
 //登入註冊登出
 let logingSignupRouter = require("./routers/login");
 app.use(logingSignupRouter);
+
+
 
 //營地列表
 let campListdRouter = require("./routers/camplist");
@@ -96,3 +98,4 @@ app.get("/api/tentcate/:campId", async (req, res, next) => {
 app.use("/camp-pic", express.static(path.join(__dirname, "public")));
 // 單一帳棚圖片
 app.use("/tent-pic", express.static(path.join(__dirname, "public")));
+
