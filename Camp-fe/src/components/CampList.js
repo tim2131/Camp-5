@@ -249,88 +249,82 @@ const CampList = () => {
             </button> */}
           </div>
 
-          <div className="">
-        
-            {/* 營地分類 */}
-            <Filterbar
-              cate={cate}
-              cate2={cate2}
-              cate3={cate3}
-              tentdata={tentdata}
-              countydata={countydata}
-              catedata={catedata}
-              setCate2={setCate2}
-              setCate={setCate}
-              setCate3={setCate3}
-              region1data={region1data}
-              region2data={region2data}
-              region3data={region3data}
-              region4data={region4data}
-            />
-           
-            <div className="container movecontent">
-              <div className="row">
-                <Hotcamp />
-                {/* 側邊空位 */}
-                <div className="col-3 "></div>
+          <div className="row">
+            <div className="col-3 asideheight">
+              {/* 營地分類 */}
+              <Filterbar
+                cate={cate}
+                cate2={cate2}
+                cate3={cate3}
+                tentdata={tentdata}
+                countydata={countydata}
+                catedata={catedata}
+                setCate2={setCate2}
+                setCate={setCate}
+                setCate3={setCate3}
+                region1data={region1data}
+                region2data={region2data}
+                region3data={region3data}
+                region4data={region4data}
+              />
+            </div>
+          </div>
 
-                {/* 營地列表Card */}
-                <div className="col-9 movelist">
-                  <div className="row">
-                    {currentPost.map((v) => {
-                      return (
-                        <div className="col-4">
-                          <div key={v.id} class="card content">
-                            <div className="movebadge d-flex justify-content-end">
-                              <span class="badge badge1size">
-                                {v.camp_county}
-                              </span>
-                              <span class="badge badge2size">
-                                {v.camp_item}
-                              </span>
-                              <span class="badge badge3size">
-                                {v.tent_item}
-                              </span>
+          <div className="container movecontent">
+            <div className="row">
+              <Hotcamp />
+              {/* 側邊空位 */}
+              <div className="col-3 "></div>
+
+              {/* 營地列表Card */}
+              <div className="col-9 movelist">
+                <div className="row">
+                  {currentPost.map((v) => {
+                    return (
+                      <div className="col-4">
+                        <div key={v.id} class="card content">
+                          <div className="movebadge d-flex justify-content-end">
+                            <span class="badge badge1size">
+                              {v.camp_county}
+                            </span>
+                            <span class="badge badge2size">{v.camp_item}</span>
+                            <span class="badge badge3size">{v.tent_item}</span>
+                          </div>
+                          <div className="camplistPicBox">
+                            <div className="camptagWord">
+                              {camptagWords[v.camp_tag]}
                             </div>
-                            <div className="camplistPicBox">
-                              <div className="camptagWord">
-                                {camptagWords[v.camp_tag]}
-                              </div>
-                              <div className={camptagcolor[v.camp_tag]}></div>
-                              <div className="camplist_item">
-                                <img
-                                  className="camppic"
-                                  src={`http://localhost:3002/static/${v.img1}`}
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-
-                            <div class="card-body">
-                              <p class="card-text text-center campName">
-                                {v.camp_name}
-                              </p>
-                              <p class="card-text text-center campPrice">
-                                ${v.price}元起
-                              </p>
-
-                              <div className="d-flex star">
-                                <div className="avgnumber">{v.stars}</div>
-                                {getStar(v.stars)}
-                              </div>
-
-                              <Link
-                                to={`/camp/${v.Cid}`}
-                                class="btn bookingBtn"
-                              >
-                                立即預約
-                              </Link>
+                            <div className={camptagcolor[v.camp_tag]}></div>
+                            <div className="camplist_item">
+                              <img
+                                className="camppic"
+                                src={`http://localhost:3002/static/${v.img1}`}
+                                alt=""
+                              />
                             </div>
                           </div>
+
+                          <div class="card-body">
+                            <p class="card-text text-center campName">
+                              {v.camp_name}
+                            </p>
+                            <p class="card-text text-center campPrice">
+                              ${v.price}元起
+                            </p>
+
+                            <div className="d-flex star">
+                              <div className="avgnumber">{v.stars}</div>
+                              {getStar(v.stars)}
+                            </div>
+
+                            <Link to={`/camp/${v.Cid}`} class="btn bookingBtn">
+                              立即預約
+                            </Link>
+                          </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

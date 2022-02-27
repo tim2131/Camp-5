@@ -184,7 +184,7 @@ ul.page li a {
   top: 100px;
 }
 .movecontent {
-  margin-top: -1150px;
+  margin-top: -400px;
 }
 .movelist {
   margin-top: -300px;
@@ -244,4 +244,11 @@ ul.page li a {
   height: 307px;
   max-width: 100%;
   background-color: transparent;
+}
+.asideheight {
+  position: absolute;
+  height: 2800px;
+ 
+ 
+ 
 }

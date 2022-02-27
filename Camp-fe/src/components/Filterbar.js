@@ -252,6 +252,7 @@ const Filterbar = (props) => {
             })}
           </div>
         </div>
+        
       </div>
     </>
   );

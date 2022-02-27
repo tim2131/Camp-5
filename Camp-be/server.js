@@ -21,8 +21,6 @@ app.use(
   })
 );
 
-
-
 //解決跨域問題、是否拿cookie
 const cors = require("cors");
 const corsOptions = {
@@ -45,8 +43,6 @@ app.use("/member", memberRouter);
 let logingSignupRouter = require("./routers/login");
 app.use(logingSignupRouter);
 
-
-
 //營地列表
 let campListdRouter = require("./routers/camplist");
 app.use(campListdRouter);
@@ -55,21 +51,6 @@ app.use(campListdRouter);
 let productDetailRouter = require("./routers/product");
 app.use(productDetailRouter);
 
-// -----------------------------------------------------------------
-// //營地詳細
-// let campRouter = require("./routers/campDetail");
-// app.use("/api/camp", campRouter);
-
-// app.get("/api/camp/:campId", async (req, res, next) => {
-//   //req.params.campId
-//   let [data, field] = await connection.execute(
-//     "SELECT * FROM(camp JOIN camp_county ON camp.campcounty_id = camp_county.Yid ) JOIN camp_pic ON camp.Cid = camp_pic.id WHERE Cid=?",
-//     [req.params.campId]
-//   );
-//   res.json(data);
-// });
-// // 單一營地圖片
-// app.use("/camp-pic", express.static(path.join(__dirname, "public")));
 
 //-------------------------------------------
 let campRouter = require("./routers/campDetail");
@@ -98,4 +79,3 @@ app.get("/api/tentcate/:campId", async (req, res, next) => {
 app.use("/camp-pic", express.static(path.join(__dirname, "public")));
 // 單一帳棚圖片
 app.use("/tent-pic", express.static(path.join(__dirname, "public")));
-

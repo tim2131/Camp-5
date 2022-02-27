@@ -1,7 +1,8 @@
-/* <img src={camp} class="card-img-top" /> */
+
 import camp from "../img/loing.png";
 import "../style/hotcamp.scss";
 import "../style/camplist.css";
+import { Link } from "react-router-dom";
 
 const Hotcamp = (props) => {
   const hotcamptagWords = {
@@ -35,9 +36,9 @@ const Hotcamp = (props) => {
 
                 <p class="card-text text-center hotcampPrice">$3000元起</p>
 
-                <a href="#" class="btn hotbookingBtn">
+                <Link to="" class="btn hotbookingBtn">
                   立即預約
-                </a>
+                </Link>
               </div>
             </div>
           </div>
