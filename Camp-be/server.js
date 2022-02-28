@@ -18,6 +18,7 @@ app.use(
     secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
+    cookie: { httpOnly: false },
   })
 );
 
@@ -33,6 +34,15 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.listen(port, () => {
   console.log(`RUN http://localhost:${port}`);
+});
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
 //member Router

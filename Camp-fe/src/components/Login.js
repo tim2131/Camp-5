@@ -5,15 +5,22 @@ import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 // import { useAuth } from "../context/auth";
-
+import { useCookies } from "react-cookie";
 import "../style/login.css";
 
 const Login = () => {
   const [error, setError] = useState("1");
+  // --------cookie--------------------
+  // const [cookies, setCookie] = useCookies(["connect.sid"]);
+  // console.log( cookies);
+  // let cookieQuery = cookies["connect.sid"];
+  // console.log("cookieQuery", cookieQuery);
+  // // const cookieQuery = cookies.connect.sid;
+
   // const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
-    user_name: "",
-    password: "",
+    user_name: "dddd@test.com",
+    password: "Dddd1231",
     error: "",
   });
   const [fieldErrors, setFieldErrors] = useState({
@@ -237,6 +244,6 @@ const Login = () => {
       </div>
     </>
   );
-};
+};;
 
 export default Login;

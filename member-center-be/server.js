@@ -4,9 +4,7 @@ require("dotenv").config();
 // path 是 nodejs 內建的
 const path = require("path");
 const cors = require("cors");
-
-
-
+const sessionSecret = process.env.SESSION_SECRET || "mfee22";
 // 利用 express 這個 library 來建立一個 web app (express instance)
 let app = express();
 
@@ -22,15 +20,54 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // 啟用 session
 const expressSession = require("express-session");
-
+let FileStore = require("session-file-store")(expressSession);
+app.use(
+  expressSession({
+    store: new FileStore({
+      path: path.join(__dirname, "..", "sessions"),
+    }),
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: false },
+  })
+);
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
 
 app.use((req, res, next) => {
-    console.log("這是一個沒有用的中間件");
+  console.log("這是一個沒有用的中間件");
+
     // throw new Error("故意製造的錯誤");
   next();
+});
+
+
+//------------------------------------------------------------------
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8000"); // update to match the domain you will make the request from
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+
+
+//--------------------------------------------
+app.use(function (req, res, next) {
+  // req.session.member
+  if (req.session.member) {
+    // 表示登入過
+    console.log("hello")
+    next();
+  } else {
+    // 表示尚未登入
+    res.status(400).json({ code: "99999", msg: "尚未登入" });
+    console.log("X");
+  }
 });
 
 // -----------------------------------------------------------------
@@ -64,8 +101,6 @@ app.use("/api/getMember",
   // (req, res, next) => {
   //  res.send("Hello Middleware");}
 );
-
-
 
 //-----------------------------------------------------------------
 // 使用 express 內建的中間件
