@@ -34,6 +34,8 @@ import OrderDetails from "./pages/OrderDetails";
 import MyFav from "./pages/MyFav";
 import DashBoard from './pages/dashboard';
 import { useCookies } from "react-cookie";
+import { useAuth } from "./context/auth";
+
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -75,9 +77,7 @@ function App() {
     />
   );
   // ------------------------------
-  function writeNavOnClickLocalStorage(selectedKey) {
-    window.localStorage.setItem("selectedKey", JSON.stringify(selectedKey));
-  }
+
   //------------------------------
 
   const [cookies, setCookie] = useCookies(["connect.sid"]);
@@ -87,26 +87,25 @@ function App() {
   // const cookieQuery = cookies.connect.sid;
   // -------------------------------------------------
 
-  const [data, setData] = useState([]);
+  const [logData, setLogData] = useState(); //FIXME: 為什麼我不能用useAuth
   async function getmember(e) {
     try {
       let result = await axios.get("http://localhost:3005/api/login", {
         withCredentials: true,
       });
       console.log(result.data);
-      setData(result.data);
+      setLogData(result.data);
     } catch (e) {
       console.error("錯誤");
       // return alert("您尚未登入，請登入後繼續") (window.location = `http://localhost:3000/login`)
       window.alert("您尚未登入，請登入後繼續");
-
       window.location.href = "http://localhost:3000/login";
     }
   }
   useEffect(() => {
     getmember();
   }, []);
-  console.log(data);
+  console.log(logData);
 
   //--------------------------------
 

@@ -1,39 +1,101 @@
-import { Layout,  Button, Drawer,Space } from "antd";
+import { Layout, Button, Drawer, Menu, Modal} from "antd";
 
 import { MenuOutlined } from "@ant-design/icons";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "antd/dist/antd.less";
 import Logo from "../img/logo.svg";
 import "../App.less";
+import { useAuth } from "../context/auth";
+import { API_URL } from "../utils/config";
+
+import axios from "axios";
 const { Header } = Layout;
+const { SubMenu } = Menu;
 
 
-function Header1({menu}) {
+function Header1({ menu }) {
   const [visible, setVisible] = useState(false);
+  const [logData, setLogData] = useState(); //FIXME: 為什麼我不能用useAuth
+  //-------------------------------------------------
+  function countDown() {
+    let secondsToGo = 5;
+    const modal = Modal.success({
+      title: "您即將登出",
+      content: `在 ${secondsToGo} 秒之後將會自動登出並回到首頁`,
+      closable: "true",
+      onOk: ()=>handleLogout(),
+    });
+
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+      modal.update({
+        content: `在 ${secondsToGo} 秒之後將會自動登出並回到首頁`,
+        closable: "true",
+        onOk: ()=>handleLogout(),
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      modal.destroy();
+      clearInterval(timer);
+    }, secondsToGo * 900);
+  }
+//--------TODO: 加入logout活動-----並跳轉到首頁----------------------------------
+   const handleLogout = async () => {
+     await axios.get(`${API_URL}/logOut`, {
+       withCredentials: true,
+     });
+     setLogData(null);
+  };
+  //-----------------------------------------
   return (
     <>
       <Header>
-          <Button
-            className="barsMenu"
-            type="primary"
-            onClick={() => setVisible(true)}
-            style={{ marginBottom: "50%" }}
-          >
-            <span className="barsBtn">
-              <MenuOutlined />
-            </span>
-          </Button>
-          <span
-            style={{
-              color: "#fff",
-              paddingLeft: "10%",
-              fontSize: "1.8em",
-            }}
-          >
-            會員中心
+        <Button
+          className="barsMenu"
+          type="primary"
+          onClick={() => setVisible(true)}
+          style={{ marginBottom: "50%" }}
+        >
+          <span className="barsBtn">
+            <MenuOutlined />
           </span>
-      
+        </Button>
         <span
+          style={{
+            color: "#fff",
+            // paddingLeft: "10%",
+            fontSize: "1.8em",
+          }}
+        >
+          會員中心
+        </span>
+        <img
+          className="logo-left"
+          src={Logo}
+          alt="logo"
+          style={{
+            float: "right",
+            margin: "10px",
+          }}
+        />
+        <Menu
+          mode="horizontal"
+          style={{
+            float: "right",
+          }}
+        >
+          <Menu.Item key="setting:1">
+            <a href="http://localhost:3000/" target="_blank">
+              回首頁
+            </a>
+          </Menu.Item>
+          <Menu.Item key="setting:2" onClick={countDown}>
+            登出
+          </Menu.Item>
+        </Menu>
+
+        {/* <span
           style={{
             // color: '#fff',
             float: "right",
@@ -41,7 +103,7 @@ function Header1({menu}) {
           }}
         >
           <img className="logo-left" src={Logo} alt="logo" />
-        </span>
+        </span> */}
       </Header>
       <Drawer
         // title="Basic Drawer"

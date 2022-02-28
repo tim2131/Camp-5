@@ -71,6 +71,8 @@ app.use(function (req, res, next) {
 });
 let logInRouter = require("./routers/login");
 app.use("/api/login", logInRouter);
+let logOutRouter = require("./routers/logOut");
+app.use("/api/logOut", logOutRouter);
 
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");
