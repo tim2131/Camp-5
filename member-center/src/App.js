@@ -1,7 +1,9 @@
 import {
+  Alert,
   Layout,
   Select,
   Typography,
+  
 } from "antd";
 
 import {
@@ -95,7 +97,10 @@ function App() {
       setData(result.data);
     } catch (e) {
       console.error("錯誤");
-      return (window.location = `http://localhost:3000/login`);
+      // return alert("您尚未登入，請登入後繼續") (window.location = `http://localhost:3000/login`)
+      window.alert("您尚未登入，請登入後繼續");
+
+      window.location.href = "http://localhost:3000/login";
     }
   }
   useEffect(() => {
