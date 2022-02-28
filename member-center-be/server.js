@@ -69,6 +69,8 @@ app.use(function (req, res, next) {
     console.log("X");
   }
 });
+let logInRouter = require("./routers/login");
+app.use("/api/login", logInRouter);
 
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");

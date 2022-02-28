@@ -12,8 +12,9 @@ import {
   CompassOutlined,
 
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 // --------less or css-------------------------
 import "antd/dist/antd.less";
@@ -30,6 +31,7 @@ import Header1 from "./comp/header";
 import OrderDetails from "./pages/OrderDetails";
 import MyFav from "./pages/MyFav";
 import DashBoard from './pages/dashboard';
+import { useCookies } from "react-cookie";
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -76,6 +78,33 @@ function App() {
   }
   //------------------------------
 
+  const [cookies, setCookie] = useCookies(["connect.sid"]);
+  console.log("cookie", cookies);
+  let cookieQuery = cookies["connect.sid"];
+  console.log("cookieQuery", cookieQuery);
+  // const cookieQuery = cookies.connect.sid;
+  // -------------------------------------------------
+
+  const [data, setData] = useState([]);
+  async function getmember(e) {
+    try {
+      let result = await axios.get("http://localhost:3005/api/login", {
+        withCredentials: true,
+      });
+      console.log(result.data);
+      setData(result.data);
+    } catch (e) {
+      console.error("錯誤");
+      return (window.location = `http://localhost:3000/login`);
+    }
+  }
+  useEffect(() => {
+    getmember();
+  }, []);
+  console.log(data);
+
+  //--------------------------------
+
   return (
     <Layout style={{ height: "100vh" }}>
       <LeftSideBar menu={Menu} />
@@ -87,7 +116,6 @@ function App() {
             overflow: "scroll",
           }}
         >
-
           <Routes>
             <Route
               path="/profile"
@@ -104,7 +132,7 @@ function App() {
               element={<OrderDetails />}
             ></Route>
             <Route path="/favorites" element={<MyFav />} />
-            <Route path="/" element={<DashBoard/>} />
+            <Route path="/" element={<DashBoard />} />
           </Routes>
         </Content>
       </Layout>

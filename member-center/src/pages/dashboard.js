@@ -20,29 +20,7 @@ import axios from "axios";
 
 
 const DashBoard = () => {
-  // ----------------------------
-  // const [cookies, setCookie] = useCookies(["connect.sid"]);
-  // console.log("cookie", cookies);
-  // let cookieQuery = cookies["connect.sid"];
-  // console.log("cookieQuery", cookieQuery);
-  // const cookieQuery = cookies.connect.sid;
-  //-------------------------------------------------
-// const [data, setData] = useState([]);
-// async function getmember(e) {
-//   try {
-//     let result = await axios.get(`http://localhost:3005/api/login`, {
-//       withCredentials: true,
-//     });
-//     console.log(result.data);
-//     setData(result.data);
-//   } catch (e) {
-//     console.error("錯誤");
-//   }
-// }
-// useEffect(() => {
-//   getmember();
-// }, []);
-// console.log(data);
+
   
   return (
     <>
