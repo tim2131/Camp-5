@@ -5,17 +5,17 @@ import React, { useState } from "react";
 import "antd/dist/antd.less";
 import Logo from "../img/logo.svg";
 import "../App.less";
-import { useAuth } from "../context/auth";
 import { API_URL } from "../utils/config";
+
 
 import axios from "axios";
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
 
-function Header1({ menu }) {
+function Header1({ menu,setLogData,logData }) {
   const [visible, setVisible] = useState(false);
-  const [logData, setLogData] = useState(); //FIXME: 為什麼我不能用useAuth
+  // const [logData, setLogData] = useState({}); 
   //-------------------------------------------------
   function countDown() {
     let secondsToGo = 5;
@@ -38,14 +38,16 @@ function Header1({ menu }) {
     setTimeout(() => {
       modal.destroy();
       clearInterval(timer);
+      handleLogout()
     }, secondsToGo * 900);
   }
-//--------TODO: 加入logout活動-----並跳轉到首頁----------------------------------
+//------------------------------------------
    const handleLogout = async () => {
      await axios.get(`${API_URL}/logOut`, {
        withCredentials: true,
      });
      setLogData(null);
+     window.location.href = "http://localhost:3000";
   };
   //-----------------------------------------
   return (

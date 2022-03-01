@@ -17,6 +17,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "./context/auth";
 
 // --------less or css-------------------------
 import "antd/dist/antd.less";
@@ -87,7 +88,7 @@ function App() {
   // const cookieQuery = cookies.connect.sid;
   // -------------------------------------------------
 
-  const [logData, setLogData] = useState(); //FIXME: 為什麼我不能用useAuth
+  const [logData, setLogData] = useState({}); 
   async function getmember(e) {
     try {
       let result = await axios.get("http://localhost:3005/api/login", {
@@ -113,7 +114,7 @@ function App() {
     <Layout style={{ height: "100vh" }}>
       <LeftSideBar menu={Menu} />
       <Layout>
-        <Header1 menu={Menu} />
+        <Header1 menu={Menu} logData={logData} setLogData={setLogData} />
         <Content
           style={{
             margin: "0 16px",
