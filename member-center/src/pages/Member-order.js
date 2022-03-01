@@ -22,10 +22,13 @@ const MemberOrder = ({ setSelectedKey }) => {
   const [data, setData] = useState([]);
   async function getAllPO() {
     try {
-      let response = await axios.post(`${API_URL}/campAllPO`, data);
-      console.log(response.data);
+      let response = await axios.post(`${API_URL}/campAllPO`, data, {
+        // 為了跨源存取 cookie
+        withCredentials: true,
+      });
+      console.log(response.data[0]);
       // console.log(response.data[0].id);
-      setData(response.data);
+      setData(response.data[0]);
     } catch (e) {
       console.error("error");
     }
