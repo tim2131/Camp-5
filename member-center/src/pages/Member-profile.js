@@ -69,7 +69,7 @@ const tailFormItemLayout = {
 };
 
 
-const MemberProfile = ({ }) => {
+const MemberProfile = ({logData}) => {
 
   //------------------------------------------------
   const [form] = Form.useForm();
@@ -81,11 +81,13 @@ const MemberProfile = ({ }) => {
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
     //http://localhost:3002
-    //TODO: 還沒判斷id
-    let res = await axios.post(`${API_URL}/memberInfo`);
-    setData(res.data);
+    let res = await axios.post(`${API_URL}/memberInfo` ,logData.id, {
+      // 為了跨源存取 cookie
+      withCredentials: true,
+    });
+    setData(res.data[0]);
     setLoading(false);
-    console.log(res.data);
+    console.log(res.data[0]);
     //TODO: 沒辦法從資料庫抓資料時 空陣列要顯現錯誤
   };
 
@@ -126,7 +128,6 @@ const MemberProfile = ({ }) => {
     // e.preventDefault();
     async function test() {
       try {
-        //TODO: 需要涵蓋會員id一起送出
         let response = await axios.post(`${API_URL}/memberInfo1`, data);
         console.log(response.data);
         success();
@@ -293,7 +294,7 @@ const MemberProfile = ({ }) => {
                 <Form.Item name="datePicker" label="您的生日" {...config}>
                   <DatePicker />
                 </Form.Item>
-
+{/* //TODO:手機號碼沒有前端驗證 */}
                 <Form.Item
                   name="phone"
                   label="手機號碼"

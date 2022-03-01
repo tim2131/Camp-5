@@ -16,7 +16,7 @@ import {
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import axios from "axios";
+
 import { AuthContext } from "./context/auth";
 
 // --------less or css-------------------------
@@ -36,6 +36,7 @@ import MyFav from "./pages/MyFav";
 import DashBoard from './pages/dashboard';
 import { useCookies } from "react-cookie";
 import { useAuth } from "./context/auth";
+import LogStatus from "./pages/LogStatus";
 
 
 const { Content } = Layout;
@@ -78,37 +79,15 @@ function App() {
     />
   );
   // ------------------------------
-
+  const [logData, setLogData] = useState({}); 
   //------------------------------
 
-  const [cookies, setCookie] = useCookies(["connect.sid"]);
-  console.log("cookie", cookies);
-  let cookieQuery = cookies["connect.sid"];
-  console.log("cookieQuery", cookieQuery);
-  // const cookieQuery = cookies.connect.sid;
-  // -------------------------------------------------
-
-  const [logData, setLogData] = useState({}); 
-  async function getmember(e) {
-    try {
-      let result = await axios.get("http://localhost:3005/api/login", {
-        withCredentials: true,
-      });
-      console.log(result.data);
-      setLogData(result.data);
-    } catch (e) {
-      console.error("錯誤");
-      // return alert("您尚未登入，請登入後繼續") (window.location = `http://localhost:3000/login`)
-      window.alert("您尚未登入，請登入後繼續");
-      window.location.href = "http://localhost:3000/login";
-    }
-  }
-  useEffect(() => {
-    getmember();
-  }, []);
-  console.log(logData);
-
-  //--------------------------------
+  // const [cookies, setCookie] = useCookies(["connect.sid"]);
+  // console.log("cookie", cookies);
+  // let cookieQuery = cookies["connect.sid"];
+  // console.log("cookieQuery", cookieQuery);
+  // // const cookieQuery = cookies.connect.sid;
+  
 
   return (
     <Layout style={{ height: "100vh" }}>
@@ -126,18 +105,20 @@ function App() {
               path="/profile"
               element={
                 <MemberProfile
+                  logData={logData}
                   selectedKey={selectedKey}
                   setSelectedKey={setSelectedKey}
                 />
               }
             />
-            <Route path="/orders" element={<MemberOrder />} />
+            <Route path="/orders" element={<MemberOrder logData={logData} />} />
             <Route
               path="/orderDetails/:POId"
-              element={<OrderDetails />}
+              element={<OrderDetails  logData={logData} />}
             ></Route>
             <Route path="/favorites" element={<MyFav />} />
-            <Route path="/" element={<DashBoard />} />
+            <Route path="/logStatus" element={<LogStatus logData={logData} setLogData={setLogData} />} />
+            <Route path="/" element={<DashBoard logData={logData} setLogData={setLogData} />} />
           </Routes>
         </Content>
       </Layout>

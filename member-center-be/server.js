@@ -36,14 +36,6 @@ app.use(
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
 
-app.use((req, res, next) => {
-  console.log("這是一個沒有用的中間件");
-
-    // throw new Error("故意製造的錯誤");
-  next();
-});
-
-
 //------------------------------------------------------------------
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:8000"); // update to match the domain you will make the request from
@@ -53,26 +45,18 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-
-
-//--------------------------------------------
-app.use(function (req, res, next) {
-  // req.session.member
-  if (req.session.member) {
-    // 表示登入過
-    console.log("hello")
-    next();
-  } else {
-    // 表示尚未登入
-    res.status(400).json({ code: "99999", msg: "尚未登入" });
-    console.log("X");
-  }
+//----------------------------------------------------
+app.use((req, res, next) => {
+  console.log("起點");
+    // throw new Error("故意製造的錯誤");
+  next();
 });
+//----------------------------------------------------
+let logStatusRouter = require("./routers/checkLogStatus");
+app.use("/api/checkLogStatus",logStatusRouter);
 let logInRouter = require("./routers/login");
 app.use("/api/login", logInRouter);
-let logOutRouter = require("./routers/logOut");
-app.use("/api/logOut", logOutRouter);
+
 
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");
@@ -115,6 +99,9 @@ app.use(express.static(path.join(__dirname, "assets")));
 // 寫法2: 有網址的 prefix
 // localhost:3002/static/index.html --> 網址上就會有這個 url prefix
 // app.use("/static", express.static(path.join(__dirname, "public")));
+//-------------------------------------------------------------------
+let logOutRouter = require("./routers/logOut");
+app.use("/api/logOut", logOutRouter);
 
 
 //-------------------------------------------------------------------
