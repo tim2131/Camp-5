@@ -91,7 +91,8 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOTent/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+       console.log("TENT");
+      console.log(result.data);
       setTent(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -106,7 +107,9 @@ const OrderDetails = () => {
   async function getCampPOAct(e) {
     try {
       // http://localhost:3005/api/campPOAct/1
-      let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
+      let result = await axios.get(`${API_URL}/campPOAct/${POId}`, {
+        withCredentials: true,
+      });
       console.log(`getCampPOAct-${result.data}`);
       console.log(result.data);
       setAct(result.data);

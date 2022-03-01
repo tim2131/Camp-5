@@ -23,6 +23,7 @@ import { ERR_MSG } from "../utils/error";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { IMAGE_URL } from "../utils/config";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
@@ -195,28 +196,32 @@ const OrderDetails12 = ({
           <React.Fragment key={item.id}>
             <List itemLayout="vertical" size="small">
               <List.Item
-                key={item.id}
+                key={item.Tid}
                 extra={
                   <img
                     width={250}
                     alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    src={`${IMAGE_URL}/images/${item.img}`}
+                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
                 <List.Item.Meta
                   title={
                     <>
-                      <div className="subname3">{item.item}</div>
+                      <div className="subname3">{item.name}</div>
                     </>
                   }
                   description={
                     <>
+                      <span className="subnote2">帳篷介紹</span> <br />
+                      <span className="subname2">{item.intro}</span>
+                      <br />
                       <span className="subnote2">帳篷類型</span> <br />
-                      <span className="subname2">{item.item}</span>
+                      <span className="subname2">{item.tent_item}</span>
                       <br />
                       <span className="subnote2">帳篷數</span> <br />
-                      <span className="subname2">{item.item}</span>
+                      <span className="subname2">{item.tent_qty}</span>
                     </>
                   }
                 />
@@ -238,9 +243,12 @@ const OrderDetails12 = ({
                 key={item.id}
                 extra={
                   <img
+                    // FIXME:圖片會變形
                     width={250}
+                    height={150}
                     alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    src={`${IMAGE_URL}/images/${item.pic}`}
+                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
