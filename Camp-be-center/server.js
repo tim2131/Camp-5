@@ -1,7 +1,7 @@
 // 引入 express
 const express = require("express");
 require("dotenv").config();
-const port = 3002;
+const port = 3005;
 const db = require("./utils/db");
 const cors = require("cors");
 

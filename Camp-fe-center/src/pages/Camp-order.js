@@ -2,11 +2,10 @@ import { Select, Typography, Divider, Tabs,BackTop } from "antd";
 
 import React from "react";
 import { useState, useEffect } from "react";
-import { API_URL } from "../utils/config";
+import { IMAGE_URL } from "../utils/config";
 import axios from "axios";
 import "antd/dist/antd.less";
 import CampOrder from "../comp/CampOrder";
-import ProductOrder from "../comp/ProductOrder";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -18,12 +17,12 @@ function callback(key) {
 }
 // ---------------for Tabs end---------------
 
-const MemberOrder = ({ setSelectedKey }) => {
+const TentOrder = ({ setSelectedKey }) => {
   const [data, setData] = useState([]);
   async function getAllPO() {
     try {
-      let response = await axios.post(`${API_URL}/campAllPO`, data);
-      console.log(response.data);
+      let response = await axios.get(`${IMAGE_URL}/camp_owner_order`);
+      console.log('response',response.data);
       // console.log(response.data[0].id);
       setData(response.data);
     } catch (e) {
@@ -64,4 +63,4 @@ const MemberOrder = ({ setSelectedKey }) => {
   );
 };
 
-export default MemberOrder;
+export default TentOrder;

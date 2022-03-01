@@ -73,7 +73,7 @@ export default class Content extends React.Component {
       if(nowValue.indexOf("C:\\fakepath\\") != -1){
         nowValue = nowValue.replace("C:\\fakepath\\","");
         formValues['img'] = nowValue;
-        formValues[key] = <img src={'http://localhost:3002/images/'+nowValue} alt="Tent" width={70} height={60} />;
+        formValues[key] = <img src={'http://localhost:3005/images/'+nowValue} alt="Tent" width={70} height={60} />;
       }
       else{
         formValues[key] = nowValue;
@@ -192,7 +192,7 @@ export default class Content extends React.Component {
           lists.splice(findIndexByKey("key", val, lists), 1);
         });
 
-        axios.post('http://localhost:3002/TentDel',{delID:selectedRowKeys.join(", ")})
+        axios.post('http://localhost:3005/TentDel',{delID:selectedRowKeys.join(", ")})
         .then(res=>{console.log('res',res);})
         .catch(err=>{console.log('err',err);})
 
@@ -232,14 +232,14 @@ export default class Content extends React.Component {
       formValues.key = formValues.id;
       lists.unshift(formValues);
 
-      axios.post('http://localhost:3002/TentAdd',formValues)
-      .then(res=>{console.log(res);})
-      .catch(err=>{console.log(err);})
+      axios.post('http://localhost:3005/TentAdd',formValues)
+      .then(res=>{console.log('tentadd',res);})
+      .catch(err=>{console.log('tentadd',err);})
     } else {
       console.log('selectedRowKeys',selectedRowKeys);
       console.log('formValues',formValues);
 
-      axios.post('http://localhost:3002/TentUpdate',formValues)
+      axios.post('http://localhost:3005/TentUpdate',formValues)
       .then(res=>{console.log(res);})
       .catch(err=>{console.log(err);})
 

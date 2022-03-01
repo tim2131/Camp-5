@@ -5,12 +5,12 @@ import FormModal from "./FormModal";
 import getSqlData from "../../api/Activity/sqlData";
 import { findIndexByKey } from "../../libs/Activity/util";
 import sqlData from "../../store/Activity/sqlConfig";
-// import Image1 from "../../images/camp12.jpg";
-// import Image2 from "../../images/camp13.jpg";
-// import Image3 from "../../images/camp9.jpg";
-// import Image4 from "../../images/camp8.jpg";
-// import Image5 from "../../images/camp16.jpg";
-// import Image6 from "../../images/camp1.jpg";
+import Image1 from "../../images/camp12.jpg";
+import Image2 from "../../images/camp13.jpg";
+import Image3 from "../../images/camp9.jpg";
+import Image4 from "../../images/camp8.jpg";
+import Image5 from "../../images/camp16.jpg";
+import Image6 from "../../images/camp1.jpg";
 import "../../style/content.css";
 import axios from "axios";
 
@@ -73,7 +73,7 @@ export default class Content extends React.Component {
       if(nowValue.indexOf("C:\\fakepath\\") != -1){
         nowValue = nowValue.replace("C:\\fakepath\\","");
         formValues['img'] = nowValue;
-        formValues[key] = <img src={'http://localhost:3002/images/'+nowValue} alt="Act" width={70} height={60} />;
+        formValues[key] = <img src={'http://localhost:3005/images/'+nowValue} alt="Activity" width={70} height={60} />;
       }
       else{
         formValues[key] = nowValue;
@@ -192,7 +192,7 @@ export default class Content extends React.Component {
           lists.splice(findIndexByKey("key", val, lists), 1);
         });
 
-        axios.post('http://localhost:3002/ActDel',{delID:selectedRowKeys.join(", ")})
+        axios.post('http://localhost:3005/ActDel',{delID:selectedRowKeys.join(", ")})
         .then(res=>{console.log('res',res);})
         .catch(err=>{console.log('err',err);})
 
@@ -232,14 +232,14 @@ export default class Content extends React.Component {
       formValues.key = formValues.id;
       lists.unshift(formValues);
 
-      axios.post('http://localhost:3002/ActAdd',formValues)
-      .then(res=>{console.log(res);})
-      .catch(err=>{console.log(err);})
+      axios.post('http://localhost:3005/ActAdd',formValues)
+      .then(res=>{console.log('tentadd',res);})
+      .catch(err=>{console.log('tentadd',err);})
     } else {
       console.log('selectedRowKeys',selectedRowKeys);
       console.log('formValues',formValues);
 
-      axios.post('http://localhost:3002/ActUpdate',formValues)
+      axios.post('http://localhost:3005/ActUpdate',formValues)
       .then(res=>{console.log(res);})
       .catch(err=>{console.log(err);})
 

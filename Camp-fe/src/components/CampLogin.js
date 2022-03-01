@@ -96,7 +96,8 @@ const CampLogin = () => {
   }
   if (isLogin) {
     // 轉頁效果
-    return <Navigate to="/member" />;
+    window.location.href = 'http://localhost:9000/'; 
+    return false;
   }
   if (Number(error) > 4) {
     alert("失敗次數過多");

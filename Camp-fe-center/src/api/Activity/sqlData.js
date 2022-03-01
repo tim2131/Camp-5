@@ -14,7 +14,7 @@ export const getTableUsers = async (params) => {
   // const images = [Image1, Image2, Image3, Image4, Image5, Image6];
   const result = await axios.get(`${IMAGE_URL}/Act`);
   result.data.map((item, index) => {
-    item.image = <img src={'http://localhost:3002/images/'+item.pic} alt="Act" width={70} height={60} />;
+    item.img = <img src={'http://localhost:3005/images/'+item.pic} alt="Act" width={70} height={60} />;
     return item;
   });
   return result.data;

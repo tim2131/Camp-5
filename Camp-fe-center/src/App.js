@@ -26,6 +26,7 @@ import Tent from './pages/TentCRUD';
 import Activity from "./pages/Activity";
 import CampProfile from "./pages/CampProfile";
 import CampOrder from "./pages/Camp-order";
+import OrderDetails from "./pages/OrderDetails";
 
 // -------page comp----------------------------
 import LeftSideBar from "./comp/leftSideBar";
@@ -85,6 +86,7 @@ function App() {
             <Route path="/activity" element={<Activity />}/>
             <Route path="/campFile" element={<CampProfile />}/>
             <Route path="/campOrders" element={<CampOrder />}/>
+            <Route path="/orderDetails/:orderId" element={<OrderDetails />}/>
           </Routes>
         </Content>
       </Layout>

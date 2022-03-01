@@ -100,7 +100,7 @@ const CampProfile = ({ }) => {
       getMemberInfo();
     }, 1500);
 
-    axios.get('http://localhost:3002/camp_pic').then(res=>{
+    axios.get('http://localhost:3005/camp_pic').then(res=>{
       setCampPic(res)
     })
   }, []);
@@ -305,16 +305,17 @@ const CampProfile = ({ }) => {
                 
                       <div className="campPic-wrap">
                       <h4>營地圖片:</h4>
-                        <Image.PreviewGroup>
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img1}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img2}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img3}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img4}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img5}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img6}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img7}`} />
-                        <Image width={100} height={100} src={`http://localhost:3002/images/${campPic.data[camp.id-1].img8}`} />
-                        </Image.PreviewGroup>
+                      {campPic&&<Image.PreviewGroup>
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img1}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img2}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img3}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img4}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img5}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img6}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img7}`} />
+                        <Image width={100} height={100} src={`http://localhost:3005/images/${campPic.data[camp.id-1].img8}`} />
+                        </Image.PreviewGroup>}
+                        
                       
                       </div>
                      
