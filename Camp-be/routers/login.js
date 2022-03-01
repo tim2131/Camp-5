@@ -61,7 +61,7 @@ router.post("/camplogin", async (req, res, next) => {
     "SELECT * FROM camp_owner WHERE email=?",
     [req.body.email]
   );
-  console.log(members);
+  //console.log(members);
   if (members.length === 0) {
     // 查不到，表示根本沒註冊過
     return res.status(400).send({
@@ -87,7 +87,7 @@ router.post("/camplogin", async (req, res, next) => {
     email: member.email,
     company_name: member.company_name,
   };
-
+  console.log(returnMember);
   // 如果密碼比對成功，記錄在 session
   // 寫 session
   req.session.member = returnMember;

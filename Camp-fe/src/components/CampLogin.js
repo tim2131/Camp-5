@@ -2,12 +2,12 @@ import Logo from "../img/loing.png";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
-// import { useAuth } from "../context/auth";
+ import { useAuth } from "../auth/auth";
 import "../style/login.css";
 
 const CampLogin = () => {
   const [error, setError] = useState("1");
-  // const { member, setMember } = useAuth();
+  const { campmember, setCampMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
     email: "",
     password: "",
@@ -75,7 +75,7 @@ const CampLogin = () => {
       alert("登入成功");
       console.log(response.data.data);
 
-      // setMember(response.data.data);
+      setCampMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
