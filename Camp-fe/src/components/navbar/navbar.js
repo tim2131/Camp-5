@@ -6,7 +6,21 @@ import Cart from "../../img/shopping-cart.svg";
 // import "../../style/Global.scss";
 import "../../style/Navbar.scss";
 
+import { useAuth } from "../../auth/auth";
+import axios from "axios";
+
 function Navbar() {
+  const { member, setMember } = useAuth();
+  const { campmember, setCampMember } = useAuth();
+
+  const handleLogout = async () => {
+    await axios.get("http://localhost:3002/logout", {
+      withCredentials: true,
+    });
+    setMember(null);
+    setCampMember(null);
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-sm navbar-success p-3">
@@ -45,72 +59,66 @@ function Navbar() {
                     </Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="#">
+                     露營車
+                    </Link>
+                    <Link className="dropdown-item" to="#">
+                     鐘形帳篷
+                    </Link>
+                    <Link className="dropdown-item" to="#">
+                      蒙古包
+                    </Link>
+                    <Link className="dropdown-item" to="#">
                       狩獵帳
                     </Link>
+                   
+                  </ul>
+                  <ul>
                     <Link className="dropdown-item" to="#">
-                      TEE PEE
+                      環境特色
+                    </Link>
+                    <div className="dropdown-divider"></div>
+                    <Link className="dropdown-item" to="#">
+                      山間秘境
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      露營車
+                      自然森林
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      星空帳
+                      溪邊戲水
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      泡泡帳
+                      蔚藍海景
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      鐘型帳
+                      浪漫夜景
+                    </Link>
+                    <Link className="dropdown-item" to="#">
+                      仙境雲海
+                    </Link>
+                    <Link className="dropdown-item" to="#">
+                     賞花海景
                     </Link>
                   </ul>
                   <ul>
                     <Link className="dropdown-item" to="#">
-                      露營設備
+                      區域
                     </Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="#">
-                      狩獵帳
+                     北區
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      TEE PEE
+                      中區
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      露營車
+                      南區
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      星空帳
+                      東區
                     </Link>
-                    <Link className="dropdown-item" to="#">
-                      泡泡帳
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      鐘型帳
-                    </Link>
+                   
                   </ul>
-                  <ul>
-                    <Link className="dropdown-item" to="#">
-                      露營設備
-                    </Link>
-                    <div className="dropdown-divider"></div>
-                    <Link className="dropdown-item" to="#">
-                      狩獵帳
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      TEE PEE
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      露營車
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      星空帳
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      泡泡帳
-                    </Link>
-                    <Link className="dropdown-item" to="#">
-                      鐘型帳
-                    </Link>
-                  </ul>
+                 
                 </div>
               </div>
             </li>
@@ -161,11 +169,48 @@ function Navbar() {
             <li>
               <img src={Cart} alt="shopping-cart" />
             </li>
-            <li>
-              <button className="btn btn-outline-danger ml-2" type="submit">
-                <Link to="/login">登入</Link>
-              </button>
-            </li>
+            {member == campmember && (
+              <>
+                <li>
+                  <button className="btn btn-outline-danger ml-2" type="submit">
+                    <Link to="/login">登入</Link>
+                  </button>
+                </li>
+              </>
+            )}
+
+            {member && (
+              <>
+                <li>
+                  <button className="btn ml-2" type="submit">
+                    <Link to="">會員中心</Link>
+                  </button>
+                </li>
+                <li>
+                  <button className="btn btn-outline-danger ml-2" type="submit">
+                    <Link to="/login" onClick={handleLogout}>
+                      登出
+                    </Link>
+                  </button>
+                </li>
+              </>
+            )}
+            {campmember && (
+              <>
+                <li>
+                  <button className="btn ml-2" type="submit">
+                    <Link to="">營主會員中心</Link>
+                  </button>
+                </li>
+                <li>
+                  <button className="btn btn-outline-danger ml-2" type="submit">
+                    <Link to="/login" onClick={handleLogout}>
+                      登出
+                    </Link>
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
