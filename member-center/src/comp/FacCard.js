@@ -124,7 +124,8 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                         onClick={() => deleteTask(fav.camp_id)}
                       >
                         <ZoomInOutlined key="zoom" />
-                        <div className="favBtnWords">看詳細</div>
+                        {/* TODO:用onclick轉頁 a 現在抓不到值 */}
+                        <div className="favBtnWords"> <a href={`http://localhost:3000/camp/${fav.camp_id}`}>看詳細</a></div>
                       </div>
                     </>,
                     <>

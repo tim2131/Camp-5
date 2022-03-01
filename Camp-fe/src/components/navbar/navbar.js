@@ -183,7 +183,7 @@ function Navbar() {
               <>
                 <li>
                   <button className="btn ml-2" type="submit">
-                    <Link to="">會員中心</Link>
+                    <a href="http://localhost:8000">會員中心</a>
                   </button>
                 </li>
                 <li>
