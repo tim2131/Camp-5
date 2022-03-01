@@ -169,7 +169,7 @@ function Navbar() {
             <li>
               <img src={Cart} alt="shopping-cart" />
             </li>
-            {member == campmember && (
+            {member == null && campmember == null  && (
               <>
                 <li>
                   <button className="btn btn-outline-danger ml-2" type="submit">

@@ -70,10 +70,10 @@ router.post("/camplogin", async (req, res, next) => {
     });
   }
   // 把會員資料從陣列中拿出來
-  let member = members[0];
+  let campmember = members[0];
 
   // 如果有這個帳號，再去比對密碼
-  let result = await bcrypt.compare(req.body.password, member.password);
+  let result = await bcrypt.compare(req.body.password, campmember.password);
   if (!result) {
     // 如果比對失敗
     return res.status(400).send({
@@ -83,14 +83,14 @@ router.post("/camplogin", async (req, res, next) => {
   }
   // 整理需要的資料
   let returnMember = {
-    id: member.id,
-    email: member.email,
-    company_name: member.company_name,
+    id: campmember.id,
+    email: campmember.email,
+    company_name: campmember.company_name,
   };
   console.log(returnMember);
   // 如果密碼比對成功，記錄在 session
   // 寫 session
-  req.session.member = returnMember;
+  req.session.campmember = returnMember;
 
   res.json({
     code: "0",
@@ -222,6 +222,7 @@ router.post(
 
 //登出
 router.get("/logout", (req, res, next) => {
+  req.session.campmember = null;
   req.session.member = null;
   res.sendStatus(202);
 });

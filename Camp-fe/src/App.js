@@ -36,9 +36,10 @@ function App() {
         let result = await axios.get("http://localhost:3002/member", {
           withCredentials: true,
         });
-        setMember(result.data);
-        setCampMember(result.data)
-
+      
+          setMember(result.data);
+       
+    
 
       } catch (e) {
         // 尚未登入過
@@ -47,6 +48,25 @@ function App() {
     };
     getMember();
   }, []);
+  useEffect(() => {
+    // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
+    const getCampMember = async () => {
+      try {
+        let result2 = await axios.get("http://localhost:3002/campmember", {
+          withCredentials: true,
+        });
+      
+          setCampMember(result2.data)
+    
+
+      } catch (e) {
+        // 尚未登入過
+        // 401 也不會去 setMember
+      }
+    };
+    getCampMember();
+  }, []);
+
   return (
     <>
       <AuthContext.Provider value={{ member, setMember,campmember, setCampMember }}>
