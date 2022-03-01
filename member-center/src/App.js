@@ -105,6 +105,7 @@ function App() {
               path="/profile"
               element={
                 <MemberProfile
+                  logData={logData}
                   selectedKey={selectedKey}
                   setSelectedKey={setSelectedKey}
                 />
@@ -113,7 +114,7 @@ function App() {
             <Route path="/orders" element={<MemberOrder logData={logData} />} />
             <Route
               path="/orderDetails/:POId"
-              element={<OrderDetails />}
+              element={<OrderDetails  logData={logData} />}
             ></Route>
             <Route path="/favorites" element={<MyFav />} />
             <Route path="/logStatus" element={<LogStatus logData={logData} setLogData={setLogData} />} />
