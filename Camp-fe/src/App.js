@@ -21,41 +21,87 @@ import Signupuser from "./components/Signupuser";
 import Signupcamp from "./components/Signupcamp";
 import Forgotpw from "./components/Forgotpw";
 import CampDetail from "./components/CampDetail";
+import { AuthContext } from "./auth/auth";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [member, setMember] = useState(null);
+   const [ campmember, setCampMember ] = useState(null);
+
+  useEffect(() => {
+    // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
+    const getMember = async () => {
+      try {
+        let result = await axios.get("http://localhost:3002/member", {
+          withCredentials: true,
+        });
+      
+          setMember(result.data);
+       
+    
+
+      } catch (e) {
+        // 尚未登入過
+        // 401 也不會去 setMember
+      }
+    };
+    getMember();
+  }, []);
+  useEffect(() => {
+    // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
+    const getCampMember = async () => {
+      try {
+        let result2 = await axios.get("http://localhost:3002/campmember", {
+          withCredentials: true,
+        });
+      
+          setCampMember(result2.data)
+    
+
+      } catch (e) {
+        // 尚未登入過
+        // 401 也不會去 setMember
+      }
+    };
+    getCampMember();
+  }, []);
+
   return (
     <>
-      <div className="App">
-        {/* <BrowserRouter> */}
-        <Navbar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/camplist" exact element={<CampList />} />
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/camplogin" exact element={<CampLogin />} />
-          <Route path="/signupuser" exact element={<Signupuser />} />
-          <Route path="/signupcamp" exact element={<Signupcamp />} />
-          <Route path="/Forgotpw" exact element={<Forgotpw />} />
-          <Route path="/camp/:campId" element={<CampDetail />} />
-          {/* <Route path="/products" element={<Products />} /> */}
-          <Route path="/products/:productId" element={<ProductDetail />} />
-          <Route path="/p_orders/cart" element={<ShoppingCart />} />
-          <Route path="/p_orders/payment" element={<PaymentForGoods />} />
+      <AuthContext.Provider value={{ member, setMember,campmember, setCampMember }}>
+        <div className="App">
+          {/* <BrowserRouter> */}
+          <Navbar />
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/camplist" exact element={<CampList />} />
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/camplogin" exact element={<CampLogin />} />
+            <Route path="/signupuser" exact element={<Signupuser />} />
+            <Route path="/signupcamp" exact element={<Signupcamp />} />
+            <Route path="/Forgotpw" exact element={<Forgotpw />} />
+            <Route path="/camp/:campId" element={<CampDetail />} />
+            {/* <Route path="/products" element={<Products />} /> */}
+            <Route path="/products/:productId" element={<ProductDetail />} />
+            <Route path="/p_orders/cart" element={<ShoppingCart />} />
+            <Route path="/p_orders/payment" element={<PaymentForGoods />} />
 
-          <Route
-            path="/p_orders/shipment/credit_card"
-            element={<ShipmentCreditCard />}
-          />
-          <Route
-            path="/p_orders/shipment/convenience_store"
-            element={<ShipmentConvenienceStore />}
-          />
-          <Route path="/p_orders/success" element={<OrderSuccess />} />
-        </Routes>
-        {/* <Footer /> */}
-        <ProductDetail />
-        {/* </BrowserRouter> */}
-      </div>
+            <Route
+              path="/p_orders/shipment/credit_card"
+              element={<ShipmentCreditCard />}
+            />
+            <Route
+              path="/p_orders/shipment/convenience_store"
+              element={<ShipmentConvenienceStore />}
+            />
+            <Route path="/p_orders/success" element={<OrderSuccess />} />
+          </Routes>
+          {/* <Footer /> */}
+          <ProductDetail />
+          {/* </BrowserRouter> */}
+        </div>
+      </AuthContext.Provider>
     </>
   );
 }

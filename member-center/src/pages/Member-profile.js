@@ -81,7 +81,7 @@ const MemberProfile = ({logData}) => {
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
     //http://localhost:3002
-    let res = await axios.post(`${API_URL}/memberInfo` ,logData.id, {
+    let res = await axios.post(`${API_URL}/memberInfo`, [2], {
       // 為了跨源存取 cookie
       withCredentials: true,
     });
@@ -128,7 +128,10 @@ const MemberProfile = ({logData}) => {
     // e.preventDefault();
     async function test() {
       try {
-        let response = await axios.post(`${API_URL}/memberInfo1`, data);
+        let response = await axios.post(`${API_URL}/memberInfo1`, data, {
+          // 為了跨源存取 cookie
+          withCredentials: true,
+        });
         console.log(response.data);
         success();
       } catch (e) {

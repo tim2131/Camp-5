@@ -16,8 +16,9 @@ import {
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "./utils/config";
 
-import { AuthContext } from "./context/auth";
 
 // --------less or css-------------------------
 import "antd/dist/antd.less";
@@ -79,7 +80,25 @@ function App() {
     />
   );
   // ------------------------------
-  const [logData, setLogData] = useState({}); 
+  const [logData, setLogData] = useState(null); 
+  useEffect(() => {
+    // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
+    const getMember = async () => {
+      try {
+        let result = await axios.get(`${API_URL}/login`, {
+          withCredentials: true,
+        });
+        console.log("app.js id",result.data.id);
+        setLogData(result.data);
+      } catch (e) {
+        window.alert("您尚未登入，請登入後繼續");
+        window.location.href = "http://localhost:3000/login";
+        // 尚未登入過
+        // 401 也不會去 setMember
+      }
+    };
+    getMember();
+  }, []);
   //------------------------------
 
   // const [cookies, setCookie] = useCookies(["connect.sid"]);
@@ -116,9 +135,9 @@ function App() {
               path="/orderDetails/:POId"
               element={<OrderDetails  logData={logData} />}
             ></Route>
-            <Route path="/favorites" element={<MyFav />} />
-            <Route path="/logStatus" element={<LogStatus logData={logData} setLogData={setLogData} />} />
-            <Route path="/" element={<DashBoard logData={logData} setLogData={setLogData} />} />
+            <Route path="/favorites" element={<MyFav logData={logData}  />} />
+            {/* <Route path="/logStatus" element={<LogStatus logData={logData} setLogData={setLogData} />} /> */}
+            <Route path="/" element={<DashBoard logData={logData} />} />
           </Routes>
         </Content>
       </Layout>

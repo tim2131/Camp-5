@@ -49,6 +49,9 @@ app.use(function (req, res, next) {
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
+let campmemberRouter = require("./routers/campmember");
+app.use("/campmember", campmemberRouter);
+
 //登入註冊登出
 let logingSignupRouter = require("./routers/login");
 app.use(logingSignupRouter);

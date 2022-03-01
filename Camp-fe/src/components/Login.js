@@ -4,7 +4,7 @@ import Google from "../img/Google.png";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
-// import { useAuth } from "../context/auth";
+import { useAuth } from "../auth/auth";
 import { useCookies } from "react-cookie";
 import "../style/login.css";
 
@@ -17,7 +17,7 @@ const Login = () => {
   // console.log("cookieQuery", cookieQuery);
   // // const cookieQuery = cookies.connect.sid;
 
-  // const { member, setMember } = useAuth();
+  const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
     user_name: "dddd@test.com",
     password: "Dddd1231",
@@ -85,7 +85,7 @@ const Login = () => {
       alert("登入成功");
       console.log(response.data.data);
 
-      // setMember(response.data.data);
+      setMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)

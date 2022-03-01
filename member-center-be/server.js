@@ -52,8 +52,6 @@ app.use((req, res, next) => {
   next();
 });
 //----------------------------------------------------
-let logStatusRouter = require("./routers/checkLogStatus");
-app.use("/api/checkLogStatus",logStatusRouter);
 let logInRouter = require("./routers/login");
 app.use("/api/login", logInRouter);
 
