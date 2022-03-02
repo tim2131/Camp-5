@@ -30,7 +30,7 @@ const DashBoard = ({logData ,setLogData}) => {
       <PageHeader
         className="site-page-header"
         title="歡迎!"
-        subTitle="會員名字"
+        subTitle="會員名字" //TODO: change name
         extra={[]}
         // footer={}
       >
@@ -48,27 +48,27 @@ const DashBoard = ({logData ,setLogData}) => {
               icon={<UserOutlined />}
             />
             <Button className="changePicMember" key="4" size="small">
-              更改大頭貼
+              更改大頭貼 TODO: 更換大頭貼
             </Button>
           </div>
         </Divider>
       </PageHeader>
-
+      TODO: 點數/累積購買金額
       <div className="site-card-wrapper">
         <Row gutter={16}>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card className="rowCard" title="預定行程" bordered={false}>
-              Card content
+              Card content TODO:預定行程
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card className="rowCard" title="購買提醒" bordered={false}>
-              Card content
+              Card content TODO:購買提醒
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card className="rowCard" title="待用Coupon" bordered={false}>
-              Card content
+              Card content TODO:coupon顯示
             </Card>
           </Col>
         </Row>

@@ -59,7 +59,7 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
       newData[idx].like = !newData[idx].like;
     }
     setFavData(newData);
-    
+    // TODO: 取消愛心之後移除加入 or vice versa
     
 
 
