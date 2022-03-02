@@ -68,9 +68,6 @@ const MemberOrder = () => {
             data={data}
           /> */}
         </TabPane>
-        <TabPane tab="商品訂單" key="2">
-          <ProductOrder />
-        </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
     </>

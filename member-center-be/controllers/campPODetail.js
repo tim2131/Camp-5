@@ -14,6 +14,7 @@ let asyncCampOrderCamp = async (req, res, next) => {
 };
 // 取得訂單帳篷資料
 let asyncCampOrderTent = async (req, res, next) => {
+  console.log("sesson",req.session)
   let data = await orderDetailSQLInfo.getCampPOTent(req.params.POId);
   res.json(data);
 };

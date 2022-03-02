@@ -3,6 +3,6 @@ const express = require("express");
 const router = express.Router();
 const favAllPo = require("../controllers/fav.js");
 
-router.post("/", favAllPo.asyncAllFav);
+router.get("/", favAllPo.asyncAllFav);
 
 module.exports = router;

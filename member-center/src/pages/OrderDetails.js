@@ -46,9 +46,7 @@ const OrderDetails = () => {
   const [data, setData] = useState([]);
   async function getCampPOCamp(e) {
     try {
-      let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
-        withCredentials: true,
-      });
+      let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, { withCredentials: true,});
       console.log(`getCampPOCamp-${result.data}`);
       console.log(result.data);
       setData(result.data);

@@ -1,7 +1,9 @@
 const favSQLInfo = require("../models/fav.js");
 
 let asyncAllFav = async (req, res, next) => {
-  let data = await favSQLInfo.getAllFav();
+  console.log("sesson",req.session)
+  let memberID=1 //req.session.member.id
+  let data = await favSQLInfo.getAllFav(memberID);
   res.json(data);
 };
 

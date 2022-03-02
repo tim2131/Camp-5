@@ -22,7 +22,7 @@ const MyFav = () => {
   async function MyFav() {
     try {
       //TODO: memberid
-      let result = await axios.post(`${API_URL}/favAll`, {});
+      let result = await axios.get(`${API_URL}/favAll`,[], {withCredentials: true});
       console.log(result.data);
       // console.log(response.data[0].id);
       setFavData(result.data);

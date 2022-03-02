@@ -39,8 +39,12 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
     4: "已完成",
   };
 
-  function deleteTask(id) {
-    console.log(id);
+  function goCampPage(idx) {
+    console.log(`idx: ${idx}`);
+    let clickedFav = favData[idx];
+    let campID=clickedFav.FAV_CAMPID
+    console.log(campID);
+    window.location.href = `http://localhost:3000/camp/${campID}`;
   }
   const handleToggle = (idx) => {
     console.log(`idx: ${idx}`);
@@ -55,7 +59,10 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
       newData[idx].like = !newData[idx].like;
     }
     setFavData(newData);
-    //setLikeData(!likeData);
+    
+    
+
+
   };
   return (
     <React.Fragment>
@@ -65,7 +72,6 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
             return (
               <Col xs={20} sm={12} md={12} lg={12} xl={10} xxl={7}>
                 <Card
-                  deleteTask={deleteTask}
                   key={fav.camp_id}
                   className="Scard"
                   bordered={false}
@@ -121,11 +127,14 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                     <>
                       <div
                         className="favBtn"
-                        onClick={() => deleteTask(fav.camp_id)}
+                        onClick={() => goCampPage(index)}
                       >
                         <ZoomInOutlined key="zoom" />
-                        {/* TODO:用onclick轉頁 a 現在抓不到值 */}
-                        <div className="favBtnWords"> <a href={`http://localhost:3000/camp/${fav.camp_id}`}>看詳細</a></div>
+                        <div className="favBtnWords"> 
+                        {/* <a href={`http://localhost:3000/camp/${fav.camp_id}`}>*/}
+                        看詳細
+                        {/* </a> */}
+                        </div>
                       </div>
                     </>,
                     <>
