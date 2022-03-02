@@ -23,7 +23,7 @@ async function getCampPOCamp(memberId, POId) {
 // 取得訂單帳篷資料 
 async function getCampPOTent(POId) {
   let [data, fields] = await connection.execute(
-    "SELECT camp_orderdet.id AS CAMPODERID, camp_orderdet.tent_id,camp_orderdet.camp_id,camp_orderdet.camporder_id,camp_orderdet.tent_qty,camp_order.id AS CAMPOID,camp_order.camp_id,tent.id AS Tid,tent.camp_id,tent.tentcate_id,tent.name,tent.img,tent.intro,tent_cate1.id AS TCATEID,tent_cate1.tent_item,order_status.id AS ORDERSTATUSID, order_status.status FROM camp_orderdet LEFT JOIN camp_order ON camp_orderdet.camporder_id=camp_order.id LEFT JOIN tent ON camp_orderdet.tent_id=tent.id LEFT JOIN tent_cate1 on tent.tentcate_id=tent_cate1.id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id WHERE camporder_id=?",
+    "SELECT camp_orderdet.id AS CAMPODERID, camp_orderdet.tent_id,camp_orderdet.camp_id,camp_orderdet.camporder_id,camp_orderdet.tent_qty,camp_order.id AS CAMPOID,camp_order.camp_id,tent.id AS Tid,tent.camp_id,tent.tentcate_id,tent.name,tent.img,tent.price,tent.intro,tent_cate1.id AS TCATEID,tent_cate1.tent_item,order_status.id AS ORDERSTATUSID, order_status.status FROM camp_orderdet LEFT JOIN camp_order ON camp_orderdet.camporder_id=camp_order.id LEFT JOIN tent ON camp_orderdet.tent_id=tent.id LEFT JOIN tent_cate1 on tent.tentcate_id=tent_cate1.id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id WHERE camporder_id=?",
     [POId]
   );
   console.log(data);

@@ -42,7 +42,7 @@ const OrderDetails12 = ({
   const [visible1, setvisible1] = useState(false);
   const [Cbtn, setCbtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
-   const [value, setValue] = useState([]);
+  const [value, setValue] = useState([]);
 
   // useEffect(() => {
   //   // after every render
@@ -59,15 +59,15 @@ const OrderDetails12 = ({
       return;
     }
     setloading(true);
-    
+
     setTimeout(() => {
       setValue("");
       setloading(false);
       setvisible(false);
-       ratePO();
-       //TODO: 回報成功機制
-      //TODO: 把按鈕改成看評論
-      //TODO: 看要不要可以編輯評論 或追加評論
+      ratePO();
+      //TODO: MEJOR-回報成功機制
+      //TODO: MEJOR-把按鈕改成看評論
+      //TODO: MEJOR-看要不要可以編輯評論 或追加評論
     }, 1500);
   };
   const handleOkCANCEL = (e) => {
@@ -83,18 +83,23 @@ const OrderDetails12 = ({
     }, 1500);
   };
   //------------------------------------------------
-  // 為了處理網址
+  // 為了抓網址變數
 
   const { POId } = useParams();
   // console.log(`POId: ${POId}`);
+// 營地ID TODO:需抓營地ID
+  const campId=1
+
   //---------backend----cancelPO----------------------
- 
+
   async function changePOtoCancelBE() {
     // e.preventDefault();
     try {
-      let response = await axios.post(`${API_URL}/cancelPO/`,{
-  POId: `${POId}`
-});
+      let response = await axios.post(`${API_URL}/cancelPO/`, {
+        POId: `${POId}`
+      },{
+        withCredentials: true,
+      });
       console.log(response.data);
     } catch (e) {
       console.log("error");
@@ -107,17 +112,21 @@ const OrderDetails12 = ({
     // e.preventDefault();
     try {
       let response = await axios.post(`${API_URL}/ratePO`, {
-        //memberid
+        campId: `${campId}`,
         POId: `${POId}`,
         starValue: `${starValue}`,
         camp_comment: `${value}`,
+      },{
+        withCredentials: true,
       });
       console.log(response.data);
     } catch (e) {
       console.log("error");
     }
   }
-
+  //----------------------------------------------------
+  useEffect(() => {
+  }, []);
   // -----for thumbnail---------------------------------
   const tagWords = {
     1: "主打",
@@ -202,7 +211,7 @@ const OrderDetails12 = ({
                     width={250}
                     alt="logo"
                     src={`${IMAGE_URL}/images/${item.img}`}
-                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                  // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
@@ -248,7 +257,7 @@ const OrderDetails12 = ({
                     height={150}
                     alt="logo"
                     src={`${IMAGE_URL}/images/${item.pic}`}
-                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                  // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
@@ -280,10 +289,14 @@ const OrderDetails12 = ({
         </Divider>
         <br />
         {/* //----總金額資訊----------------- */}
+
         <div className="totalBlockEnd">
           <div className="totalItemBlock">
-            <div className="totalItem">營地每晚單價(共4晚)</div>
-            <div className="totalItem">營地折扣完單價(共1晚)</div>
+            {tent.map((item) => (
+              <React.Fragment key={item.id}>
+                <div className="totalItem">{item.name}帳篷每晚單價(共{item.tent_qty}晚)</div>
+              </React.Fragment>
+            ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="totalItem">
@@ -291,24 +304,21 @@ const OrderDetails12 = ({
                 </div>
               </React.Fragment>
             ))}
-
             <div className="totalItem">折扣碼</div>
-            <div className="totalItem">折扣總額</div>
             <Divider />
             <div className="totalItemE">訂單總額</div>
           </div>
 
           <div className="totalmoney">
-            {/* FIXME: 價錢還沒用好 */}
-            {ppl.map((item) => (
+
+            {tent.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{item.item}1</div>
-                <div className="total">{item.item}2</div>
+                <div className="total">{`${item.price * item.tent_qty}`}</div>
               </React.Fragment>
             ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{item.price}3</div>
+                <div className="total">{`${item.price * item.number_people}`}</div>
               </React.Fragment>
             ))}
 
@@ -318,13 +328,12 @@ const OrderDetails12 = ({
               </React.Fragment>
             ))}
 
-            <div className="total">-100(用算的)</div>
+
             <Divider />
-            {ppl.map((item) => (
-              <React.Fragment key={item.id}>
-                <div className="totalE">{item.total}</div>
-              </React.Fragment>
-            ))}
+            <div className="totalE">
+            55555
+{/* TODO: 總價要用什麼算 */}
+            </div>
           </div>
         </div>
       </div>
