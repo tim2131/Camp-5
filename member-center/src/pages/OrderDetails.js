@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List,BackTop } from "antd";
+import { Col, Row, Divider, Typography} from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
@@ -136,7 +136,7 @@ const OrderDetails = () => {
           訂單詳細
         </Title>
       </Divider>
-      <Row justify="center" gutter={{ xs: 8, sm: 16, md: 20, lg: 24 }}>
+      <Row className="rowInPODetail" justify="center" gutter={{ xs: 8, sm: 16, md: 20, lg: 24 }}>
         <Col
           className="gutter-row"
           xs={{ span: 24, offset: 0 }}

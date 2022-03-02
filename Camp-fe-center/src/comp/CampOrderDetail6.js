@@ -40,7 +40,7 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
           <div style={style}>
             <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
-            {/* FIXME:tag沒有定義 */}
+
             <div className="O6orderPicBox">
               <div className="O6_tagWord">{tagWords[item.orderstatus_id]}</div>
               <div className={tagcolor[item.orderstatus_id]}></div>

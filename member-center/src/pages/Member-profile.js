@@ -88,7 +88,7 @@ const MemberProfile = ({logData}) => {
     setData(res.data[0]);
     setLoading(false);
     console.log(res.data[0]);
-    //TODO: 沒辦法從資料庫抓資料時 空陣列要顯現錯誤
+    //TODO: MEJOR-沒辦法從資料庫抓資料時 空陣列要顯現錯誤
   };
 
   useEffect(() => {
@@ -297,7 +297,7 @@ const MemberProfile = ({logData}) => {
                 <Form.Item name="datePicker" label="您的生日" {...config}>
                   <DatePicker />
                 </Form.Item>
-{/* //TODO:手機號碼沒有前端驗證 */}
+{/* //TODO: MEJOR-手機號碼沒有前端驗證 */}
                 <Form.Item
                   name="phone"
                   label="手機號碼"

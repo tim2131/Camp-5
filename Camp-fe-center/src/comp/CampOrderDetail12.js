@@ -64,9 +64,7 @@ const OrderDetails12 = ({
       setloading(false);
       setvisible(false);
        ratePO();
-       //TODO: 回報成功機制
-      //TODO: 把按鈕改成看評論
-      //TODO: 看要不要可以編輯評論 或追加評論
+
     }, 1500);
   };
   const handleOkCANCEL = (e) => {
@@ -291,7 +289,7 @@ const OrderDetails12 = ({
           </div>
 
           <div className="totalmoney">
-            {/* FIXME: 價錢還沒用好 */}
+
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="total">{item.item}1</div>
