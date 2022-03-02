@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Link, NavLink } from "react-router-dom";
 import "../style/home.scss";
 import "../style/Footer.scss";
 
@@ -68,9 +69,12 @@ const Home = () => {
                 <p>
                   本網站的環保營地，根據當地特色，選用不同的環保路徑，有些人採用當地食材提供旅客用膳；有些提供環保體驗讓人了解到環境與人息息相關；有些則選用Eco-friendly的沐浴用品，不僅保護環境，也讓遊客可以試著踏出舒適圈之外。
                 </p>
+                <Link to="/camplist">
                 <button type="button" className="btn btn-lg">
                   露營去
                 </button>
+                </Link>
+               
               </div>
             </div>
           </div>
@@ -114,9 +118,12 @@ const Home = () => {
                 <p>
                   本網站的商品嚴選對環境盡一份心力，無論是對水質不會造成優養化的沐浴乳，或者是每重複使用一次就少一個塑膠杯的環保杯，至使用回收塑膠做成的夾腳拖，皆是對環保有益處的商品。應有盡有。
                 </p>
+                <Link to="/products">
                 <button type="button" className="btn btn-lg">
                   購物去
                 </button>
+                </Link>
+               
               </div>
             </div>
           </div>

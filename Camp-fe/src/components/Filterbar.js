@@ -219,7 +219,7 @@ const Filterbar = (props) => {
           return (
             <ul className="filter1">
               <li>
-                <div>
+                <div className="divinput">
                   <input
                     type="checkbox"
                     value={value}
@@ -238,7 +238,7 @@ const Filterbar = (props) => {
           return (
             <ul className="filter2">
               <li>
-                <div>
+                <div className="divinput">
                   <input
                     type="checkbox"
                     value={value}

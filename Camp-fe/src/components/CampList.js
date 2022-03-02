@@ -67,6 +67,10 @@ const CampList = () => {
       setRegion2data(responseregion2.data);
       setRegion3data(responseregion3.data);
       setRegion4data(responseregion4.data);
+
+      window.scrollTo({
+        top: 0,
+      });
     };
     getAllData();
   }, []);
