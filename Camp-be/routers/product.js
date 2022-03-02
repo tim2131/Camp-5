@@ -15,7 +15,7 @@ router.get("/api/products", async (req, res, next) => {
 // 單一商品(join敘述3、圖片)
 router.get("/api/products/:productId", async (req, res, next) => {
   let [data, fields] = await connection.execute(
-    "SELECT * FROM (product JOIN product_spec ON product.id = product_spec.product_id) JOIN product_pic ON product.id = product_pic.product_id WHERE product.id=?",
+    "SELECT * FROM (product JOIN product_spec ON product.Pid = product_spec.product_id) JOIN product_pic ON product.Pid = product_pic.product_id WHERE product.Pid=?",
     [req.params.productId]
   );
   res.json(data);

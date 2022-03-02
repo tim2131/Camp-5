@@ -70,46 +70,6 @@ const Filterbar = (props) => {
     <>
       <div className="aside sticky-top">
         <h2 className="filterbar">營地分類</h2>
-        <label className="sidenav">露營設備</label>
-
-        {tentdata.map((tent) => {
-          const value = tent.tent_item;
-          return (
-            <ul className="filter1">
-              <li>
-                <div>
-                  <input
-                    type="checkbox"
-                    value={value}
-                    checked={cate3.includes(value)}
-                    onChange={handleChecked3}
-                  />
-                  <label>{value}</label>
-                </div>
-              </li>
-            </ul>
-          );
-        })}
-        <label className="sidenav">營地環境</label>
-        {catedata.map((campCate) => {
-          const value = campCate.camp_item;
-          return (
-            <ul className="filter2">
-              <li>
-                <div>
-                  <input
-                    type="checkbox"
-                    value={value}
-                    checked={cate.includes(value)}
-                    onChange={handleChecked}
-                  />
-                  <label>{value}</label>
-                </div>
-              </li>
-            </ul>
-          );
-        })}
-
         <label className="sidenav">營地地點</label>
 
         <div class="dropright dropdowncolor">
@@ -252,7 +212,45 @@ const Filterbar = (props) => {
             })}
           </div>
         </div>
-        
+        <label className="sidenav">露營設備</label>
+
+        {tentdata.map((tent) => {
+          const value = tent.tent_item;
+          return (
+            <ul className="filter1">
+              <li>
+                <div>
+                  <input
+                    type="checkbox"
+                    value={value}
+                    checked={cate3.includes(value)}
+                    onChange={handleChecked3}
+                  />
+                  <label>{value}</label>
+                </div>
+              </li>
+            </ul>
+          );
+        })}
+        <label className="sidenav">營地環境</label>
+        {catedata.map((campCate) => {
+          const value = campCate.camp_item;
+          return (
+            <ul className="filter2">
+              <li>
+                <div>
+                  <input
+                    type="checkbox"
+                    value={value}
+                    checked={cate.includes(value)}
+                    onChange={handleChecked}
+                  />
+                  <label>{value}</label>
+                </div>
+              </li>
+            </ul>
+          );
+        })}
       </div>
     </>
   );

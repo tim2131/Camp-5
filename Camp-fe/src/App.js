@@ -24,6 +24,7 @@ import CampDetail from "./components/CampDetail";
 import { AuthContext } from "./auth/auth";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ProductsList from "./components/ProductsList"
 
 function App() {
   const [member, setMember] = useState(null);
@@ -83,6 +84,7 @@ function App() {
             <Route path="/Forgotpw" exact element={<Forgotpw />} />
             <Route path="/camp/:campId" element={<CampDetail />} />
             {/* <Route path="/products" element={<Products />} /> */}
+            <Route path="/products" element={<ProductsList />} />
             <Route path="/products/:productId" element={<ProductDetail />} />
             <Route path="/p_orders/cart" element={<ShoppingCart />} />
             <Route path="/p_orders/payment" element={<PaymentForGoods />} />

@@ -108,7 +108,7 @@ const Login = () => {
   }
   if (isLogin) {
     // 轉頁效果
-    return <Navigate to="/member" />;
+    return <Navigate to="/" />;
   }
   if (Number(error) > 4) {
     alert("失敗次數過多");

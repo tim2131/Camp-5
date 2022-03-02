@@ -16,7 +16,7 @@ const Signupuser = () => {
     date: "",
     password: "",
     confirmPassword: "",
-    gender: "",
+    gender: "1",
     created_time: moment().format("YYYY-MM-DD HH:mm:ss"),
   });
   const [fieldErrors, setFieldErrors] = useState({
