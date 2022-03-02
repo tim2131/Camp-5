@@ -62,7 +62,9 @@ const CampList = () => {
       setShowdata(responseproductslist.data);
       setProductCate2(responseproductscate2.data)
       setProductCate3(responseproductscate3.data)
-      
+      window.scrollTo({
+        top: 0,
+      });
       
       
     };

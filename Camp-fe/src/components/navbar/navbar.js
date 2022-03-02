@@ -25,7 +25,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-sm navbar-success p-3">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <Link className="navbar-brand nav-logo" to="#">
+          <Link className="navbar-brand nav-logo" to="/">
             <img src={Logo} alt="logo" />
           </Link>
           <form className="form-inline d-flex mr-5">

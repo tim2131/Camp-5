@@ -59,9 +59,13 @@ $camptagWordSize: 11px * 1.5;
   );
 }
 .camppic {
-  max-height: 100%;
-  object-fit: cover;
-  object-position: -50px;
-  height: $campwidth;
+  // max-height: 100%;
+  // object-fit: cover;
+  // object-position: -50px;
+  // height: $campwidth;
+  width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
  
 }
