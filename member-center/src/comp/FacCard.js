@@ -11,6 +11,8 @@ import {
   ZoomInOutlined,
   HeartFilled,
 } from "@ant-design/icons";
+import { API_URL } from "../utils/config";
+import axios from "axios";
 // --------less or css-------------------------
 import "../style/FavCard.less";
 
@@ -38,31 +40,62 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
     3: "已取消",
     4: "已完成",
   };
+  //-----------------------------------------
+
+  //--------------------------------------
 
   function goCampPage(idx) {
     console.log(`idx: ${idx}`);
     let clickedFav = favData[idx];
-    let campID=clickedFav.FAV_CAMPID
+    let campID = clickedFav.FAV_CAMPID;
     console.log(campID);
     window.location.href = `http://localhost:3000/camp/${campID}`;
   }
   const handleToggle = (idx) => {
     console.log(`idx: ${idx}`);
-
     let clickedFav = favData[idx];
     console.log(clickedFav.FAV_CAMPID);
-
+    let fav_campid = clickedFav.FAV_CAMPID;
     let newData = [...favData];
+
+
+    //like原本沒這數值 所以每一個按到的時候都是undefine 愛心是實心
     if (newData[idx].like === undefined) {
-      newData[idx].like = false;
-    } else {
-      newData[idx].like = !newData[idx].like;
+      newData[idx].like ="0"; //按到的時候把它改成false=0 愛心是空心
+      DelFav(fav_campid); //false的時候去從資料庫刪除他
+    } else if (newData[idx].like == "0") {
+      //如果他是false=0 代表再按一次要加入資料庫 所以like改成true=1
+      newData[idx].like = "1";
+      AddFav(fav_campid);
+    } else if (!newData[idx].like == "0") {
+      //WHY: 只能寫不等於不能寫==1??
+      newData[idx].like = "0";
+      DelFav(fav_campid);
     }
     setFavData(newData);
-    // TODO: 取消愛心之後移除加入 or vice versa
-    
-
-
+    console.log("newData:", newData);
+    //---------------後端刪除愛心----------------------------
+    async function DelFav(fav_campid) {
+      try {
+        let result = await axios.get(`${API_URL}/favAll/del`, [fav_campid], {
+          withCredentials: true,
+        });
+        console.log("del",result.data);
+      } catch (e) {
+        console.error("error");
+      }
+    }
+    //---------------後端加入愛心----------------------------
+    async function AddFav(fav_campid) {
+      try {
+        let result = await axios.get(`${API_URL}/favAll/add`, [fav_campid], {
+          withCredentials: true,
+        });
+        console.log("add",result.data);
+      } catch (e) {
+        console.error("error");
+      }
+    }
   };
   return (
     <React.Fragment>
@@ -104,7 +137,7 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                       >
                         <HeartFilled
                           className={
-                            fav.like === undefined || fav.like === true
+                            fav.like === undefined || fav.like =="1"
                               ? " filledheart"
                               : "filledheart heartdisplaynone"
                           }
@@ -112,7 +145,7 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                         />
                         <HeartOutlined
                           className={
-                            fav.like === false
+                            fav.like =="0"
                               ? "filledheart "
                               : "filledheart heartdisplaynone"
                           }
@@ -125,15 +158,12 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                     </>,
 
                     <>
-                      <div
-                        className="favBtn"
-                        onClick={() => goCampPage(index)}
-                      >
+                      <div className="favBtn" onClick={() => goCampPage(index)}>
                         <ZoomInOutlined key="zoom" />
-                        <div className="favBtnWords"> 
-                        {/* <a href={`http://localhost:3000/camp/${fav.camp_id}`}>*/}
-                        看詳細
-                        {/* </a> */}
+                        <div className="favBtnWords">
+                          {/* <a href={`http://localhost:3000/camp/${fav.camp_id}`}>*/}
+                          看詳細
+                          {/* </a> */}
                         </div>
                       </div>
                     </>,
