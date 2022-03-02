@@ -164,7 +164,7 @@ const OrderDetails12 = ({
             填寫評價
           </button> */}
           <button className="orderlinks" onClick={POStatusAfterChange}>
-            聯繫客服
+            上傳點數
           </button>
         </div>
         <div className="orderppl">
