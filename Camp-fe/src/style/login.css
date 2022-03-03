@@ -1,14 +1,16 @@
 .login {
-    /* background: #fcf9f5; */
+   
     background-color: #fcf9f5;
-    height: 805px;
+    max-height: 100%;
     color: #6a6842;
   }
   .camplogin {
     background: #e9e3da;
     /* height: 855px; */
-    height: 805px;
+    /* height: 805px; */
+    max-height: 100%;
     color: #6a6842;
+    
   }
   .userlogin {
     background: #6a6842;
@@ -18,10 +20,13 @@
     background: #6a6842;
     color: #fcf9f5;
     border-color: #6a6842;
+    
   }
   .loginimg {
-    width: 1170px;
-    /* height: 855px; */
+    /* width: 1170px;
+ 
+    height: 805px; */
+    max-width: 100%;
     height: 805px;
   }
   
@@ -33,22 +38,25 @@
   }
   
   .box {
-    margin-left: 160px;
+    
     margin-bottom: 15px;
+    
   }
   .loginh1 {
     margin-bottom: 15px;
+    padding-left: 90px;
+    padding-right: 150px;
     font-size: 48px;
    
   }
   .loginbtn1 {
-    padding: 4px 8px;
+    padding: 5px 8px;
     border: 1px solid;
   }
   .loginbtn2 {
-    padding: 4px 24px;
+    padding: 5px 24px;
     border: 1px solid;
-    border-left: 0px;
+    
   }
   
   .loginlink1 {
@@ -66,7 +74,7 @@
     width: 400px;
     height: 74px;
     background: #c15f2e;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
     border: 0px;
   }
   .google {
@@ -96,22 +104,27 @@
     margin-left: 25px;
   }
   .loginOtheraccount1 {
-    position: absolute;
-    margin-left: 1480px;
+    /* position: absolute; */
+    margin-left: 140px;
+    
   }
   .loginPic {
-    position: absolute;
-    margin-left: 1465px;
+    /* position: absolute; */
+    margin-left: 125px;
   }
   .loginMoveLink2 {
-    position: absolute;
-    margin-left: 1460px;
+    /* position: absolute; */
+    margin-left: 125px;
+    padding-top: 30px;
+    
+   
+    
    
   }
-  .loginLogo {
+  /* .loginLogo {
     float: left;
     padding-right: 165px;
-  }
+  } */
   .err {
     position: absolute;
     margin-left: 1480px;
@@ -125,4 +138,80 @@
     border: 0px;
   }
   
+.rwdform{
+  padding-left: 95px;
+}
+.rwdlink{
+ margin-left: -20px;
+}
+
+/* @media (max-width:390px){
+  .loginlink1{
+    margin-left: 230px;
+   }
+}
+
+@media (max-width:390px){
+  .rwdform{
+    padding-left: 5px;
+  }
+}
+@media (max-width:390px){
+  .loginh1 {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 80px;
+    font-size: 48px;
+   
+  }
+}
+@media (max-width:390px){
+  .rwdcontent {
+ padding-top: -150px;
+   
+  }
+} */
+
+@media (max-width:500px){
+  .rwdcontent {
+ padding-top: -150px;
+   
+  }
+} 
+
+ @media (max-width:500px){
+  .rwdform{
+    padding-left: 55px;
+  }
+} 
+
+ @media (max-width:500px){
+  .loginh1 {
+    margin-bottom: 15px;
+    padding-left: 50px;
+    padding-right: 150px;
+    font-size: 48px;
+   
+  }
+}
+@media (max-width:500px){
+  .rwdimg {
+    height: 300px;
+    width: 500px;
+    padding: 0px;
   
+  }
+}
+
+@media (max-width:500px){
+  .moveupnow{
+    margin-top: -50px;
+  }
+}
+
+@media (max-width:500px){
+  .moveupnow2{
+    margin-top: -25px;
+  }
+}
+

@@ -98,12 +98,12 @@ const InputCode = () => {
   return (
     <>
       <div className="container-fulid">
-        <div className="login">
-          <div className="loginLogo">
+        <div className="login row">
+          <div className="loginLogo col-sm-8">
             <img src={Logo} className="loginimg" />
           </div>
 
-          <div>
+          <div className="col-sm-4">
             <br />
             <br />
             <br />
@@ -121,6 +121,7 @@ const InputCode = () => {
                 onSubmit={handleSubmit}
                 onInvalid={handleFormInvalid}
                 onChange={handleFormChange}
+                className="rwdform"
               >
                 <div class="form-group">
                   <label for="exampleInputEmail1">驗證碼</label>

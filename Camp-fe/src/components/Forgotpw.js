@@ -42,12 +42,12 @@ const Forgotpw = () => {
   return (
     <>
       <div className="container-fulid">
-        <div className="login">
-          <div className="loginLogo">
+        <div className="login row">
+          <div className="loginLogo col-sm-8">
             <img src={Logo} className="loginimg" />
           </div>
 
-          <div>
+          <div className="col-sm-4 rwdcontent ">
             <br />
             <br />
             <br />
@@ -61,7 +61,7 @@ const Forgotpw = () => {
                   營主
                 </Link>
               </div> */}
-              <form>
+              <form className="rwdform">
                 <div class="form-group">
                   <label for="exampleInputEmail1">電子信箱</label>
                   <input
