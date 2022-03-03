@@ -87,8 +87,8 @@ const OrderDetails12 = ({
 
   const { POId } = useParams();
   // console.log(`POId: ${POId}`);
-// 營地ID TODO:需抓營地ID
-  const campId=1
+
+
 
   //---------backend----cancelPO----------------------
 
@@ -109,7 +109,8 @@ const OrderDetails12 = ({
 
 
   async function ratePO() {
-    // e.preventDefault();
+      const campId = ppl[0].camp_id;
+      console.log("campId", campId);
     try {
       let response = await axios.post(`${API_URL}/ratePO`, {
         campId: `${campId}`,
