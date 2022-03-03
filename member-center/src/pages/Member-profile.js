@@ -81,7 +81,7 @@ const MemberProfile = ({logData}) => {
   let getMemberInfo = async () => {
     //http://localhost:3002/api/memberInfo
     //http://localhost:3002
-    let res = await axios.post(`${API_URL}/memberInfo`, [0], { withCredentials: true, });
+    let res = await axios.post(`${API_URL}/memberInfo`, [], { withCredentials: true, });
     setData(res.data[0]);
     setLoading(false);
     console.log(res.data[0]);

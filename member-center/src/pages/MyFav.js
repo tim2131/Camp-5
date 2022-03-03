@@ -25,7 +25,6 @@ const MyFav = () => {
       console.log(result.data);
       // console.log(response.data[0].id);
       setFavData(result.data);
-      return test;
     } catch (e) {
       console.error("error");
     }
@@ -34,8 +33,6 @@ const MyFav = () => {
   useEffect(() => {
     MyFav();
   }, []);
-
-  //-------------TODO: 取消愛心之後---------------------------
 
   //----------BTN------------------------------
   const [likeData, setLikeData] = useState(true);

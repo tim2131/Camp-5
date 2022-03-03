@@ -55,43 +55,53 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
     console.log(`idx: ${idx}`);
     let clickedFav = favData[idx];
     console.log(clickedFav.FAV_CAMPID);
-    let fav_campid = clickedFav.FAV_CAMPID;
+    const campId = clickedFav.FAV_CAMPID;
+     console.log("campId", clickedFav.FAV_CAMPID);
     let newData = [...favData];
 
 
     //like原本沒這數值 所以每一個按到的時候都是undefine 愛心是實心
     if (newData[idx].like === undefined) {
       newData[idx].like ="0"; //按到的時候把它改成false=0 愛心是空心
-      DelFav(fav_campid); //false的時候去從資料庫刪除他
+      DelFav(campId); //false的時候去從資料庫刪除他
     } else if (newData[idx].like == "0") {
       //如果他是false=0 代表再按一次要加入資料庫 所以like改成true=1
       newData[idx].like = "1";
-      AddFav(fav_campid);
+      AddFav(campId);
     } else if (!newData[idx].like == "0") {
       //WHY: 只能寫不等於不能寫==1??
       newData[idx].like = "0";
-      DelFav(fav_campid);
+      DelFav(campId);
     }
     setFavData(newData);
     console.log("newData:", newData);
     //---------------後端刪除愛心----------------------------
-    async function DelFav(fav_campid) {
+    async function DelFav(campId) {
       try {
-        let result = await axios.get(`${API_URL}/favAll/del`, [fav_campid], {
-          withCredentials: true,
-        });
-        console.log("del",result.data);
+        console.log("campId", campId);
+        let result = await axios.post(
+          `${API_URL}/favAll/del`,
+          { campId: `${campId}` },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log("del", result.data);
       } catch (e) {
         console.error("error");
       }
     }
     //---------------後端加入愛心----------------------------
-    async function AddFav(fav_campid) {
+    async function AddFav(campId) {
       try {
-        let result = await axios.get(`${API_URL}/favAll/add`, [fav_campid], {
-          withCredentials: true,
-        });
-        console.log("add",result.data);
+        let result = await axios.post(
+          `${API_URL}/favAll/add`,
+          { campId: `${campId}` },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log("add", result.data);
       } catch (e) {
         console.error("error");
       }
