@@ -37,7 +37,7 @@ import MyFav from "./pages/MyFav";
 import DashBoard from './pages/dashboard';
 import { useCookies } from "react-cookie";
 import { useAuth } from "./context/auth";
-import LogStatus from "./pages/LogStatus";
+
 
 
 const { Content } = Layout;

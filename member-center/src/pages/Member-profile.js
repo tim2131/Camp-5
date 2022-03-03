@@ -17,14 +17,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
 import { API_URL } from "../utils/config";
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form";
 import "antd/dist/antd.less";
 import "../style/member-profile.less";
 const { Option } = Select;
 const { Title } = Typography;
-
-
-
 
 //-------表格RWD縮放---------------------
 const formItemLayout = {
@@ -36,8 +33,8 @@ const formItemLayout = {
       span: 8,
     },
     lg: {
-      span: 8
-    }
+      span: 8,
+    },
   },
   wrapperCol: {
     xs: {
@@ -47,8 +44,8 @@ const formItemLayout = {
       span: 8,
     },
     lg: {
-      span: 8
-    }
+      span: 8,
+    },
   },
 };
 
@@ -63,29 +60,29 @@ const tailFormItemLayout = {
       offset: 8,
     },
     lg: {
-      span: 8
+      span: 8,
     },
   },
 };
 
-
-const MemberProfile = ({logData}) => {
-
+const MemberProfile = ({ logData }) => {
   //------------------------------------------------
   const [form] = Form.useForm();
   //-----後端連線----得到資料----------------------------------
   const [loading, setLoading] = useState(true);
 
   const [data, setData] = useState([]);
-  //在這邊一進來的時候就去資料庫抓檔案，但是data的初值應該還是空陣列
   let getMemberInfo = async () => {
-    //http://localhost:3002/api/memberInfo
-    //http://localhost:3002
-    let res = await axios.post(`${API_URL}/memberInfo`, [], { withCredentials: true, });
-    setData(res.data[0]);
-    setLoading(false);
-    console.log(res.data[0]);
-    //TODO: MEJOR-沒辦法從資料庫抓資料時 空陣列要顯現錯誤
+    try {
+      let res = await axios.post(`${API_URL}/memberInfo`, [], {
+        withCredentials: true,
+      });
+      setData(res.data[0]);
+      setLoading(false);
+      // console.log(res.data[0]);
+    } catch (e) {
+      console.error("error");
+    }
   };
 
   useEffect(() => {
@@ -95,7 +92,7 @@ const MemberProfile = ({logData}) => {
     }, 1500);
   }, []);
   //---------------------------------------------------------------------------
- 
+
   //---表格變更---------------------------------------------------------------------
   function getFormData(value) {
     console.log("formData:", form.getFieldValue());
@@ -165,7 +162,7 @@ const MemberProfile = ({logData}) => {
         <>
           <Divider style={{ marginBottom: 60 }}>
             <Title
-            id="titleTest2"
+              id="titleTest2"
               level={3}
               style={{
                 marginBottom: 0,
@@ -179,7 +176,7 @@ const MemberProfile = ({logData}) => {
           {data.map((member) => {
             return (
               <Form
-                className='memberFormBottom'
+                className="memberFormBottom"
                 {...formItemLayout}
                 form={form}
                 onFinish={onFinish}
@@ -294,7 +291,7 @@ const MemberProfile = ({logData}) => {
                 <Form.Item name="datePicker" label="您的生日" {...config}>
                   <DatePicker />
                 </Form.Item>
-{/* //TODO: MEJOR-手機號碼沒有前端驗證 */}
+                {/* //TODO: MEJOR-手機號碼沒有前端驗證 */}
                 <Form.Item
                   name="phone"
                   label="手機號碼"
@@ -329,15 +326,10 @@ const MemberProfile = ({logData}) => {
               </Form>
             );
           })}
-          
         </>
       )}
-      
     </>
   );
 };
-
-
-
 
 export default MemberProfile;

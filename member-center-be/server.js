@@ -81,12 +81,8 @@ let ratePORouter = require("./routers/ratePO");
 app.use("/api/ratePO", ratePORouter);
 let favAllRouter = require("./routers/fav");
 app.use("/api/favAll", favAllRouter);
-let request = require("./routers/getMember")
-app.use("/api/getMember",
-  request
-  // (req, res, next) => {
-  //  res.send("Hello Middleware");}
-);
+let dashboardRouter = require("./routers/dashboard")
+app.use("/api/dashboard", dashboardRouter);
 
 //-----------------------------------------------------------------
 // 使用 express 內建的中間件
