@@ -140,7 +140,12 @@ const DashBoard = ({}) => {
                 </Button>,
               ]}
             >
-              您有3張Coupon即將到期!
+              {couponData && couponData.length >= 3
+                ? "您有3張Coupon即將到期!"
+                : ""}
+              {couponData && couponData.length < 3 && couponData.length > 0
+                ? "您有Coupon即將到期!"
+                : ""}
               <CouponList couponData={couponData} />
             </Card>
           </Col>
