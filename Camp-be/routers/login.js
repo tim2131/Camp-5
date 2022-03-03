@@ -226,16 +226,44 @@ router.get("/logout", (req, res, next) => {
   req.session.member = null;
   res.sendStatus(202);
 });
-//Forgotpassword 忘記密碼功能
-const nodemailer = require("nodemailer");
-//const crypto = require("crypto");
 
-router.post("/forgotPassword", (req, res) => {
+
+
+//----------------Forgotpassword 忘記密碼功能
+const nodemailer = require("nodemailer");
+const crypto = require("crypto"); //產生亂碼 套件
+
+router.post("/forgotPassword", async (req, res) => {
   if (req.body.email === "") {
     res.status(400).send("email required");
   }
   console.error(req.body.email);
 
+
+  
+  let [members] = await connection.execute(
+    "SELECT * FROM user WHERE user_name=?",
+    [req.body.email]
+  );
+  console.log(members);
+  if (members.length === 0) {
+    // 查不到，表示根本沒註冊過
+    return res.status(400).send({
+      code: "33003",
+      msg: "此信箱未註冊",
+    });
+  }
+
+  //產生亂碼
+  const token = crypto.randomBytes(20).toString("hex");
+  console.log("token:", token);
+
+  let [result] = await connection.execute(
+    `UPDATE user SET code = ? WHERE user_name =? `,
+    [token, req.body.email]
+  );
+
+  //選擇寄信箱 帳號 密碼
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -244,11 +272,12 @@ router.post("/forgotPassword", (req, res) => {
     },
   });
 
+  //EMAIL 自訂訊息
   const mailOptions = {
     from: "xie6493@gmail.com",
     to: `${req.body.email}`,
     subject: "Link To Reset Password",
-    text: "TEST",
+    text: ` 您的驗證碼:${token}`,
   };
 
   console.log("sending mail");
@@ -262,5 +291,52 @@ router.post("/forgotPassword", (req, res) => {
     }
   });
 });
+
+const authControllerUserCode = async (req, res, next) => {
+  const validationResults = validationResult(req); // 驗證傳過來的內容是否符合我們的要求
+  if (!validationResults.isEmpty()) {
+    let error = validationResults.array();
+
+    return res.status(422).send({ error: error[0].msg }); // 若有錯誤則回傳錯誤內容
+  }
+
+  let [members] = await connection.execute("SELECT * FROM user WHERE code=?", [
+    req.body.code,
+  ]);
+  console.log(members);
+  if (members.length === 0) {
+    // 查不到，表示根本沒註冊過
+    return res.status(400).send({
+      code: "33003",
+      msg: "驗證碼錯誤",
+    });
+  }
+  // 把會員資料從陣列中拿出來
+  let codemember = members[0];
+  console.log(codemember);
+
+  let hashPassword = bcrypt.hashSync(req.body.password, 10);
+  let [result] = await connection.execute(
+    `UPDATE user SET password = ? WHERE code = ? `,
+    [hashPassword, req.body.code]
+  );
+  res.json({ message: "ok" });
+};
+
+router.post(
+  "/resetpassword",
+  [
+    body("password")
+      .matches(
+        /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,16}$/
+      )
+      .withMessage(
+        "密碼為數字，小寫字母，大寫字母，特殊符號 至少包含三種，長度為 8 - 16位"
+      ),
+  ],
+  authControllerUserCode
+);
+
+
 
 module.exports = router;

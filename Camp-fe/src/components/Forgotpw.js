@@ -1,80 +1,47 @@
-
-import React, { Component } from "react";
-
+import React, { Component, useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Logo from "../img/loing.png";
 import "../style/login.css";
 
+const Forgotpw = () => {
+  const [useremail, setUseremail] = useState({
+    email: "",
+  });
+  const [isSend, setIsSend] = useState(false);
 
+  function handleChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
 
-class Forgotpw extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      email: "",
-      showError: false,
-      messageFromServer: "",
-      showNullError: false,
-    };
+    setUseremail({ ...useremail, [name]: value });
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-  //   handleChange = (name) => (event) => {
-  //     this.setState({
-  //       [name]: event.target.value,
-  //     });
-  //   };
-
-  sendEmail = async (e) => {
+  async function sendEmail(e) {
     e.preventDefault();
-    const { email } = this.state;
-    if (email === "") {
-      this.setState({
-        showError: false,
-        messageFromServer: "",
-        showNullError: true,
-      });
-    } else {
-      try {
-        const response = await axios.post(
-          "http://localhost:3002/forgotPassword",
-          {
-            email,
-          }
-        );
-        console.log(response.data);
-        if (response.data === "recovery email sent") {
-          this.setState({
-            showError: false,
-            messageFromServer: "recovery email sent",
-            showNullError: false,
-          });
-          alert("已寄到信箱")
-        }
-      } catch (error) {
-        console.error(error.response.data);
-        if (error.response.data === "email not in db") {
-          this.setState({
-            showError: true,
-            messageFromServer: "",
-            showNullError: false,
-          });
-        }
+    try {
+      let response = await axios.post(
+        "http://localhost:3002/forgotPassword",
+        useremail
+      );
+      setIsSend(true);
+      alert("已寄到信箱");
+    } catch (error) {
+      console.error("錯誤", error.response.data.msg);
+      if (error.response.data.msg === "此信箱未註冊") {
+        alert("此信箱未註冊");
       }
     }
-  };
+  }
 
-  render() {
-    const { email, messageFromServer, showNullError, showError } = this.state;
+  if (isSend) {
+    // 轉頁效果
+    return <Navigate to="/code" />;
+  }
 
-    return (
-     <>
-     <div className="container-fulid">
+  return (
+    <>
+      <div className="container-fulid">
         <div className="login">
           <div className="loginLogo">
             <img src={Logo} className="loginimg" />
@@ -94,33 +61,32 @@ class Forgotpw extends Component {
                   營主
                 </Link>
               </div> */}
-              <form onSubmit={this.sendEmail}>
-          <div class="form-group">
-            <label for="exampleInputEmail1">電子信箱</label>
-            <input
-              type="email"
-              class="form-control Signupinput"
-              id="exampleInputEmail1"
-              name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-              aria-describedby="emailHelp"
-              placeholder="請輸入信箱"
-              required
-            />
-          </div>
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">電子信箱</label>
+                  <input
+                    type="email"
+                    class="form-control Signupinput"
+                    id="exampleInputEmail1"
+                    name="email"
+                    value={useremail.email}
+                    onChange={handleChange}
+                    aria-describedby="emailHelp"
+                    placeholder="請輸入信箱"
+                    required
+                  />
+                </div>
 
-          <button type="submit" class="btn4">
-           送出
-          </button>
-        </form>
-              
+                <button class="btn4" onClick={sendEmail}>
+                  送出
+                </button>
+              </form>
             </div>
           </div>
         </div>
-      </div></>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
 
 export default Forgotpw;
