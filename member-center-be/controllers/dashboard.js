@@ -13,13 +13,14 @@ let asyncUserData = async (req, res,
   console.log(data[0][0]);
   return res.json(data);;
 };
-//User coupon
+//User coupon 前三筆
 let couponData = async (req, res, next) => {
   let memberId = req.session.member.id;
   console.log("sesson", req.session.member.id);
-  let data = await connection.execute("SELECT * FROM coupon WHERE user_id=?", [
-    memberId,
-  ]);
+  let data = await connection.execute(
+    "SELECT * FROM `coupon` WHERE user_id=? AND status=1 ORDER BY `pastdue_date` DESC LIMIT 3",
+    [memberId]
+  );
   console.log(data[0][0]);
   return res.json(data);
 };

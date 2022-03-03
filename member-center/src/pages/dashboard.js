@@ -7,6 +7,10 @@ import {
   Row,
   Col,
   Divider,
+  Dropdown,
+  Menu,
+  Modal,
+  List,
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -15,31 +19,54 @@ import "../style/dashBoardMember.less";
 import axios from "axios";
 import { API_URL } from "../utils/config";
 import { IMAGE_URL } from "../utils/config";
-
-
-
+import CouponList from '../comp/couponList';
 
 const DashBoard = ({}) => {
-// --------------------------------------
-const [rankData, setRankData] = useState([]);
-async function Rank() {
-  try {
-    let result = await axios.get(`${API_URL}/dashboard/user`, {
-      withCredentials: true,
-    });
-    console.log(result.data);
-    // console.log(response.data[0].id);
-    setRankData(result.data[0]);
-  } catch (e) {
-    console.error("error");
+  //----------------------------
+  const [couponVisible, setCouponVisible] = useState(false);
+  // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
+  const [rankData, setRankData] = useState([]);
+  async function Rank() {
+    try {
+      let result = await axios.get(`${API_URL}/dashboard/user`, {
+        withCredentials: true,
+      });
+      console.log("rank", result.data);
+      // console.log(response.data[0].id);
+      setRankData(result.data[0]);
+    } catch (e) {
+      console.error("error");
+    }
   }
+  // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
+  const [couponData, setCoupon] = useState([]);
+  async function Coupon() {
+    try {
+      let result = await axios.get(`${API_URL}/dashboard/coupon`, {
+        withCredentials: true,
+      });
+      console.log("coupon", result.data[0]);
+      // console.log(response.data[0].id);
+      setCoupon(result.data[0]);
+    } catch (e) {
+      console.error("error");
+    }
   }
-    useEffect(() => {
-      Rank();
-    }, []);
+  useEffect(() => {
+    Rank();
+    Coupon();
+  }, []);
 
-//--------------------------------
-  
+  //--------------------------------
+  const menu = (
+    <Menu>
+      <Menu.Item key="1">1st menu item</Menu.Item>
+      <Menu.Item key="2">2nd menu item</Menu.Item>
+      <Menu.Item key="3">3rd menu item</Menu.Item>
+    </Menu>
+  );
+  //-----------------------
+
   return (
     <>
       {rankData.map((rank) => {
@@ -54,30 +81,42 @@ async function Rank() {
             >
               <Divider style={{ marginBottom: 60, marginTop: "-3em" }}>
                 <div className="memberpicBox">
-                  <Avatar
-                    className="avatarMember"
-                    src={<Image src={`${IMAGE_URL}/images/${rank.img}`} />}
-                    size={{
-                      xs: 48,
-                      sm: 64,
-                      md: 80,
-                      lg: 128,
-                      xl: 160,
-                      xxl: 200,
-                    }}
-                    icon={<UserOutlined />}
-                  />
+                  <Dropdown overlay={menu} trigger={["contextMenu"]}>
+                    <div
+                      className="site-dropdown-context-menu"
+                      style={{
+                        textAlign: "center",
+                        height: 200,
+                        lineHeight: "200px",
+                      }}
+                    >
+                      <Avatar
+                        className="avatarMember"
+                        src={<Image src={`${IMAGE_URL}/images/${rank.img}`} />}
+                        size={{
+                          xs: 48,
+                          sm: 64,
+                          md: 80,
+                          lg: 128,
+                          xl: 160,
+                          xxl: 200,
+                        }}
+                        icon={<UserOutlined />}
+                      />
+                    </div>
+                  </Dropdown>
+
                   <Button className="changePicMember" key="4" size="small">
                     更改大頭貼 TODO: 更換大頭貼
                   </Button>
                 </div>
               </Divider>
             </PageHeader>
-            TODO: 點數/累積購買金額
+            TODO: 點數{rank.point}/累積購買金額{rank.acc_total}
           </React.Fragment>
         );
       })}
-      
+
       <div className="site-card-wrapper">
         <Row gutter={16}>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
@@ -91,12 +130,35 @@ async function Rank() {
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-            <Card className="rowCard" title="待用Coupon" bordered={false}>
-              Card content TODO:coupon顯示
+            <Card
+              className="rowCard"
+              title="待用Coupon"
+              bordered={false}
+              actions={[
+                <Button type="primary" onClick={() => setCouponVisible(true)}>
+                  查看所有coupon
+                </Button>,
+              ]}
+            >
+              您有3張Coupon即將到期!
+              <CouponList couponData={couponData} />
             </Card>
           </Col>
         </Row>
       </div>
+
+      <Modal
+        title="Modal 1000px width"
+        centered
+        visible={couponVisible}
+        onOk={() => setCouponVisible(false)}
+        onCancel={() => setCouponVisible(false)}
+        width={1000}
+      >
+        <p>some contents...</p>
+        <p>some contents...</p>
+        <p>some contents...</p>
+      </Modal>
     </>
   );
 };
