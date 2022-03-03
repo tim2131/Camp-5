@@ -118,30 +118,33 @@ const Login = () => {
   return (
     <>
       <div className="container-fulid">
-        <div className="login">
-          <div className="loginLogo">
-            <img src={Logo} className="loginimg" />
+       
+        <div className="login row">
+          <div className="loginLogo col-sm-8">
+            <img src={Logo} className="loginimg rwdimg" />
           </div>
-
-          <div>
+          <div className="col-sm-4 rwdcontent">
             <br />
             <br />
             <br />
             <div>
-              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
               <div className="d-inline-block box">
-                <Link className="loginbtn1 userlogin" to="/login">
+              <h1 className="loginh1 d-inline-block ">登入</h1>
+              <Link className="loginbtn1 userlogin" to="/login">
                   一般會員
                 </Link>
                 <Link className="loginbtn2" to="/camplogin">
                   營主
                 </Link>
               </div>
+             
+            
 
               <form
                 onSubmit={login}
                 onInvalid={handleFormInvalid}
                 onChange={handleFormChange}
+                className="rwdform"
               >
                 <div class="form-group">
                   <label for="user_name">帳號</label>
@@ -193,7 +196,7 @@ const Login = () => {
                   </div>
                 </div>
 
-                <div class="form-group form-check">
+                <div class="form-group form-check rwdlink">
                   <input type="checkbox" class="form-check-input logincheck" />
                   <label
                     class="form-check-label loginlabel"
@@ -207,17 +210,17 @@ const Login = () => {
                   </Link>
                 </div>
 
-                <br />
+               
 
-                <div className="">
+                <div>
                   <button class="loginbtn3" type="submit">
                     登入
                   </button>
                 </div>
-                <div>
+                <div className="moveupnow">
                   <div className="loginOtheraccount1">以其他帳號登入</div>
-                  <br />
-                  <br />
+                
+              
                   <div className="d-flex loginPic">
                     <a href="http://google.com">
                       <img src={Google} className="p-3" />
@@ -225,12 +228,10 @@ const Login = () => {
                     <a href="http://facebook.com">
                       <img src={Facebook} className="p-3" />
                     </a>
+                    
                   </div>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <div className="loginMoveLink2">
+                
+                  <div className="loginMoveLink2 moveupnow2">
                     還沒有帳號嗎? &nbsp;&nbsp;
                     <Link className="loginlink2" to="/signupuser">
                       註冊
