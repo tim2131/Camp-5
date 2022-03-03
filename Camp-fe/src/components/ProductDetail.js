@@ -18,6 +18,7 @@ function ProductDetail() {
   const [data, setData] = useState([]);
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
+  const [favData, setFavData] = useState([]);
 
   // 取網址中的 productId
   const { productId } = useParams();
@@ -25,8 +26,27 @@ function ProductDetail() {
   // 要輸入購物車的資料
   const [product, setProduct] = useState({});
 
-  let alreadyInCart = JSON.parse(localStorage.getItem("cartProduct"));
-  const [cart, setCart] = useState(alreadyInCart);
+  // 判斷localStorage是否存在，來決定購物車的初始狀態
+  // 這裡老師改過了，再自己理解看看
+  // let newCartProduct;
+  // if (localStorage.getItem("cartProduct") === null || []) {
+  //   newCartProduct = [];
+  // } else {
+  //   newCartProduct = JSON.parse(localStorage.getItem("cartProduct"));
+  // }
+  // const [cart, setCart] = useState(newCartProduct);
+
+  let cart;
+  if (
+    localStorage.getItem("cartProduct") === null ||
+    localStorage.getItem("cartProduct").length < 3
+  ) {
+    cart = [];
+    // console.log("空的");
+  } else {
+    cart = JSON.parse(localStorage.getItem("cartProduct"));
+    // console.log("有東西");
+  }
 
   // 取後端資料
   useEffect(async () => {
@@ -43,22 +63,37 @@ function ProductDetail() {
     setColor(responseColor.data);
     setSize(responseSize.data);
     setProduct({ ...product, ...responseAll.data[0] });
+    setProduct({ ...product, amount: 1 });
   }, []);
   // 在外面console.log取不到東西的原因是還沒set好，因為不知道react什麼時候會把它處理好，在處理好之前就抓不到資料
   // 所以才會有console.log了好幾次才有資料的情況
 
+  // 點愛心
+  const [heart, setHeart] = useState(false);
+  const toggleSwitch = () => {
+    console.log("toggleSwitch");
+    // setHeart((previousState) => !previousState);
+  };
+  const clickHeart = heart ? heartFull : heartEmpty;
+
   function handleChange(e) {
     setProduct({ ...product, [e.target.name]: e.target.value });
   }
+  // 愛心數字
 
   // 加入購物車按鈕
   // 全部資料都寫入，要用時再挑出需要的特定資料
   async function handleSubmit1(e) {
     e.preventDefault();
-    await cart.push(product);
+    // let newCart = [...cart];
+    // newCart.push(product);
+    // setCart(newCart);
+    cart.push(product);
+    // let cartString = await JSON.stringify(newCart);
     let cartString = await JSON.stringify(cart);
     await localStorage.setItem("cartProduct", cartString);
   }
+  // 有set的不能直接去push他，要let一個新的把他複製出來再去push，push完再放回去set，但剛set完拿不到值，所以要用他還是只能先用let的值
 
   // 立即購買按鈕
   // async function handleSubmit2(e) {
@@ -69,12 +104,6 @@ function ProductDetail() {
   //   );
   //   console.log(response.data);
   // }
-
-  // 點愛心
-  const [heart, setHeart] = useState(false);
-  const toggleSwitch = () => setHeart((previousState) => !previousState);
-
-  const clickHeart = heart ? heartFull : heartEmpty;
 
   // 圖片截角
   const tagWords = {
@@ -95,9 +124,9 @@ function ProductDetail() {
 
   return (
     <>
-      {data.map((item) => {
+      {data.map((item, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <main className="product-detail-main w-100%">
               <div className="container">
                 {/* 主圖&標題 */}
@@ -196,7 +225,11 @@ function ProductDetail() {
                           </div>
                           <button
                             className="product-heart-number"
-                            onClick={() => toggleSwitch()}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              // 放在form裡的按鈕都會變傳送，所以要避免他的預設事件
+                              toggleSwitch(index);
+                            }}
                           >
                             <img src={clickHeart} alt="" />
                             150
@@ -267,8 +300,9 @@ function ProductDetail() {
                       <h4>尺寸規格</h4>
                       <div className="horizontal-line-short"></div>
                       <p>
-                        重量：{item.weight} g<br />
-                        尺寸：{item.size} ml
+                        重量：{item.weight}
+                        <br />
+                        尺寸：{item.size}
                         <br />
                         材質：{item.material}
                         <br />
@@ -304,7 +338,7 @@ function ProductDetail() {
             </main>
             <ProductReview />
             <SimilarProduct />
-          </>
+          </React.Fragment>
         );
       })}
     </>
