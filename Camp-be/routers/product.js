@@ -8,7 +8,7 @@ const connection = require("../utils/db");
 // 總商品列表
 router.get("/api/products", async (req, res, next) => {
   let [data, fields] = await connection.execute("SELECT * FROM product");
-  console.log(data);
+  // console.log(data);
   res.json(data);
 });
 
@@ -43,6 +43,15 @@ router.get("/api/products/:productId/size", async (req, res, next) => {
     [req.params.productId]
   );
   res.json(option);
+});
+
+// 商品詳細頁愛心
+router.get("/api/product-fav/:productId", async (req, res, next) => {
+  let [data] = await connection.execute(
+    "SELECT * FROM product_fav WHERE product_id=?",
+    [req.params.productId]
+  );
+  res.json(data);
 });
 
 // 單一商品評論
@@ -94,21 +103,119 @@ router.get(
   }
 );
 
-// 折扣碼
-router.get("/api/products/coupon/:userId", async (req, res, next) => {
-  let [option, fields] = await connection.execute(
-    "SELECT * FROM product_size WHERE product_id=?",
-    [req.params.productId]
+// 購物車------------------------------------------------
+// 測試用user
+router.get("/api/user/1", async (req, res, next) => {
+  let [data, fields] = await connection.execute(
+    "SELECT * FROM user WHERE id=1"
   );
-  res.json(option);
+  res.json(data);
 });
 
+// 購物車愛心
+router.get("/api/user/1/fav-product", async (req, res, next) => {
+  let [data, fields] = await connection.execute(
+    "SELECT * FROM product_fav WHERE user_id=1"
+  );
+  res.json(data);
+});
+router.post("/api/user/1/fav-product/add", async (req, res, next) => {
+  let [addFav] = await connection.execute(
+    "INSERT INTO product_fav VALUES (?, 1, 1)",
+    [req.body.id]
+  );
+  // console.log(req.body.id);
+  res.json({ msg: "add fav ok" });
+});
+router.post("/api/user/1/fav-product/remove", async (req, res, next) => {
+  let [removeFav] = await connection.execute(
+    "DELETE FROM product_fav WHERE product_id=?",
+    [req.body.id]
+  );
+  // console.log(req.body.id);
+  res.json({ msg: "remove fav ok" });
+});
+
+// 折扣碼
+router.post("/api/products/coupon/1", async (req, res, next) => {
+  let [couponInput] = await connection.execute(
+    "SELECT * FROM coupon WHERE user_id=1 AND promo_code=? AND status=1",
+    [req.body.coupon]
+  );
+  if (couponInput.length === 0) {
+    return res.status(400).send({
+      msg: "無法使用此折扣碼",
+    });
+  }
+  // res.json({ msg: "coupon ok" });
+  res.json(couponInput);
+});
+
+// 結帳流程-----------------------------------------------
 // 信用卡資料
 router.post("/api/products/payment", async (req, res, next) => {
   // 儲存到資料庫
   // let [result] = await connection.execute("");
   console.log("req body: ", req.body);
   res.json({ message: "ok" });
+});
+
+// 信用卡地址
+router.post("/api/products/credit-card-shipment", async (req, res, next) => {
+  // 儲存到資料庫
+  // let [result] = await connection.execute("");
+  console.log("shipment req body: ", req.body);
+  res.json({ message: "shipment ok" });
+});
+
+// 超商資料
+router.post(
+  "/api/products/convenience-store-shipment",
+  async (req, res, next) => {
+    // 儲存到資料庫
+    // let [result] = await connection.execute("");
+    console.log("shipment req body: ", req.body);
+    res.json({ message: "shipment ok" });
+  }
+);
+
+// 購物車進資料庫--------------------------------------------
+router.post("/api/products/send-order", async (req, res, next) => {
+  let [order] = await connection.execute(
+    "INSERT INTO product_order (orderstatus_id, user_id, fare, total, coupon) VALUES (?, ?, ?, ?, ?)",
+    [
+      req.body.payment,
+      1,
+      req.body.delivery_charge,
+      req.body.final_total,
+      req.body.used_coupon,
+    ]
+  );
+  let [couponStatus] = await connection.execute(
+    "UPDATE coupon SET status=0 WHERE promo_code=?",
+    [req.body.used_coupon]
+  );
+  let [point] = await connection.execute("UPDATE user SET point=? WHERE id=1", [
+    req.body.remain_point,
+  ]);
+  // console.log("order req body: ", req.body);
+  res.json({ message: "order ok" });
+});
+
+router.post("/api/products/send-orderdet", async (req, res, next) => {
+  let [lastProductOrderid] = await connection.execute(
+    "SELECT product_orderid FROM `product_orderdet`  ORDER BY id DESC LIMIT 0 , 1"
+  );
+  let ProductOrderid = lastProductOrderid[0]["product_orderid"] + 1;
+  await req.body.forEach(async (item, i) => {
+    let [orderdet] = await connection.execute(
+      "INSERT INTO product_orderdet (product_id, product_orderid, color, size, quantity, valid) VALUES (?, ?, ?, ?, ?, ?)",
+      [item.Pid, ProductOrderid, item.color, item.size, item.amount, 1]
+    );
+  });
+  // console.log("orderId to another", orderId);
+  // console.log("orderdet req body: ", req.body);
+  res.json({ message: "orderdet ok" });
 });
 
 module.exports = router;

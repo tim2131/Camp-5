@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
 
 import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
 
 function ShipmentConvenienceStore() {
-  // 信用卡資料
+  // 購物車資料
+  let cart = JSON.parse(localStorage.getItem("cartProduct"));
+  console.log("cart", cart);
+
+  // session資料 (剩餘點數、折扣碼哪張、運費、總額)
+  let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
+  console.log("waitingInfo", waitingInfo);
+
+  // 超商資料
   const [convenienceStoreShipment, setConvenienceStoreShipment] = useState({
     firstName: "",
     lastName: "",
@@ -24,16 +32,29 @@ function ShipmentConvenienceStore() {
 
   // 送出按鈕
   async function handleSubmit(e) {
-    e.preventDefaul();
-    let response = await axios.post(
-      "http://localhost:3002/api/products/credit-card-shipment",
+    // e.preventDefaul();
+    let responseShipment = await axios.post(
+      "http://localhost:3002/api/products/convenience-store-shipment",
       convenienceStoreShipment
     );
-    console.log(response.data);
-  }
+    console.log(responseShipment.data);
 
-  // 回上一頁
-  const navigate = useNavigate();
+    // 進 product_order (session)
+    let responseOrder = await axios.post(
+      "http://localhost:3002/api/products/send-order",
+      waitingInfo
+    );
+    sessionStorage.removeItem("waitingInfo");
+    console.log(responseOrder.data);
+
+    // 進 product_orderdet (購物車)
+    let responseOrderdet = await axios.post(
+      "http://localhost:3002/api/products/send-orderdet",
+      cart
+    );
+    localStorage.setItem("cartProduct", []);
+    console.log(responseOrderdet.data);
+  }
 
   return (
     <>
@@ -129,12 +150,18 @@ function ShipmentConvenienceStore() {
             {/* 送出按鈕 */}
             <div className="cart-dividing-line-full"></div>
             <div className="cart-next-back-btn-block">
-              <button type="submit" className="cart-next-btn">
-                確認送出
-              </button>
-              <button className="cart-back-btn" onClick={() => navigate(-1)}>
-                返回上一步
-              </button>
+              <Link to="/p_orders/success">
+                <button
+                  type="submit"
+                  className="cart-next-btn"
+                  onClick={handleSubmit}
+                >
+                  確認送出
+                </button>
+              </Link>
+              <Link to="/p_orders/payment">
+                <button className="cart-back-btn">返回上一步</button>
+              </Link>
             </div>
           </form>
         </div>
