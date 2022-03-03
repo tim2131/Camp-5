@@ -18,7 +18,7 @@ let couponData = async (req, res, next) => {
   let memberId = req.session.member.id;
   console.log("sesson", req.session.member.id);
   let data = await connection.execute(
-    "SELECT * FROM `coupon` WHERE user_id=? AND status=1 ORDER BY `pastdue_date` DESC LIMIT 3",
+    "select * FROM coupon WHERE pastdue_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY) AND user_id=? AND status=1 ORDER BY `pastdue_date` DESC LIMIT 3;",
     [memberId]
   );
   console.log(data[0][0]);

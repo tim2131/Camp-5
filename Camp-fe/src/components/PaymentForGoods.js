@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
 import "../style/ShoppingCartTitle.scss";
@@ -23,6 +23,13 @@ function CreditCard() {
   }
   console.log(creditCardInfo);
 
+  function saveSession() {
+    let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
+    let newWaitingInfo = { ...waitingInfo, payment: 6 }; // 信用卡 -> 已付款
+    let waitingInfoString = JSON.stringify(newWaitingInfo);
+    sessionStorage.setItem("waitingInfo", waitingInfoString);
+  }
+
   // 送出按鈕
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,9 +40,6 @@ function CreditCard() {
     console.log(creditCardInfo);
     console.log(response.data);
   }
-
-  // 回上一頁
-  const navigate = useNavigate();
 
   return (
     <>
@@ -112,13 +116,17 @@ function CreditCard() {
         <div className="cart-dividing-line-full"></div>
         <div className="cart-next-back-btn-block">
           <Link to="/p_orders/shipment/credit_card">
-            <button type="submit" className="cart-next-btn">
+            <button
+              type="submit"
+              className="cart-next-btn"
+              onClick={saveSession}
+            >
               下一步：運送資訊
             </button>
           </Link>
-          <button className="cart-back-btn" onClick={() => navigate(-1)}>
-            返回上一步
-          </button>
+          <Link to="/p_orders/cart">
+            <button className="cart-back-btn">返回上一步</button>
+          </Link>
         </div>
       </form>
     </>
@@ -127,8 +135,12 @@ function CreditCard() {
 
 // 超商----------------------------------------------------------
 function ConvenienceStore() {
-  // 回上一頁
-  const navigate = useNavigate();
+  function saveSession() {
+    let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
+    let newWaitingInfo = { ...waitingInfo, payment: 1 }; // 超商 -> 未付款
+    let waitingInfoString = JSON.stringify(newWaitingInfo);
+    sessionStorage.setItem("waitingInfo", waitingInfoString);
+  }
 
   return (
     <>
@@ -140,11 +152,13 @@ function ConvenienceStore() {
       <div className="cart-dividing-line-full"></div>
       <div className="cart-next-back-btn-block">
         <Link to="/p_orders/shipment/convenience_store">
-          <button className="cart-next-btn">下一步：運送資訊</button>
+          <button className="cart-next-btn" onClick={saveSession}>
+            下一步：運送資訊
+          </button>
         </Link>
-        <button className="cart-back-btn" onClick={() => navigate(-1)}>
-          返回上一步
-        </button>
+        <Link to="/p_orders/cart">
+          <button className="cart-back-btn">返回上一步</button>
+        </Link>
       </div>
     </>
   );
