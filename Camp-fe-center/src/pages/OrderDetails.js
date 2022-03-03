@@ -3,11 +3,12 @@ import { Col, Row, Divider, Typography, Card, List } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
-import { API_URL } from "../utils/config";
+import { API_URL,IMAGE_URL } from "../utils/config";
 import axios from "axios";
 import { ERR_MSG } from "../utils/error";
 import OrderDetails6 from "../comp/CampOrderDetail6";
 import OrderDetails12 from "../comp/CampOrderDetail12";
+import { useParams } from "react-router-dom";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 
@@ -33,13 +34,12 @@ const OrderDetails = () => {
     3: "已取消",
     4: "已完成",
   };
+  const {orderId} = useParams();
   //----------後端-----getCampPOCamp--------------------------
   const [data, setData] = useState([]);
   async function getCampPOCamp(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOCamp`, [1, 1], {
-        withCredentials: true,
-      });
+      let result = await axios.get(`${IMAGE_URL}/campData/${orderId}`);
       console.log(result.data);
       setData(result.data);
     } catch (e) {
@@ -49,14 +49,12 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOCamp();
   }, []);
-  console.log(data);
+  // console.log(data);
   //----------後端-----campPOpplRouter--------------------------
   const [ppl, setPpl] = useState([]);
   async function getCampPOPpl(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOppl`, [1, 1], {
-        withCredentials: true,
-      });
+      let result = await axios.get(`${IMAGE_URL}/Ppl/${orderId}`);
       console.log(result.data);
       setPpl(result.data);
     } catch (e) {
@@ -66,14 +64,12 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOPpl();
   }, []);
-  console.log(ppl);
-  //----------後端-----getCampPOTent--------------------------
+  // console.log(ppl);
+  // //----------後端-----getCampPOTent--------------------------
   const [tent, setTent] = useState([]);
   async function getCampPOTent(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOTent`, [1], {
-        withCredentials: true,
-      });
+      let result = await axios.get(`${IMAGE_URL}/Tent/${orderId}`);
       console.log(result.data);
       setTent(result.data);
     } catch (e) {
@@ -88,10 +84,8 @@ const OrderDetails = () => {
   const [act, setAct] = useState([]);
   async function getCampPOAct(e) {
     try {
-      let result = await axios.post(`${API_URL}/campPOAct`, [1], {
-        withCredentials: true,
-      });
-      console.log(result.data);
+      let result = await axios.get(`${IMAGE_URL}/OrderDetailsAct/${orderId}`);
+      console.log('Act',result.data);
       setAct(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -100,7 +94,7 @@ const OrderDetails = () => {
   useEffect(() => {
     getCampPOAct();
   }, []);
-  console.log(act);
+  // console.log(act);
 
   return (
     <>
@@ -137,6 +131,7 @@ const OrderDetails = () => {
           <OrderDetails12 ppl={ppl} tent={tent} act={act} />
         </Col>
       </Row>
+     
     </>
   );
 };

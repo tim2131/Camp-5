@@ -4,9 +4,7 @@ require("dotenv").config();
 // path 是 nodejs 內建的
 const path = require("path");
 const cors = require("cors");
-
-
-
+const sessionSecret = process.env.SESSION_SECRET || "mfee22";
 // 利用 express 這個 library 來建立一個 web app (express instance)
 let app = express();
 
@@ -23,25 +21,40 @@ app.use(express.json());
 // 啟用 session
 const expressSession = require("express-session");
 let FileStore = require("session-file-store")(expressSession);
-// app.use(
-//   expressSession({
-//     store: new FileStore({
-//       path: path.join(__dirname, "..", "sessions"),
-//     }),
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
+app.use(
+  expressSession({
+    store: new FileStore({
+      path: path.join(__dirname, "..", "sessions"),
+    }),
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: false },
+  })
+);
 
 // app.use(function (request, response, next) {});
 // app.get("/", function(request, response, next) {});
 
+//------------------------------------------------------------------
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8000"); // update to match the domain you will make the request from
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+//----------------------------------------------------
 app.use((req, res, next) => {
-    console.log("這是一個沒有用的中間件");
+  console.log("起點");
     // throw new Error("故意製造的錯誤");
   next();
 });
+//----------------------------------------------------
+let logInRouter = require("./routers/login");
+app.use("/api/login", logInRouter);
+
 
 // -----------------------------------------------------------------
 let memberInfoRouter = require("./routers/member");
@@ -68,7 +81,8 @@ let ratePORouter = require("./routers/ratePO");
 app.use("/api/ratePO", ratePORouter);
 let favAllRouter = require("./routers/fav");
 app.use("/api/favAll", favAllRouter);
-
+let dashboardRouter = require("./routers/dashboard")
+app.use("/api/dashboard", dashboardRouter);
 
 //-----------------------------------------------------------------
 // 使用 express 內建的中間件
@@ -79,6 +93,9 @@ app.use(express.static(path.join(__dirname, "assets")));
 // 寫法2: 有網址的 prefix
 // localhost:3002/static/index.html --> 網址上就會有這個 url prefix
 // app.use("/static", express.static(path.join(__dirname, "public")));
+//-------------------------------------------------------------------
+let logOutRouter = require("./routers/logOut");
+app.use("/api/logOut", logOutRouter);
 
 
 //-------------------------------------------------------------------

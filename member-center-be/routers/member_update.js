@@ -38,7 +38,6 @@ router.post("/", registerRules,
     }
     // 雜湊 password
     let hashPassword = await bcrypt.hash(req.body.password, 10);
-
     // 儲存到資料庫
     let [result] = await connection.execute(
       "UPDATE user SET user_name =?,gender =?,phone =?, address =?, name =?,bday =?,password=? WHERE id =? ",
@@ -50,7 +49,7 @@ router.post("/", registerRules,
         req.body.name,
         req.body.datePicker,
         hashPassword,
-        1,
+        req.session.member.id,
       ]
     );
     console.log(result);

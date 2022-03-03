@@ -2,12 +2,12 @@ import Logo from "../img/loing.png";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
-import { useAuth } from "../context/auth";
+ import { useAuth } from "../auth/auth";
 import "../style/login.css";
 
 const CampLogin = () => {
   const [error, setError] = useState("1");
-  const { member, setMember } = useAuth();
+  const { campmember, setCampMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
     email: "",
     password: "",
@@ -75,12 +75,12 @@ const CampLogin = () => {
       alert("登入成功");
       console.log(response.data.data);
 
-      setMember(response.data.data);
+      setCampMember(response.data.data);
       setIsLogin(true);
     } catch (e) {
       //console.log(e.response.data.error)
-      console.log("2", e.response.data.data);
-      if (e.response.data.error === "帳號或密碼錯誤") {
+      console.log("2", e.response.data.msg);
+      if (e.response.data.msg === "帳號或密碼錯誤") {
         console.log(Number(error));
         //console.log(errTime)
         const updatedFieldErrors = {
@@ -96,7 +96,8 @@ const CampLogin = () => {
   }
   if (isLogin) {
     // 轉頁效果
-    return <Navigate to="/member" />;
+    window.location.href = 'http://localhost:9000/'; 
+    return false;
   }
   if (Number(error) > 4) {
     alert("失敗次數過多");
@@ -107,7 +108,7 @@ const CampLogin = () => {
     <>
       <div className="container-fulid">
         <div className="camplogin">
-          <div className="aa">
+          <div className="loginLogo">
             <img src={Logo} className="loginimg" />
           </div>
 
@@ -116,12 +117,12 @@ const CampLogin = () => {
             <br />
             <br />
             <div>
-              <h1 className="h1 loginh1 d-inline-block ">登入</h1>
+              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
               <div className="d-inline-block box">
                 <Link className="loginbtn1" to="/login">
                   一般會員
                 </Link>
-                <Link className="loginbtn2" to="/camplogin">
+                <Link className="loginbtn2 camploginbtn" to="/camplogin">
                   營主
                 </Link>
               </div>

@@ -1,0 +1,128 @@
+.login {
+    /* background: #fcf9f5; */
+    background-color: #fcf9f5;
+    height: 805px;
+    color: #6a6842;
+  }
+  .camplogin {
+    background: #e9e3da;
+    /* height: 855px; */
+    height: 805px;
+    color: #6a6842;
+  }
+  .userlogin {
+    background: #6a6842;
+    color: #fcf9f5;
+  }
+  .camploginbtn {
+    background: #6a6842;
+    color: #fcf9f5;
+    border-color: #6a6842;
+  }
+  .loginimg {
+    width: 1170px;
+    /* height: 855px; */
+    height: 805px;
+  }
+  
+  .box :focus {
+    width: 85px;
+    height: 42px;
+    background: #6a6842;
+    color: #fcf9f5;
+  }
+  
+  .box {
+    margin-left: 160px;
+    margin-bottom: 15px;
+  }
+  .loginh1 {
+    margin-bottom: 15px;
+    font-size: 48px;
+   
+  }
+  .loginbtn1 {
+    padding: 4px 8px;
+    border: 1px solid;
+  }
+  .loginbtn2 {
+    padding: 4px 24px;
+    border: 1px solid;
+    border-left: 0px;
+  }
+  
+  .loginlink1 {
+    color: #c15f2e;
+    text-decoration: underline;
+    margin-left: 265px;
+  }
+  .loginlink2 {
+    color: #c15f2e;
+    text-decoration: underline;
+  }
+  .loginbtn3 {
+    font-size: 32px;
+    color: #fcf9f5;
+    width: 400px;
+    height: 74px;
+    background: #c15f2e;
+    margin-bottom: 40px;
+    border: 0px;
+  }
+  .google {
+    margin-left: 20px;
+  }
+  
+  .inputStyle {
+    border: 0px solid;
+    border-bottom: 1px solid;
+    width: 400px;
+    border-radius: 0%;
+    background: #fcf9f5;
+  }
+  .CampinputStyle {
+    border: 0px solid;
+    border-bottom: 1px solid;
+    width: 400px;
+    border-radius: 0%;
+    background: #e9e3da;
+  }
+  
+  .logincheck {
+    margin-left: 5px;
+  }
+  
+  .loginlabel {
+    margin-left: 25px;
+  }
+  .loginOtheraccount1 {
+    position: absolute;
+    margin-left: 1480px;
+  }
+  .loginPic {
+    position: absolute;
+    margin-left: 1465px;
+  }
+  .loginMoveLink2 {
+    position: absolute;
+    margin-left: 1460px;
+   
+  }
+  .loginLogo {
+    float: left;
+    padding-right: 165px;
+  }
+  .err {
+    position: absolute;
+    margin-left: 1480px;
+  }
+  .btn4 {
+    color: #fcf9f5;
+    width: 80px;
+    height: 30px;
+    background: #c15f2e;
+    font-size: 18px;
+    border: 0px;
+  }
+  
+  

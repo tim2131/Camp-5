@@ -19,7 +19,7 @@ export default [
         ],
       },
       {
-        tableKey: 'number',
+        tableKey: 'intro',
         name: '活動簡述',
         type: 'text',
         width: 50,
@@ -34,20 +34,11 @@ export default [
         ],
       },
       {
-        tableKey: 'image',
+        tableKey: 'img',
         name: '活動圖片',
         type: 'img',
         width: 50,
         height: 50,
-        validators: [
-          'required',
-        ],
-      },
-      {
-        tableKey: 'date',
-        name: '上架時間',
-        type: 'text',
-        width: 150,
         validators: [
           'required',
         ],
@@ -85,15 +76,6 @@ export default [
       {
         tableKey: 'price',
         name: '活動價格',
-        type: 'text',
-        width: 50,
-        validators: [
-          'required',
-        ],
-      },
-      {
-        tableKey: 'date',
-        name: '上架時間',
         type: 'text',
         width: 50,
         validators: [

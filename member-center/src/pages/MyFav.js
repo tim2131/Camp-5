@@ -19,21 +19,23 @@ function callback(key) {
 //---------------從後端拿資料----------------------------
 const MyFav = () => {
   const [favData, setFavData] = useState([]);
-    async function MyFav() {
-      try {
-        let result = await axios.post(`${API_URL}/favAll`, {});
-        console.log(result.data);
-        // console.log(response.data[0].id);
-        setFavData(result.data);
-      } catch (e) {
-        console.error("error");
-      }
+  async function MyFav() {
+    try {
+      let result = await axios.get(`${API_URL}/favAll`, {withCredentials: true});
+      console.log(result.data);
+      // console.log(response.data[0].id);
+      setFavData(result.data);
+    } catch (e) {
+      console.error("error");
     }
+  }
 
-    useEffect(() => {
-      MyFav();
-    }, []);
+  useEffect(() => {
+    MyFav();
+  }, []);
 
+  //----------BTN------------------------------
+  const [likeData, setLikeData] = useState(true);
 
   return (
     <>
@@ -51,7 +53,14 @@ const MyFav = () => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地最愛" key="1">
-          <FavCard favData={favData} />
+          <div className="tabbottom">
+            <FavCard
+              favData={favData}
+              likeData={likeData}
+              setLikeData={setLikeData}
+              setFavData={setFavData}
+            />
+          </div>
         </TabPane>
         <TabPane tab="商品最愛" key="2">
           {/* //插入組件 */}

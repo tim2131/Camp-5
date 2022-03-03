@@ -22,10 +22,13 @@ const MemberOrder = ({ setSelectedKey }) => {
   const [data, setData] = useState([]);
   async function getAllPO() {
     try {
-      let response = await axios.post(`${API_URL}/campAllPO`, data);
-      console.log(response.data);
+      let response = await axios.post(`${API_URL}/campAllPO`, data, {
+        // 為了跨源存取 cookie
+        withCredentials: true,
+      });
+      console.log(response.data[0]);
       // console.log(response.data[0].id);
-      setData(response.data);
+      setData(response.data[0]);
     } catch (e) {
       console.error("error");
     }
@@ -39,7 +42,7 @@ const MemberOrder = ({ setSelectedKey }) => {
     <>
       <Divider style={{ marginBottom: 60 }}>
         <Title
-        id="titleTest"
+          id="titleTest"
           level={3}
           style={{
             marginBottom: 0,
@@ -52,17 +55,15 @@ const MemberOrder = ({ setSelectedKey }) => {
       {/*---------------for Tabs--------------- */}
       <Tabs onChange={callback} type="card">
         <TabPane tab="營地訂單" key="1">
-          <CampOrder data={data} />
-          <BackTop style={{background:"#CCC"}}>
-      <div>UP</div>
-    </BackTop>
+          <div className='tabbottom'>
+            <CampOrder data={data} />
+          </div>
         </TabPane>
         <TabPane tab="商品訂單" key="2">
           <ProductOrder />
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
-     
     </>
   );
 };

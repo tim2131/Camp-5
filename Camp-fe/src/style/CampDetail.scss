@@ -1,0 +1,183 @@
+.list_item {
+  max-width: 1440px;
+  height: 632px;
+  
+}
+
+.pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: block;
+}
+.polygon {
+  clip-path: polygon(
+    10% 0,
+    100% 0,
+    100% 30%,
+    100% 75%,
+    90% 100%,
+    0 100%,
+    0% 70%,
+    0 25%
+  );
+}
+.container {
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  max-width: 1470px;
+}
+.small {
+  width: 80px;
+  height: 80px;
+}
+.picSmall {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.smallPicGroup{
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+}
+.campName {
+  text-align: center;
+  padding-top: 39px;
+  padding-bottom: 15px;
+}
+.line {
+  width: 20%;
+  height: 1px;
+  border-top: solid black;
+  margin: auto;
+}
+.labelGroup{
+  display: flex;
+  justify-content: center;
+  padding-top: 36px;
+  padding-bottom: 15px;
+}
+.labelA{
+  background-color: orangered;
+}
+.labelB{
+  background-color: lightgreen;
+  margin-right: 27px;
+  margin-left: 27px;
+}
+.labelC{
+  background-color:darkgreen;
+}
+.address{
+  text-align: center;
+ 
+}
+.campIntro{
+  margin: auto;
+  max-width: 1120px;
+  text-align: center;
+}
+.A{
+  width: 698px;
+  height: 1020px;
+  background-color: yellowgreen;
+  border: 1px solid black;
+}
+.facDetialGroup {
+  width: 200px;
+  height: 681px;
+  margin-left: 110px;
+}
+.facGroup {
+  width: 200px;
+  height: 490px;
+  margin-left: 110px;
+}
+.note {
+  width: 547px;
+  height: 589px;
+  margin-left: 80px;
+  margin-top: 50px;
+}
+.mapA {
+  width: 697px;
+  height: 505px;
+  // background-color: burlywood;
+}
+.B {
+  display: flex;
+  // height: 1020px;
+}
+.dateTable {
+  width: 697px;
+  height: 450px;
+  // background-color: cadetblue;
+  margin-top: 100px;
+  margin-left: 182px;
+}
+.tentBlockA {
+  margin-top: 45px;
+  width: 1440px;
+  height: 220px;
+  border-top: 1px #6a6842 solid;
+  border-bottom: 1px #6a6842 solid;
+}
+.tentSmall {
+  width: 150px;
+  height: 150px;
+}
+.tentSmallPic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  margin-top: 35px;
+}
+.count {
+  width: 209px;
+  height: 40px;
+  background-color: aqua;
+}
+.tentBlockB {
+  width: 1440px;
+  height: 220px;
+  border-bottom: 1px #6a6842 solid;
+}
+.tentBlockC {
+  width: 1440px;
+  height: 220px;
+  border-bottom: 1px #6a6842 solid;
+}
+.reserveBtn {
+  margin-top: 64px;
+  width: 805px;
+  height: 74px;
+}
+.addAct {
+  text-align: center;
+  margin-top: 283px;
+}
+.C {
+  width: 1470px;
+  height: 545px;
+  /* background-color: antiquewhite; */
+  margin: auto;
+}
+.bike {
+  width: 380px;
+  height: 382px;
+}
+.diy {
+  width: 380px;
+  height: 382px;
+}
+.pet {
+  width: 380px;
+  height: 382px;
+}
+.cardC{
+  margin: auto;
+}

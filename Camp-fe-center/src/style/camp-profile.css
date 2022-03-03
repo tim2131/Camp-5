@@ -1,0 +1,30 @@
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+}
+
+.campPic-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+}
+
+.ant-image-img{
+  object-fit: cover;
+}
+
+#root > section > section > main > form > div:nth-child(9){
+  justify-content: center;
+  margin-top: 50px;
+  
+}
+
+#root > section > section > main > form > div:nth-child(9) > div{
+  max-width: 135px;
+  margin: 0;
+}
+

@@ -21,9 +21,9 @@ const CampOrder = ({data}) => {
   };
   const orderStatus = {
     1: "未付款",
-    2: "已付款",
+    2: "待出發",
     3: "已取消",
-    4: "已完成",
+    4: "已出發",
   };
   const orderStatuscolor = {
     1: "statusTagTBD1",
@@ -33,7 +33,7 @@ const CampOrder = ({data}) => {
   };
 
   return (
-    //TODO: filter
+    //TODO: MEJOR- filter
     <List
     
       size="small"

@@ -24,6 +24,9 @@ import MemberOrder from './pages/Member-order';
 import Home from './pages/Home';
 import Tent from './pages/TentCRUD';
 import Activity from "./pages/Activity";
+import CampProfile from "./pages/CampProfile";
+import CampOrder from "./pages/Camp-order";
+import OrderDetails from "./pages/OrderDetails";
 
 // -------page comp----------------------------
 import LeftSideBar from "./comp/leftSideBar";
@@ -46,7 +49,7 @@ function App() {
     <AppstoreOutlined />,
     <UserOutlined />,
   ];
-  const linkTo = ["/dashboard", "/campfile", "/camporders", "/tentCRUD", "/activity"];
+  const linkTo = ["/dashBoard", "/campFile", "/campOrders", "/tentCRUD", "/activity"];
   const [contentIndex, setContentIndex] = useState(0);
   const [selectedKey, setSelectedKey] = useState("0");
   const changeSelectedKey = (event) => {
@@ -77,9 +80,13 @@ function App() {
           }}
         >
           <Routes>
-            <Route path="/dashboard" element={<Home />}/>
+            <Route path="/" element={<Home />}/>
+            <Route path="/dashBoard" element={<Home />}/>
             <Route path="/tentCRUD" element={<Tent />}/>
             <Route path="/activity" element={<Activity />}/>
+            <Route path="/campFile" element={<CampProfile />}/>
+            <Route path="/campOrders" element={<CampOrder />}/>
+            <Route path="/orderDetails/:orderId" element={<OrderDetails />}/>
           </Routes>
         </Content>
       </Layout>

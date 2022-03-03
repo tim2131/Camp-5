@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Divider, Typography, Card, List,BackTop } from "antd";
+import { Col, Row, Divider, Typography} from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import { useState, useEffect } from "react";
@@ -46,9 +46,7 @@ const OrderDetails = () => {
   const [data, setData] = useState([]);
   async function getCampPOCamp(e) {
     try {
-      let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, {
-        withCredentials: true,
-      });
+      let result = await axios.get(`${API_URL}/campPOCamp/${POId}`, { withCredentials: true,});
       console.log(`getCampPOCamp-${result.data}`);
       console.log(result.data);
       setData(result.data);
@@ -91,7 +89,8 @@ const OrderDetails = () => {
       let result = await axios.get(`${API_URL}/campPOTent/${POId}`, {
         withCredentials: true,
       });
-      // console.log(result.data);
+       console.log("TENT");
+      console.log(result.data);
       setTent(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -106,7 +105,9 @@ const OrderDetails = () => {
   async function getCampPOAct(e) {
     try {
       // http://localhost:3005/api/campPOAct/1
-      let result = await axios.get(`${API_URL}/campPOAct/${POId}`);
+      let result = await axios.get(`${API_URL}/campPOAct/${POId}`, {
+        withCredentials: true,
+      });
       console.log(`getCampPOAct-${result.data}`);
       console.log(result.data);
       setAct(result.data);
@@ -133,7 +134,7 @@ const OrderDetails = () => {
           訂單詳細
         </Title>
       </Divider>
-      <Row justify="center" gutter={{ xs: 8, sm: 16, md: 20, lg: 24 }}>
+      <Row className="rowInPODetail" justify="center" gutter={{ xs: 8, sm: 16, md: 20, lg: 24 }}>
         <Col
           className="gutter-row"
           xs={{ span: 24, offset: 0 }}

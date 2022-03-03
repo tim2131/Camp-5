@@ -25,9 +25,9 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
   };
   const orderStatus = {
     1: "未付款",
-    2: "已付款",
+    2: "待出發",
     3: "已取消",
-    4: "已完成",
+    4: "已出發",
   };
   var moment = require("moment");
   return (
@@ -40,10 +40,9 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
           <div style={style}>
             <div className={orderStatuscolor[poStatus]}>{poStatusWord}</div>
             <Divider />
-            {/* FIXME:tag沒有定義 */}
             <div className="O6orderPicBox">
-              <div className="O6_tagWord">{tagWords[item.orderstatus_id]}</div>
-              <div className={tagcolor[item.orderstatus_id]}></div>
+              <div className="O6_tagWord">{tagWords[item.camp_tag]}</div>
+              <div className={tagcolor[item.camp_tag]}></div>
               <div className="O6_list_item">
                 <img
                   className="O6_pic"
