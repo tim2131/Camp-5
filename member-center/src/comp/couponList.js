@@ -22,6 +22,7 @@ const CouponList = ({ couponData }) => {
   };
   return (
     <List
+      className='couponOuter'
       split={false}
       itemLayout="horizontal"
       dataSource={couponData}

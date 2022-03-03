@@ -14,7 +14,7 @@ import {
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined,NotificationOutlined,NotificationFilled  } from "@ant-design/icons";
 import "../style/dashBoardMember.less";
 import axios from "axios";
 import { API_URL } from "../utils/config";
@@ -120,19 +120,27 @@ const DashBoard = ({}) => {
       <div className="site-card-wrapper">
         <Row gutter={16}>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-            <Card className="rowCard" title="預定行程" bordered={false}>
+            <Card
+              className="rowCard"
+              title={<h3 className="dsCardTitle">預定行程</h3>}
+              bordered={false}
+            >
               Card content TODO:預定行程
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-            <Card className="rowCard" title="購買提醒" bordered={false}>
+            <Card
+              className="rowCard"
+              title={<h3 className="dsCardTitle">購買提醒</h3>}
+              bordered={false}
+            >
               Card content TODO:購買提醒
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card
               className="rowCard"
-              title="待用Coupon"
+              title={<h3 className="dsCardTitle">待用Coupon</h3>}
               bordered={false}
               actions={[
                 <Button type="primary" onClick={() => setCouponVisible(true)}>
@@ -140,12 +148,16 @@ const DashBoard = ({}) => {
                 </Button>,
               ]}
             >
-              {couponData && couponData.length >= 3
-                ? "您有3張Coupon即將到期!"
-                : ""}
-              {couponData && couponData.length < 3 && couponData.length > 0
-                ? "您有Coupon即將到期!"
-                : ""}
+              {couponData && couponData.length >= 3 && couponData.length > 0 ? (
+                <>
+                  <div className="pastdueAlert">
+                    <NotificationFilled />
+                    您有Coupon即將到期!
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
               <CouponList couponData={couponData} />
             </Card>
           </Col>
