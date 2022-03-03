@@ -160,7 +160,9 @@ const [ttl, setTtl] = useState([]);
         <div className="btnclaster">
           <button
             disabled={
-              Cbtn || (data && data.length > 0 && data[0].orderstatus_id === 3)
+              Cbtn ||
+              (data && data.length > 0 && data[0].orderstatus_id === 3) ||
+              (data && data.length > 0 && data[0].orderstatus_id === 4)
             }
             className="orderlinks"
             onClick={() => setvisible1(true)}
