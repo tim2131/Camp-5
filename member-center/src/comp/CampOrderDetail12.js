@@ -11,11 +11,12 @@ import {
   Avatar,
   Form,
   Input,
+  message,
 } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import Rater from "./star";
-import InputComment from './comment';
+import InputComment from "./comment";
 import { useState, useEffect } from "react";
 import { API_URL } from "../utils/config";
 import { ERR_MSG } from "../utils/error";
@@ -41,18 +42,12 @@ const OrderDetails12 = ({
   const [visible, setvisible] = useState(false);
   const [visible1, setvisible1] = useState(false);
   const [Cbtn, setCbtn] = useState(false);
+  const [Combtn, setCombtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
   const [value, setValue] = useState([]);
+const [ttl, setTtl] = useState([]);
 
-  // useEffect(() => {
-  //   // after every render
-  //   setRate({ ...rate, starValue: `${starValue}` })
-  //   console.log(rate)
-  // }, [starValue]);
 
-  function POStatusAfterChange() {
-    // console.log(data[0].orderstatus_id);
-  }
   //--------------handle BTN 區域----------------------
   const handleOk = (e) => {
     if (!value) {
@@ -65,7 +60,6 @@ const OrderDetails12 = ({
       setloading(false);
       setvisible(false);
       ratePO();
-      //TODO: MEJOR-回報成功機制
       //TODO: MEJOR-把按鈕改成看評論
       //TODO: MEJOR-看要不要可以編輯評論 或追加評論
     }, 1500);
@@ -77,6 +71,7 @@ const OrderDetails12 = ({
       setloading(false);
       setvisible1(false);
       setCbtn(true);
+      setCombtn(true);
       changePOtoCancelBE();
       setPOStatus("3");
       setPOStatusWord("已取消");
@@ -88,18 +83,20 @@ const OrderDetails12 = ({
   const { POId } = useParams();
   // console.log(`POId: ${POId}`);
 
-
-
   //---------backend----cancelPO----------------------
 
   async function changePOtoCancelBE() {
     // e.preventDefault();
     try {
-      let response = await axios.post(`${API_URL}/cancelPO/`, {
-        POId: `${POId}`
-      },{
-        withCredentials: true,
-      });
+      let response = await axios.post(
+        `${API_URL}/cancelPO/`,
+        {
+          POId: `${POId}`,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response.data);
     } catch (e) {
       console.log("error");
@@ -107,27 +104,31 @@ const OrderDetails12 = ({
   }
   //---------backend----rate PO----------------------
 
-
   async function ratePO() {
-      const campId = ppl[0].camp_id;
-      console.log("campId", campId);
+    const campId = ppl[0].camp_id;
+    console.log("campId", campId);
     try {
-      let response = await axios.post(`${API_URL}/ratePO`, {
-        campId: `${campId}`,
-        POId: `${POId}`,
-        starValue: `${starValue}`,
-        camp_comment: `${value}`,
-      },{
-        withCredentials: true,
-      });
+      let response = await axios.post(
+        `${API_URL}/ratePO`,
+        {
+          campId: `${campId}`,
+          POId: `${POId}`,
+          starValue: `${starValue}`,
+          camp_comment: `${value}`,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response.data);
+      message.success("成功送出!");
     } catch (e) {
       console.log("error");
+      message.error("錯誤存在，請稍後再試");
     }
   }
   //----------------------------------------------------
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   // -----for thumbnail---------------------------------
   const tagWords = {
     1: "主打",
@@ -145,9 +146,9 @@ const OrderDetails12 = ({
   };
   const orderStatus = {
     1: "未付款",
-    2: "已付款",
+    2: "待出發",
     3: "已取消",
-    4: "已完成",
+    4: "已出發",
   };
 
   return (
@@ -169,16 +170,17 @@ const OrderDetails12 = ({
 
           <button
             disabled={
-              Cbtn || (data && data.length > 0 && data[0].orderstatus_id === 3)
+              Combtn ||
+              (data && data.length > 0 && data[0].orderstatus_id === 3) ||
+              (data && data.length > 0 && data[0].orderstatus_id === 2) ||
+              (data && data.length > 0 && data[0].orderstatus_id === 1)
             }
             className="orderlinks"
             onClick={() => setvisible(true)}
           >
             填寫評價
           </button>
-          <button className="orderlinks" onClick={POStatusAfterChange}>
-            聯繫客服
-          </button>
+          <button className="orderlinks">聯繫客服</button>
         </div>
         <div className="orderppl">
           <br />
@@ -212,7 +214,7 @@ const OrderDetails12 = ({
                     width={250}
                     alt="logo"
                     src={`${IMAGE_URL}/images/${item.img}`}
-                  // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
@@ -258,7 +260,7 @@ const OrderDetails12 = ({
                     height={150}
                     alt="logo"
                     src={`${IMAGE_URL}/images/${item.pic}`}
-                  // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 }
               >
@@ -295,7 +297,9 @@ const OrderDetails12 = ({
           <div className="totalItemBlock">
             {tent.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="totalItem">{item.name}帳篷每晚單價(共{item.tent_qty}晚)</div>
+                <div className="totalItem">
+                  {item.name}帳篷每晚單價(共{item.tent_qty}晚)
+                </div>
               </React.Fragment>
             ))}
             {act.map((item) => (
@@ -305,13 +309,21 @@ const OrderDetails12 = ({
                 </div>
               </React.Fragment>
             ))}
-            <div className="totalItem">折扣碼</div>
+            {ppl.map((item) => (
+              <React.Fragment key={item.id}>
+                {item.discount == null ? (
+                  ""
+                ) : (
+                  <div className="totalItem">折扣碼</div>
+                )}
+              </React.Fragment>
+            ))}
+
             <Divider />
             <div className="totalItemE">訂單總額</div>
           </div>
 
           <div className="totalmoney">
-
             {tent.map((item) => (
               <React.Fragment key={item.id}>
                 <div className="total">{`${item.price * item.tent_qty}`}</div>
@@ -319,21 +331,26 @@ const OrderDetails12 = ({
             ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{`${item.price * item.number_people}`}</div>
+                <div className="total">{`${
+                  item.price * item.number_people
+                }`}</div>
               </React.Fragment>
             ))}
 
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">-{item.discount}</div>
+                {item.discount == null ? (
+                  ""
+                ) : (
+                  <div className="total">-{item.discount}</div>
+                )}
               </React.Fragment>
             ))}
 
-
             <Divider />
             <div className="totalE">
-            55555
-{/* TODO: 總價要用什麼算 */}
+              55555
+              {/* TODO: 總價要用什麼算 */}
             </div>
           </div>
         </div>

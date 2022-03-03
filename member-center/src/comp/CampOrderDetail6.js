@@ -25,9 +25,9 @@ const OrderDetails6 = ({ data, poStatus, poStatusWord }) => {
   };
   const orderStatus = {
     1: "未付款",
-    2: "已付款",
+    2: "待出發",
     3: "已取消",
-    4: "已完成",
+    4: "已出發",
   };
   var moment = require("moment");
   return (
