@@ -20,6 +20,7 @@ import CampLogin from "./components/CampLogin";
 import Signupuser from "./components/Signupuser";
 import Signupcamp from "./components/Signupcamp";
 import Forgotpw from "./components/Forgotpw";
+import InputCode from "./components/InputCode";
 import CampDetail from "./components/CampDetail";
 import { AuthContext } from "./auth/auth";
 import axios from "axios";
@@ -82,6 +83,7 @@ function App() {
             <Route path="/signupuser" exact element={<Signupuser />} />
             <Route path="/signupcamp" exact element={<Signupcamp />} />
             <Route path="/Forgotpw" exact element={<Forgotpw />} />
+            <Route path="/code" exact element={<InputCode />} />
             <Route path="/camp/:campId" element={<CampDetail />} />
             {/* <Route path="/products" element={<Products />} /> */}
             <Route path="/products" element={<ProductsList />} />
