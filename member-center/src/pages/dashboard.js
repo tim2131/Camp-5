@@ -22,6 +22,7 @@ import { IMAGE_URL } from "../utils/config";
 import CouponList from '../comp/couponList';
 import AllCouponList from "../comp/allCouponList";
 import { Navigate, Link } from "react-router-dom";
+import TimelimeLabelDemo from "../comp/purchaseTimeLine";
 
 const DashBoard = ({ }) => {
   //----------------------------
@@ -82,11 +83,26 @@ const DashBoard = ({ }) => {
       console.error("error");
     }
   }
+    // ----be-----pur------
+    const [purData, setPur] = useState([]);
+    async function Pur() {
+      try {
+        let result = await axios.get(`${API_URL}/dashboard/pur`, {
+          withCredentials: true,
+        });
+        console.log("pur", result.data[0]);
+        // console.log(response.data[0].id);
+        setPur(result.data[0]);
+      } catch (e) {
+        console.error("error");
+      }
+    }
   useEffect(() => {
     Rank();
     Coupon();
     AllCoupon();
-    Iti()
+    Iti();
+    Pur()
   }, []);
 
   //--------------------------------
@@ -182,10 +198,10 @@ const DashBoard = ({ }) => {
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card
               className="rowCard"
-              title={<h3 className="dsCardTitle">購買提醒</h3>}
+              title={<h3 className="dsCardTitle">到貨提醒</h3>}
               bordered={false}
             >
-              Card content TODO:購買提醒
+              <TimelimeLabelDemo purData={purData}/>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
