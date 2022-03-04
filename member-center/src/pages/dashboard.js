@@ -20,6 +20,7 @@ import axios from "axios";
 import { API_URL } from "../utils/config";
 import { IMAGE_URL } from "../utils/config";
 import CouponList from '../comp/couponList';
+import AllCouponList from "../comp/allCouponList";
 
 const DashBoard = ({}) => {
   //----------------------------
@@ -179,18 +180,7 @@ const DashBoard = ({}) => {
         </Row>
       </div>
 
-      <Modal
-        title="Modal 1000px width"
-        centered
-        visible={couponVisible}
-        onOk={() => setCouponVisible(false)}
-        onCancel={() => setCouponVisible(false)}
-        width={1000}
-      >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
-      </Modal>
+   <AllCouponList setCouponVisible={setCouponVisible} allCouponData={allCouponData} couponVisible={couponVisible} />
     </>
   );
 };
