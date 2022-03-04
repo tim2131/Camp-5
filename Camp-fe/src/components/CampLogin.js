@@ -107,30 +107,33 @@ const CampLogin = () => {
   return (
     <>
       <div className="container-fulid">
-        <div className="camplogin">
-          <div className="loginLogo">
-            <img src={Logo} className="loginimg" />
+        <div className="camplogin row">
+          <div className="loginLogo col-sm-8">
+            <img src={Logo} className="loginimg rwdimg" />
           </div>
 
-          <div>
+          <div className="col-sm-4">
             <br />
             <br />
             <br />
             <div>
-              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
               <div className="d-inline-block box">
-                <Link className="loginbtn1" to="/login">
+              <h1 className="loginh1 loginh1 d-inline-block ">登入</h1>
+              <Link className="loginbtn1" to="/login">
                   一般會員
                 </Link>
                 <Link className="loginbtn2 camploginbtn" to="/camplogin">
                   營主
                 </Link>
               </div>
+             
+            
 
               <form
                 onSubmit={login}
                 onInvalid={handleFormInvalid}
                 onChange={handleFormChange}
+                className="rwdform"
               >
                 <div class="form-group">
                   <label for="">帳號</label>
@@ -177,7 +180,7 @@ const CampLogin = () => {
                     )}
                   </div>
                 </div>
-                <div class="form-group form-check">
+                <div class="form-group form-check rwdlink">
                   <input type="checkbox" class="form-check-input logincheck" />
                   <label
                     class="form-check-label loginlabel"

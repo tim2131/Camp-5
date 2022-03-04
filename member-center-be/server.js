@@ -83,6 +83,8 @@ let favAllRouter = require("./routers/fav");
 app.use("/api/favAll", favAllRouter);
 let dashboardRouter = require("./routers/dashboard")
 app.use("/api/dashboard", dashboardRouter);
+let changePicRouter = require("./routers/changePic")
+app.use("/api/changePic", changePicRouter);
 
 //-----------------------------------------------------------------
 // 使用 express 內建的中間件

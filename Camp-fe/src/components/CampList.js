@@ -114,6 +114,12 @@ const CampList = () => {
     if (sortBy === "2") {
       newCampdata = [...newCampdata].sort((a, b) => b.price - a.price);
     }
+    if (sortBy === "3") {
+      newCampdata = [...newCampdata].sort((a, b) => a.stars - b.stars);
+    }
+    if (sortBy === "4") {
+      newCampdata = [...newCampdata].sort((a, b) => b.stars - a.stars);
+    }
 
     // 預設用id 小至大
     if (sortBy === "" && newCampdata.length > 0) {
@@ -234,9 +240,11 @@ const CampList = () => {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
-              <option value="">依價格排序</option>
-              <option value="1">由少至多</option>
-              <option value="2">由多至少</option>
+              <option value="">依價格或星星數排序</option>
+              <option value="1">價格由少至多</option>
+              <option value="2">價格由多至少</option>
+              <option value="3">星星數由少至多</option>
+              <option value="4">星星數由多至少</option>
             </select>
           </div>
 
@@ -247,6 +255,7 @@ const CampList = () => {
               className="search"
               value={searchWord}
               onChange={(e) => setSearchWord(e.target.value)}
+              placeholder="搜尋營地"
             />
             {/* <button>
               <img src={searchicon} />
@@ -276,7 +285,7 @@ const CampList = () => {
 
           <div className="container movecontent">
             <div className="row">
-              <Hotcamp />
+              <Hotcamp getStar={getStar}/>
               {/* 側邊空位 */}
               <div className="col-3 "></div>
 

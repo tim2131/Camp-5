@@ -17,14 +17,14 @@
   color: #6a6842;
   font-size: 48px;
 }
-.Dropdown {
-  margin-left: 1550px;
+select.Dropdown {
+  margin-left: 1500px;
   background-color: #e9e3da;
   color: #6a6842;
   border-color: darkgrey;
   border: 1px solid;
   border-color: #6a6842;
-  width: 130px;
+  width: 180px;
   margin-bottom: 30px;
 }
 
@@ -143,21 +143,25 @@
   font-size: 22px;
   font-weight: bold;
 }
-.hotcampName {
+ p.hotcampName {
   margin: 10px 0px;
+  margin-left: -200px;
+  
 }
-.hotcampPrice {
+p.hotcampPrice {
   margin-bottom: 10px;
+  margin-left: -200px;
+
 }
 
-.hotbookingBtn {
+a.hotbookingBtn {
   color: #fcf9f5;
   background-color: #c15f2e;
   border-radius: 0;
   width: 100px;
   font-size: 14px;
   font-weight: bold;
-  margin-left: 465px;
+  margin-left: 470px;
 }
 
 .campName {
