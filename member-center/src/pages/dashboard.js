@@ -38,7 +38,7 @@ const DashBoard = ({}) => {
       console.error("error");
     }
   }
-  // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
+  // ----be-----到期coupon------
   const [couponData, setCoupon] = useState([]);
   async function Coupon() {
     try {
@@ -52,9 +52,24 @@ const DashBoard = ({}) => {
       console.error("error");
     }
   }
+  // ----be-----allcoupon------
+  const [allCouponData, setAllCoupon] = useState([]);
+  async function AllCoupon() {
+    try {
+      let result = await axios.get(`${API_URL}/dashboard/allCoupon`, {
+        withCredentials: true,
+      });
+      console.log("allcoupon", result.data[0]);
+      // console.log(response.data[0].id);
+      setAllCoupon(result.data[0]);
+    } catch (e) {
+      console.error("error");
+    }
+  }
   useEffect(() => {
     Rank();
     Coupon();
+    AllCoupon();
   }, []);
 
   //--------------------------------

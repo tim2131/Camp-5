@@ -7,6 +7,7 @@ const dashboardInfo = require("../controllers/dashboard");
 
 router.get("/user", dashboardInfo.asyncUserData);
 router.get("/coupon", dashboardInfo.couponData);
+router.get("/allCoupon", dashboardInfo.couponAllData);
 router.get("/iti", dashboardInfo.itineraryData);
 router.get("/pur", dashboardInfo.purchaseData);
 

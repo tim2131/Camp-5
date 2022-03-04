@@ -24,6 +24,17 @@ let couponData = async (req, res, next) => {
   console.log(data[0][0]);
   return res.json(data);
 };
+//User coupon all
+let couponAllData = async (req, res, next) => {
+  let memberId = req.session.member.id;
+  console.log("sesson", req.session.member.id);
+  let data = await connection.execute(
+    "select * FROM coupon WHERE pastdue_date > CURDATE() AND user_id=1 AND status=1 ORDER BY `pastdue_date` DESC;",
+    [memberId]
+  );
+  console.log(data[0][0]);
+  return res.json(data);
+};
 //User itinerary
 let itineraryData = async (req, res, next) => {
   let memberId = req.session.member.id;
@@ -51,4 +62,5 @@ module.exports = {
   couponData,
   itineraryData,
   purchaseData,
+  couponAllData,
 };
