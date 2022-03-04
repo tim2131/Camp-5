@@ -12,6 +12,7 @@ router.get("/camplist", async (req, res, next) => {
 
   res.json(data);
 });
+
 //圖片
 router.use(
   "/static",

@@ -60,8 +60,8 @@ app.use(logingSignupRouter);
 let campListdRouter = require("./routers/camplist");
 app.use(campListdRouter);
 //商品列表
-let productsListRouter =require("./routers/productslist")
-app.use(productsListRouter)
+let productsListRouter = require("./routers/productslist");
+app.use(productsListRouter);
 // -----------------------------------------------------------------
 // 商品、購物車、結帳流程
 let productDetailRouter = require("./routers/product");
