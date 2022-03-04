@@ -14,14 +14,16 @@ import {
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { UserOutlined,NotificationOutlined,NotificationFilled  } from "@ant-design/icons";
+import { UserOutlined, NotificationOutlined, NotificationFilled } from "@ant-design/icons";
 import "../style/dashBoardMember.less";
 import axios from "axios";
 import { API_URL } from "../utils/config";
 import { IMAGE_URL } from "../utils/config";
 import CouponList from '../comp/couponList';
+import AllCouponList from "../comp/allCouponList";
+import { Navigate, Link } from "react-router-dom";
 
-const DashBoard = ({}) => {
+const DashBoard = ({ }) => {
   //----------------------------
   const [couponVisible, setCouponVisible] = useState(false);
   // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
@@ -66,10 +68,25 @@ const DashBoard = ({}) => {
       console.error("error");
     }
   }
+  // ----be-----iti------
+  const [itiData, setIti] = useState([]);
+  async function Iti() {
+    try {
+      let result = await axios.get(`${API_URL}/dashboard/iti`, {
+        withCredentials: true,
+      });
+      console.log("iti", result.data[0]);
+      // console.log(response.data[0].id);
+      setIti(result.data[0]);
+    } catch (e) {
+      console.error("error");
+    }
+  }
   useEffect(() => {
     Rank();
     Coupon();
     AllCoupon();
+    Iti()
   }, []);
 
   //--------------------------------
@@ -90,9 +107,9 @@ const DashBoard = ({}) => {
             <PageHeader
               className="site-page-header"
               title={`歡迎!! ${rank.name.slice(1, 5)}`}
-              //subTitle={rank.name.slice(1, 5)}
-              // extra={"test"}
-              //footer={"test"}
+            //subTitle={rank.name.slice(1, 5)}
+            // extra={"test"}
+            //footer={"test"}
             >
               <Divider style={{ marginBottom: 60, marginTop: "-3em" }}>
                 <div className="memberpicBox">
@@ -140,7 +157,26 @@ const DashBoard = ({}) => {
               title={<h3 className="dsCardTitle">預定行程</h3>}
               bordered={false}
             >
-              Card content TODO:預定行程
+              <List
+                itemLayout="horizontal"
+                dataSource={itiData}
+                renderItem={item => (
+                  <Link to={`/orderDetails/${item.CAMPID}`}>
+                  <div className="campOrder3">
+                  <List.Item>
+                  
+                    <List.Item.Meta
+                      avatar={<div className="circleDate">
+                      <div className="month3">{item.orderdate_start.split("-")[1]}</div>
+                      <div className="date3">{item.orderdate_start.split("-")[2]}</div>
+                      
+                      </div>}//Date symbol?
+                      title={<Link className="campOrder3title" to={`/orderDetails/${item.CAMPID}`}>{item.camp_name}</Link>} //linkTo
+                      description={`地址: ${item.camp_add}`}
+                    />
+                  </List.Item></div></Link>
+                )}
+              />,
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
@@ -179,18 +215,7 @@ const DashBoard = ({}) => {
         </Row>
       </div>
 
-      <Modal
-        title="Modal 1000px width"
-        centered
-        visible={couponVisible}
-        onOk={() => setCouponVisible(false)}
-        onCancel={() => setCouponVisible(false)}
-        width={1000}
-      >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
-      </Modal>
+      <AllCouponList setCouponVisible={setCouponVisible} allCouponData={allCouponData} couponVisible={couponVisible} />
     </>
   );
 };
