@@ -30,7 +30,7 @@ const AllCouponList = ({ allCouponData,couponVisible,setCouponVisible }) => {
     width={1000}
     closable={false}
     cancelText={"."}
-    cancelButtonProps={{type:"text"}}
+    cancelButtonProps={{type:"text",hidden: true}}
   >
 
  
