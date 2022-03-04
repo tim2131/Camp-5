@@ -171,7 +171,7 @@ const DashBoard = ({ }) => {
                       <div className="date3">{item.orderdate_start.split("-")[2]}</div>
                       
                       </div>}//Date symbol?
-                      title={<Link to={`/orderDetails/${item.CAMPID}`}>{item.camp_name}</Link>} //linkTo
+                      title={<Link className="campOrder3title" to={`/orderDetails/${item.CAMPID}`}>{item.camp_name}</Link>} //linkTo
                       description={`地址: ${item.camp_add}`}
                     />
                   </List.Item></div></Link>

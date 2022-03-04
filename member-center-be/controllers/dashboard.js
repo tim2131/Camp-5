@@ -39,7 +39,7 @@ let couponAllData = async (req, res, next) => {
 let itineraryData = async (req, res, next) => {
   let memberId = req.session.member.id;
   console.log("sesson", req.session.member.id);
-  let data = await connection.execute("select camp_order.id AS CAMPID,camp_order.user_id,camp_order.camp_id,camp_order.orderstatus_id,camp_order.orderdate_start,camp.Cid,camp.camp_name,camp.camp_add FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.Cid WHERE camp_order.orderdate_start > CURDATE() AND user_id=2 AND camp_order.orderstatus_id=2 ORDER BY camp_order.orderdate_start ASC LIMIT 3;", [
+  let data = await connection.execute("select camp_order.id AS CAMPID,camp_order.user_id,camp_order.camp_id,camp_order.orderstatus_id,camp_order.orderdate_start,camp.Cid,camp.camp_name,camp.camp_add FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.Cid WHERE camp_order.orderdate_start > CURDATE() AND user_id=1 AND camp_order.orderstatus_id=2 ORDER BY camp_order.orderdate_start ASC LIMIT 3;", [
     memberId,
   ]);
   console.log(data[0][0]);
