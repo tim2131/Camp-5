@@ -171,7 +171,7 @@ const Signupcamp = () => {
               onChange={handleFormChange}
             >
               <div className="row">
-                <div class="col-6 test">
+                <div class="col-6 inputmarginB">
                   <label for="company_name">營地名稱</label>
                   <input
                     type="text"
@@ -191,7 +191,7 @@ const Signupcamp = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-6 inputmarginB">
                   <label for="email">帳號</label>
                   <input
                     type="email"
@@ -209,7 +209,7 @@ const Signupcamp = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-6 inputmarginB">
                   <label for="phone">營地電話</label>
                   <input
                     type="tel"
@@ -227,7 +227,7 @@ const Signupcamp = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-6 inputmarginB">
                   <label for="password">密碼</label>
                   <input
                     type="password"
@@ -247,7 +247,7 @@ const Signupcamp = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-6 inputmarginB">
                   <label for="address">營地地址</label>
                   <input
                     type="text"

@@ -6,10 +6,12 @@ import axios from "axios";
 import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../auth/auth";
 import { useCookies } from "react-cookie";
+
 import "../style/login.css";
 
 const Login = () => {
   const [error, setError] = useState("1");
+
   // --------cookie--------------------
   // const [cookies, setCookie] = useCookies(["connect.sid"]);
   // console.log( cookies);
@@ -118,7 +120,6 @@ const Login = () => {
   return (
     <>
       <div className="container-fulid">
-       
         <div className="login row">
           <div className="loginLogo col-sm-8">
             <img src={Logo} className="loginimg rwdimg" />
@@ -129,16 +130,14 @@ const Login = () => {
             <br />
             <div>
               <div className="d-inline-block box">
-              <h1 className="loginh1 d-inline-block ">登入</h1>
-              <Link className="loginbtn1 userlogin" to="/login">
+                <h1 className="loginh1 d-inline-block ">登入</h1>
+                <Link className="loginbtn1 userlogin" to="/login">
                   一般會員
                 </Link>
                 <Link className="loginbtn2" to="/camplogin">
                   營主
                 </Link>
               </div>
-             
-            
 
               <form
                 onSubmit={login}
@@ -210,8 +209,6 @@ const Login = () => {
                   </Link>
                 </div>
 
-               
-
                 <div>
                   <button class="loginbtn3" type="submit">
                     登入
@@ -219,8 +216,7 @@ const Login = () => {
                 </div>
                 <div className="moveupnow">
                   <div className="loginOtheraccount1">以其他帳號登入</div>
-                
-              
+
                   <div className="d-flex loginPic">
                     <a href="http://google.com">
                       <img src={Google} className="p-3" />
@@ -228,9 +224,8 @@ const Login = () => {
                     <a href="http://facebook.com">
                       <img src={Facebook} className="p-3" />
                     </a>
-                    
                   </div>
-                
+
                   <div className="loginMoveLink2 moveupnow2">
                     還沒有帳號嗎? &nbsp;&nbsp;
                     <Link className="loginlink2" to="/signupuser">
@@ -245,6 +240,6 @@ const Login = () => {
       </div>
     </>
   );
-};;
+};
 
 export default Login;
