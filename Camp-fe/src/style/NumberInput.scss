@@ -1,0 +1,35 @@
+@import "./Variables.scss";
+
+.custom-number-input[type="number"]::-webkit-inner-spin-button,
+.custom-number-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number-input {
+  background: $ivory;
+  height: 45px;
+  width: 120px;
+  border: none;
+  border-top: 2px $dark-green solid;
+  border-bottom: 2px $dark-green solid;
+  text-align: center;
+}
+
+.number-input-btn {
+  width: 45px;
+  height: 45px;
+  background: $ivory;
+  border: 2px $dark-green solid;
+  color: $dark-green;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.minus-btn {
+  border-right: none;
+}
+
+.plus-btn {
+  border-left: none;
+}

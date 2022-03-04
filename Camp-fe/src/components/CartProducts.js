@@ -25,10 +25,10 @@ function CartProducts(props) {
   useEffect(async () => {
     let responseUser = await axios.get(`http://localhost:3002/api/user/1`);
     setUser(responseUser.data[0]);
-    let responseFav = await axios.get(
-      `http://localhost:3002/api/user/1/fav-product`
-    );
-    setFavData(responseFav.data);
+    // let responseFav = await axios.get(
+    //   `http://localhost:3002/api/user/1/fav-product`
+    // );
+    // setFavData(responseFav.data);
   }, []);
 
   // 加減數量
@@ -52,49 +52,49 @@ function CartProducts(props) {
   // 愛心初始------------------------------------------------
   // 要重新整理才會更新
   // 應該是要寫進localstorage再去讀他的狀態來判斷
-  const [heartDisplay, setHeartDisplay] = useState();
-  let heartState;
-  // let heartArray = [...props.inCart];
-  const heart = (id) => {
-    // console.log(`陣列裡面的id: ${id}`);
-    // console.log("favData", favData);
-    let favAlready = favData.filter(function (item) {
-      return item.product_id === id;
-    });
-    // console.log("favAlready", favAlready);
-    if (favAlready.length === 0) {
-      heartState = false;
-    } else {
-      heartState = true;
-    }
-    // console.log("heartState", id, heartState);
-    // setHeartDisplay(heartState);
-  };
-  // 點愛心
-  const toggleHeart = async (id) => {
-    // console.log(`陣列裡面的id: ${id}`);
-    let favAlready = favData.filter(function (item) {
-      return item.product_id === id;
-    });
-    // console.log(favAlready);
-    // let heartInfo;
-    if (favAlready.length === 0) {
-      // heartInfo = false;
-      let response = await axios.post(
-        "http://localhost:3002/api/user/1/fav-product/add",
-        { id: id }
-      );
-      heartState = true;
-    } else {
-      // heartInfo = true;
-      let response = await axios.post(
-        "http://localhost:3002/api/user/1/fav-product/remove",
-        { id: id }
-      );
-      heartState = false;
-    }
-    setHeartDisplay(heartState);
-  };
+  // const [heartDisplay, setHeartDisplay] = useState();
+  // let heartState;
+  // // let heartArray = [...props.inCart];
+  // const heart = (id) => {
+  //   // console.log(`陣列裡面的id: ${id}`);
+  //   // console.log("favData", favData);
+  //   let favAlready = favData.filter(function (item) {
+  //     return item.product_id === id;
+  //   });
+  //   // console.log("favAlready", favAlready);
+  //   if (favAlready.length === 0) {
+  //     heartState = false;
+  //   } else {
+  //     heartState = true;
+  //   }
+  //   // console.log("heartState", id, heartState);
+  //   // setHeartDisplay(heartState);
+  // };
+  // // 點愛心
+  // const toggleHeart = async (id) => {
+  //   // console.log(`陣列裡面的id: ${id}`);
+  //   let favAlready = favData.filter(function (item) {
+  //     return item.product_id === id;
+  //   });
+  //   // console.log(favAlready);
+  //   // let heartInfo;
+  //   if (favAlready.length === 0) {
+  //     // heartInfo = false;
+  //     let response = await axios.post(
+  //       "http://localhost:3002/api/user/1/fav-product/add",
+  //       { id: id }
+  //     );
+  //     heartState = true;
+  //   } else {
+  //     // heartInfo = true;
+  //     let response = await axios.post(
+  //       "http://localhost:3002/api/user/1/fav-product/remove",
+  //       { id: id }
+  //     );
+  //     heartState = false;
+  //   }
+  //   setHeartDisplay(heartState);
+  // };
   // 愛心放棄-----------------------------------------------------
 
   // 使用點數
@@ -135,8 +135,8 @@ function CartProducts(props) {
     pointDiscount += pointTrue[i]["point_to_money"];
     exchangedMoney += pointTrue[i]["exchanged_money"];
   }
-  console.log(pointDiscount);
-  console.log(exchangedMoney);
+  // console.log(pointDiscount);
+  // console.log(exchangedMoney);
 
   // 剩餘集點
   let leftPoint = user.point - pointDiscount;
@@ -273,7 +273,7 @@ function CartProducts(props) {
                       >
                         移除
                       </button>
-                      <button
+                      {/* <button
                         className="cart-product-heart"
                         id={heart(item.id)}
                         onClick={() => toggleHeart(item.id)}
@@ -282,7 +282,7 @@ function CartProducts(props) {
                           src={heartDisplay ? heartFull : heartEmpty}
                           alt=""
                         />
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                   <div className="cart-use-point d-flex justify-content-end align-items-center">

@@ -25,11 +25,11 @@ import CampDetail from "./components/CampDetail";
 import { AuthContext } from "./auth/auth";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ProductsList from "./components/ProductsList"
+import ProductsList from "./components/ProductsList";
 
 function App() {
   const [member, setMember] = useState(null);
-   const [ campmember, setCampMember ] = useState(null);
+  const [campmember, setCampMember] = useState(null);
 
   useEffect(() => {
     // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
@@ -38,11 +38,8 @@ function App() {
         let result = await axios.get("http://localhost:3002/member", {
           withCredentials: true,
         });
-      
-          setMember(result.data);
-       
-    
 
+        setMember(result.data);
       } catch (e) {
         // 尚未登入過
         // 401 也不會去 setMember
@@ -57,10 +54,8 @@ function App() {
         let result2 = await axios.get("http://localhost:3002/campmember", {
           withCredentials: true,
         });
-      
-          setCampMember(result2.data)
-    
 
+        setCampMember(result2.data);
       } catch (e) {
         // 尚未登入過
         // 401 也不會去 setMember
@@ -71,7 +66,9 @@ function App() {
 
   return (
     <>
-      <AuthContext.Provider value={{ member, setMember,campmember, setCampMember }}>
+      <AuthContext.Provider
+        value={{ member, setMember, campmember, setCampMember }}
+      >
         <div className="App">
           {/* <BrowserRouter> */}
           <Navbar />
@@ -85,7 +82,6 @@ function App() {
             <Route path="/Forgotpw" exact element={<Forgotpw />} />
             <Route path="/code" exact element={<InputCode />} />
             <Route path="/camp/:campId" element={<CampDetail />} />
-            {/* <Route path="/products" element={<Products />} /> */}
             <Route path="/products" element={<ProductsList />} />
             <Route path="/products/:productId" element={<ProductDetail />} />
             <Route path="/p_orders/cart" element={<ShoppingCart />} />
@@ -101,7 +97,7 @@ function App() {
             />
             <Route path="/p_orders/success" element={<OrderSuccess />} />
           </Routes>
-          {/* <Footer /> */}
+          <Footer />
           <ProductDetail />
           {/* </BrowserRouter> */}
         </div>
