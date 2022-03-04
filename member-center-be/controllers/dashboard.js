@@ -7,7 +7,7 @@ let asyncUserData = async (req, res,
   let memberId = req.session.member.id;
   console.log("sesson",req.session.member.id)
   let data = await connection.execute(
-    "SELECT user.id,user.name,user.acc_total,user.point, user_pic.id AS picId,user_pic.user_id,user_pic.img FROM user LEFT JOIN user_pic ON user.id=user_pic.user_id WHERE user.id=? ORDER BY user_pic.id DESC",
+    "SELECT user.id, user.name,user.acc_total,user.point, user_pic.id AS picId,  user_pic.user_id, user_pic.img FROM user LEFT JOIN user_pic  ON user.id=user_pic.user_id WHERE user.id=?  ORDER BY user_pic.id DESC LIMIT 1 ",
     [memberId]
   );
   console.log(data[0][0]);
