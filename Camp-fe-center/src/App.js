@@ -5,11 +5,11 @@ import {
 } from "antd";
 
 import {
-  UserOutlined,
   BorderlessTableOutlined,
   FileSearchOutlined,
   ProfileOutlined,
   AppstoreOutlined,
+  DiffOutlined
 } from "@ant-design/icons";
 import React, {useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -47,7 +47,7 @@ function App() {
     <ProfileOutlined />,
     <FileSearchOutlined />,
     <AppstoreOutlined />,
-    <UserOutlined />,
+    <DiffOutlined />,
   ];
   const linkTo = ["/dashBoard", "/campFile", "/campOrders", "/tentCRUD", "/activity"];
   const [contentIndex, setContentIndex] = useState(0);

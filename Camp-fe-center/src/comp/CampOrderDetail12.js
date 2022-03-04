@@ -23,6 +23,7 @@ import { ERR_MSG } from "../utils/error";
 import moment from "moment";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { IMAGE_URL } from "../utils/config";
 const { Title } = Typography;
 const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
@@ -167,6 +168,7 @@ const OrderDetails12 = ({
             上傳點數
           </button>
         </div>
+        
         <div className="orderppl">
           <br />
           {ppl.map((item) => (
@@ -193,12 +195,49 @@ const OrderDetails12 = ({
           <React.Fragment key={item.id}>
             <List itemLayout="vertical" size="small">
               <List.Item
+                key={item.Tid}
+                extra={
+                  <img
+                    width={250}
+                    alt="logo"
+                    src={`${IMAGE_URL}/images/${item.img}`}
+                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                  />
+                }
+              >
+                <List.Item.Meta
+                  title={
+                    <>
+                      <div className="subname3">{item.name}</div>
+                    </>
+                  }
+                  description={
+                    <>
+                      <span className="subnote2">帳篷介紹</span> <br />
+                      <span className="subname2">{item.intro}</span>
+                      <br />
+                      <span className="subnote2">帳篷類型</span> <br />
+                      <span className="subname2">{item.tent_item}</span>
+                      <br />
+                      <span className="subnote2">帳篷數</span> <br />
+                      <span className="subname2">{item.tent_qty}</span>
+                    </>
+                  }
+                />
+              </List.Item>
+            </List>
+          </React.Fragment>
+          ))}
+        {tent.map((item) => (
+          <React.Fragment key={item.id}>
+            {/* <List itemLayout="vertical" size="small">
+              <List.Item
                 key={item.id}
                 extra={
                   <img
                     width={250}
                     alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    src={'http://localhost:3005/images/'}
                   />
                 }
               >
@@ -208,18 +247,18 @@ const OrderDetails12 = ({
                       <div className="subname3">{item.item}</div>
                     </>
                   }
-                  description={
-                    <>
-                      <span className="subnote2">帳篷類型</span> <br />
-                      <span className="subname2">{item.item}</span>
-                      <br />
-                      <span className="subnote2">帳篷數</span> <br />
-                      <span className="subname2">{item.item}</span>
-                    </>
-                  }
+                  // description={
+                  //   <>
+                  //     <span className="subnote2">帳篷類型</span> <br />
+                  //     <span className="subname2">{item.item}</span>
+                  //     <br />
+                  //     <span className="subnote2">帳篷數</span> <br />
+                  //     <span className="subname2">{item.item}</span>
+                  //   </>
+                  // }
                 />
               </List.Item>
-            </List>
+            </List> */}
           </React.Fragment>
         ))}
         {/* //----tent資訊--end--------------- */}
@@ -237,8 +276,17 @@ const OrderDetails12 = ({
                 extra={
                   <img
                     width={250}
+                    height={200}
                     alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    src={'http://localhost:3005/images/camp19.jpg'}
+                  />
+                }
+                extra={
+                  <img
+                    width={250}
+                    height={200}
+                    alt="logo"
+                    src={'http://localhost:3005/images/camp2.jpg'}
                   />
                 }
               >
@@ -292,27 +340,27 @@ const OrderDetails12 = ({
 
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{item.item}1</div>
-                <div className="total">{item.item}2</div>
+                <div className="total">{item.item}NT$6000</div>
+                <div className="total">{item.item}NT$500</div>
               </React.Fragment>
             ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{item.price}3</div>
+                <div className="total">NT${item.price}</div>
               </React.Fragment>
             ))}
 
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">-{item.discount}</div>
+                <div className="total">aaabb{item.discount}</div>
               </React.Fragment>
             ))}
 
-            <div className="total">-100(用算的)</div>
+            <div className="total">NT$-500</div>
             <Divider />
             {ppl.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="totalE">{item.total}</div>
+                <div className="totalE">NT$24300</div>
               </React.Fragment>
             ))}
           </div>
@@ -320,7 +368,7 @@ const OrderDetails12 = ({
       </div>
 
       {/* ------------MODAL FOR CANCEL----------------- */}
-      <Modal
+      {/* <Modal
         visible={visible1}
         title="取消訂單"
         onCancel={() => setvisible1(false)}
@@ -336,13 +384,13 @@ const OrderDetails12 = ({
           >
             取消
           </Button>,
-        ]}
-      >
+        ]} */}
+      {/* >
         <p>您確定要取消訂單嗎?此動作不可回復，若要訂購請重新下定。</p>
-      </Modal>
+      </Modal> */}
       {/* --------------------------------- */}
       {/* ------------MODAL FOR COMMENT----------------- */}
-      <Modal
+      {/* <Modal
         visible={visible}
         title="分享你的住宿心得吧!"
         //onCancel 這樣X跟點背景就會消失 不可以拿掉
@@ -364,7 +412,7 @@ const OrderDetails12 = ({
         <Rater starValue={starValue} setStarValue={setStarValue} />
         <InputComment setValue={setValue} value={value} />
         <p>告訴別人為何喜歡這個營地吧!</p>
-      </Modal>
+      </Modal> */}
       {/* --------------------------------- */}
     </>
   );

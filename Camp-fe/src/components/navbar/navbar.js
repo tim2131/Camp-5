@@ -199,7 +199,7 @@ function Navbar() {
               <>
                 <li>
                   <button className="btn ml-2" type="submit">
-                    <Link to="">營主會員中心</Link>
+                    <a href="http://localhost:9000/">營主會員中心</a>
                   </button>
                 </li>
                 <li>

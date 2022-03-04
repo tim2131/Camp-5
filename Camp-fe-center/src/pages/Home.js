@@ -2,7 +2,9 @@ import React,{ useState } from "react";
 import { Divider, Typography,} from 'antd';
 import Video from '../img/banner.mp4';
 import Page from '../img/page.svg';
+import "../style/home.less";
 const { Title } = Typography;
+
 
 
 
@@ -44,12 +46,39 @@ function Home (){
           <Divider 
           style=
           {{ 
-            marginBottom: 60,
+            marginBottom: 30,
             background:'#E9E3DA',
           }}>
             <h1>營主說明</h1>
-            <h3></h3>
           </Divider>
+          <div className="campBoss">
+              <div className="campBoss1">
+                  <h3>1.營地資料</h3>
+                  <p>
+                    顯示營地登入相關資訊,<br/>並且可修改更新。
+                  </p>
+              </div>
+              <div className="campBoss1">
+                  <h3>2.管理訂單</h3>
+                  <p>
+                    顯示所有訂單相關資訊,<br/>並可上傳會員點數。
+                  </p>
+              </div>
+              <div className="campBoss1">
+                  <h3>3.帳篷管理</h3>
+                  <p>
+                    管理營地帳篷,<br/>新增、修改、檢視、刪除。
+                  </p>
+              </div>
+              <div className="campBoss1">
+                  <h3>4.活動管理</h3>
+                  <p>
+                  管理營地加購活動,<br/>新增、修改、檢視、刪除。
+                  </p>
+              </div>
+
+
+            </div>
         </div>
         </>
      )
