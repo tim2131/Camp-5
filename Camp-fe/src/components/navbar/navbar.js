@@ -59,10 +59,10 @@ function Navbar() {
                     </Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="#">
-                     露營車
+                      露營車
                     </Link>
                     <Link className="dropdown-item" to="#">
-                     鐘形帳篷
+                      鐘形帳篷
                     </Link>
                     <Link className="dropdown-item" to="#">
                       蒙古包
@@ -70,7 +70,6 @@ function Navbar() {
                     <Link className="dropdown-item" to="#">
                       狩獵帳
                     </Link>
-                   
                   </ul>
                   <ul>
                     <Link className="dropdown-item" to="#">
@@ -96,7 +95,7 @@ function Navbar() {
                       仙境雲海
                     </Link>
                     <Link className="dropdown-item" to="#">
-                     賞花海景
+                      賞花海景
                     </Link>
                   </ul>
                   <ul>
@@ -105,7 +104,7 @@ function Navbar() {
                     </Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="#">
-                     北區
+                      北區
                     </Link>
                     <Link className="dropdown-item" to="#">
                       中區
@@ -116,9 +115,7 @@ function Navbar() {
                     <Link className="dropdown-item" to="#">
                       東區
                     </Link>
-                   
                   </ul>
-                 
                 </div>
               </div>
             </li>
@@ -167,9 +164,11 @@ function Navbar() {
               </div>
             </li>
             <li>
-              <img src={Cart} alt="shopping-cart" />
+              <Link to="/p_orders/cart">
+                <img src={Cart} alt="shopping-cart" />
+              </Link>
             </li>
-            {member == null && campmember == null  && (
+            {member == null && campmember == null && (
               <>
                 <li>
                   <button className="btn btn-outline-danger ml-2" type="submit">
