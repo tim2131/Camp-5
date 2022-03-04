@@ -159,7 +159,7 @@ const Signupuser = () => {
   return (
     <>
       <div className="container-fulid">
-        <div className="">
+        <div className="Signupuserbody">
           <div className="Signup">
             <img src={Signup} className="Signuppic" />
           </div>
@@ -167,8 +167,9 @@ const Signupuser = () => {
           <br />
           <br />
           <div>
-            <h1 className="h1 d-inline-block Signuph1">註冊</h1>
+          <h1 className="h1 d-inline-block Signuph1">註冊</h1>
             <div className="d-inline-block Signupbox">
+           
               <Link className="Signupbtn1" to="/signupuser">
                 一般會員
               </Link>
@@ -177,13 +178,13 @@ const Signupuser = () => {
               </Link>
             </div>
 
-            <form
+            <form className="rwdsignupform"
               onSubmit={submit}
               onInvalid={handleFormInvalid}
               onChange={handleFormChange}
             >
-              <div className="row test">
-                <div class="col-6 position-relative">
+              <div className="row inputmarginB ">
+                <div class="col-sm-6 forrwd">
                   <label for="name">姓名</label>
                   <input
                     type="text"
@@ -201,7 +202,7 @@ const Signupuser = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-sm-6 inputmarginB">
                   <label for="user_name">帳號</label>
                   <input
                     type="email"
@@ -220,7 +221,7 @@ const Signupuser = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-sm-6 inputmarginB">
                   <label for="phone">手機</label>
                   <input
                     type="tel"
@@ -237,7 +238,7 @@ const Signupuser = () => {
                   )}
                 </div>
 
-                <div class="col-6 test">
+                <div class="col-sm-6 inputmarginB">
                   <label for="password">密碼</label>
                   <input
                     type="password"
@@ -256,7 +257,7 @@ const Signupuser = () => {
                   )}
                 </div>
 
-                <div class="col-6">
+                <div class="col-sm-6 forrwd">
                   <label for="date">出生日期</label>
                   <input
                     type="date"
@@ -272,7 +273,7 @@ const Signupuser = () => {
                   )}
                 </div>
 
-                <div class="col-6 ">
+                <div class="col-sm-6 ">
                   <label for="password">確認密碼</label>
                   <input
                     type="password"
@@ -325,7 +326,7 @@ const Signupuser = () => {
 
               <div className="row">
                 <div className="col-6">
-                  <div className="SignupOtheraccount">以其他帳號登入</div>
+                  <div className="SignupOtheraccount d-none d-sm-block">以其他帳號登入</div>
 
                   <div className="d-flex Signupimg">
                     <a href="http://google.com">

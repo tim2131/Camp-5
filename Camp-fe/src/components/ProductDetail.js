@@ -3,6 +3,7 @@ import { useParams, Link, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 import "../style/ProductDetail.scss";
+import "../style/NumberInput.scss";
 import ProductReview from "./ProductReview";
 import SimilarProduct from "./SimilarProduct";
 // 數量加減元件
@@ -19,6 +20,8 @@ function ProductDetail() {
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
   const [favData, setFavData] = useState([]);
+  const [userFav, setUserFav] = useState([]);
+  const [heartNumber, setHeartNumber] = useState();
 
   // 取網址中的 productId
   const { productId } = useParams();
@@ -27,15 +30,6 @@ function ProductDetail() {
   const [product, setProduct] = useState({});
 
   // 判斷localStorage是否存在，來決定購物車的初始狀態
-  // 這裡老師改過了，再自己理解看看
-  // let newCartProduct;
-  // if (localStorage.getItem("cartProduct") === null || []) {
-  //   newCartProduct = [];
-  // } else {
-  //   newCartProduct = JSON.parse(localStorage.getItem("cartProduct"));
-  // }
-  // const [cart, setCart] = useState(newCartProduct);
-
   let cart;
   if (
     localStorage.getItem("cartProduct") === null ||
@@ -49,37 +43,106 @@ function ProductDetail() {
   }
 
   // 取後端資料
-  useEffect(async () => {
-    let responseAll = await axios.get(
-      `http://localhost:3002/api/products/${productId}`
-    );
-    let responseColor = await axios.get(
-      `http://localhost:3002/api/products/${productId}/color`
-    );
-    let responseSize = await axios.get(
-      `http://localhost:3002/api/products/${productId}/size`
-    );
-    setData(responseAll.data);
-    setColor(responseColor.data);
-    setSize(responseSize.data);
-    setProduct({ ...product, ...responseAll.data[0] });
-    setProduct({ ...product, amount: 1 });
+  useEffect(() => {
+    const getData = async () => {
+      let responseAll = await axios.get(
+        `http://localhost:3002/api/products/${productId}`
+      );
+      setData(responseAll.data);
+      setProduct({ ...product, ...responseAll.data[0], amount: 1 });
+    };
+    getData();
+
+    const getColor = async () => {
+      let responseColor = await axios.get(
+        `http://localhost:3002/api/products/${productId}/color`
+      );
+      setColor(responseColor.data);
+    };
+    getColor();
+
+    const getSize = async () => {
+      let responseSize = await axios.get(
+        `http://localhost:3002/api/products/${productId}/size`
+      );
+      setSize(responseSize.data);
+    };
+    getSize();
+
+    const getFavData = async () => {
+      let responseFav = await axios.get(
+        `http://localhost:3002/api/product-fav/${productId}`
+      );
+      setFavData(responseFav.data);
+      setHeartNumber(responseFav.data.length);
+    };
+    getFavData();
+
+    const getUserFav = async () => {
+      let responseUserFav = await axios.get(
+        `http://localhost:3002/api/user/1/product-fav/${productId}`
+      );
+      setUserFav(responseUserFav.data);
+    };
+    getUserFav();
   }, []);
   // 在外面console.log取不到東西的原因是還沒set好，因為不知道react什麼時候會把它處理好，在處理好之前就抓不到資料
   // 所以才會有console.log了好幾次才有資料的情況
 
+  // 愛心初始圖片
+  let heartState;
+  const [heart, setHeart] = useState();
+  useEffect(() => {
+    console.log("userFav.length", userFav.length);
+    if (userFav.length === 0) {
+      heartState = false;
+    } else {
+      heartState = true;
+    }
+    setHeart(heartState);
+  }, [userFav]);
+
   // 點愛心
-  const [heart, setHeart] = useState(false);
-  const toggleSwitch = () => {
-    console.log("toggleSwitch");
-    // setHeart((previousState) => !previousState);
+  const toggleSwitch = async () => {
+    if (heart === false) {
+      let responseMakeHeartTrue = await axios.post(
+        `http://localhost:3002/api/user/1/fav-product/${productId}/make-true`
+      );
+      console.log("heartState true");
+      setHeartNumber(heartNumber + 1);
+    } else {
+      let responseMakeHeartFalse = await axios.post(
+        `http://localhost:3002/api/user/1/fav-product/${productId}/make-false`
+      );
+      console.log("heartState false");
+      setHeartNumber(heartNumber - 1);
+    }
+    setHeart(!heart);
   };
-  const clickHeart = heart ? heartFull : heartEmpty;
+
+  // 數量加減
+  function numMinus(e) {
+    let inputNum;
+    if (product.amount > 1) {
+      inputNum = { ...product, amount: product.amount - 1 };
+    } else {
+      inputNum = { ...product, amount: 1 };
+    }
+    setProduct(inputNum);
+  }
+  function numPlus(e) {
+    let inputNum;
+    if (product.amount < product.product_stock) {
+      inputNum = { ...product, amount: product.amount + 1 };
+    } else {
+      inputNum = { ...product, amount: product.product_stock };
+    }
+    setProduct(inputNum);
+  }
 
   function handleChange(e) {
     setProduct({ ...product, [e.target.name]: e.target.value });
   }
-  // 愛心數字
 
   // 加入購物車按鈕
   // 全部資料都寫入，要用時再挑出需要的特定資料
@@ -214,25 +277,45 @@ function ProductDetail() {
                               mobile
                               onClick={handleChange}
                             /> */}
+                            <button
+                              className="number-input-btn minus-btn"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                numMinus();
+                              }}
+                            >
+                              -
+                            </button>
                             <input
+                              className="custom-number-input"
+                              disabled
                               type="number"
                               min="1"
                               max={item.product_stock}
                               value={product.amount}
                               name="amount"
-                              onChange={handleChange}
+                              // onChange={handleChange}
                             ></input>
+                            <button
+                              className="number-input-btn plus-btn"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                numPlus();
+                              }}
+                            >
+                              +
+                            </button>
                           </div>
                           <button
                             className="product-heart-number"
                             onClick={(e) => {
                               e.preventDefault();
                               // 放在form裡的按鈕都會變傳送，所以要避免他的預設事件
-                              toggleSwitch(index);
+                              toggleSwitch();
                             }}
                           >
-                            <img src={clickHeart} alt="" />
-                            150
+                            <img src={heart ? heartFull : heartEmpty} alt="" />
+                            {heartNumber}
                           </button>
                         </div>
                         <div>

@@ -22,6 +22,7 @@ import { IMAGE_URL } from "../utils/config";
 import CouponList from '../comp/couponList';
 import AllCouponList from "../comp/allCouponList";
 import { Navigate, Link } from "react-router-dom";
+import TimelimeLabelDemo from "../comp/purchaseTimeLine";
 
 const DashBoard = ({ }) => {
   //----------------------------
@@ -82,22 +83,69 @@ const DashBoard = ({ }) => {
       console.error("error");
     }
   }
+    // ----be-----pur------
+    const [purData, setPur] = useState([]);
+    async function Pur() {
+      try {
+        let result = await axios.get(`${API_URL}/dashboard/pur`, {
+          withCredentials: true,
+        });
+        console.log("pur", result.data[0]);
+        // console.log(response.data[0].id);
+        setPur(result.data[0]);
+      } catch (e) {
+        console.error("error");
+      }
+    }
   useEffect(() => {
     Rank();
     Coupon();
     AllCoupon();
-    Iti()
+    Iti();
+    Pur()
   }, []);
 
   //--------------------------------
   const menu = (
     <Menu>
-      <Menu.Item key="1">1st menu item</Menu.Item>
-      <Menu.Item key="2">2nd menu item</Menu.Item>
-      <Menu.Item key="3">3rd menu item</Menu.Item>
+      <Menu.Item key="1"> 
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          onChange={(e) => {
+            // 圖片儲存的方式不太一樣
+            setMemberPic({ ...memberPic, photo: e.target.files[0] });
+            handleSubmitPic(e);
+          }}
+        />
+        限定格式: .jpg, .jpeg 或 .png
+        </Menu.Item>
     </Menu>
   );
-  //-----------------------
+  //--------------------------------
+
+  const [memberPic, setMemberPic] = useState({
+    photo: "",
+  });
+
+  async function handleSubmitPic(e) {
+    // e.preventDefault();
+    try {
+      // 方法2: 要圖片上傳要用 FormData
+      let formData = new FormData();
+      formData.append("photo", memberPic.photo);
+      let response = await axios.post(`${API_URL}/changePic`, formData,{
+        withCredentials: true,
+      });
+      console.log(response.data);
+    } catch (e) {
+      // console.error("error", e.response.data);
+      console.error("上傳失敗");
+    }
+  }
+
+  //--------------------------------
 
   return (
     <>
@@ -124,7 +172,7 @@ const DashBoard = ({ }) => {
                     >
                       <Avatar
                         className="avatarMember"
-                        src={<Image src={`${IMAGE_URL}/images/${rank.img}`} />}
+                         src={`${IMAGE_URL}/images/${rank.img}`}
                         size={{
                           xs: 48,
                           sm: 64,
@@ -137,10 +185,6 @@ const DashBoard = ({ }) => {
                       />
                     </div>
                   </Dropdown>
-
-                  <Button className="changePicMember" key="4" size="small">
-                    更改大頭貼 TODO: 更換大頭貼
-                  </Button>
                 </div>
               </Divider>
             </PageHeader>
@@ -182,10 +226,10 @@ const DashBoard = ({ }) => {
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card
               className="rowCard"
-              title={<h3 className="dsCardTitle">購買提醒</h3>}
+              title={<h3 className="dsCardTitle">到貨提醒</h3>}
               bordered={false}
             >
-              Card content TODO:購買提醒
+              <TimelimeLabelDemo purData={purData}/>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
