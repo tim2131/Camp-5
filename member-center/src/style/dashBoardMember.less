@@ -16,6 +16,7 @@
   top: 0em;
   left: 0;
   opacity: 0;
+   transition: 1s;
 }
 
 //desktop
@@ -23,26 +24,40 @@
   .mask {
   position: absolute;
   background-color: @success-color;
-  top: 1.5em;
+  top: 0em;
   left: 0;
   opacity: 0;
+   transition: 1s;
 }
 }
 @media all and (max-width: 992px) {
   .mask {
   position: absolute;
   background-color: @success-color;
-  top: 2em;
+  top: 0em;
   left: 0;
   opacity: 0;
+  transition: 1s;
+}
+}
+@media all and (max-width: 480px) {
+  .mask {
+  position: absolute;
+  background-color: @success-color;
+  top: 0em;
+  left: 0;
+  opacity: 0;
+  transition: 1s;
 }
 }
 
 .avaContainer:hover .avatarMember {
   opacity: 0.5;
+   transition: 1s;
 }
 .avaContainer:hover .mask {
   opacity: 1;
+   transition: 1s;
 }
 
 .changePicMember {
@@ -64,6 +79,7 @@
 }
 .campOrder3:hover {
   background-color: @body-background;
+   transition: 0.2s;
 }
 .circleDate {
   width: 3em;
@@ -96,4 +112,7 @@
 }
 .campOrder3title {
   font-size: 1.5em;
+}
+.picModal{
+  top:10em;
 }

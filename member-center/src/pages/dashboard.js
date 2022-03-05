@@ -11,6 +11,7 @@ import {
   Menu,
   Modal,
   List,
+  message,
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
@@ -26,9 +27,10 @@ import { IMAGE_URL } from "../utils/config";
 import CouponList from "../comp/couponList";
 import AllCouponList from "../comp/allCouponList";
 import { Navigate, Link } from "react-router-dom";
+import HeadPic from '../comp/HeadPic';
 
 const DashBoard = ({}) => {
-  const [memberPic, setMemberPic] = useState({  });
+  const [memberPic, setMemberPic] = useState({});
   //----------------------------
   const [couponVisible, setCouponVisible] = useState(false);
   // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
@@ -108,55 +110,66 @@ const DashBoard = ({}) => {
     Iti();
     Pur();
   }, []);
-   useEffect(() => {
-     handleSubmitPic();
-   }, [memberPic]);
+
+  // useEffect(() => {
+  //   if (formData.get("photo") === undefined) return;
+  //   handleSubmitPic();
+  // }, [memberPic]);
 
 
   //--------------------------------
-  const menu = (
-    <Menu>
-      <Menu.Item key="1">
-        <input
-          type="file"
-          id="photo"
-          name="photo"
-          onChange={(e) => {
-            onFotoClick(e);
-            
-          }}
-        />
-        限定格式: .jpg, .jpeg 或 .png
-      </Menu.Item>
-    </Menu>
-  );
+  
   //--------------------------------
+
+  const [file, setFile] = React.useState(null);
 
   async function onFotoClick(e) {
     try {
       setMemberPic({ ...memberPic, photo: e.target.files[0] });
+      setFile(e.target.files[0]);
     } catch (e) {
       console.error("onFotoClick Failed");
     }
   }
 
-  async function handleSubmitPic() {
-    // e.preventDefault();
+  async function handleSubmitPic(e) {
+    e.preventDefault(e);
     try {
       // 方法2: 要圖片上傳要用 FormData
       let formData = new FormData();
       formData.append("photo", memberPic.photo);
-      console.log("formdata",formData.get("photo"))
+      console.log("formdata", formData.get("photo"));
+      //if (formData.get("photo") === undefined) return;
       let response = await axios.post(`${API_URL}/changePic`, formData, {
         withCredentials: true,
       });
       console.log(response.data);
+       setConfirmPicLoading(true);
+       setTimeout(() => {
+         setpicModalVisible(false);
+         setConfirmPicLoading(false);
+         message.success("上傳成功");
+       }, 2000);
+      
     } catch (e) {
-      // console.error("error", e.response.data);
+       message.error("請稍後再試");
       console.error("上傳失敗");
     }
   }
+ //--------------------------------
+  const showModal = () => {
+     setpicModalVisible(true);
+  };
+    const [picModalvisible, setpicModalVisible] = React.useState(false);
+  const [confirmPicLoading, setConfirmPicLoading] = React.useState(false);
+  
+  const handlePicOk = (e) => {
+    handleSubmitPic(e);
+  };
 
+  const handlePicCancel = () => {
+    setpicModalVisible(false);
+  };
   //--------------------------------
 
   return (
@@ -164,6 +177,13 @@ const DashBoard = ({}) => {
       {rankData.map((rank) => {
         return (
           <React.Fragment>
+            <HeadPic
+              picModalvisible={picModalvisible}
+              confirmPicLoading={confirmPicLoading}
+              handlePicOk={handlePicOk}
+              handlePicCancel={handlePicCancel}
+              onFotoClick={onFotoClick}
+            />
             <PageHeader
               className="site-page-header"
               title={`歡迎!! ${rank.name.slice(1, 5)}`}
@@ -173,45 +193,40 @@ const DashBoard = ({}) => {
             >
               <Divider style={{ marginBottom: 60, marginTop: "-3em" }}>
                 <div className="memberpicBox">
-                  <Dropdown overlay={menu} trigger={["contextMenu"]}>
-                    <div
-                      className="site-dropdown-context-menu"
-                      style={{
-                        textAlign: "center",
-                        height: 200,
-                        lineHeight: "200px",
+                  <div className="avaContainer">
+                    <Avatar
+                      onClick={showModal}
+                      className="mask"
+                      size={{
+                        xs: 128,
+                        sm: 128,
+                        md: 128,
+                        lg: 160,
+                        xl: 200,
+                        xxl: 200,
                       }}
                     >
-                      <div className="avaContainer">
-                        <Avatar
-                          className="mask"
-                          size={{
-                            xs: 128,
-                            sm: 128,
-                            md: 128,
-                            lg: 160,
-                            xl: 200,
-                            xxl: 200,
-                          }}
-                        >
-                          右鍵更換頭貼
-                        </Avatar>
-                        <Avatar
-                          className="avatarMember"
-                          src={`${IMAGE_URL}/images/${rank.img}`}
-                          size={{
-                            xs: 128,
-                            sm: 128,
-                            md: 128,
-                            lg: 160,
-                            xl: 200,
-                            xxl: 200,
-                          }}
-                          icon={<UserOutlined />}
-                        />
-                      </div>
-                    </div>
-                  </Dropdown>
+                      點選更換頭貼
+                    </Avatar>
+                    <Avatar
+                      onClick={showModal}
+                      className="avatarMember"
+                      src={
+                        file
+                          ? URL.createObjectURL(file)
+                          : `${IMAGE_URL}/images/${rank.img}`
+                      }
+                      size={{
+                        xs: 128,
+                        sm: 128,
+                        md: 128,
+                        lg: 160,
+                        xl: 200,
+                        xxl: 200,
+                      }}
+                      icon={<UserOutlined />}
+                    />
+                  </div>
                 </div>
               </Divider>
             </PageHeader>
