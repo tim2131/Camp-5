@@ -14,17 +14,21 @@ import {
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
-import { UserOutlined, NotificationOutlined, NotificationFilled } from "@ant-design/icons";
+import {
+  UserOutlined,
+  NotificationOutlined,
+  NotificationFilled,
+} from "@ant-design/icons";
 import "../style/dashBoardMember.less";
 import axios from "axios";
 import { API_URL } from "../utils/config";
 import { IMAGE_URL } from "../utils/config";
-import CouponList from '../comp/couponList';
+import CouponList from "../comp/couponList";
 import AllCouponList from "../comp/allCouponList";
 import { Navigate, Link } from "react-router-dom";
-import TimelimeLabelDemo from "../comp/purchaseTimeLine";
 
-const DashBoard = ({ }) => {
+const DashBoard = ({}) => {
+  const [memberPic, setMemberPic] = useState({  });
   //----------------------------
   const [couponVisible, setCouponVisible] = useState(false);
   // ----be-----User基本資料:名字,點數,照片,跟等級=消費金額------
@@ -83,59 +87,67 @@ const DashBoard = ({ }) => {
       console.error("error");
     }
   }
-    // ----be-----pur------
-    const [purData, setPur] = useState([]);
-    async function Pur() {
-      try {
-        let result = await axios.get(`${API_URL}/dashboard/pur`, {
-          withCredentials: true,
-        });
-        console.log("pur", result.data[0]);
-        // console.log(response.data[0].id);
-        setPur(result.data[0]);
-      } catch (e) {
-        console.error("error");
-      }
+  // ----be-----pur------
+  const [purData, setPur] = useState([]);
+  async function Pur() {
+    try {
+      let result = await axios.get(`${API_URL}/dashboard/pur`, {
+        withCredentials: true,
+      });
+      console.log("pur", result.data[0]);
+      // console.log(response.data[0].id);
+      setPur(result.data[0]);
+    } catch (e) {
+      console.error("error");
     }
+  }
   useEffect(() => {
     Rank();
     Coupon();
     AllCoupon();
     Iti();
-    Pur()
+    Pur();
   }, []);
+   useEffect(() => {
+     handleSubmitPic();
+   }, [memberPic]);
+
 
   //--------------------------------
   const menu = (
     <Menu>
-      <Menu.Item key="1"> 
+      <Menu.Item key="1">
         <input
           type="file"
           id="photo"
           name="photo"
           onChange={(e) => {
-            // 圖片儲存的方式不太一樣
-            setMemberPic({ ...memberPic, photo: e.target.files[0] });
-            handleSubmitPic(e);
+            onFotoClick(e);
+            
           }}
         />
         限定格式: .jpg, .jpeg 或 .png
-        </Menu.Item>
+      </Menu.Item>
     </Menu>
   );
   //--------------------------------
 
-  const [memberPic, setMemberPic] = useState({
-    photo: "",
-  });
+  async function onFotoClick(e) {
+    try {
+      setMemberPic({ ...memberPic, photo: e.target.files[0] });
+    } catch (e) {
+      console.error("onFotoClick Failed");
+    }
+  }
 
-  async function handleSubmitPic(e) {
+  async function handleSubmitPic() {
     // e.preventDefault();
     try {
       // 方法2: 要圖片上傳要用 FormData
       let formData = new FormData();
       formData.append("photo", memberPic.photo);
-      let response = await axios.post(`${API_URL}/changePic`, formData,{
+      console.log("formdata",formData.get("photo"))
+      let response = await axios.post(`${API_URL}/changePic`, formData, {
         withCredentials: true,
       });
       console.log(response.data);
@@ -155,9 +167,9 @@ const DashBoard = ({ }) => {
             <PageHeader
               className="site-page-header"
               title={`歡迎!! ${rank.name.slice(1, 5)}`}
-            //subTitle={rank.name.slice(1, 5)}
-            // extra={"test"}
-            //footer={"test"}
+              //subTitle={rank.name.slice(1, 5)}
+              // extra={"test"}
+              //footer={"test"}
             >
               <Divider style={{ marginBottom: 60, marginTop: "-3em" }}>
                 <div className="memberpicBox">
@@ -170,19 +182,34 @@ const DashBoard = ({ }) => {
                         lineHeight: "200px",
                       }}
                     >
-                      <Avatar
-                        className="avatarMember"
-                         src={`${IMAGE_URL}/images/${rank.img}`}
-                        size={{
-                          xs: 48,
-                          sm: 64,
-                          md: 80,
-                          lg: 128,
-                          xl: 160,
-                          xxl: 200,
-                        }}
-                        icon={<UserOutlined />}
-                      />
+                      <div className="avaContainer">
+                        <Avatar
+                          className="mask"
+                          size={{
+                            xs: 128,
+                            sm: 128,
+                            md: 128,
+                            lg: 160,
+                            xl: 200,
+                            xxl: 200,
+                          }}
+                        >
+                          右鍵更換頭貼
+                        </Avatar>
+                        <Avatar
+                          className="avatarMember"
+                          src={`${IMAGE_URL}/images/${rank.img}`}
+                          size={{
+                            xs: 128,
+                            sm: 128,
+                            md: 128,
+                            lg: 160,
+                            xl: 200,
+                            xxl: 200,
+                          }}
+                          icon={<UserOutlined />}
+                        />
+                      </div>
                     </div>
                   </Dropdown>
                 </div>
@@ -204,23 +231,37 @@ const DashBoard = ({ }) => {
               <List
                 itemLayout="horizontal"
                 dataSource={itiData}
-                renderItem={item => (
+                renderItem={(item) => (
                   <Link to={`/orderDetails/${item.CAMPID}`}>
-                  <div className="campOrder3">
-                  <List.Item>
-                  
-                    <List.Item.Meta
-                      avatar={<div className="circleDate">
-                      <div className="month3">{item.orderdate_start.split("-")[1]}</div>
-                      <div className="date3">{item.orderdate_start.split("-")[2]}</div>
-                      
-                      </div>}//Date symbol?
-                      title={<Link className="campOrder3title" to={`/orderDetails/${item.CAMPID}`}>{item.camp_name}</Link>} //linkTo
-                      description={`地址: ${item.camp_add}`}
-                    />
-                  </List.Item></div></Link>
+                    <div className="campOrder3">
+                      <List.Item>
+                        <List.Item.Meta
+                          avatar={
+                            <div className="circleDate">
+                              <div className="month3">
+                                {item.orderdate_start.split("-")[1]}
+                              </div>
+                              <div className="date3">
+                                {item.orderdate_start.split("-")[2]}
+                              </div>
+                            </div>
+                          } //Date symbol?
+                          title={
+                            <Link
+                              className="campOrder3title"
+                              to={`/orderDetails/${item.CAMPID}`}
+                            >
+                              {item.camp_name}
+                            </Link>
+                          } //linkTo
+                          description={`地址: ${item.camp_add}`}
+                        />
+                      </List.Item>
+                    </div>
+                  </Link>
                 )}
-              />,
+              />
+              ,
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
@@ -229,7 +270,30 @@ const DashBoard = ({ }) => {
               title={<h3 className="dsCardTitle">到貨提醒</h3>}
               bordered={false}
             >
-              <TimelimeLabelDemo purData={purData}/>
+              <List
+                itemLayout="horizontal"
+                dataSource={purData}
+                renderItem={(item) => (
+                  <div className="campOrder3">
+                    <List.Item key={item.POId}>
+                      <List.Item.Meta
+                        avatar={
+                          <div className="circleDate">
+                            <div className="month3">
+                              {item.delivery_time.split("-")[1]}
+                            </div>
+                            <div className="date3">
+                              {item.delivery_time.split("-")[2]}
+                            </div>
+                          </div>
+                        }
+                        title={`訂單${item.POId}即將寄出`} //linkTo
+                        description={`購買品項: ${item.product_name}*${item.quantity}...等`}
+                      />
+                    </List.Item>
+                  </div>
+                )}
+              />
             </Card>
           </Col>
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
@@ -259,7 +323,11 @@ const DashBoard = ({ }) => {
         </Row>
       </div>
 
-      <AllCouponList setCouponVisible={setCouponVisible} allCouponData={allCouponData} couponVisible={couponVisible} />
+      <AllCouponList
+        setCouponVisible={setCouponVisible}
+        allCouponData={allCouponData}
+        couponVisible={couponVisible}
+      />
     </>
   );
 };
