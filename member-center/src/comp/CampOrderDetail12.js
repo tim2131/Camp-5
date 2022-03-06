@@ -6,12 +6,10 @@ import {
   List,
   Modal,
   Button,
-  Result,
-  Comment,
-  Avatar,
-  Form,
   Input,
   message,
+  Avatar,
+  Rate,
 } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
@@ -30,21 +28,17 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const OrderDetails12 = ({
-  ppl,
-  tent,
-  act,
-  data,
-  setPOStatus,
-  setPOStatusWord,
-}) => {
+const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) => {
   const [loading, setloading] = useState(false);
-  const [visible, setvisible] = useState(false);
-  const [visible1, setvisible1] = useState(false);
+  const [visible, setvisible] = useState(false); //write comment modal
+  const [visible1, setvisible1] = useState(false); //cancel
+  const [visible2, setvisible2] = useState(false); //existed comment
+  const [visible3, setvisible3] = useState(false); //see comment btn
   const [Cbtn, setCbtn] = useState(false);
   const [Combtn, setCombtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState([]); //camp_comment
+  const [existedComment, setExistedComment] = useState([]); //Existed camp_comment
 
   // if (tent[0] !== undefined && ppl.length !== 0 && act.length !== 0) {
   //   console.log("tent.price", tent[0].price * tent[0].tent_qty);
@@ -132,14 +126,32 @@ const OrderDetails12 = ({
       message.error("錯誤存在，請稍後再試");
     }
   }
-  //----------------------------------------------------
-  const [ttl, setTtl] = useState([]);
-//   const ref = useRef();
-//   const refact = useRef();
-//   const reftent = useRef();
-// console.log(reftent)
+  //---------backend----rate PO----------------------
 
-  
+  async function seeRatePO() {
+    console.log(`POId: ${POId}`);
+    try {
+      let response = await axios.get(`${API_URL}/seeRatePO/${POId}`, {
+        withCredentials: true,
+      });
+      console.log("seeRatePO");
+      console.log(response.data);
+      setExistedComment(response.data);
+    } catch (e) {
+      console.log("error");
+      message.error("錯誤存在，請稍後再試");
+    }
+  }
+  useEffect(() => {
+    seeRatePO();
+  }, []);
+  //----------------------------------------
+  const [ttl, setTtl] = useState([]);
+  //   const ref = useRef();
+  //   const refact = useRef();
+  //   const reftent = useRef();
+  // console.log(reftent)
+
   //   const actTtl = refact.current?.innerText || "0"
   //   setTtl({ ...ttl, "actTtl": actTtl });
   //   const TentTtl = reftent.current?.innerText || "0";
@@ -147,7 +159,7 @@ const OrderDetails12 = ({
   // };
   // useEffect(() => {
   //   if (!reftent.current) {
-      
+
   //   } else {
   //     const final = () => {
   //       for (var i = 0; i <= tent.length; i++) {
@@ -210,6 +222,13 @@ const OrderDetails12 = ({
             onClick={() => setvisible(true)}
           >
             填寫評價
+          </button>
+          <button
+            className="orderlinks"
+            //visible={visible3}
+            onClick={() => setvisible2(true)}
+          >
+            你的評論
           </button>
           <button className="orderlinks">聯繫客服</button>
         </div>
@@ -369,10 +388,9 @@ const OrderDetails12 = ({
             {act.map((item) => (
               <React.Fragment key={item.id}>
                 <div
-                  // ref={refact} 
-                  className="total">{`${
-                  item.price * item.number_people
-                }`}</div>
+                  // ref={refact}
+                  className="total"
+                >{`${item.price * item.number_people}`}</div>
               </React.Fragment>
             ))}
 
@@ -381,9 +399,10 @@ const OrderDetails12 = ({
                 {item.discount == null ? (
                   ""
                 ) : (
-                    <div
-                      // ref={ref} 
-                      className="total">
+                  <div
+                    // ref={ref}
+                    className="total"
+                  >
                     -{item.discount}
                   </div>
                 )}
@@ -443,8 +462,50 @@ const OrderDetails12 = ({
         <p>告訴別人為何喜歡這個營地吧!</p>
       </Modal>
       {/* --------------------------------- */}
+      {/* ------------MODAL FOR Seeing COMMENT----------------- */}
+      <Modal
+        visible={visible2}
+        title="你的心得"
+        //onCancel 這樣X跟點背景就會消失 不可以拿掉
+        onCancel={() => setvisible2(false)}
+        footer={[
+          <Button key="back" onClick={() => setvisible2(false)}>
+            返回
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={loading}
+            onClick={() => handleOk()}
+          >
+            送出
+          </Button>,
+        ]}
+      >
+        {existedComment.map((item) => (
+          <>
+            <div className="flex-wrapper">
+              <Avatar
+                className="existed_rate_avatar "
+                // src="https://joeschmoe.io/api/v1/random"
+                src={`${IMAGE_URL}/images/${item.img}`}
+              />
+              <div className="existed_rate">
+                <div className="existed_rate_time">{item.created_time}</div>
+                <Rate
+                  disabled
+                  value={item.camp_stars}
+                  //setStarValue={setStarValue}
+                />
+                <div>{item.camp_comment}</div>
+              </div>
+            </div>
+          </>
+        ))}
+      </Modal>
+      {/* --------------------------------- */}
     </>
   );
-};
+};;;;
 
 export default OrderDetails12;

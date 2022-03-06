@@ -1,6 +1,6 @@
 import { Rate } from "antd";
 import React from "react";
-import { useState, useEffect } from "react";
+
 
 const desc = ["有點糟", "還可以", "普通", "滿意", "太棒啦!"];
 

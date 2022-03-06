@@ -191,7 +191,11 @@ const DashBoard = ({}) => {
               // extra={"test"}
               //footer={"test"}
             >
-              <Divider style={{ marginBottom: 60, marginTop: "-3em" }}>
+              test
+              <Divider
+                style={{ marginBottom: 20, marginTop: "-3em" ,border:"5em" }}
+                
+              >
                 <div className="memberpicBox">
                   <div className="avaContainer">
                     <Avatar
