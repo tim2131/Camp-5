@@ -12,6 +12,7 @@ import starEmpty from "../img/icon/star-empty.svg";
 import Pagination from "./Pagination";
 import Footer from "./Footer";
 import Hotcamp from "./Hotcamp";
+import CampListData from "./CampListData";
 
 const CampList = () => {
   const [campdata, setCampdata] = useState([]); //原始資料
@@ -30,6 +31,8 @@ const CampList = () => {
   const [region2data, setRegion2data] = useState([]); //中區資料
   const [region3data, setRegion3data] = useState([]); //南區資料
   const [region4data, setRegion4data] = useState([]); //東區資料
+    // 載入指示的spinner動畫用的
+  const [isLoading, setIsLoading] = useState(false); 
   const camptagWords = {
     1: "主打",
     2: "促銷",
@@ -40,11 +43,31 @@ const CampList = () => {
     2: "camptag",
   };
 
+
+  const spinner = (
+    <>
+      <div className="d-flex justify-content-center spinnerheight">
+        <div className="spinner-border text-success spinnersize" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    </>
+  );
+
   const indexOfLastPosts = currentPage * postsPerPage; //每一頁的最後一筆資料
   const indexOfFirstPosts = indexOfLastPosts - postsPerPage; //每一頁的第一筆資料
 
   //從陣列中抓每一頁的第一筆到最後一筆資料
   const currentPost = showdata.slice(indexOfFirstPosts, indexOfLastPosts);
+
+
+  useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [isLoading]);
 
   //抓後台資料
   useEffect(() => {
@@ -292,52 +315,10 @@ const CampList = () => {
               {/* 營地列表Card */}
               <div className="col-9 movelist">
                 <div className="row">
-                  {currentPost.map((v) => {
-                    return (
-                      <div className="col-4">
-                        <div key={v.id} class="card content">
-                          <div className="movebadge d-flex justify-content-end">
-                            <span class="badge badge1size">
-                              {v.camp_county}
-                            </span>
-                            <span class="badge badge2size">{v.camp_item}</span>
-                            <span class="badge badge3size">{v.tent_item}</span>
-                          </div>
-                          <div className="camplistPicBox">
-                            <div className="camptagWord">
-                              {camptagWords[v.camp_tag]}
-                            </div>
-                            <div className={camptagcolor[v.camp_tag]}></div>
-                            <div className="camplist_item">
-                              <img
-                                className="camppic"
-                                src={`http://localhost:3002/static/${v.img1}`}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-
-                          <div class="card-body">
-                            <p class="card-text text-center campName">
-                              {v.camp_name}
-                            </p>
-                            <p class="card-text text-center campPrice">
-                              ${v.price}元起
-                            </p>
-
-                            <div className="d-flex star">
-                              <div className="avgnumber">{v.stars}</div>
-                              {getStar(v.stars)}
-                            </div>
-
-                            <Link to={`/camp/${v.Cid}`} class="btn bookingBtn">
-                              立即預約
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                <CampListData  currentPost={currentPost}
+                      camptagWords={camptagWords}
+                      camptagcolor={camptagcolor}
+                      getStar={getStar}/>
                 </div>
               </div>
             </div>
