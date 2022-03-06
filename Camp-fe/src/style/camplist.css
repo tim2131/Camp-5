@@ -255,7 +255,14 @@ ul.page li a {
 .asideheight {
   position: absolute;
   height: 2800px;
- 
- 
- 
+
+}
+
+.spinnersize{
+  height: 200px;
+  width: 200px;
+  margin-left: 400px;
+}
+.spinnerheight{
+  height: 1000px;
 }
