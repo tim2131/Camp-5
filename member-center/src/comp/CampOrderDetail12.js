@@ -220,7 +220,7 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
             }
             // className="orderlinks "
             className={
-              (existedComment && existedComment.length <= 0)
+              existedComment && existedComment.length <= 0
                 ? "orderlinks"
                 : "orderlinks displayNone  "
             }
@@ -232,7 +232,10 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
           <button
             //className="orderlinks"
             className={
-              existedComment && existedComment.length > 0
+              (existedComment && existedComment.length > 0) ||
+              (existedComment &&
+                existedComment.length>0 &&
+                existedComment[0].orderstatus_id > 0)
                 ? "orderlinks "
                 : "orderlinks displayNone "
             }
