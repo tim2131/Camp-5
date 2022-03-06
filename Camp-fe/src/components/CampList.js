@@ -224,6 +224,7 @@ const CampList = () => {
 
   //呈現篩選後資料
   useEffect(() => {
+    setIsLoading(true);
     let newCampdata = [...campdata];
 
     // 處理搜尋
@@ -315,10 +316,13 @@ const CampList = () => {
               {/* 營地列表Card */}
               <div className="col-9 movelist">
                 <div className="row">
-                <CampListData  currentPost={currentPost}
+                  {isLoading ? (spinner) : (
+                      <CampListData  currentPost={currentPost}
                       camptagWords={camptagWords}
                       camptagcolor={camptagcolor}
                       getStar={getStar}/>
+                  )}
+              
                 </div>
               </div>
             </div>
