@@ -218,13 +218,24 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
               (data && data.length > 0 && data[0].orderstatus_id === 2) ||
               (data && data.length > 0 && data[0].orderstatus_id === 1)
             }
-            className="orderlinks"
+            // className="orderlinks "
+            className={
+              (existedComment && existedComment.length <= 0)
+                ? "orderlinks"
+                : "orderlinks displayNone  "
+            }
             onClick={() => setvisible(true)}
           >
             填寫評價
           </button>
+
           <button
-            className="orderlinks"
+            //className="orderlinks"
+            className={
+              existedComment && existedComment.length > 0
+                ? "orderlinks "
+                : "orderlinks displayNone "
+            }
             //visible={visible3}
             onClick={() => setvisible2(true)}
           >
@@ -476,9 +487,9 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
             key="submit"
             type="primary"
             loading={loading}
-            onClick={() => handleOk()}
+            // onClick={}
           >
-            送出
+            TODO:編輯
           </Button>,
         ]}
       >
