@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "../style/CampDetail.scss";
 import ProductReview from "./ProductReview";
 import SimilarProduct from "./SimilarProduct";
 import PicSlider from "./PicSlider";
-import Test2 from "../components/Test2";
+import Map from "./Map";
 
-// 數量加減元件
-import NumericInput from "react-numeric-input";
-import "../style/NumericInput.scss";
 //日曆
 import "react-date-range/src/styles.scss"; // main style file
 import "react-date-range/src/theme/default.scss"; // theme css file
@@ -22,12 +19,11 @@ import wind from "../img/wind.svg";
 import wifi from "../img/wifi.svg";
 import phone from "../img/phone.svg";
 import bed from "../img/bed.svg";
-import tent2 from "../img/tent2.jpg";
-import tent3 from "../img/tent3.jpg";
-import tent4 from "../img/tent4.jpg";
+
 import bike from "../img/bike.jpg";
 import diy from "../img/diy.jpg";
 import pet from "../img/pet.jpg";
+import TentSelect from "./TentSelect";
 
 function CampDetail() {
   const [state, setState] = useState([
@@ -37,6 +33,7 @@ function CampDetail() {
       key: "selection",
     },
   ]);
+
   const [data, setData] = useState([]);
   const [tentdata, setTentData] = useState([]);
   const { campId } = useParams();
@@ -54,13 +51,25 @@ function CampDetail() {
     };
     getCamp();
   }, []);
+  //日期加入localStorage
+  useEffect(() => {
+    localStorage.setItem("myDate", JSON.stringify(state));
+  }, [state]);
 
+  //檢視日期
+  useEffect(() => {
+    let a = JSON.parse(localStorage.getItem("myDate"));
+    console.log(a);
+    console.log(localStorage.key(0));
+  }, []);
+
+  //加入立即按鈕
+  // 全部資料都寫入，要用時再挑出需要的特定資料
   async function handleSumbit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     console.log("state", state);
-    // let response = await axios.post("http://localhost:3002/api/booking");
-    // console.log(response.data);
   }
+
   return (
     <>
       {data.map((item) => {
@@ -241,7 +250,7 @@ function CampDetail() {
                   </div>
                   <div className="col-6">
                     <div className="mapA">
-                      <Test2 />
+                      <Map />
                     </div>
                     <div className="dateTable">
                       <DateRange
@@ -253,56 +262,17 @@ function CampDetail() {
                     </div>
                   </div>
                 </div>
-
-                {tentdata.map((tent, i) => {
-                  return (
-                    <div className="tentBlockA row">
-                      <div className="col-2">
-                        <div className="tentSmall">
-                          <img
-                            className="tentSmallPic"
-                            src={`http://localhost:3002/tent-pic/img/${tent.img}`}
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div className="col-1 align-self-center">
-                        <div>
-                          <h5>{tent.tent_item}</h5>
-                        </div>
-                      </div>
-                      <div className="col-3 align-self-center">
-                        <div>
-                          <h3>{tent.tent_item}</h3>
-                        </div>
-                      </div>
-                      <div className="tentTextBlock col-4 align-self-center">
-                        <div className="d-flex justify-content-center">
-                          <h5>
-                            定價:{tent.price}元/帳
-                            <br />
-                            <br />
-                            最大入住人:{tent.number}人
-                          </h5>
-                        </div>
-                      </div>
-                      <div className="col-2 align-self-center">
-                        <div className="count">
-                          <NumericInput min={1} max={100} value={1} mobile />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-
+                <TentSelect />
                 <div className="d-flex justify-content-center">
-                  <button
-                    className="btn btn-danger btn-lg reserveBtn"
-                    type="submit"
-                    onClick={handleSumbit}
-                  >
-                    立即預定
-                  </button>
+                  <Link to={`/booking/${item.Cid}`}>
+                    <button
+                      className="btn btn-danger btn-lg reserveBtn"
+                      type="submit"
+                      onClick={handleSumbit}
+                    >
+                      立即預定
+                    </button>
+                  </Link>
                 </div>
                 <div className="addAct">
                   <h3>加購活動</h3>
