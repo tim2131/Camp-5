@@ -26,6 +26,7 @@ import { AuthContext } from "./auth/auth";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductsList from "./components/ProductsList";
+import Booking from "./components/Booking";
 
 function App() {
   const [member, setMember] = useState(null);
@@ -86,6 +87,8 @@ function App() {
             <Route path="/products/:productId" element={<ProductDetail />} />
             <Route path="/p_orders/cart" element={<ShoppingCart />} />
             <Route path="/p_orders/payment" element={<PaymentForGoods />} />
+            <Route path="/booking/:campId" element={<Booking />} />
+
 
             <Route
               path="/p_orders/shipment/credit_card"
