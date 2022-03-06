@@ -33,7 +33,8 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
   const [visible, setvisible] = useState(false); //write comment modal
   const [visible1, setvisible1] = useState(false); //cancel
   const [visible2, setvisible2] = useState(false); //existed comment
-  const [visible3, setvisible3] = useState(false); //see comment btn
+  const [visible3, setvisible3] = useState(true); //see comment btn
+  const [visible4, setvisible4] = useState(true); //write comment btn
   const [Cbtn, setCbtn] = useState(false);
   const [Combtn, setCombtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
@@ -59,6 +60,8 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
       setloading(false);
       setvisible(false);
       ratePO();
+      setvisible3(false);
+    
       //TODO: MEJOR-把按鈕改成看評論
       //TODO: MEJOR-看要不要可以編輯評論 或追加評論
     }, 1500);
@@ -126,7 +129,7 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
       message.error("錯誤存在，請稍後再試");
     }
   }
-  //---------backend----rate PO----------------------
+  //---------backend----see PO----------------------
 
   async function seeRatePO() {
     console.log(`POId: ${POId}`);
@@ -145,6 +148,11 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
   useEffect(() => {
     seeRatePO();
   }, []);
+  //---------------------------------------
+  const seeRateAfter = () => {
+    setvisible2(true);
+    seeRatePO();
+  }
   //----------------------------------------
   const [ttl, setTtl] = useState([]);
   //   const ref = useRef();
@@ -210,40 +218,48 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
           >
             取消訂單
           </button>
-
-          <button
-            disabled={
-              Combtn ||
-              (data && data.length > 0 && data[0].orderstatus_id === 3) ||
-              (data && data.length > 0 && data[0].orderstatus_id === 2) ||
-              (data && data.length > 0 && data[0].orderstatus_id === 1)
-            }
-            // className="orderlinks "
-            className={
-              existedComment && existedComment.length <= 0
-                ? "orderlinks"
-                : "orderlinks displayNone  "
-            }
-            onClick={() => setvisible(true)}
-          >
-            填寫評價
-          </button>
-
+          {visible3 ? (
+            <button
+              disabled={
+                Combtn ||
+                (data && data.length > 0 && data[0].orderstatus_id === 3) ||
+                (data && data.length > 0 && data[0].orderstatus_id === 2) ||
+                (data && data.length > 0 && data[0].orderstatus_id === 1)
+              }
+              // className="orderlinks "
+              className={
+                existedComment && existedComment.length <= 0
+                  ? "orderlinks"
+                  : "orderlinks displayNone  "
+              }
+              onClick={() => setvisible(true)}
+            >
+              填寫評價
+            </button>
+          ) : (
+            <button
+              //className="orderlinks"
+              className="orderlinks"
+              onClick={() => seeRateAfter()}
+            >
+              你的評論
+            </button>
+          )}
           <button
             //className="orderlinks"
             className={
               (existedComment && existedComment.length > 0) ||
               (existedComment &&
-                existedComment.length>0 &&
+                existedComment.length > 0 &&
                 existedComment[0].orderstatus_id > 0)
                 ? "orderlinks "
                 : "orderlinks displayNone "
             }
-            //visible={visible3}
             onClick={() => setvisible2(true)}
           >
             你的評論
           </button>
+
           <button className="orderlinks">聯繫客服</button>
         </div>
         <div className="orderppl">
@@ -483,17 +499,17 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
         //onCancel 這樣X跟點背景就會消失 不可以拿掉
         onCancel={() => setvisible2(false)}
         footer={[
-          <Button key="back" onClick={() => setvisible2(false)}>
+          <Button type="primary" key="back" onClick={() => setvisible2(false)}>
             返回
           </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={loading}
-            // onClick={}
-          >
-            TODO:編輯
-          </Button>,
+          // <Button
+          //   key="submit"
+          //   type="primary"
+          //   loading={loading}
+          //   // onClick={}
+          // >
+          //   TODO:編輯
+          // </Button>,
         ]}
       >
         {existedComment.map((item) => (
@@ -520,6 +536,6 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
       {/* --------------------------------- */}
     </>
   );
-};;;;
+};;;;;
 
 export default OrderDetails12;
