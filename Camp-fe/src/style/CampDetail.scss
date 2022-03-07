@@ -1,7 +1,6 @@
 .list_item {
   max-width: 1440px;
   height: 632px;
-  
 }
 
 .pic {
@@ -39,7 +38,7 @@
   height: 100%;
   padding: 10px;
 }
-.smallPicGroup{
+.smallPicGroup {
   display: flex;
   justify-content: center;
   padding-top: 25px;
@@ -55,53 +54,55 @@
   border-top: solid black;
   margin: auto;
 }
-.labelGroup{
+.labelGroup {
   display: flex;
   justify-content: center;
   padding-top: 36px;
   padding-bottom: 15px;
 }
-.labelA{
-  background-color: orangered;
+.labelA {
+  background-color: #c15f2e;
 }
-.labelB{
-  background-color: lightgreen;
+.labelB {
+  background-color: #dce1d9;
   margin-right: 27px;
   margin-left: 27px;
 }
-.labelC{
-  background-color:darkgreen;
+.labelC {
+  background-color: #6a6842;
 }
-.address{
+.address {
   text-align: center;
- 
 }
-.campIntro{
+.campIntro {
   margin: auto;
   max-width: 1120px;
   text-align: center;
 }
-.A{
+.A {
   width: 698px;
   height: 1020px;
-  background-color: yellowgreen;
+  background-color: #6a6842;
   border: 1px solid black;
 }
 .facDetialGroup {
   width: 200px;
   height: 681px;
   margin-left: 110px;
+  color: #e9e3da;
 }
 .facGroup {
   width: 200px;
   height: 490px;
   margin-left: 110px;
+  color: #e9e3da;
 }
 .note {
   width: 547px;
   height: 589px;
   margin-left: 80px;
   margin-top: 50px;
+  color: #e9e3da;
 }
 .mapA {
   width: 697px;
@@ -139,7 +140,7 @@
 .count {
   width: 209px;
   height: 40px;
-  background-color: aqua;
+  // background-color: aqua;
 }
 .tentBlockB {
   width: 1440px;
@@ -178,6 +179,10 @@
   width: 380px;
   height: 382px;
 }
-.cardC{
+.cardC {
   margin: auto;
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: #e9e3da;
 }

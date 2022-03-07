@@ -79,6 +79,8 @@ let cancelPORouter = require("./routers/cancelPO")
 app.use("/api/cancelPO", cancelPORouter);
 let ratePORouter = require("./routers/ratePO");
 app.use("/api/ratePO", ratePORouter);
+let seeRatePORouter = require("./routers/seeRate");
+app.use("/api/seeRatePO", seeRatePORouter);
 let favAllRouter = require("./routers/fav");
 app.use("/api/favAll", favAllRouter);
 let dashboardRouter = require("./routers/dashboard")

@@ -45,7 +45,7 @@ router.post("/",
     async (req, res, next) => {
         // 處理圖片
         console.log("req.file", req.file);
-        let filename = req.file ? "/static/uploads/" + req.file.filename : "";
+        let filename = req.file ? req.file.filename : "";
         console.log("filename", filename);
         // 儲存到資料庫
         let memberId = req.session.member.id

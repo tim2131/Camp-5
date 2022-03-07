@@ -12,7 +12,6 @@ import axios from "axios";
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-
 function Header1({ menu,setLogData,logData }) {
   const [visible, setVisible] = useState(false);
   // const [logData, setLogData] = useState({}); 
@@ -38,6 +37,7 @@ function Header1({ menu,setLogData,logData }) {
     setTimeout(() => {
       modal.destroy();
       clearInterval(timer);
+      window.location.href = "http://localhost:3000/login";
       handleLogout()
     }, secondsToGo * 900);
   }

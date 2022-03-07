@@ -6,18 +6,16 @@ import {
   List,
   Modal,
   Button,
-  Result,
-  Comment,
-  Avatar,
-  Form,
   Input,
   message,
+  Avatar,
+  Rate,
 } from "antd";
 import "../style/campOrderDetail.less";
 import "antd/dist/antd.less";
 import Rater from "./star";
 import InputComment from "./comment";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { API_URL } from "../utils/config";
 import { ERR_MSG } from "../utils/error";
 // import {commentOnPop} from "./CommentOnCampop"
@@ -30,23 +28,25 @@ const style = { background: "#e9e3da", padding: "8px 0" };
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const OrderDetails12 = ({
-  ppl,
-  tent,
-  act,
-  data,
-  setPOStatus,
-  setPOStatusWord,
-}) => {
+const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) => {
   const [loading, setloading] = useState(false);
-  const [visible, setvisible] = useState(false);
-  const [visible1, setvisible1] = useState(false);
+  const [visible, setvisible] = useState(false); //write comment modal
+  const [visible1, setvisible1] = useState(false); //cancel
+  const [visible2, setvisible2] = useState(false); //existed comment
+  const [visible3, setvisible3] = useState(true); //see comment btn
+  const [visible4, setvisible4] = useState(true); //write comment btn
   const [Cbtn, setCbtn] = useState(false);
   const [Combtn, setCombtn] = useState(false);
   const [starValue, setStarValue] = useState("3");
-  const [value, setValue] = useState([]);
-const [ttl, setTtl] = useState([]);
+  const [value, setValue] = useState([]); //camp_comment
+  const [existedComment, setExistedComment] = useState([]); //Existed camp_comment
 
+  // if (tent[0] !== undefined && ppl.length !== 0 && act.length !== 0) {
+  //   console.log("tent.price", tent[0].price * tent[0].tent_qty);
+  //   console.log("OK");
+
+  // } else {
+  // }
 
   //--------------handle BTN 區域----------------------
   const handleOk = (e) => {
@@ -60,6 +60,8 @@ const [ttl, setTtl] = useState([]);
       setloading(false);
       setvisible(false);
       ratePO();
+      setvisible3(false);
+    
       //TODO: MEJOR-把按鈕改成看評論
       //TODO: MEJOR-看要不要可以編輯評論 或追加評論
     }, 1500);
@@ -127,8 +129,55 @@ const [ttl, setTtl] = useState([]);
       message.error("錯誤存在，請稍後再試");
     }
   }
-  //----------------------------------------------------
-  useEffect(() => {}, []);
+  //---------backend----see PO----------------------
+
+  async function seeRatePO() {
+    console.log(`POId: ${POId}`);
+    try {
+      let response = await axios.get(`${API_URL}/seeRatePO/${POId}`, {
+        withCredentials: true,
+      });
+      console.log("seeRatePO");
+      console.log(response.data);
+      setExistedComment(response.data);
+    } catch (e) {
+      console.log("error");
+      message.error("錯誤存在，請稍後再試");
+    }
+  }
+  useEffect(() => {
+    seeRatePO();
+  }, []);
+  //---------------------------------------
+  const seeRateAfter = () => {
+    setvisible2(true);
+    seeRatePO();
+  }
+  //----------------------------------------
+  const [ttl, setTtl] = useState([]);
+  //   const ref = useRef();
+  //   const refact = useRef();
+  //   const reftent = useRef();
+  // console.log(reftent)
+
+  //   const actTtl = refact.current?.innerText || "0"
+  //   setTtl({ ...ttl, "actTtl": actTtl });
+  //   const TentTtl = reftent.current?.innerText || "0";
+  //   const disTtl = ref.current?.innerText || "0";
+  // };
+  // useEffect(() => {
+  //   if (!reftent.current) {
+
+  //   } else {
+  //     const final = () => {
+  //       for (var i = 0; i <= tent.length; i++) {
+  //         const TentTtl = reftent.current[i]?.innerText;
+  //         console.log(TentTtl);
+  //       }
+  //     };
+  //     final();
+  //   }
+  // }, [act, tent, ppl]);
   // -----for thumbnail---------------------------------
   const tagWords = {
     1: "主打",
@@ -169,19 +218,48 @@ const [ttl, setTtl] = useState([]);
           >
             取消訂單
           </button>
-
+          {visible3 ? (
+            <button
+              disabled={
+                Combtn ||
+                (data && data.length > 0 && data[0].orderstatus_id === 3) ||
+                (data && data.length > 0 && data[0].orderstatus_id === 2) ||
+                (data && data.length > 0 && data[0].orderstatus_id === 1)
+              }
+              // className="orderlinks "
+              className={
+                existedComment && existedComment.length <= 0
+                  ? "orderlinks"
+                  : "orderlinks displayNone  "
+              }
+              onClick={() => setvisible(true)}
+            >
+              填寫評價
+            </button>
+          ) : (
+            <button
+              //className="orderlinks"
+              className="orderlinks"
+              onClick={() => seeRateAfter()}
+            >
+              你的評論
+            </button>
+          )}
           <button
-            disabled={
-              Combtn ||
-              (data && data.length > 0 && data[0].orderstatus_id === 3) ||
-              (data && data.length > 0 && data[0].orderstatus_id === 2) ||
-              (data && data.length > 0 && data[0].orderstatus_id === 1)
+            //className="orderlinks"
+            className={
+              (existedComment && existedComment.length > 0) ||
+              (existedComment &&
+                existedComment.length > 0 &&
+                existedComment[0].orderstatus_id > 0)
+                ? "orderlinks "
+                : "orderlinks displayNone "
             }
-            className="orderlinks"
-            onClick={() => setvisible(true)}
+            onClick={() => setvisible2(true)}
           >
-            填寫評價
+            你的評論
           </button>
+
           <button className="orderlinks">聯繫客服</button>
         </div>
         <div className="orderppl">
@@ -256,14 +334,15 @@ const [ttl, setTtl] = useState([]);
               <List.Item
                 key={item.id}
                 extra={
-                  <img
-                    // FIXME:圖片會變形
-                    width={250}
-                    height={150}
-                    alt="logo"
-                    src={`${IMAGE_URL}/images/${item.pic}`}
-                    // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
+                  <div className="extraPic">
+                    <img
+                      width={250}
+                      height={150}
+                      alt="logo"
+                      src={`${IMAGE_URL}/images/${item.pic}`}
+                      // src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    />
+                  </div>
                 }
               >
                 <List.Item.Meta
@@ -326,34 +405,42 @@ const [ttl, setTtl] = useState([]);
           </div>
 
           <div className="totalmoney">
-            {tent.map((item) => (
+            {tent.map((item, i) => (
               <React.Fragment key={item.id}>
-                <div className="total">{`${item.price * item.tent_qty}`}</div>
+                <div
+                  // ref={(ref) => {
+                  //   reftent.current?.innerText || "0" = ref;
+                  // }}
+                  className="total"
+                >{`${item.price * item.tent_qty}`}</div>
               </React.Fragment>
             ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{`${
-                  item.price * item.number_people
-                }`}</div>
+                <div
+                  // ref={refact}
+                  className="total"
+                >{`${item.price * item.number_people}`}</div>
               </React.Fragment>
             ))}
 
-            {ppl.map((item) => (
+            {ppl.map((item, i) => (
               <React.Fragment key={item.id}>
                 {item.discount == null ? (
                   ""
                 ) : (
-                  <div className="total">-{item.discount}</div>
+                  <div
+                    // ref={ref}
+                    className="total"
+                  >
+                    -{item.discount}
+                  </div>
                 )}
               </React.Fragment>
             ))}
 
             <Divider />
-            <div className="totalE">
-              55555
-              {/* TODO: 總價要用什麼算 */}
-            </div>
+            <div className="totalE">{ttl}</div>
           </div>
         </div>
       </div>
@@ -405,8 +492,50 @@ const [ttl, setTtl] = useState([]);
         <p>告訴別人為何喜歡這個營地吧!</p>
       </Modal>
       {/* --------------------------------- */}
+      {/* ------------MODAL FOR Seeing COMMENT----------------- */}
+      <Modal
+        visible={visible2}
+        title="你的心得"
+        //onCancel 這樣X跟點背景就會消失 不可以拿掉
+        onCancel={() => setvisible2(false)}
+        footer={[
+          <Button type="primary" key="back" onClick={() => setvisible2(false)}>
+            返回
+          </Button>,
+          // <Button
+          //   key="submit"
+          //   type="primary"
+          //   loading={loading}
+          //   // onClick={}
+          // >
+          //   TODO:編輯
+          // </Button>,
+        ]}
+      >
+        {existedComment.map((item) => (
+          <>
+            <div className="flex-wrapper">
+              <Avatar
+                className="existed_rate_avatar "
+                // src="https://joeschmoe.io/api/v1/random"
+                src={`${IMAGE_URL}/images/${item.img}`}
+              />
+              <div className="existed_rate">
+                <div className="existed_rate_time">{item.created_time}</div>
+                <Rate
+                  disabled
+                  value={item.camp_stars}
+                  //setStarValue={setStarValue}
+                />
+                <div>{item.camp_comment}</div>
+              </div>
+            </div>
+          </>
+        ))}
+      </Modal>
+      {/* --------------------------------- */}
     </>
   );
-};
+};;;;;
 
 export default OrderDetails12;

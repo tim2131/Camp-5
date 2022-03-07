@@ -1,49 +1,35 @@
-import React, { useState } from "react";
-import { Upload } from "antd";
-import ImgCrop from "antd-img-crop";
+import { Modal,} from "antd";
+import React from 'react';
 
-const Headpic = () => {
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
-
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow.document.write(image.outerHTML);
-  };
-
+const HeadPic = ({
+  picModalvisible,
+  confirmPicLoading,
+  handlePicOk,
+  handlePicCancel,
+  onFotoClick,
+}) => {
   return (
-    <ImgCrop rotate>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onChange={onChange}
-        onPreview={onPreview}
+    <React.Fragment>
+      <Modal
+        className='picModal'
+        title="更換大頭貼"
+        visible={picModalvisible}
+        onOk={handlePicOk}
+        confirmLoading={confirmPicLoading}
+        onCancel={handlePicCancel}
       >
-        {fileList.length < 1 && "+ Upload"}
-      </Upload>
-    </ImgCrop>
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          onChange={(e) => {
+            onFotoClick(e);
+          }}
+        />
+        限定格式: .jpg, .jpeg 或 .png
+      </Modal>
+    </React.Fragment>
   );
 };
 
-export default Headpic;
+export default HeadPic;

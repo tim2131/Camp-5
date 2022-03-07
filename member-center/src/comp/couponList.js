@@ -13,20 +13,20 @@ const CouponList = ({ couponData }) => {
     500: "cinco",
     1000: "cinco",
   };
-  // FIXME: cannot get the right ref
+
   const linkRef = useRef([]);
 
-  const copyCoupon = () => {
-    linkRef.current.select();
+  const copyCoupon = (i) => {
+    linkRef.current[i].select();
     document.execCommand("copy", true);
   };
   return (
     <List
-      className='couponOuter'
+      className="couponOuter"
       split={false}
       itemLayout="horizontal"
       dataSource={couponData}
-      renderItem={(couponData) => (
+      renderItem={(couponData,i) => (
         <List.Item className="couponlist" key={couponData.id}>
           <List.Item.Meta
             className="couponMeta"
@@ -47,11 +47,12 @@ const CouponList = ({ couponData }) => {
                 key={couponData.id}
                 style={{ width: "calc(100% - 3em)", margin: "0 0 0 0.2em" }}
                 defaultValue={couponData.promo_code}
-                ref={linkRef}
+                // ref={linkRef}
+                ref={(elem) => (linkRef.current[i] = elem)}
                 readOnly
               />
               <Tooltip title="點擊複製">
-                <Button icon={<CopyOutlined />} onClick={() => copyCoupon()} />
+                <Button icon={<CopyOutlined />} onClick={(e) => copyCoupon(i)} />
               </Tooltip>
             </Input.Group>
           </div>

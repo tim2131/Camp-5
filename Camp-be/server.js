@@ -90,7 +90,27 @@ app.get("/api/tentcate/:campId", async (req, res, next) => {
   res.json(data);
 });
 //------------------------
+//地圖座標
+app.get("/api/map/:campId", async (req, res, next) => {
+  //req.params.campId
+  let [data, field] = await connection.execute(
+    "SELECT camp_long,camp_lat  FROM camp WHERE Cid=?",
+    [req.params.campId]
+  );
+  res.json(data);
+});
+//活動資料
+app.get("/api/act/:campId", async (req, res, next) => {
+  //req.params.campId
+  let [data, field] = await connection.execute(
+    "SELECT * FROM camp JOIN add_act_order ON camp.Cid = add_act_order.id JOIN add_act_orderdet ON camp.Cid = add_act_orderdet.activity_order_id JOIN add_act_intro ON add_act_orderdet.activity_id = add_act_intro.id WHERE Cid = ?",
+    [req.params.campId]
+  );
+  res.json(data);
+});
 // 單一營地圖片
 app.use("/camp-pic", express.static(path.join(__dirname, "public")));
 // 單一帳棚圖片
 app.use("/tent-pic", express.static(path.join(__dirname, "public")));
+//單一活動圖片
+app.use("/act-pic", express.static(path.join(__dirname, "public")));
