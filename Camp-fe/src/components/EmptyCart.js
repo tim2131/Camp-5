@@ -3,7 +3,6 @@ import React from "react";
 function EmptyCart() {
   return (
     <>
-      {/* 上半部內容 */}
       <div className="clear-cart text-right">
         <button>清空購物車</button>
       </div>

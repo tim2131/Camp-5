@@ -97,7 +97,7 @@ function App() {
             />
             <Route path="/p_orders/success" element={<OrderSuccess />} />
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
           <ProductDetail />
           {/* </BrowserRouter> */}
         </div>

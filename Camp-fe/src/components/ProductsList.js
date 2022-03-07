@@ -10,7 +10,7 @@ import starFull from "../img/icon/star-full.svg";
 import starEmpty from "../img/icon/star-empty.svg";
 import Pagination from "./Pagination";
 import Footer from "./Footer";
-import Hotcamp from "./Hotcamp";
+import Hotproduct from "./Hotproduct";
 
 const CampList = () => {
   const [productdata, setProductdata] = useState([]); //原始資料
@@ -18,13 +18,12 @@ const CampList = () => {
   const [searchWord, setSearchWord] = useState(""); //搜尋
   const [sortBy, setSortBy] = useState(""); //價格排序
   const [cate, setCate] = useState([]); //分類
- 
+
   const [currentPage, setCurrentPage] = useState(1); //當前頁面
   const [postsPerPage, setPostsPerPage] = useState(12); //一頁顯示幾筆
   const [productcate, setProductCate] = useState([]); //環保餐具分類
   const [productcate2, setProductCate2] = useState([]); //環保家具分類
   const [productcate3, setProductCate3] = useState([]); //露營裝備分類
-
 
   const camptagWords = {
     1: "主打",
@@ -60,13 +59,11 @@ const CampList = () => {
       setProductCate(responseproductscate.data);
       setProductdata(responseproductslist.data);
       setShowdata(responseproductslist.data);
-      setProductCate2(responseproductscate2.data)
-      setProductCate3(responseproductscate3.data)
+      setProductCate2(responseproductscate2.data);
+      setProductCate3(responseproductscate3.data);
       window.scrollTo({
         top: 0,
       });
-      
-      
     };
     getAllData();
   }, []);
@@ -91,7 +88,6 @@ const CampList = () => {
 
     if (searchWord.length) {
       newCampdata = productdata.filter((v, i) => {
-        
         return v.product_name.indexOf(searchWord) >= 0;
       });
     }
@@ -104,11 +100,15 @@ const CampList = () => {
     let newCampdata = [...productdata];
 
     if (sortBy === "1") {
-      newCampdata = [...newCampdata].sort((a, b) => a.product_price - b.product_price);
+      newCampdata = [...newCampdata].sort(
+        (a, b) => a.product_price - b.product_price
+      );
     }
 
     if (sortBy === "2") {
-      newCampdata = [...newCampdata].sort((a, b) => b.product_price - a.product_price);
+      newCampdata = [...newCampdata].sort(
+        (a, b) => b.product_price - a.product_price
+      );
     }
 
     // 預設用id 小至大
@@ -122,7 +122,7 @@ const CampList = () => {
   //商品分類
   const handleCate = (productdata, cate) => {
     let newCampdata = [...productdata];
-   
+
     if (cate.length > 0) {
       newCampdata = [...newCampdata].filter((v, i) => {
         let isFound = false;
@@ -142,9 +142,6 @@ const CampList = () => {
     return newCampdata;
   };
 
-  
- 
-
   //呈現篩選後資料
   useEffect(() => {
     let newCampdata = [...productdata];
@@ -159,10 +156,8 @@ const CampList = () => {
     // 處理勾選標記
     newCampdata = handleCate(newCampdata, cate);
 
-   
-
     setShowdata(newCampdata);
-  }, [searchWord,sortBy,cate]);
+  }, [searchWord, sortBy, cate]);
 
   return (
     <>
@@ -173,7 +168,7 @@ const CampList = () => {
         </div>
 
         <div className="backgroundPic">
-          <h1 className="camplisth1 text-center">優質環保餐具</h1>
+          <h1 className="camplisth1 text-center">商品一覽</h1>
 
           <div>
             <select
@@ -201,13 +196,19 @@ const CampList = () => {
           <div className="row">
             <div className="col-3 asideheight">
               {/* 營地分類 */}
-              <PFilterbar cate={cate} setCate={setCate} productcate={productcate}  productcate2={productcate2}   productcate3={productcate3}/>
+              <PFilterbar
+                cate={cate}
+                setCate={setCate}
+                productcate={productcate}
+                productcate2={productcate2}
+                productcate3={productcate3}
+              />
             </div>
           </div>
 
           <div className="container movecontent">
             <div className="row">
-              <Hotcamp />
+              <Hotproduct />
               {/* 側邊空位 */}
               <div className="col-3 "></div>
 
@@ -252,7 +253,10 @@ const CampList = () => {
                               {getStar(v.stars)}
                             </div>
 
-                            <Link to={`/products/${v.Pid}`} class="btn bookingBtn">
+                            <Link
+                              to={`/products/${v.Pid}`}
+                              class="btn bookingBtn"
+                            >
                               加入購物車
                             </Link>
                           </div>
