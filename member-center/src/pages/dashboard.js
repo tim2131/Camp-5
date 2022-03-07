@@ -234,7 +234,7 @@ const DashBoard = ({}) => {
                   className="member_popover"
                   placement="rightTop"
                   content={
-                    (rank.acc_total > 100000 && (
+                    (rank.acc_total >= 100000 && (
                       <div className="popover_content">
                         <div>恭喜你！</div>
                         <div>
@@ -269,7 +269,7 @@ const DashBoard = ({}) => {
                         </div>
                       </div>
                     )) ||
-                    (rank.acc_total >= 10000 && (
+                    (rank.acc_total < 10000 && (
                       <div className="popover_content">
                         <div>
                           <CaretRightOutlined />
