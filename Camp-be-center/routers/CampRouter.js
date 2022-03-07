@@ -228,6 +228,16 @@ router.post("/TentAdd", (req, res, next) => {
       }
     )
   })
+  router.get("/campOwnerPic"),(req,res,next)=>{
+    db.query(
+      "SELECT * FROM `campowner_pic`",
+      function (err, rows) {
+        if (err) throw err;
+        console.log("Response: ", rows);
+        res.send(rows);
+      }
+    );
+  };
   
 
   module.exports = router;

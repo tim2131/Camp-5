@@ -2,147 +2,149 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-.homepage {
-  max-width: 1920px;
-  padding: 0;
-  margin: 0;
-}
-.banner {
-  clip-path: polygon(0 0, 100% 0, 100% 79%, 50% 100%, 24% 81%, 0 100%);
-  background: #333;
-  width: 100%;
-  height: 1200px;
-  z-index: 1;
-}
-.video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -3;
-}
-.nav-logo {
-  display: block;
-  width: 100px;
-  height: 100px;
-}
-.nav-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.recycle {
-  background: url("../img/page2.png");
-  clip-path: polygon(
-    72% 0,
-    100% 0,
-    100% 91%,
-    91% 92%,
-    71% 100%,
-    43% 100%,
-    20% 89%,
-    0 100%,
-    0 0,
-    31% 0
-  );
-  width: 100%;
-  height: 1200px;
-  position: absolute;
-  top: 1010px;
-  z-index: -1;
-}
-.recycle h2 {
-  color: #fff;
-  font-size: 72px;
-  position: absolute;
-  top: 400px;
-  left: 250px;
-}
-.page2-title {
-  position: absolute;
-  width: 100%;
-  top: 650px;
-  left: 250px;
-}
-.page2-title h3 {
-  color: #fff;
-  font-size: 72px;
-}
-.page2-icon {
-  position: absolute;
-  width: 100%;
-  top: 800px;
-  left: 220px;
-}
-.page2-icon img {
-  margin-right: 400px;
-}
-.page2-arrow {
-  position: absolute;
-  width: 100%;
-  top: 900px;
-  left: 500px;
-}
-.page2-arrow img {
-  margin-right: 385px;
-}
-.page3 {
-  background: url("../img/page3.png");
-  position: absolute;
-  width: 1935px;
-  height: 1200px;
-  top: 2045px;
-  z-index: -2;
-}
-.page3-box {
-  width: 550px;
-  height: 374px;
-  margin-top: 370px;
-}
-.img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin-top: 10px;
-}
-.page4 {
-  background: url("../img/page4.png");
-  position: absolute;
-  width: 1935px;
-  height: 1200px;
-  top: 3185px;
-  z-index: -3;
-}
-.text-icon {
-  position: absolute;
-}
-.page-text {
-  margin-top: 460px;
-}
-.page-text h3 {
-  font-size: 50px;
-  margin-left: 30px;
-  color: #6a6842;
-}
-.page-text p {
-  font-size: 18px;
-  color: #6a6842;
-  margin: 30px;
-}
-.page-text button {
-  background: #c15f2e;
-  color: #fff;
-  margin-left: 30px;
-}
-.page5 {
-  background: url("../img/page5.png");
-  position: absolute;
-  margin-top: 50px;
-  width: 1935px;
-  height: 1200px;
-  top: 4080px;
-  z-index: -4;
-}
-.home-footer {
-  position: absolute;
-  top: 4980px;
+@media screen and (min-width: 768px){
+  .homepage {
+    max-width: 1920px;
+    padding: 0;
+    margin: 0;
+  }
+  .banner {
+    clip-path: polygon(0 0, 100% 0, 100% 79%, 50% 100%, 24% 81%, 0 100%);
+    background: #333;
+    width: 100%;
+    height: 1200px;
+    z-index: 1;
+  }
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+  }
+  .nav-logo {
+    display: block;
+    width: 100px;
+    height: 100px;
+  }
+  .nav-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .recycle {
+    background: url("../img/page2.png");
+    clip-path: polygon(
+      72% 0,
+      100% 0,
+      100% 91%,
+      91% 92%,
+      71% 100%,
+      43% 100%,
+      20% 89%,
+      0 100%,
+      0 0,
+      31% 0
+    );
+    width: 100%;
+    height: 1200px;
+    position: absolute;
+    top: 1010px;
+    z-index: -1;
+  }
+  .recycle h2 {
+    color: #fff;
+    font-size: 72px;
+    position: absolute;
+    top: 400px;
+    left: 250px;
+  }
+  .page2-title {
+    position: absolute;
+    width: 100%;
+    top: 650px;
+    left: 250px;
+  }
+  .page2-title h3 {
+    color: #fff;
+    font-size: 72px;
+  }
+  .page2-icon {
+    position: absolute;
+    width: 100%;
+    top: 800px;
+    left: 220px;
+  }
+  .page2-icon img {
+    margin-right: 400px;
+  }
+  .page2-arrow {
+    position: absolute;
+    width: 100%;
+    top: 900px;
+    left: 500px;
+  }
+  .page2-arrow img {
+    margin-right: 385px;
+  }
+  .page3 {
+    background: url("../img/page3.png");
+    position: absolute;
+    width: 1935px;
+    height: 1200px;
+    top: 2045px;
+    z-index: -2;
+  }
+  .page3-box {
+    width: 550px;
+    height: 374px;
+    margin-top: 370px;
+  }
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+  .page4 {
+    background: url("../img/page4.png");
+    position: absolute;
+    width: 1935px;
+    height: 1200px;
+    top: 3185px;
+    z-index: -3;
+  }
+  .text-icon {
+    position: absolute;
+  }
+  .page-text {
+    margin-top: 460px;
+  }
+  .page-text h3 {
+    font-size: 50px;
+    margin-left: 30px;
+    color: #6a6842;
+  }
+  .page-text p {
+    font-size: 18px;
+    color: #6a6842;
+    margin: 30px;
+  }
+  .page-text button {
+    background: #c15f2e;
+    color: #fff;
+    margin-left: 30px;
+  }
+  .page5 {
+    background: url("../img/page5.png");
+    position: absolute;
+    margin-top: 50px;
+    width: 1935px;
+    height: 1200px;
+    top: 4080px;
+    z-index: -4;
+  }
+  .home-footer {
+    position: absolute;
+    top: 4980px;
+  }  
 }

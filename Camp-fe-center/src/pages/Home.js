@@ -1,11 +1,10 @@
-import React,{ useState } from "react";
-import { Divider, Typography,} from 'antd';
+import React from "react";
+import { Divider, Typography, Image} from 'antd';
 import Video from '../img/banner.mp4';
 import Page from '../img/page.svg';
 import "../style/home.less";
+import axios from "axios";
 const { Title } = Typography;
-
-
 
 
 function Home (){
@@ -51,6 +50,11 @@ function Home (){
           }}>
             <h1>營主說明</h1>
           </Divider>
+          <div className="campBossPic">
+          <Image.PreviewGroup>
+              <Image width={100} height={100} src={`http://localhost:3005/images/owner.jpg`}/>
+          </Image.PreviewGroup>
+          </div>
           <div className="campBoss">
               <div className="campBoss1">
                   <h3>1.營地資料</h3>
@@ -76,8 +80,6 @@ function Home (){
                   管理營地加購活動,<br/>新增、修改、檢視、刪除。
                   </p>
               </div>
-
-
             </div>
         </div>
         </>
