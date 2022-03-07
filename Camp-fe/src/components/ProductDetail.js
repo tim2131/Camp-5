@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
+import Footer from "./Footer";
+
 import "../style/ProductDetail.scss";
 import "../style/NumberInput.scss";
 import ProductReview from "./ProductReview";
 import SimilarProduct from "./SimilarProduct";
-// 數量加減元件
-import NumericInput from "react-numeric-input";
 import "../style/NumericInput.scss";
 
 // 圖片
@@ -16,6 +16,23 @@ import heartEmpty from "../img/icon/heart-empty.svg";
 import heartFull from "../img/icon/heart-full.svg";
 
 function ProductDetail() {
+  // 判斷是否登入
+  const [logData, setLogData] = useState(null);
+  let loginId;
+  useEffect(() => {
+    // 每次重新整理或開啟頁面時，都去確認一下是否在已經登入的狀態。
+    const getMember = async () => {
+      let result = await axios.get(`http://localhost:3002/member`, {
+        withCredentials: true,
+      });
+      console.log("app.js id", result.data.id);
+      setLogData(result.data);
+      loginId = result.data.id;
+    };
+    getMember();
+  }, []);
+
+  // ----------------------------------------------------
   const [data, setData] = useState([]);
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
@@ -50,41 +67,30 @@ function ProductDetail() {
       );
       setData(responseAll.data);
       setProduct({ ...product, ...responseAll.data[0], amount: 1 });
-    };
-    getData();
 
-    const getColor = async () => {
       let responseColor = await axios.get(
         `http://localhost:3002/api/products/${productId}/color`
       );
       setColor(responseColor.data);
-    };
-    getColor();
 
-    const getSize = async () => {
       let responseSize = await axios.get(
         `http://localhost:3002/api/products/${productId}/size`
       );
       setSize(responseSize.data);
-    };
-    getSize();
 
-    const getFavData = async () => {
       let responseFav = await axios.get(
         `http://localhost:3002/api/product-fav/${productId}`
       );
       setFavData(responseFav.data);
       setHeartNumber(responseFav.data.length);
-    };
-    getFavData();
 
-    const getUserFav = async () => {
       let responseUserFav = await axios.get(
-        `http://localhost:3002/api/user/1/product-fav/${productId}`
+        `http://localhost:3002/api/user/product-fav/${productId}`
       );
       setUserFav(responseUserFav.data);
+      console.log("loginId", loginId);
     };
-    getUserFav();
+    getData();
   }, []);
   // 在外面console.log取不到東西的原因是還沒set好，因為不知道react什麼時候會把它處理好，在處理好之前就抓不到資料
   // 所以才會有console.log了好幾次才有資料的情況
@@ -106,13 +112,13 @@ function ProductDetail() {
   const toggleSwitch = async () => {
     if (heart === false) {
       let responseMakeHeartTrue = await axios.post(
-        `http://localhost:3002/api/user/1/fav-product/${productId}/make-true`
+        `http://localhost:3002/api/user/fav-product/${productId}/make-true`
       );
       console.log("heartState true");
       setHeartNumber(heartNumber + 1);
     } else {
       let responseMakeHeartFalse = await axios.post(
-        `http://localhost:3002/api/user/1/fav-product/${productId}/make-false`
+        `http://localhost:3002/api/user/fav-product/${productId}/make-false`
       );
       console.log("heartState false");
       setHeartNumber(heartNumber - 1);
@@ -158,16 +164,6 @@ function ProductDetail() {
   }
   // 有set的不能直接去push他，要let一個新的把他複製出來再去push，push完再放回去set，但剛set完拿不到值，所以要用他還是只能先用let的值
 
-  // 立即購買按鈕
-  // async function handleSubmit2(e) {
-  //   e.preventDefault();
-  //   let response = await axios.post(
-  //     "http://localhost:3002/api/products/buynow",
-  //     product
-  //   );
-  //   console.log(response.data);
-  // }
-
   // 圖片截角
   const tagWords = {
     1: "主打",
@@ -194,24 +190,22 @@ function ProductDetail() {
               <div className="container">
                 {/* 主圖&標題 */}
                 <div className="row product-main-info">
-                  <div className="col ">
-                    <div className="main-pic embed-responsive embed-responsive-1by1">
-                      <div className="  embed-responsive-item ">
-                        <div className="orderPicBox">
-                          <div className="tagWord">{tagWords[1]}</div>
-                          <div className={tagcolor[1]}></div>
-                          <div className="list_item1">
-                            <img
-                              className="pic1"
-                              src={`http://localhost:3002/product-pic/${item.img1}`}
-                              alt="camp-pic"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                  <div className="col-lg-6 col-md-12">
+                    <div className="embed-responsive embed-responsive-1by1 list_item1">
+                      {/* <div className="orderPicBox"> */}
+                      {/* <div className="tagWord">{tagWords[1]}</div> */}
+                      {/* <div className={tagcolor[1]}></div> */}
+                      {/* <div className="list_item1"> */}
+                      <img
+                        className="embed-responsive-item pic1"
+                        src={`http://localhost:3002/product-pic/${item.img1}`}
+                        alt="camp-pic"
+                      />
+                      {/* </div> */}
+                      {/* </div> */}
                     </div>
                   </div>
-                  <div className="col product-main-info d-flex flex-column">
+                  <div className="col-lg-6 col-md-12 product-main-info d-flex flex-column">
                     <div className="product-main-info-title mb-auto">
                       <h1>{item.product_name}</h1>
                       <div className="d-flex product-detail-price">
@@ -222,11 +216,6 @@ function ProductDetail() {
                     </div>
                     <form>
                       <div className="product-main-info-choise">
-                        {/* <div className="d-flex">
-                        <div className="choose-color product-color-1"></div>
-                        <div className="choose-color product-color-2"></div>
-                        <div className="choose-color product-color-3"></div>
-                      </div> */}
                         <div>
                           <select
                             className="product-size-select"
@@ -269,14 +258,6 @@ function ProductDetail() {
                         </div>
                         <div className="d-flex justify-content-between align-items-end">
                           <div className="product-amount">
-                            {/* <NumericInput
-                              min={1}
-                              max={item.product_stock}
-                              value={product.amount}
-                              name="amount"
-                              mobile
-                              onClick={handleChange}
-                            /> */}
                             <button
                               className="number-input-btn minus-btn"
                               onClick={(e) => {
@@ -306,17 +287,22 @@ function ProductDetail() {
                               +
                             </button>
                           </div>
-                          <button
-                            className="product-heart-number"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              // 放在form裡的按鈕都會變傳送，所以要避免他的預設事件
-                              toggleSwitch();
-                            }}
-                          >
-                            <img src={heart ? heartFull : heartEmpty} alt="" />
-                            {heartNumber}
-                          </button>
+                          {logData && (
+                            <button
+                              className="product-heart-number"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                // 放在form裡的按鈕都會變傳送，所以要避免他的預設事件
+                                toggleSwitch();
+                              }}
+                            >
+                              <img
+                                src={heart ? heartFull : heartEmpty}
+                                alt=""
+                              />
+                              {heartNumber}
+                            </button>
+                          )}
                         </div>
                         <div>
                           <button
@@ -327,10 +313,7 @@ function ProductDetail() {
                           </button>
                         </div>
                         <div>
-                          <button
-                            className="btn-buy buy-right-now"
-                            // onClick={handleSubmit2}
-                          >
+                          <button className="btn-buy buy-right-now">
                             立即購買
                           </button>
                         </div>
@@ -353,7 +336,7 @@ function ProductDetail() {
 
                 {/* 商品特色 */}
                 <div className="row product-intro-2 first">
-                  <div className="col product-pic-small embed-responsive embed-responsive-4by3">
+                  <div className="col-lg-6 col-md-12 product-pic-small embed-responsive embed-responsive-4by3">
                     <div className="embed-responsive-item">
                       <img
                         src={`http://localhost:3002/product-pic/${item.img3}`}
@@ -362,7 +345,7 @@ function ProductDetail() {
                     </div>
                     <div className="product-pic-fram"></div>
                   </div>
-                  <div className="col d-flex justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                     <div className="product-special">
                       <div className="triangle-left">
                         <img src={productDetailTriangle} alt="" />
@@ -375,7 +358,7 @@ function ProductDetail() {
                 </div>
                 {/* 尺寸規格 */}
                 <div className="row product-intro-2 second">
-                  <div className="col d-flex justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
                     <div className="product-special">
                       <div className="triangle-right">
                         <img src={productDetailTriangle} alt="" />
@@ -394,7 +377,7 @@ function ProductDetail() {
                       </p>
                     </div>
                   </div>
-                  <div className="col product-pic-small embed-responsive embed-responsive-4by3">
+                  <div className="col-lg-6 col-md-12 product-pic-small embed-responsive embed-responsive-4by3">
                     <div className="embed-responsive-item">
                       <img
                         src={`http://localhost:3002/product-pic/${item.img4}`}
@@ -421,6 +404,7 @@ function ProductDetail() {
             </main>
             <ProductReview />
             <SimilarProduct />
+            <Footer />
           </React.Fragment>
         );
       })}

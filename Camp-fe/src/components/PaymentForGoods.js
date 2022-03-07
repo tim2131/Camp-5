@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import Footer from "./Footer";
+
 import "../style/OrderFlow.scss";
 import "../style/ShoppingCartTitle.scss";
 
@@ -227,6 +229,7 @@ function PaymentForGoods() {
           {check === true ? <CreditCard /> : <ConvenienceStore />}
         </div>
       </main>
+      <Footer />
     </>
   );
 }

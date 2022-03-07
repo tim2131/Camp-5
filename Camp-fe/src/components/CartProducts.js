@@ -4,15 +4,7 @@ import { Link } from "react-router-dom";
 
 import "../style/ShoppingCart.scss";
 import "../style/ShoppingCartSum.scss";
-// 數量加減元件
-// import NumericInput from "react-numeric-input";
 import "../style/NumericInput.scss";
-
-// 圖片
-// import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
-// import cartProduct from "../img/product1.jpeg";
-import heartEmpty from "../img/icon/heart-empty.svg";
-import heartFull from "../img/icon/heart-full.svg";
 
 // 購物車內容-----------------------------------------------------------------
 function CartProducts(props) {
@@ -25,10 +17,6 @@ function CartProducts(props) {
   useEffect(async () => {
     let responseUser = await axios.get(`http://localhost:3002/api/user/1`);
     setUser(responseUser.data[0]);
-    // let responseFav = await axios.get(
-    //   `http://localhost:3002/api/user/1/fav-product`
-    // );
-    // setFavData(responseFav.data);
   }, []);
 
   // 加減數量
@@ -48,54 +36,6 @@ function CartProducts(props) {
     localStorage.setItem("cartProduct", cartString);
   }
   // setInCart不知道什麼時候才會變(由react控制)，所以沒辦法馬上抓到，但如果設成變數就會馬上寫入，能馬上抓到
-
-  // 愛心初始------------------------------------------------
-  // 要重新整理才會更新
-  // 應該是要寫進localstorage再去讀他的狀態來判斷
-  // const [heartDisplay, setHeartDisplay] = useState();
-  // let heartState;
-  // // let heartArray = [...props.inCart];
-  // const heart = (id) => {
-  //   // console.log(`陣列裡面的id: ${id}`);
-  //   // console.log("favData", favData);
-  //   let favAlready = favData.filter(function (item) {
-  //     return item.product_id === id;
-  //   });
-  //   // console.log("favAlready", favAlready);
-  //   if (favAlready.length === 0) {
-  //     heartState = false;
-  //   } else {
-  //     heartState = true;
-  //   }
-  //   // console.log("heartState", id, heartState);
-  //   // setHeartDisplay(heartState);
-  // };
-  // // 點愛心
-  // const toggleHeart = async (id) => {
-  //   // console.log(`陣列裡面的id: ${id}`);
-  //   let favAlready = favData.filter(function (item) {
-  //     return item.product_id === id;
-  //   });
-  //   // console.log(favAlready);
-  //   // let heartInfo;
-  //   if (favAlready.length === 0) {
-  //     // heartInfo = false;
-  //     let response = await axios.post(
-  //       "http://localhost:3002/api/user/1/fav-product/add",
-  //       { id: id }
-  //     );
-  //     heartState = true;
-  //   } else {
-  //     // heartInfo = true;
-  //     let response = await axios.post(
-  //       "http://localhost:3002/api/user/1/fav-product/remove",
-  //       { id: id }
-  //     );
-  //     heartState = false;
-  //   }
-  //   setHeartDisplay(heartState);
-  // };
-  // 愛心放棄-----------------------------------------------------
 
   // 使用點數
   const [usedPoint, setUsedPoint] = useState(0);
@@ -160,7 +100,7 @@ function CartProducts(props) {
   }
 
   // 運費
-  let deliveryCharge = 60;
+  let deliveryCharge = 49;
 
   // 促銷碼
   // where id & promo_code
@@ -178,19 +118,27 @@ function CartProducts(props) {
   // 把輸入的折扣碼送到後端去判斷，再傳結果回來
   async function couponSubmit(e) {
     e.preventDefault();
+    // console.log("coupon", coupon);
     try {
       let response = await axios.post(
-        "http://localhost:3002/api/products/coupon/1",
-        coupon
+        `http://localhost:3002/api/products/coupon-input`,
+        [coupon, { loginId: props.loginId }]
       );
-      // console.log(response.data[0].discount);
-      setDiscount(response.data[0].discount);
+      // console.log("response.data[0].discount", response.data[0].discount);
+
       setCouponError();
-      setCouponSuccess("使用成功");
-      setWaitingInfo({ ...waitingInfo, used_coupon: coupon.coupon });
+      if (response.data[0].discount < finalTotal) {
+        setDiscount(response.data[0].discount);
+        setCouponSuccess("使用成功");
+        setWaitingInfo({ ...waitingInfo, used_coupon: coupon.coupon });
+      } else {
+        setCouponSuccess("折抵價格多於剩餘價格");
+        setDiscount(0);
+      }
     } catch (e) {
       if (e.response.data.msg === "無法使用此折扣碼") {
         setCouponError("無法使用此折扣碼");
+        setDiscount(0);
       }
     }
   }
@@ -221,7 +169,7 @@ function CartProducts(props) {
     sessionStorage.setItem("waitingInfo", waitingInfoString);
   }
 
-  // console.log("inCart", props.inCart);
+  console.log("inCart", props.inCart);
 
   return (
     <>
@@ -238,11 +186,11 @@ function CartProducts(props) {
             <React.Fragment key={index}>
               <div className="cart-product row">
                 <div className="col-4">
-                  <div className="cart-product-pic embed-responsive embed-responsive-1by1">
+                  <div className="cart-product-pic embed-responsive embed-responsive-1by1 list_item1">
                     <img
                       src={`http://localhost:3002/product-pic/${item.img1}`}
                       alt=""
-                      className="embed-responsive-item"
+                      className="embed-responsive-item pic1"
                     />
                   </div>
                 </div>
@@ -254,7 +202,6 @@ function CartProducts(props) {
                       <h5>尺寸：{item.size}</h5>
                     </div>
                     <div>
-                      {/* <NumericInput min={1} max={100} value={20} mobile /> */}
                       <input
                         type="number"
                         min="1"
@@ -273,44 +220,88 @@ function CartProducts(props) {
                       >
                         移除
                       </button>
-                      {/* <button
-                        className="cart-product-heart"
-                        id={heart(item.id)}
-                        onClick={() => toggleHeart(item.id)}
-                      >
-                        <img
-                          src={heartDisplay ? heartFull : heartEmpty}
-                          alt=""
-                        />
-                      </button> */}
                     </div>
                   </div>
-                  <div className="cart-use-point d-flex justify-content-end align-items-center">
-                    <h3>
-                      {item.point_exchange
-                        ? `您使用${
-                            item.product_point * props.inCart[index].amount
-                          }點兌換此商品`
-                        : `使用${
-                            item.product_point * props.inCart[index].amount
-                          }點兌換此商品嗎?`}
-                    </h3>
-                    <button
-                      className={
-                        item.point_exchange
-                          ? "cart-use-point-ivory"
-                          : "cart-use-point-orange"
-                      }
-                      onClick={() =>
-                        pointExchange(
-                          index,
-                          item.product_point * props.inCart[index].amount
-                        )
-                      }
-                    >
-                      {item.point_exchange ? "取消" : "使用"}
-                    </button>
-                  </div>
+                  {(() => {
+                    if (
+                      (item.point_exchange === false ||
+                        item.point_exchange === undefined) &&
+                      item.product_price * props.inCart[index].amount >
+                        finalTotal
+                    ) {
+                      return (
+                        <div className="cart-use-point d-flex justify-content-end align-items-center">
+                          <h4>可折抵價格多於剩餘價格</h4>
+                        </div>
+                      );
+                    } else if (
+                      (item.point_exchange === false ||
+                        item.point_exchange === undefined) &&
+                      item.product_point * props.inCart[index].amount <=
+                        leftPoint
+                    ) {
+                      return (
+                        <div className="cart-use-point d-flex justify-content-end align-items-center">
+                          <h4>
+                            使用
+                            {item.product_point * props.inCart[index].amount}
+                            點兌換此商品嗎?
+                          </h4>
+                          <button
+                            className={
+                              item.point_exchange
+                                ? "cart-use-point-ivory"
+                                : "cart-use-point-orange"
+                            }
+                            onClick={() =>
+                              pointExchange(
+                                index,
+                                item.product_point * props.inCart[index].amount
+                              )
+                            }
+                          >
+                            {item.point_exchange ? "取消" : "使用"}
+                          </button>
+                        </div>
+                      );
+                    } else if (
+                      (item.point_exchange === false ||
+                        item.point_exchange === undefined) &&
+                      item.product_point * props.inCart[index].amount >
+                        leftPoint
+                    ) {
+                      return (
+                        <div className="cart-use-point d-flex justify-content-end align-items-center">
+                          <h4>您的點數只有{leftPoint}點，不足兌換</h4>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="cart-use-point d-flex justify-content-end align-items-center">
+                          <h4>
+                            您使用
+                            {item.product_point * props.inCart[index].amount}
+                            點兌換此商品
+                          </h4>
+                          <button
+                            className={
+                              item.point_exchange
+                                ? "cart-use-point-ivory"
+                                : "cart-use-point-orange"
+                            }
+                            onClick={() =>
+                              pointExchange(
+                                index,
+                                item.product_point * props.inCart[index].amount
+                              )
+                            }
+                          >
+                            {item.point_exchange ? "取消" : "使用"}
+                          </button>
+                        </div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
               <div className="cart-dividing-line-medium"></div>
@@ -325,7 +316,7 @@ function CartProducts(props) {
       <div className="row cart-total-block">
         <div className="col">
           <form>
-            <div>有折扣碼嗎?</div>
+            <h4>有折扣碼嗎?</h4>
             <div className="cart-discount-input d-flex">
               <input
                 type="text"
@@ -348,48 +339,46 @@ function CartProducts(props) {
         </div>
         <div className="col">
           <div className="d-flex justify-content-between">
-            <div>商品總額</div>
-            <div>NT${total}</div>
+            <h4>商品總額</h4>
+            <h4>NT${total}</h4>
           </div>
           <div className="d-flex justify-content-between">
-            <div>運費</div>
-            <div>NT${deliveryCharge}</div>
-          </div>
-          {/* <div className="d-flex justify-content-between">
-            <div>折扣</div>
-            <div>－NT$60</div>
-          </div> */}
-          <div className="d-flex justify-content-between">
-            <div>折扣碼</div>
-            <div>－NT${discount}</div>
+            <h4>運費</h4>
+            <h4>NT${deliveryCharge}</h4>
           </div>
           <div className="d-flex justify-content-between">
-            <div>集點兌換</div>
-            <div>－NT${exchangedMoney}</div>
-            {/* 不要這樣寫，要嘛兌換後不能改數量，要嘛改數量後跳掉 */}
+            <h4>折扣碼</h4>
+            <h4>－NT${discount}</h4>
+          </div>
+          <div className="d-flex justify-content-between">
+            <h4>集點兌換</h4>
+            <h4>－NT${exchangedMoney}</h4>
+            {/* 兌換後不能改數量 */}
           </div>
           <div className="cart-dividing-line-short"></div>
           <div className="d-flex justify-content-between">
-            <div>訂單總額</div>
-            <div>NT${finalTotal}</div>
+            <h4>訂單總額</h4>
+            <h4>NT${finalTotal}</h4>
           </div>
           <div>
             <Link to="/p_orders/payment">
               <button className="cart-checkout-btn" onClick={() => checkout()}>
-                結帳
+                <h3>結帳</h3>
               </button>
             </Link>
           </div>
           <div>
-            <button className="cart-continue-btn">繼續購物</button>
+            <button className="cart-continue-btn">
+              <h3>繼續購物</h3>
+            </button>
           </div>
           <div className="cart-point-this-time d-flex justify-content-between">
-            <div>您的本次使用集點：</div>
-            <div>{pointDiscount} 點</div>
+            <h4>您的本次使用集點：</h4>
+            <h4>{pointDiscount} 點</h4>
           </div>
           <div className="cart-point-rest d-flex justify-content-between">
-            <div>您的剩餘集點：</div>
-            <div>{leftPoint} 點</div>
+            <h4>您的剩餘集點：</h4>
+            <h4>{leftPoint} 點</h4>
           </div>
         </div>
       </div>
