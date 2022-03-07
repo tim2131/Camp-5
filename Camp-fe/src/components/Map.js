@@ -65,7 +65,7 @@ function FCMap() {
           <MapContainer
             center={[v.camp_long, v.camp_lat]}
             zoom={20}
-            style={{ height: "505" }}
+            style={{ height: "505px" }}
           >
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
