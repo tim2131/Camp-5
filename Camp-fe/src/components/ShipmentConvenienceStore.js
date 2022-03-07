@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import Footer from "./Footer";
+
 import "../style/OrderFlow.scss";
 
 import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
@@ -166,6 +168,7 @@ function ShipmentConvenienceStore() {
           </form>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

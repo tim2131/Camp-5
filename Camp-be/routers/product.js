@@ -54,7 +54,7 @@ router.get("/api/product-fav/:productId", async (req, res, next) => {
   res.json(data);
 });
 // 使用者有沒有點過愛心
-router.get("/api/user/1/product-fav/:productId", async (req, res, next) => {
+router.get("/api/user/product-fav/:productId", async (req, res, next) => {
   let [data] = await connection.execute(
     "SELECT * FROM product_fav WHERE user_id=? AND product_id=?",
     [1, req.params.productId]
@@ -63,7 +63,7 @@ router.get("/api/user/1/product-fav/:productId", async (req, res, next) => {
 });
 // 加入愛心收藏
 router.post(
-  "/api/user/1/fav-product/:productId/make-true",
+  "/api/user/fav-product/:productId/make-true",
   async (req, res, next) => {
     let [heartTrue] = await connection.execute(
       "INSERT INTO product_fav VALUES (?, ?, 1)",
@@ -75,7 +75,7 @@ router.post(
 );
 // 移除愛心收藏
 router.post(
-  "/api/user/1/fav-product/:productId/make-false",
+  "/api/user/fav-product/:productId/make-false",
   async (req, res, next) => {
     let [heartTrue] = await connection.execute(
       "DELETE FROM product_fav WHERE user_id=? AND product_id=?",
@@ -109,11 +109,6 @@ router.get("/api/products/review/:productId", async (req, res, next) => {
     "SELECT * FROM (product_rate JOIN user ON product_rate.user_id = user.id) JOIN user_pic ON product_rate.user_id = user_pic.user_id WHERE product_rate.product_id=? ORDER BY product_rate.comment_time DESC LIMIT ? OFFSET ? ",
     [req.params.productId, perPage, offset]
   );
-  // 拿全部沒分頁
-  // let [data, fields] = await connection.execute(
-  //   "SELECT * FROM product_rate JOIN user ON product_rate.user_id = user.id WHERE product_rate.product_id=?",
-  //   [req.params.productId]
-  // );
 
   // response
   res.json({
@@ -144,35 +139,13 @@ router.get("/api/user/1", async (req, res, next) => {
   res.json(data);
 });
 
-// 購物車愛心
-// router.get("/api/user/1/fav-product", async (req, res, next) => {
-//   let [data, fields] = await connection.execute(
-//     "SELECT * FROM product_fav WHERE user_id=1"
-//   );
-//   res.json(data);
-// });
-// router.post("/api/user/1/fav-product/add", async (req, res, next) => {
-//   let [addFav] = await connection.execute(
-//     "INSERT INTO product_fav VALUES (?, 1, 1)",
-//     [req.body.id]
-//   );
-//   // console.log(req.body.id);
-//   res.json({ msg: "add fav ok" });
-// });
-// router.post("/api/user/1/fav-product/remove", async (req, res, next) => {
-//   let [removeFav] = await connection.execute(
-//     "DELETE FROM product_fav WHERE product_id=?",
-//     [req.body.id]
-//   );
-//   // console.log(req.body.id);
-//   res.json({ msg: "remove fav ok" });
-// });
-
 // 折扣碼
-router.post("/api/products/coupon/1", async (req, res, next) => {
+router.post("/api/products/coupon-input", async (req, res, next) => {
+  // console.log("req.body", req.body);
+  // console.log("req.body[1].loginId", req.body[1].loginId);
   let [couponInput] = await connection.execute(
-    "SELECT * FROM coupon WHERE user_id=1 AND promo_code=? AND status=1",
-    [req.body.coupon]
+    "SELECT * FROM coupon WHERE user_id=? AND promo_code=? AND status=1",
+    [req.body[1].loginId, req.body[0].coupon]
   );
   if (couponInput.length === 0) {
     return res.status(400).send({
@@ -186,7 +159,6 @@ router.post("/api/products/coupon/1", async (req, res, next) => {
 // 結帳流程-----------------------------------------------
 // 信用卡資料
 router.post("/api/products/payment", async (req, res, next) => {
-  // 儲存到資料庫
   // let [result] = await connection.execute("");
   console.log("req body: ", req.body);
   res.json({ message: "ok" });
@@ -194,7 +166,6 @@ router.post("/api/products/payment", async (req, res, next) => {
 
 // 信用卡地址
 router.post("/api/products/credit-card-shipment", async (req, res, next) => {
-  // 儲存到資料庫
   // let [result] = await connection.execute("");
   console.log("shipment req body: ", req.body);
   res.json({ message: "shipment ok" });
@@ -204,7 +175,6 @@ router.post("/api/products/credit-card-shipment", async (req, res, next) => {
 router.post(
   "/api/products/convenience-store-shipment",
   async (req, res, next) => {
-    // 儲存到資料庫
     // let [result] = await connection.execute("");
     console.log("shipment req body: ", req.body);
     res.json({ message: "shipment ok" });

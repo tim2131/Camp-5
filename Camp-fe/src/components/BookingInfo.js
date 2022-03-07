@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import Footer from "./Footer";
-
 import "../style/OrderFlow.scss";
 
 import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
 
-function ShipmentCreditCard() {
-  // 購物車資料
-  let cart = JSON.parse(localStorage.getItem("cartProduct"));
-  console.log("cart", cart);
+function BookingInfo() {
+  // // 購物車資料
+  // let cart = JSON.parse(localStorage.getItem("cartProduct"));
+  // console.log("cart", cart);
 
-  // session資料 (剩餘點數、折扣碼哪張、運費、總額)
-  let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
-  console.log("waitingInfo", waitingInfo);
+  // // session資料 (剩餘點數、折扣碼哪張、運費、總額)
+  // let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
+  // console.log("waitingInfo", waitingInfo);
 
   // 信用卡資料
   const [creditCardShipment, setCreditCardShipment] = useState({
@@ -32,32 +30,32 @@ function ShipmentCreditCard() {
     });
   }
 
-  // 送出按鈕
-  async function handleSubmit(e) {
-    // e.preventDefaul();
-    // 信用卡資料
-    let responseShipment = await axios.post(
-      "http://localhost:3002/api/products/credit-card-shipment",
-      creditCardShipment
-    );
-    console.log(responseShipment.data);
+  // // 送出按鈕
+  // async function handleSubmit(e) {
+  //   // e.preventDefaul();
+  //   // 信用卡資料
+  //   let responseShipment = await axios.post(
+  //     "http://localhost:3002/api/products/credit-card-shipment",
+  //     creditCardShipment
+  //   );
+  //   console.log(responseShipment.data);
 
-    // 進 product_order (session)
-    let responseOrder = await axios.post(
-      "http://localhost:3002/api/products/send-order",
-      waitingInfo
-    );
-    sessionStorage.removeItem("waitingInfo");
-    console.log(responseOrder.data);
+  //   // 進 product_order (session)
+  //   let responseOrder = await axios.post(
+  //     "http://localhost:3002/api/products/send-order",
+  //     waitingInfo
+  //   );
+  //   sessionStorage.removeItem("waitingInfo");
+  //   console.log(responseOrder.data);
 
-    // 進 product_orderdet (購物車)
-    let responseOrderdet = await axios.post(
-      "http://localhost:3002/api/products/send-orderdet",
-      cart
-    );
-    localStorage.setItem("cartProduct", []);
-    console.log(responseOrderdet.data);
-  }
+  //   // 進 product_orderdet (購物車)
+  //   let responseOrderdet = await axios.post(
+  //     "http://localhost:3002/api/products/send-orderdet",
+  //     cart
+  //   );
+  //   localStorage.setItem("cartProduct", []);
+  //   console.log(responseOrderdet.data);
+  // }
 
   return (
     <>
@@ -66,26 +64,26 @@ function ShipmentCreditCard() {
           {/* 上半部內容 */}
           {/* <ShoppingCartTitle /> */}
           <div className="shopping-cart-title">
-            <h2 className="text-center">您的訂購資訊</h2>
+            <h2 className="text-center">您的訂房資訊</h2>
           </div>
           <div className="checkout-flow checkout-flow-margin d-flex justify-content-between align-items-center">
-            <h3>購物車</h3>
+            <h3>訂房資訊</h3>
+            <div>
+              <img src={shoppingCartArrow} alt="" />
+            </div>
+            <h3 className="checkout-flow-bg-green">您的資料</h3>
             <div>
               <img src={shoppingCartArrow} alt="" />
             </div>
             <h3>付款資訊</h3>
-            <div>
-              <img src={shoppingCartArrow} alt="" />
-            </div>
-            <h3 className="checkout-flow-bg-green">運送資訊</h3>
           </div>
           <div className="cart-dividing-line-full"></div>
 
           {/* 填寫欄位 */}
           <div className="product-payment-title text-center">
-            <h3>您的收貨資料</h3>
+            <h3>您的資料</h3>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="product-payment-input m-auto">
               <div>
                 <h6>您的姓名</h6>
@@ -237,25 +235,20 @@ function ShipmentCreditCard() {
             {/* 送出按鈕 */}
             <div className="cart-dividing-line-full"></div>
             <div className="cart-next-back-btn-block">
-              <Link to="/p_orders/success">
-                <button
-                  type="submit"
-                  className="cart-next-btn"
-                  onClick={handleSubmit}
-                >
-                  確認送出
+              <Link to="/orders/prepay">
+                <button type="submit" className="cart-next-btn">
+                  付款資訊
                 </button>
               </Link>
-              <Link to="/p_orders/payment">
+              <Link to="/booking/1">
                 <button className="cart-back-btn">返回上一步</button>
               </Link>
             </div>
           </form>
         </div>
       </main>
-      <Footer />
     </>
   );
 }
 
-export default ShipmentCreditCard;
+export default BookingInfo;

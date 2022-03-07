@@ -9,7 +9,7 @@ function BookingTitle() {
         <h2 className="text-center">您的訂房資訊</h2>
       </div>
       <div className="checkout-flow d-flex justify-content-between align-items-center">
-        <h3 className="checkout-flow-cart">訂房資訊</h3>
+        <h3 className="checkout-flow-cart checkout-flow-bg-green">訂房資訊</h3>
         <div>
           <img src={shoppingCartArrow} alt="" />
         </div>

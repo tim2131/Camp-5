@@ -8,16 +8,6 @@
 }
 
 /* 主圖&標題 */
-.main-pic {
-  // width: 700px;
-  // height: 700px;
-}
-// .main-pic img {
-//   object-fit: cover;
-//   width: 100%;
-//   height: 100%;
-// }
-
 .product-main-info h1 {
   // font-size: 60px;
   line-height: 140%;
@@ -195,63 +185,65 @@ option:hover {
 
 // --------------------------------------
 $width: 200px * 3.5;
-$tagWidth: 85px * 3.5;
-$tagWordTop: 25px * 3.5;
-$tagWordLeft: 20px * 3.5;
-$tagWordSize: 11px * 3.5;
+// $tagWidth: 85px * 3.5;
+// $tagWordTop: 25px * 3.5;
+// $tagWordLeft: 20px * 3.5;
+// $tagWordSize: 11px * 3.5;
 
-.tag {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: $tagWidth $tagWidth 0 0;
-  border-color: #c15f2ebe transparent transparent transparent;
-  position: absolute;
-  z-index: 99;
-  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
-}
+// .tag {
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: $tagWidth $tagWidth 0 0;
+//   border-color: #c15f2ebe transparent transparent transparent;
+//   position: absolute;
+//   z-index: 99;
+//   clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+// }
 
-.tagStar {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: $tagWidth $tagWidth 0 0;
-  border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
-  position: absolute;
-  z-index: 99;
-  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
-}
-.tagNoStock {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: $tagWidth $tagWidth 0 0;
-  border-color: #c4c4c4 transparent transparent transparent;
-  position: absolute;
-  z-index: 99;
-  clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
-}
-.tagWord {
-  position: absolute;
-  top: $tagWordTop;
-  left: $tagWordLeft;
-  transform: rotate(-45deg);
-  color: #e9e3da;
-  font-size: $tagWordSize;
-  z-index: 100;
-}
+// .tagStar {
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: $tagWidth $tagWidth 0 0;
+//   border-color: rgba(251, 188, 5, 0.8) transparent transparent transparent;
+//   position: absolute;
+//   z-index: 99;
+//   clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+// }
+// .tagNoStock {
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: $tagWidth $tagWidth 0 0;
+//   border-color: #c4c4c4 transparent transparent transparent;
+//   position: absolute;
+//   z-index: 99;
+//   clip-path: polygon(150% 0%, 59% 0, 0 59%, 0 100%);
+// }
+// .tagWord {
+//   position: absolute;
+//   top: $tagWordTop;
+//   left: $tagWordLeft;
+//   transform: rotate(-45deg);
+//   color: #e9e3da;
+//   font-size: $tagWordSize;
+//   z-index: 100;
+// }
 
 // --------pic small for product and camp--------------------------------------------
-.orderPicBox {
-  position: relative;
-  width: $width;
-  height: $width;
-}
+// .orderPicBox {
+//   position: relative;
+//   width: $width;
+//   height: $width;
+// }
 .list_item1 {
-  width: $width;
-  height: $width;
-  overflow: hidden;
-  position: relative;
+  // width: $width;
+  // height: $width;
+  max-width: 100%;
+  max-height: 100%;
+  // overflow: hidden;
+  // position: relative;
   clip-path: polygon(
     25% 0%,
     100% 0,
@@ -264,7 +256,11 @@ $tagWordSize: 11px * 3.5;
   );
 }
 .pic1 {
-  object-fit: contain;
-  object-position: -50px;
-  max-block-size: 100%;
+  // object-fit: contain;
+  object-fit: cover;
+  // object-position: -50px;
+  width: 100%;
+  height: 100%;
+  // object-position: center;
+  // max-block-size: 100%;
 }

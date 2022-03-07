@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import Footer from "./Footer";
-
 import "../style/OrderFlow.scss";
 import "../style/ShoppingCartTitle.scss";
 
@@ -117,16 +115,12 @@ function CreditCard() {
         {/* 送出按鈕 */}
         <div className="cart-dividing-line-full"></div>
         <div className="cart-next-back-btn-block">
-          <Link to="/p_orders/shipment/credit_card">
-            <button
-              type="submit"
-              className="cart-next-btn"
-              onClick={saveSession}
-            >
-              下一步：運送資訊
+          <Link to="/orders/success">
+            <button type="submit" className="cart-next-btn">
+              完成預定
             </button>
           </Link>
-          <Link to="/p_orders/cart">
+          <Link to="/orders/booking_info">
             <button className="cart-back-btn">返回上一步</button>
           </Link>
         </div>
@@ -135,42 +129,8 @@ function CreditCard() {
   );
 }
 
-// 超商----------------------------------------------------------
-function ConvenienceStore() {
-  function saveSession() {
-    let waitingInfo = JSON.parse(sessionStorage.getItem("waitingInfo"));
-    let newWaitingInfo = { ...waitingInfo, payment: 1 }; // 超商 -> 未付款
-    let waitingInfoString = JSON.stringify(newWaitingInfo);
-    sessionStorage.setItem("waitingInfo", waitingInfoString);
-  }
-
-  return (
-    <>
-      <div className="product-payment-convenience text-center">
-        <h3>請直接進行下一步</h3>
-      </div>
-
-      {/* 送出按鈕 */}
-      <div className="cart-dividing-line-full"></div>
-      <div className="cart-next-back-btn-block">
-        <Link to="/p_orders/shipment/convenience_store">
-          <button className="cart-next-btn" onClick={saveSession}>
-            下一步：運送資訊
-          </button>
-        </Link>
-        <Link to="/p_orders/cart">
-          <button className="cart-back-btn">返回上一步</button>
-        </Link>
-      </div>
-    </>
-  );
-}
-
 // 主體----------------------------------------------------------
-function PaymentForGoods() {
-  // 選擇付款方式
-  const [check, setCheck] = useState(true);
-
+function BookingPay() {
   return (
     <>
       <main className="shopping-cart-main">
@@ -178,60 +138,25 @@ function PaymentForGoods() {
           {/* 上半部內容 */}
           {/* <ShoppingCartTitle /> */}
           <div className="shopping-cart-title">
-            <h2 className="text-center">您的訂購資訊</h2>
+            <h2 className="text-center">您的訂房資訊</h2>
           </div>
           <div className="checkout-flow checkout-flow-margin d-flex justify-content-between align-items-center">
-            <h3>購物車</h3>
+            <h3>訂房資訊</h3>
+            <div>
+              <img src={shoppingCartArrow} alt="" />
+            </div>
+            <h3>您的資料</h3>
             <div>
               <img src={shoppingCartArrow} alt="" />
             </div>
             <h3 className="checkout-flow-bg-green">付款資訊</h3>
-            <div>
-              <img src={shoppingCartArrow} alt="" />
-            </div>
-            <h3>運送資訊</h3>
           </div>
           <div className="cart-dividing-line-full"></div>
-
-          {/* 選擇付款方式 */}
-
-          <div className="product-choose-payment d-flex justify-content-center">
-            <h3>請先選擇你的付款方式</h3>
-            <label className="d-flex align-items-center">
-              <input
-                type="radio"
-                value="信用卡付款"
-                onChange={(e) => {
-                  setCheck(true);
-                }}
-                name="choose-payment"
-                checked={check}
-              />
-              <div className="customer-radio-btn"></div>
-              <h3>信用卡付款</h3>
-            </label>
-            <label className="d-flex align-items-center">
-              <input
-                type="radio"
-                value="超商取貨付款"
-                onChange={(e) => {
-                  setCheck(false);
-                }}
-                name="choose-payment"
-                checked={!check}
-              />
-              <div className="customer-radio-btn"></div>
-              <h3>超商取貨付款</h3>
-            </label>
-          </div>
-
-          {/* 信用卡 or 超商 */}
-          {check === true ? <CreditCard /> : <ConvenienceStore />}
         </div>
+        <CreditCard />
       </main>
-      <Footer />
     </>
   );
 }
 
-export default PaymentForGoods;
+export default BookingPay;

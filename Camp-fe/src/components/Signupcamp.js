@@ -160,7 +160,7 @@ const Signupcamp = () => {
               <Link className="Signupbtn1" to="/signupuser">
                 一般會員
               </Link>
-              <Link className="Signupbtn2" to="/signupcamp">
+              <Link className="Signupbtn2 Signupcampbtn2" to="/signupcamp">
                 營主
               </Link>
             </div>

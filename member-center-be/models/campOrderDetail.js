@@ -4,7 +4,7 @@ const connection = require("../utils/db");
 // 取得訂單會員資料
 async function getCampPOppl(memberId,POId) {
   let [data, fields] = await connection.execute(
-    "SELECT camp_order.id AS campOrderID, camp_order.user_id, camp_order.camp_id, camp_order.coupon, user.id AS UserID, user.user_name, user.phone, user.name, coupon.id AS couponID, coupon.discount FROM camp_order LEFT JOIN user ON camp_order.user_id=user.id LEFT JOIN coupon on coupon.id=camp_order.coupon WHERE camp_order.user_id=? AND camp_order.id=?",
+    "SELECT camp_order.id AS campOrderID, camp_order.user_id, camp_order.camp_id, camp_order.coupon,camp_order.total, user.id AS UserID, user.user_name, user.phone, user.name, coupon.id AS couponID, coupon.discount FROM camp_order LEFT JOIN user ON camp_order.user_id=user.id LEFT JOIN coupon on coupon.id=camp_order.coupon WHERE camp_order.user_id=? AND camp_order.id=?;",
     [memberId, POId]
   );
   console.log(data);

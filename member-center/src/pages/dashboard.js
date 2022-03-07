@@ -1,24 +1,24 @@
 import {
   Avatar,
-  Image,
+
   PageHeader,
   Button,
   Card,
   Row,
   Col,
   Divider,
-  Dropdown,
-  Menu,
-  Modal,
+
   List,
   message,
+  Popover,
 } from "antd";
 import React from "react";
 import { useState, useEffect } from "react";
 import {
   UserOutlined,
-  NotificationOutlined,
+
   NotificationFilled,
+  CaretRightOutlined,
 } from "@ant-design/icons";
 import "../style/dashBoardMember.less";
 import axios from "axios";
@@ -27,7 +27,7 @@ import { IMAGE_URL } from "../utils/config";
 import CouponList from "../comp/couponList";
 import AllCouponList from "../comp/allCouponList";
 import { Navigate, Link } from "react-router-dom";
-import HeadPic from '../comp/HeadPic';
+import HeadPic from "../comp/HeadPic";
 
 const DashBoard = ({}) => {
   const [memberPic, setMemberPic] = useState({});
@@ -116,9 +116,9 @@ const DashBoard = ({}) => {
   //   handleSubmitPic();
   // }, [memberPic]);
 
-
   //--------------------------------
-  
+
+
   //--------------------------------
 
   const [file, setFile] = React.useState(null);
@@ -144,25 +144,24 @@ const DashBoard = ({}) => {
         withCredentials: true,
       });
       console.log(response.data);
-       setConfirmPicLoading(true);
-       setTimeout(() => {
-         setpicModalVisible(false);
-         setConfirmPicLoading(false);
-         message.success("上傳成功");
-       }, 2000);
-      
+      setConfirmPicLoading(true);
+      setTimeout(() => {
+        setpicModalVisible(false);
+        setConfirmPicLoading(false);
+        message.success("上傳成功");
+      }, 2000);
     } catch (e) {
-       message.error("請稍後再試");
+      message.error("請稍後再試");
       console.error("上傳失敗");
     }
   }
- //--------------------------------
+  //--------------------------------
   const showModal = () => {
-     setpicModalVisible(true);
+    setpicModalVisible(true);
   };
-    const [picModalvisible, setpicModalVisible] = React.useState(false);
+  const [picModalvisible, setpicModalVisible] = React.useState(false);
   const [confirmPicLoading, setConfirmPicLoading] = React.useState(false);
-  
+
   const handlePicOk = (e) => {
     handleSubmitPic(e);
   };
@@ -186,15 +185,14 @@ const DashBoard = ({}) => {
             />
             <PageHeader
               className="site-page-header"
-              title={`歡迎!! ${rank.name.slice(1, 5)}`}
+              title={`Welcome!! ${rank.name.slice(1, 5)}`}
               //subTitle={rank.name.slice(1, 5)}
               // extra={"test"}
               //footer={"test"}
             >
-              test
+              {/* test */}
               <Divider
-                style={{ marginBottom: 20, marginTop: "-3em" ,border:"5em" }}
-                
+                style={{ marginBottom: 20, marginTop: "-3em", border: "5em" }}
               >
                 <div className="memberpicBox">
                   <div className="avaContainer">
@@ -232,9 +230,67 @@ const DashBoard = ({}) => {
                     />
                   </div>
                 </div>
+                <Popover
+                  className="member_popover"
+                  placement="rightTop"
+                  content={
+                    (rank.acc_total >= 100000 && (
+                      <div className="popover_content">
+                        <div>恭喜你！</div>
+                        <div>
+                          <CaretRightOutlined />
+                          您現在是白金會員，每月可獲得500全站使用折價券
+                        </div>
+                      </div>
+                    )) ||
+                    (rank.acc_total >= 50000 && (
+                      <div className="popover_content">
+                        <div>
+                          <CaretRightOutlined />
+                          您現在是金色會員，每月可獲得300全站使用折價券
+                        </div>
+                        <div>
+                          <CaretRightOutlined />
+                          再消費${100000 - rank.acc_total}
+                          即可成為白金會員並享受每月500全站折價券！
+                        </div>
+                      </div>
+                    )) ||
+                    (rank.acc_total >= 10000 && (
+                      <div className="popover_content">
+                        <div>
+                          <CaretRightOutlined />
+                          您現在是銀色會員，每月可獲得100全站使用折價券
+                        </div>
+                        <div>
+                          <CaretRightOutlined />
+                          再消費${50000 - rank.acc_total}
+                          即可成為金色會員即可成為白金會員並享受每月300全站折價券！
+                        </div>
+                      </div>
+                    )) ||
+                    (rank.acc_total < 10000 && (
+                      <div className="popover_content">
+                        <div>
+                          <CaretRightOutlined />
+                          您現在是普通會員
+                        </div>
+                        <div>
+                          <CaretRightOutlined />
+                          再消費${10000 - rank.acc_total}
+                          即可成為銀色會員並每月獲得100折價券！
+                        </div>
+                      </div>
+                    ))
+                  }
+                  title={<div className="popover_title">會員升級</div>}
+                  trigger="hover"
+                >
+                  <div>你的點數：{rank.point}點</div>
+                  <div>累積購買金額：${rank.acc_total}</div>
+                </Popover>
               </Divider>
             </PageHeader>
-            TODO: 點數{rank.point}/累積購買金額{rank.acc_total}
           </React.Fragment>
         );
       })}
@@ -244,7 +300,7 @@ const DashBoard = ({}) => {
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
             <Card
               className="rowCard"
-              title={<h3 className="dsCardTitle">預定行程</h3>}
+              title={<h3 className="dsCardTitle">14天內預定行程</h3>}
               bordered={false}
             >
               <List
@@ -329,8 +385,8 @@ const DashBoard = ({}) => {
               {couponData && couponData.length >= 3 && couponData.length > 0 ? (
                 <>
                   <div className="pastdueAlert">
-                    <NotificationFilled />
-                    您有Coupon即將到期!
+                    <NotificationFilled className="blink_me" />
+                    您有Coupon即將到期！請盡速使用！
                   </div>
                 </>
               ) : (

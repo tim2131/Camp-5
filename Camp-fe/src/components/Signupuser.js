@@ -170,7 +170,7 @@ const Signupuser = () => {
           <h1 className="h1 d-inline-block Signuph1">註冊</h1>
             <div className="d-inline-block Signupbox">
            
-              <Link className="Signupbtn1" to="/signupuser">
+              <Link className="Signupbtn1 Signupuserbtn1" to="/signupuser">
                 一般會員
               </Link>
               <Link className="Signupbtn2" to="/signupcamp">
