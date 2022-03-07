@@ -45,7 +45,7 @@ function Booking() {
             <div className="container">
               {/*上半*/}
               <BookingTitle />
-              <div className="banner">
+              <div className="bannerB">
                 <div className="a">
                   <img className="picB" src={BookingBanner} alt=""></img>
                 </div>
