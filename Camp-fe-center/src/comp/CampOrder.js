@@ -67,8 +67,8 @@ const CampOrder = ({data}) => {
                 }
                 description={
                   <>
-                    <span className="campdate">{data.orderdate_start}</span>~
-                    <span className="campdate">{data.orderdate_end}</span>
+                    <span className="campdate">{data.orderdate_start.substring(0,data.orderdate_start.indexOf('T'))}</span>~
+                    <span className="campdate">{data.orderdate_end.substring(0,data.orderdate_end.indexOf('T'))}</span>
                     <br />
                     <span className="campdate">{data.camp_county}</span>
                     <div className="orderlinkbox">
