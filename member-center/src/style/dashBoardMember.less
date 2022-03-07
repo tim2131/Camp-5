@@ -116,3 +116,23 @@
 .picModal{
   top:10em;
 }
+.blink_me {
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+.popover_title{
+  font-size: 1.3em;
+  color:@component-background;
+}
+.popover_content{
+  font: 1.1em sans-serif;
+  color:@component-background;
+}
+.ant-popover-inner{
+background: @success-color;
+border-radius:3%;
+
+}
