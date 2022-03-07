@@ -23,6 +23,7 @@
     "react-date-range": "^1.4.0",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
+    "react-leaflet": "^3.2.5",
     "react-native-map-link": "^2.8.3",
     "react-numeric-input": "^2.2.3",
     "react-router-dom": "^6.2.1",
