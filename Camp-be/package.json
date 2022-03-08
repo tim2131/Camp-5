@@ -22,7 +22,8 @@
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
     "pug": "^3.0.2",
-    "session-file-store": "^1.5.0"
+    "session-file-store": "^1.5.0",
+    "smtp-connection": "^4.0.2"
   },
   "devDependencies": {
     "eslint-config-react-app": "^7.0.0",

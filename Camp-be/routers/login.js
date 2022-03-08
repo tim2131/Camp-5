@@ -227,8 +227,6 @@ router.get("/logout", (req, res, next) => {
   res.sendStatus(202);
 });
 
-
-
 //----------------Forgotpassword 忘記密碼功能
 const nodemailer = require("nodemailer");
 const crypto = require("crypto"); //產生亂碼 套件
@@ -239,8 +237,6 @@ router.post("/forgotPassword", async (req, res) => {
   }
   console.error(req.body.email);
 
-
-  
   let [members] = await connection.execute(
     "SELECT * FROM user WHERE user_name=?",
     [req.body.email]
@@ -267,8 +263,8 @@ router.post("/forgotPassword", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASSWORD,
+      user: "xie6493@gmail.com",
+      pass: "xiemfee22",
     },
   });
 
@@ -336,7 +332,5 @@ router.post(
   ],
   authControllerUserCode
 );
-
-
 
 module.exports = router;

@@ -141,7 +141,7 @@ function ShipmentConvenienceStore() {
                     type="text"
                     id=""
                     name=""
-                    placeholder="請點選右側圖示選擇"
+                    placeholder="請選擇"
                     value={convenienceStoreShipment.csc}
                     onChange={handleChange}
                   ></input>
