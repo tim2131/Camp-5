@@ -54,7 +54,8 @@ router.get("/api/product-fav/:productId", async (req, res, next) => {
   res.json(data);
 });
 // 使用者有沒有點過愛心
-router.get("/api/user/product-fav/:productId", async (req, res, next) => {
+router.post("/api/user/product-fav/:productId", async (req, res, next) => {
+  console.log("req.session.member", req.session.member);
   let [data] = await connection.execute(
     "SELECT * FROM product_fav WHERE user_id=? AND product_id=?",
     [1, req.params.productId]

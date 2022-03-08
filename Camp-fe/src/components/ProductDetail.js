@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, Routes, Route } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 import Footer from "./Footer";
 
@@ -84,8 +85,9 @@ function ProductDetail() {
       setFavData(responseFav.data);
       setHeartNumber(responseFav.data.length);
 
-      let responseUserFav = await axios.get(
-        `http://localhost:3002/api/user/product-fav/${productId}`
+      let responseUserFav = await axios.post(
+        `http://localhost:3002/api/user/product-fav/${productId}`,
+        []
       );
       setUserFav(responseUserFav.data);
       console.log("loginId", loginId);
@@ -154,6 +156,10 @@ function ProductDetail() {
   // 全部資料都寫入，要用時再挑出需要的特定資料
   async function handleSubmit1(e) {
     e.preventDefault();
+    Swal.fire({
+      title: "成功加入購物車！",
+      confirmButtonColor: "#6A6842",
+    });
     // let newCart = [...cart];
     // newCart.push(product);
     // setCart(newCart);

@@ -82,7 +82,7 @@ function ProductReview() {
           <div className="d-flex subtitle-block">
             <div className="review-subtitle-space"></div>
             <h3>商品評價</h3>
-            <div className="customer-rate d-flex">
+            <div className="customer-rate-star d-flex">
               <div className="total-rate-number text-center">{avarageStar}</div>
               {getStar(avarageStar)}
             </div>
@@ -99,8 +99,8 @@ function ProductReview() {
                       />
                     </div>
                     <div>
-                      <h5 className="user-name">{item.user_name}</h5>
-                      <div className="customer-rate">
+                      <h5 className="user-name">{item.name}</h5>
+                      <div className="customer-rate-star">
                         {getStar(item.product_stars)}
                       </div>
                     </div>
