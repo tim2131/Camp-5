@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import "../style/OrderFlow.scss";
+import Footer from "./Footer";
 
 function BookingSuccess() {
   return (
@@ -40,6 +41,7 @@ function BookingSuccess() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
