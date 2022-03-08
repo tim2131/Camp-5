@@ -27,6 +27,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductsList from "./components/ProductsList";
 import Booking from "./components/Booking";
+import BookingPay from "./components/BookingPay";
+import BookingInfo from "./components/BookingInfo";
+import BookingSuccess from "./components/BookingSuccess";
+import { CartProvider } from "./components/useCart";
+import { SecondCartProvider } from "./components/useSecondCart";
 
 function App() {
   const [member, setMember] = useState(null);
@@ -67,7 +72,9 @@ function App() {
 
   return (
     <>
-      <AuthContext.Provider
+    <SecondCartProvider>
+    <CartProvider>
+    <AuthContext.Provider
         value={{ member, setMember, campmember, setCampMember }}
       >
         <div className="App">
@@ -88,6 +95,9 @@ function App() {
             <Route path="/p_orders/cart" element={<ShoppingCart />} />
             <Route path="/p_orders/payment" element={<PaymentForGoods />} />
             <Route path="/booking/:campId" element={<Booking />} />
+              <Route path="/orders/booking_info" element={<BookingInfo />} />
+                <Route path="/orders/prepay" element={<BookingPay />} />
+                <Route path="/orders/success" element={<BookingSuccess />} />
 
 
             <Route
@@ -105,6 +115,8 @@ function App() {
           {/* </BrowserRouter> */}
         </div>
       </AuthContext.Provider>
+    </CartProvider>
+      </SecondCartProvider>
     </>
   );
 }

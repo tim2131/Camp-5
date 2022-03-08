@@ -164,9 +164,9 @@ const OrderDetails12 = ({
           >
             填寫評價
           </button> */}
-          <button className="orderlinks" onClick={POStatusAfterChange}>
+          {/* <button className="orderlinks" onClick={POStatusAfterChange}>
             上傳點數
-          </button>
+          </button> */}
         </div>
         
         <div className="orderppl">
@@ -269,7 +269,9 @@ const OrderDetails12 = ({
         <br />
         {/* //----加購資訊----------------- */}
         {act.map((item) => (
+          
           <React.Fragment key={item.id}>
+          {console.log('item',item)}
             <List className="" itemLayout="vertical" size="small">
               <List.Item
                 key={item.id}
@@ -278,18 +280,11 @@ const OrderDetails12 = ({
                     width={250}
                     height={200}
                     alt="logo"
-                    src={'http://localhost:3005/images/camp19.jpg'}
-                  />
-                }
-                extra={
-                  <img
-                    width={250}
-                    height={200}
-                    alt="logo"
-                    src={'http://localhost:3005/images/camp2.jpg'}
+                    src={`http://localhost:3005/images/${item.pic}`}
                   />
                 }
               >
+              
                 <List.Item.Meta
                   title={
                     <>
@@ -320,49 +315,54 @@ const OrderDetails12 = ({
         {/* //----總金額資訊----------------- */}
         <div className="totalBlockEnd">
           <div className="totalItemBlock">
-            <div className="totalItem">營地每晚單價(共4晚)</div>
-            <div className="totalItem">營地折扣完單價(共1晚)</div>
+            <div className="totalItem">營地每晚單價(共 {data && data.length>0 &&(new Date(data[0].orderdate_end) - new Date(data[0].orderdate_start))/(24 * 60 * 60 * 1000)} 晚)</div>
+            {/* <div className="totalItem">營地折扣完單價(共1晚)</div> */}
             {act.map((item) => (
               <React.Fragment key={item.id}>
+               
                 <div className="totalItem">
                   {item.name}(共{item.number_people}人)
                 </div>
               </React.Fragment>
             ))}
-
-            <div className="totalItem">折扣碼</div>
-            <div className="totalItem">折扣總額</div>
+              {(ppl.length > 0 && ppl[0].promo_code &&<React.Fragment> <div className="totalItem">折扣碼</div>
+            <div className="totalItem">折扣總額</div></React.Fragment>)}
+            
             <Divider />
             <div className="totalItemE">訂單總額</div>
           </div>
 
           <div className="totalmoney">
 
-            {ppl.map((item) => (
+            {data.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">{item.item}NT$6000</div>
-                <div className="total">{item.item}NT$500</div>
+
+                <div className="total">NT${item.price * (new Date(item.orderdate_end) - new Date(item.orderdate_start))/(24 * 60 * 60 * 1000)}</div>
+                {/* <div className="total">{}NT$500</div> */}
               </React.Fragment>
             ))}
             {act.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">NT${item.price}</div>
+                <div className="total">NT${item.price * item.number_people}</div>
               </React.Fragment>
             ))}
 
-            {ppl.map((item) => (
+            {ppl.length > 0 && ppl[0].promo_code && ppl.map((item) => (
               <React.Fragment key={item.id}>
-                <div className="total">aaabb{item.discount}</div>
+                <div className="total">{ item.promo_code}</div>
+                <div className="total">NT$-{item.discount}</div>
               </React.Fragment>
             ))}
 
-            <div className="total">NT$-500</div>
+            
             <Divider />
-            {ppl.map((item) => (
-              <React.Fragment key={item.id}>
-                <div className="totalE">NT$24300</div>
+       
+              <React.Fragment>
+                <div className="totalE">NT${data.length>0 && data[0].price * (new Date(data[0].orderdate_end) - new Date(data[0].orderdate_start))/(24 * 60 * 60 * 1000) +  act.map((item)=>item.price*item.number_people).reduce(
+  (previousValue, currentValue) => previousValue + currentValue, 0)  -  ((ppl.length>0 && ppl[0].discount)? ppl[0].discount:0)
+}</div>
               </React.Fragment>
-            ))}
+            
           </div>
         </div>
       </div>

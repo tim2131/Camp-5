@@ -78,7 +78,7 @@ router.post("/TentAdd", (req, res, next) => {
   router.post("/ActAdd", (req, res, next) => {
     console.log('req.body',req.body);
     db.query(
-      `INSERT INTO add_act_intro(name,price,pic,intro) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.img}', '${req.body.intro}')`,
+      `INSERT INTO add_act_intro(name,price,pic,intro) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.pic}', '${req.body.intro}')`,
       function (err, rows) {
         if (err) throw err;
         console.log("Response: ", rows);
@@ -189,7 +189,7 @@ router.post("/TentAdd", (req, res, next) => {
       "SELECT * FROM camp_order LEFT JOIN user ON camp_order.user_id=user.id LEFT JOIN coupon on coupon.id=camp_order.coupon WHERE camp_order.id=" + orderID,
       function(err,rows){
         if(err) throw err;
-        // console.log("Response:", rows);
+        // console.log("Response123:", rows);
         res.send(rows);
       }
     )
@@ -220,14 +220,24 @@ router.post("/TentAdd", (req, res, next) => {
   router.get("/campData/:id?",(req,res,next)=>{
     const orderID = req.params.id? req.params.id:1;
     db.query(
-      "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.Cid LEFT JOIN camp_cate1 ON camp.campcate1_id=camp_cate1.id LEFT JOIN camp_county ON camp.campcounty_id=camp_county.Yid LEFT JOIN camp_owner ON camp.campowner_id=camp_owner.id LEFT JOIN camp_pic ON camp.Cid=camp_pic.camp_id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id WHERE camp_order.id=" + orderID,
+      "SELECT * FROM camp_order LEFT JOIN camp ON camp_order.camp_id=camp.Cid LEFT JOIN camp_cate1 ON camp.campcate1_id=camp_cate1.id LEFT JOIN camp_county ON camp.campcounty_id=camp_county.Yid LEFT JOIN camp_owner ON camp.campowner_id=camp_owner.id LEFT JOIN camp_pic ON camp.Cid=camp_pic.camp_id LEFT JOIN order_status ON camp_order.orderstatus_id=order_status.id LEFT JOIN tent ON camp_order.camp_id=tent.id WHERE camp_order.id=" + orderID,
       function(err,rows){
         if(err) throw err;
-        // console.log("Response:", rows);
+        console.log("campData Response:", rows);
         res.send(rows);
       }
     )
   })
+  router.get("/campOwnerPic"),(req,res,next)=>{
+    db.query(
+      "SELECT * FROM `campowner_pic`",
+      function (err, rows) {
+        if (err) throw err;
+        console.log("Response: ", rows);
+        res.send(rows);
+      }
+    );
+  };
   
 
   module.exports = router;

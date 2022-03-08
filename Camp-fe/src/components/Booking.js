@@ -15,6 +15,7 @@ import BookingBanner from "../img/BookingBanner.jpg";
 import starFull from "../img/icon/star-full.svg";
 import starEmpty from "../img/icon/star-empty.svg";
 import AddAct from "./AddAct";
+import BookingSum from "./BookingSum";
 
 function Booking() {
   const [state, setState] = useState([
@@ -45,7 +46,7 @@ function Booking() {
             <div className="container">
               {/*上半*/}
               <BookingTitle />
-              <div className="banner">
+              <div className="bannerB">
                 <div className="a">
                   <img className="picB" src={BookingBanner} alt=""></img>
                 </div>
@@ -94,6 +95,7 @@ function Booking() {
                 <h2>加購活動</h2>
               </div>
               <AddAct />
+              <BookingSum />
               <div className="cart-dividing-line-full"></div>
             </div>
           </>

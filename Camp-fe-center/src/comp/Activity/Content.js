@@ -72,7 +72,7 @@ export default class Content extends React.Component {
       let nowValue = event.target.value.trim();
       if(nowValue.indexOf("C:\\fakepath\\") != -1){
         nowValue = nowValue.replace("C:\\fakepath\\","");
-        formValues['img'] = nowValue;
+        formValues['pic'] = nowValue;
         formValues[key] = <img src={'http://localhost:3005/images/'+nowValue} alt="Activity" width={70} height={60} />;
       }
       else{

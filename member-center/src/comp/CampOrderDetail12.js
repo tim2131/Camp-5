@@ -436,11 +436,10 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
                     -{item.discount}
                   </div>
                 )}
+                <Divider />
+                <div className="totalE">{item.total}</div>
               </React.Fragment>
             ))}
-
-            <Divider />
-            <div className="totalE">{ttl}</div>
           </div>
         </div>
       </div>

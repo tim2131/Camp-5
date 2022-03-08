@@ -46,7 +46,7 @@ function Navbar() {
                 to="/camplist"
                 id="navbarDropdown"
                 role="button"
-                data-toggle="dropdown"
+                // data-toggle="dropdown"
                 aria-expanded="false"
               >
                 營區瀏覽
@@ -125,7 +125,7 @@ function Navbar() {
                 to="/products"
                 id="navbarDropdown"
                 role="button"
-                data-toggle="dropdown"
+                // data-toggle="dropdown"
                 aria-expanded="false"
               >
                 商品瀏覽

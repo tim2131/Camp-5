@@ -40,7 +40,7 @@ const OrderDetails = () => {
   async function getCampPOCamp(e) {
     try {
       let result = await axios.get(`${IMAGE_URL}/campData/${orderId}`);
-      console.log(result.data);
+      console.log('result.data',result.data);
       setData(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -55,7 +55,7 @@ const OrderDetails = () => {
   async function getCampPOPpl(e) {
     try {
       let result = await axios.get(`${IMAGE_URL}/Ppl/${orderId}`);
-      console.log(result.data);
+      console.log('ppl',result.data);
       setPpl(result.data);
     } catch (e) {
       console.error("錯誤");
@@ -128,7 +128,7 @@ const OrderDetails = () => {
           lg={{ span: 24, offset: 0 }}
           xl={{ span: 12, offset: 0 }}
         >
-          <OrderDetails12 ppl={ppl} tent={tent} act={act} />
+          <OrderDetails12 data={data} ppl={ppl} tent={tent} act={act} />
         </Col>
       </Row>
      
