@@ -62,7 +62,7 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
       ratePO();
       setvisible3(false);
     
-      //TODO: MEJOR-把按鈕改成看評論
+      
       //TODO: MEJOR-看要不要可以編輯評論 或追加評論
     }, 1500);
   };
