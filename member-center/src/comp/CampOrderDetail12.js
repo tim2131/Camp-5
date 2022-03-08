@@ -152,6 +152,7 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
   const seeRateAfter = () => {
     setvisible2(true);
     seeRatePO();
+    setvisible4(false)
   }
   //----------------------------------------
   const [ttl, setTtl] = useState([]);
@@ -245,7 +246,8 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
               你的評論
             </button>
           )}
-          <button
+
+          {visible4 ? (<button
             //className="orderlinks"
             className={
               (existedComment && existedComment.length > 0) ||
@@ -258,8 +260,7 @@ const OrderDetails12 = ({ ppl, tent, act, data, setPOStatus, setPOStatusWord }) 
             onClick={() => setvisible2(true)}
           >
             你的評論
-          </button>
-
+          </button>) : ""}
           <button className="orderlinks">聯繫客服</button>
         </div>
         <div className="orderppl">
