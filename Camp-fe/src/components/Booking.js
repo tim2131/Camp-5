@@ -86,6 +86,8 @@ function Booking() {
                     onChange={(item) => setState([item.selection])}
                     moveRangeOnFirstSelection={false}
                     ranges={state}
+                    rangeColors={["#6a6842"]}
+                    className="dateranger"
                   />
                 </div>
               </div>
