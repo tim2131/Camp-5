@@ -108,6 +108,23 @@ app.get("/api/act/:campId", async (req, res, next) => {
   );
   res.json(data);
 });
+// 折扣碼
+app.post("/api/products/coupon", async (req, res, next) => {
+  // console.log("req.body", req.body);
+  // console.log("req.body[1].loginId", req.body[1].loginId);
+  console.log(req.body);
+  let [couponInput] = await connection.execute(
+    "SELECT * FROM coupon WHERE promo_code=? AND status=1",
+    [req.body[0].coupon]
+  );
+  if (couponInput.length === 0) {
+    return res.status(400).send({
+      msg: "無法使用此折扣碼",
+    });
+  }
+  // res.json({ msg: "coupon ok" });
+  res.json(couponInput);
+});
 // 單一營地圖片
 app.use("/camp-pic", express.static(path.join(__dirname, "public")));
 // 單一帳棚圖片

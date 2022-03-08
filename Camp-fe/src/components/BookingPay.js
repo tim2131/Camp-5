@@ -6,6 +6,7 @@ import "../style/OrderFlow.scss";
 import "../style/ShoppingCartTitle.scss";
 
 import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
+import Footer from "./Footer";
 
 // 信用卡----------------------------------------------------------
 function CreditCard() {
@@ -155,6 +156,7 @@ function BookingPay() {
         </div>
         <CreditCard />
       </main>
+      <Footer />
     </>
   );
 }

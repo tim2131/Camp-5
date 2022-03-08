@@ -7,6 +7,7 @@ import { DateRange } from "react-date-range";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import TentSelect from "./TentSelect";
+import Footer from "./Footer";
 
 import axios from "axios";
 
@@ -98,6 +99,7 @@ function Booking() {
               <BookingSum />
               <div className="cart-dividing-line-full"></div>
             </div>
+            <Footer />
           </>
         );
       })}
