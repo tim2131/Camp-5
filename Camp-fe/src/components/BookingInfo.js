@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "../style/OrderFlow.scss";
 
 import shoppingCartArrow from "../img/icon/shopping-cart-arrow.svg";
+import Footer from "./Footer";
 
 function BookingInfo() {
   // // 購物車資料
@@ -247,6 +248,7 @@ function BookingInfo() {
           </form>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
