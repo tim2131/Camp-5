@@ -257,7 +257,7 @@ const CampList = () => {
                               to={`/products/${v.Pid}`}
                               class="btn bookingBtn"
                             >
-                              加入購物車
+                              看更多
                             </Link>
                           </div>
                         </div>
