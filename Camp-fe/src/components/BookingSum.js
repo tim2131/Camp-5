@@ -25,12 +25,12 @@ function BookingSum() {
   }
 
   // 把輸入的折扣碼送到後端去判斷，再傳結果回來
-  async function couponSubmit(e) {
+   async function couponSubmit(e) {
     e.preventDefault();
     try {
       let response = await axios.post(
-        "http://localhost:3002/api/products/coupon/1",
-        coupon
+        `http://localhost:3002/api/products/coupon`,
+        [coupon]
       );
       // console.log(response.data[0].discount);
       setDiscount(response.data[0].discount);

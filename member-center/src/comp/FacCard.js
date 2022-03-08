@@ -129,7 +129,7 @@ const FavCard = ({ favData, setFavData, setLikeData, likeData }) => {
                         <div className="card_list_item">
                           <img
                             className="card_pic"
-                            // src="http://localhost:3005/images/camp1.jpg"
+                            // src="http://localhost:3006/images/camp1.jpg"
                             src={`${IMAGE_URL}/images/${fav.img1}`}
                             alt="camp-pic"
                           />

@@ -5,6 +5,7 @@ import { API_URL } from "../utils/config";
 import axios from "axios";
 import "antd/dist/antd.less";
 import FavCard from "../comp/FacCard";
+import FavCardP from "../comp/FacCard_product";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -63,7 +64,9 @@ const MyFav = () => {
           </div>
         </TabPane>
         <TabPane tab="商品最愛" key="2">
-          {/* //插入組件 */}
+        <div className="tabbottom">
+          <FavCardP/>
+          </div>
         </TabPane>
       </Tabs>
       {/*---------------Tabs end--------------- */}
