@@ -5,14 +5,15 @@ import React, { useState } from "react";
 import "antd/dist/antd.less";
 import Logo from "../img/logo.svg";
 import "../App.less";
-import { API_URL } from "../utils/config";
+import { IMAGE_URL } from "../utils/config";
 
 
 import axios from "axios";
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-function Header1({ menu,setLogData,logData }) {
+
+function Header1({ menu,logData }) {
   const [visible, setVisible] = useState(false);
   // const [logData, setLogData] = useState({}); 
   //-------------------------------------------------
@@ -37,16 +38,15 @@ function Header1({ menu,setLogData,logData }) {
     setTimeout(() => {
       modal.destroy();
       clearInterval(timer);
-      window.location.href = "http://localhost:3000/login";
       handleLogout()
     }, secondsToGo * 900);
   }
 //------------------------------------------
    const handleLogout = async () => {
-     await axios.get(`${API_URL}/logOut`, {
+     await axios.get(`http://localhost:3002/logout`, {
        withCredentials: true,
      });
-     setLogData(null);
+    //  setLogData(null);
      window.location.href = "http://localhost:3000";
   };
   //-----------------------------------------

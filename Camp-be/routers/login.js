@@ -224,7 +224,7 @@ router.post(
 router.get("/logout", (req, res, next) => {
   req.session.campmember = null;
   req.session.member = null;
-  res.sendStatus(202);
+  res.sendStatus(200);
 });
 
 
