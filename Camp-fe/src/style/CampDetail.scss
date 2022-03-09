@@ -51,8 +51,9 @@
 .line {
   width: 20%;
   height: 1px;
-  border-top: solid black;
+  // border-top: solid black;
   margin: auto;
+  background-color: #6a6842;
 }
 .labelGroup {
   display: flex;
@@ -75,15 +76,17 @@
 }
 .address {
   text-align: center;
+  margin: 20px 0;
 }
 .campIntro {
   margin: auto;
   max-width: 1120px;
   text-align: center;
+  margin-bottom: 50px;
 }
 .A {
   width: 698px;
-  height: 1020px;
+  height: 900px;
   background-color: #6a6842;
   border: 1px solid black;
 }
@@ -98,7 +101,6 @@
   height: 490px;
   margin-left: 80px;
   color: #e9e3da;
-  
 }
 .note {
   width: 547px;
@@ -120,7 +122,7 @@
   width: 697px;
   height: 450px;
   // background-color: cadetblue;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 182px;
 }
 .tentBlockA {
@@ -188,16 +190,20 @@
 .nav-tabs .nav-link.active {
   background-color: #e9e3da;
 }
-.dateranger{
+.dateranger {
   background-color: #e9e3da !important;
 }
-.rdrDateDisplayWrapper{
+.rdrDateDisplayWrapper {
   background-color: #e9e3da !important;
 }
-.orangeBtn{
+.orangeBtn {
   background-color: #c15f2e !important;
-  color:#dce1d9;
+  color: #dce1d9;
 }
-.imgMargin{
+.imgMargin {
   margin-right: 1em;
+}
+
+.note-content {
+  line-height: 2;
 }

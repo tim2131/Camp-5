@@ -56,7 +56,7 @@ function TentSelect() {
                   定價:{v.price}元/帳
                   <br />
                   <br />
-                  最大入住人:{v.number}人
+                  最大入住人:{v.number}
                 </h5>
               </div>
             </div>

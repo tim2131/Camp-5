@@ -84,20 +84,20 @@ function CampDetail() {
                 <div className="line" />
                 <div className="labelGroup">
                   <div className="labelA">
-                    <h5>{item.camp_county}</h5>
+                    <h6>{item.camp_county}</h6>
                   </div>
                   <div className="labelB">
-                    <h5>{item.camp_item}</h5>
+                    <h6>{item.camp_item}</h6>
                   </div>
                   <div className="labelC">
-                    <h5>{item.tent_item}</h5>
+                    <h6>{item.tent_item}</h6>
                   </div>
                 </div>
                 <div className="address">
                   <h5>{item.camp_add}</h5>
                 </div>
                 <div className="campIntro">
-                  <h5>{item.camp_intro}</h5>
+                  <h6>{item.camp_intro}</h6>
                 </div>
                 <div className="B row">
                   <div className="col-6">
@@ -262,7 +262,7 @@ function CampDetail() {
                           aria-labelledby="profile-tab"
                         >
                           <div className="note">
-                            <h4>
+                            <h5 className="note-content">
                               我們也提供露營場地租借服務。
                               輕裝簡便、收拾行囊，讓您享受自給自足的露營樂趣！
                               烤肉代訂服務：烤肉架100元，卡式爐150元；詳細代訂物品請點擊下方按鈕查看，歡迎加Line：@908gowqr或來電預訂。
@@ -272,7 +272,7 @@ function CampDetail() {
                               為確保住客安全及設施完備，本莊園營帳區及客廳區頂棚、陽傘等設備，本莊園有權視風力情況予以解除不予提供。另因應颱風前後，營區設備之解除及組裝，本莊園有權請預訂之客人提前或延期，客人不得異議。
                               本莊園除導盲犬外，暫不接待寵物。
                               天候預測如入住日風速超過30km以上，建議客人可做延期。
-                            </h4>
+                            </h5>
                           </div>
                         </div>
                       </div>
