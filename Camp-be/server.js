@@ -84,7 +84,7 @@ app.get("/api/camp/:campId", async (req, res, next) => {
 app.get("/api/tentcate/:campId", async (req, res, next) => {
   //req.params.campId
   let [data, field] = await connection.execute(
-    "SELECT * FROM tent JOIN tent_cate1 ON tent.tentcate_id=tent_cate1.id JOIN camp ON tent.camp_id = camp.Cid WHERE Cid=?",
+    "SELECT * FROM tent JOIN tent_cate1 ON tent.tentcate_id=tent_cate1.id JOIN camp ON tent.camp_id = camp.Cid WHERE Cid=? LIMIT 3",
     [req.params.campId]
   );
   res.json(data);

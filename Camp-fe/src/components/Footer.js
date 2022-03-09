@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import '../style/Footer.scss';
+import React, { useState, useEffect } from "react";
+import "../style/Footer.scss";
 
 // 圖片
-import footer from '../img/background/footer.svg';
-import youtube from '../img/icon/youtube.svg';
-import instagram from '../img/icon/instagram.svg';
-import facebook from '../img/icon/facebook.svg';
-import goToTop from '../img/icon/go-to-top.svg';
+import footer from "../img/background/footer.svg";
+import youtube from "../img/icon/youtube.svg";
+import instagram from "../img/icon/instagram.svg";
+import facebook from "../img/icon/facebook.svg";
+import goToTop from "../img/icon/go-to-top.svg";
 
 function Footer() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -42,6 +42,7 @@ function Footer() {
           <div className="footer-name text-center">
             © 2021 森活營家，版權所有。
           </div>
+          <div className="footer-name text-center">無侵權意圖僅練習使用</div>
         </div>
         <button className="go-to-top" onClick={scrollToTop}>
           <img src={goToTop} alt="" />
