@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../utils/db");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 
 
@@ -228,7 +229,7 @@ router.post("/TentAdd", (req, res, next) => {
       }
     )
   })
-  router.get("/campOwnerPic"),(req,res,next)=>{
+  router.get("/CampOwnerPic"),(req,res,next)=>{
     db.query(
       "SELECT * FROM `campowner_pic`",
       function (err, rows) {
@@ -239,5 +240,10 @@ router.post("/TentAdd", (req, res, next) => {
     );
   };
   
+  //登出
+  router.get("/logOut", (req, res, next) => {
+    req.session.campmember = null;
+    res.sendStatus(202);
+  });
 
   module.exports = router;

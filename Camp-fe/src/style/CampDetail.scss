@@ -96,8 +96,9 @@
 .facGroup {
   width: 200px;
   height: 490px;
-  margin-left: 110px;
+  margin-left: 80px;
   color: #e9e3da;
+  
 }
 .note {
   width: 547px;
@@ -186,4 +187,17 @@
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   background-color: #e9e3da;
+}
+.dateranger{
+  background-color: #e9e3da !important;
+}
+.rdrDateDisplayWrapper{
+  background-color: #e9e3da !important;
+}
+.orangeBtn{
+  background-color: #c15f2e !important;
+  color:#dce1d9;
+}
+.imgMargin{
+  margin-right: 1em;
 }

@@ -13,11 +13,11 @@ import "react-date-range/src/styles.scss"; // main style file
 import "react-date-range/src/theme/default.scss"; // theme css file
 import { DateRange } from "react-date-range";
 //圖片
-import meal from "../img/meal.svg";
-import car from "../img/car.svg";
-import wind from "../img/wind.svg";
-import wifi from "../img/wifi.svg";
-import phone from "../img/phone.svg";
+import meal from "../img/meal.svg"; //
+import car from "../img/car.svg"; //
+import wind from "../img/wind.svg"; //
+import wifi from "../img/wifi.svg"; //
+import phone from "../img/phone.svg"; //
 import bed from "../img/bed.svg";
 
 import bike from "../img/bike.jpg";
@@ -146,25 +146,49 @@ function CampDetail() {
                               <br />
                               <br />
                               <div>
-                                <img src={meal} width={30} height={30} alt="" />
+                                <img
+                                  src={meal}
+                                  width={30}
+                                  height={30}
+                                  alt=""
+                                  className="imgMargin"
+                                />
                                 含早餐
                               </div>
                               <br />
                               <br />
                               <div>
-                                <img src={car} width={30} height={30} alt="" />
+                                <img
+                                  src={car}
+                                  width={30}
+                                  height={30}
+                                  alt=""
+                                  className="imgMargin"
+                                />
                                 可租停車場
                               </div>
                               <br />
                               <br />
                               <div>
-                                <img src={wind} width={30} height={30} alt="" />
+                                <img
+                                  src={wind}
+                                  width={30}
+                                  height={30}
+                                  alt=""
+                                  className="imgMargin"
+                                />
                                 冷氣
                               </div>
                               <br />
                               <br />
                               <div>
-                                <img src={wifi} width={30} height={30} alt="" />
+                                <img
+                                  src={wifi}
+                                  width={30}
+                                  height={30}
+                                  alt=""
+                                  className="imgMargin"
+                                />
                                 全域快速wifi
                               </div>
                               <br />
@@ -181,7 +205,13 @@ function CampDetail() {
                               <br />
                               <br />
                               <div>
-                                <img src={bed} width={30} height={30} alt="" />
+                                <img
+                                  src={bed}
+                                  width={30}
+                                  height={30}
+                                  alt=""
+                                  className="imgMargin"
+                                />
                                 最多4人
                               </div>
                               <br />
@@ -258,6 +288,8 @@ function CampDetail() {
                         onChange={(item) => setState([item.selection])}
                         moveRangeOnFirstSelection={false}
                         ranges={state}
+                        rangeColors={["#6a6842"]}
+                        className="dateranger"
                       />
                     </div>
                   </div>
@@ -266,7 +298,7 @@ function CampDetail() {
                 <div className="d-flex justify-content-center">
                   <Link to={`/booking/${item.Cid}`}>
                     <button
-                      className="btn btn-danger btn-lg reserveBtn"
+                      className="btn btn-danger btn-lg reserveBtn orangeBtn"
                       type="submit"
                       onClick={handleSumbit}
                     >

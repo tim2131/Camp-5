@@ -21,8 +21,8 @@ const Login = () => {
 
   const { member, setMember } = useAuth();
   const [loginMember, setLoginMember] = useState({
-    user_name: "dddd@test.com",
-    password: "Dddd1231",
+    user_name: "",
+    password: "",
     error: "",
   });
   const [fieldErrors, setFieldErrors] = useState({

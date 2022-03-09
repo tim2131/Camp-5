@@ -25,7 +25,7 @@ app.use(
 //解決跨域問題、是否拿cookie
 const cors = require("cors");
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000","http://localhost:9000"],
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -37,7 +37,7 @@ app.listen(port, () => {
 });
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000", "http://localhost:9000"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"

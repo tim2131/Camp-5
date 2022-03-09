@@ -1,13 +1,11 @@
 import {
   Avatar,
-
   PageHeader,
   Button,
   Card,
   Row,
   Col,
   Divider,
-
   List,
   message,
   Popover,
@@ -151,8 +149,11 @@ const DashBoard = ({}) => {
         message.success("上傳成功");
       }, 2000);
     } catch (e) {
-      message.error("請稍後再試");
-      console.error("上傳失敗");
+
+       console.log("錯誤訊息",e.response.data.error);
+      
+      message.error(`上傳失敗，${e.response.data.error}`);
+      // console.error("上傳失敗");
     }
   }
   //--------------------------------
